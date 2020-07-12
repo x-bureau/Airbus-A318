@@ -1,0 +1,12 @@
+A
+870 version
+s_left 	s_right t_bottom t_top
+ 0	 7	0	196	// comment: altitude 100000
+ 7	14	0	196	// comment: altitude 10000
+14	21	0	196	// comment: altitude 1000
+21	27	0	196	// comment: altitude 100
+27	38	9	 66	// comment: altitude 10 (20 feet of increment)
+100				// comment: feet per tickmark (small)
+500				// comment: feet per tickmark (big)
+200				// comment: feet per label
+  0.15			// comment: pixels per foot

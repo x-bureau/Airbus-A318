@@ -1,0 +1,6 @@
+A
+750 version
+t_bottom	t_top		press1		press2		x
+6		116		985		1040		-08	// comment: millibars
+5		118		30.7		29.1		08	// comment: inches
+

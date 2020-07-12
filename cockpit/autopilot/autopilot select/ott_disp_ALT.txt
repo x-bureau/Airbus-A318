@@ -1,0 +1,13 @@
+A
+750 version
+s_left 	s_right t_bottom t_top
+0   	10  	0	125	// comment: autopilot display: altitude 10000
+10   	18  	0	125	// comment: autopilot display: altitude 1000
+18   	44	0	125	// comment: autopilot display: altitude 100
+
+behavior*:
+Indicates 10,000 feet when power is first applied (when X-Plane starts)
+* the ALT knob should have 3 hot spots: left, central, right
+left: decrease altitude
+center (simulates pushing action): displays current altitude or displays 10,000 feet if pushed on the ground.
+right: increase altitude
