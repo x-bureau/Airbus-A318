@@ -202,7 +202,7 @@ P _gear/0/_lonE 7.0
 P _gear/0/_lonN 7.0
 P _gear/0/_lonR 100.0
 P _gear/0/_scon 28598.560546875
-P _gear/0/_stat_def 0.686524808
+P _gear/0/_stat_def 0.686524749
 P _gear/0/_steerdeg_hispeed 5.0
 P _gear/0/_steerdeg_lospeed 60.0
 P _gear/0/_strut_comp 5.0
@@ -236,7 +236,7 @@ P _gear/1/_lonE -10.0
 P _gear/1/_lonN -10.0
 P _gear/1/_lonR 15.0
 P _gear/1/_scon 43366.667968750
-P _gear/1/_stat_def 1.273639202
+P _gear/1/_stat_def 1.273639083
 P _gear/1/_steerdeg_hispeed 0.0
 P _gear/1/_steerdeg_lospeed 0.0
 P _gear/1/_strut_comp -2.0
@@ -270,7 +270,7 @@ P _gear/2/_lonE -10.0
 P _gear/2/_lonN -10.0
 P _gear/2/_lonR 15.0
 P _gear/2/_scon 43366.667968750
-P _gear/2/_stat_def 1.273639202
+P _gear/2/_stat_def 1.273639083
 P _gear/2/_steerdeg_hispeed 0.0
 P _gear/2/_steerdeg_lospeed 0.0
 P _gear/2/_strut_comp -2.0
@@ -482,7 +482,7 @@ P _obja/0/_v10_att_psi_ref 0.0
 P _obja/0/_v10_att_the_ref 0.0
 P _obja/0/_v10_att_x_acf_prt_ref 0.0
 P _obja/0/_v10_att_y_acf_prt_ref -1.0
-P _obja/0/_v10_att_z_acf_prt_ref 91.099998474
+P _obja/0/_v10_att_z_acf_prt_ref 90.800003052
 P _obja/0/_v10_is_internal 331034624
 P _obja/0/_v10_steers_with_gear 0
 P _obja/1/_obj_flags 0
@@ -491,68 +491,112 @@ P _obja/1/_v10_att_part -1
 P _obja/1/_v10_att_phi_ref 0.0
 P _obja/1/_v10_att_psi_ref 0.0
 P _obja/1/_v10_att_the_ref 0.0
-P _obja/1/_v10_att_x_acf_prt_ref 0.0
-P _obja/1/_v10_att_y_acf_prt_ref -1.0
-P _obja/1/_v10_att_z_acf_prt_ref 91.099998474
+P _obja/1/_v10_att_x_acf_prt_ref -5.400000095
+P _obja/1/_v10_att_y_acf_prt_ref -5.599999905
+P _obja/1/_v10_att_z_acf_prt_ref 21.100000381
 P _obja/1/_v10_is_internal 212951040
 P _obja/1/_v10_steers_with_gear 0
+P _obja/10/_obj_flags 24
+P _obja/10/_v10_att_file_stl A318_nacelle.obj
+P _obja/10/_v10_att_part -1
+P _obja/10/_v10_att_phi_ref 0.0
+P _obja/10/_v10_att_psi_ref 0.0
+P _obja/10/_v10_att_the_ref 0.0
+P _obja/10/_v10_att_x_acf_prt_ref 0.0
+P _obja/10/_v10_att_y_acf_prt_ref 0.0
+P _obja/10/_v10_att_z_acf_prt_ref 0.0
+P _obja/10/_v10_is_internal 25793936
+P _obja/10/_v10_steers_with_gear 0
 P _obja/2/_obj_flags 0
-P _obja/2/_v10_att_file_stl A318_Cabin.obj
+P _obja/2/_v10_att_file_stl Throttle.obj
 P _obja/2/_v10_att_part -1
 P _obja/2/_v10_att_phi_ref 0.0
 P _obja/2/_v10_att_psi_ref 0.0
 P _obja/2/_v10_att_the_ref 0.0
-P _obja/2/_v10_att_x_acf_prt_ref -1.100000024
-P _obja/2/_v10_att_y_acf_prt_ref 0.0
-P _obja/2/_v10_att_z_acf_prt_ref 34.599998474
-P _obja/2/_v10_is_internal -1564133958
+P _obja/2/_v10_att_x_acf_prt_ref -5.400000095
+P _obja/2/_v10_att_y_acf_prt_ref -5.599999905
+P _obja/2/_v10_att_z_acf_prt_ref 21.100000381
+P _obja/2/_v10_is_internal 298131456
 P _obja/2/_v10_steers_with_gear 0
 P _obja/3/_obj_flags 0
-P _obja/3/_v10_att_file_stl A318_Fuse.obj
+P _obja/3/_v10_att_file_stl Upper_Pedestal.obj
 P _obja/3/_v10_att_part -1
 P _obja/3/_v10_att_phi_ref 0.0
 P _obja/3/_v10_att_psi_ref 0.0
 P _obja/3/_v10_att_the_ref 0.0
-P _obja/3/_v10_att_x_acf_prt_ref -1.0
-P _obja/3/_v10_att_y_acf_prt_ref -1.0
-P _obja/3/_v10_att_z_acf_prt_ref 20.0
-P _obja/3/_v10_is_internal -1564133958
+P _obja/3/_v10_att_x_acf_prt_ref -5.400000095
+P _obja/3/_v10_att_y_acf_prt_ref -5.599999905
+P _obja/3/_v10_att_z_acf_prt_ref 21.100000381
+P _obja/3/_v10_is_internal 298131456
 P _obja/3/_v10_steers_with_gear 0
-P _obja/4/_obj_flags 24
-P _obja/4/_v10_att_file_stl A318_nacelle.obj
+P _obja/4/_obj_flags 0
+P _obja/4/_v10_att_file_stl Lower_Pedestal.obj
 P _obja/4/_v10_att_part -1
 P _obja/4/_v10_att_phi_ref 0.0
 P _obja/4/_v10_att_psi_ref 0.0
 P _obja/4/_v10_att_the_ref 0.0
-P _obja/4/_v10_att_x_acf_prt_ref 0.0
-P _obja/4/_v10_att_y_acf_prt_ref 0.0
-P _obja/4/_v10_att_z_acf_prt_ref 0.0
-P _obja/4/_v10_is_internal 25793936
+P _obja/4/_v10_att_x_acf_prt_ref -5.400000095
+P _obja/4/_v10_att_y_acf_prt_ref -5.599999905
+P _obja/4/_v10_att_z_acf_prt_ref 21.100000381
+P _obja/4/_v10_is_internal 298131456
 P _obja/4/_v10_steers_with_gear 0
-P _obja/5/_obj_flags 24
-P _obja/5/_v10_att_file_stl A318pod.obj
+P _obja/5/_obj_flags 0
+P _obja/5/_v10_att_file_stl A318_Cabin.obj
 P _obja/5/_v10_att_part -1
 P _obja/5/_v10_att_phi_ref 0.0
 P _obja/5/_v10_att_psi_ref 0.0
 P _obja/5/_v10_att_the_ref 0.0
-P _obja/5/_v10_att_x_acf_prt_ref 0.0
+P _obja/5/_v10_att_x_acf_prt_ref -1.100000024
 P _obja/5/_v10_att_y_acf_prt_ref 0.0
-P _obja/5/_v10_att_z_acf_prt_ref 0.0
-P _obja/5/_v10_is_internal 25793936
+P _obja/5/_v10_att_z_acf_prt_ref 34.599998474
+P _obja/5/_v10_is_internal -1564133958
 P _obja/5/_v10_steers_with_gear 0
-P _obja/6/_obj_flags 0
-P _obja/6/_v10_att_file_stl A318_wing/wing.obj
+P _obja/6/_obj_flags 24
+P _obja/6/_v10_att_file_stl A318pod.obj
 P _obja/6/_v10_att_part -1
 P _obja/6/_v10_att_phi_ref 0.0
 P _obja/6/_v10_att_psi_ref 0.0
 P _obja/6/_v10_att_the_ref 0.0
 P _obja/6/_v10_att_x_acf_prt_ref 0.0
 P _obja/6/_v10_att_y_acf_prt_ref 0.0
-P _obja/6/_v10_att_z_acf_prt_ref 55.0
-P _obja/6/_v10_is_internal -109627974
+P _obja/6/_v10_att_z_acf_prt_ref 0.0
+P _obja/6/_v10_is_internal 25793936
 P _obja/6/_v10_steers_with_gear 0
-P _obja/count 7
-P _panel_inst_3d 18
+P _obja/7/_obj_flags 0
+P _obja/7/_v10_att_file_stl MIP_AP.obj
+P _obja/7/_v10_att_part -1
+P _obja/7/_v10_att_phi_ref 0.0
+P _obja/7/_v10_att_psi_ref 0.0
+P _obja/7/_v10_att_the_ref 0.0
+P _obja/7/_v10_att_x_acf_prt_ref -5.400000095
+P _obja/7/_v10_att_y_acf_prt_ref -5.599999905
+P _obja/7/_v10_att_z_acf_prt_ref 21.100000381
+P _obja/7/_v10_is_internal 298131456
+P _obja/7/_v10_steers_with_gear 0
+P _obja/8/_obj_flags 0
+P _obja/8/_v10_att_file_stl A318_Fuse.obj
+P _obja/8/_v10_att_part -1
+P _obja/8/_v10_att_phi_ref 0.0
+P _obja/8/_v10_att_psi_ref 0.0
+P _obja/8/_v10_att_the_ref 0.0
+P _obja/8/_v10_att_x_acf_prt_ref -1.0
+P _obja/8/_v10_att_y_acf_prt_ref -1.0
+P _obja/8/_v10_att_z_acf_prt_ref 20.0
+P _obja/8/_v10_is_internal -1564133958
+P _obja/8/_v10_steers_with_gear 0
+P _obja/9/_obj_flags 0
+P _obja/9/_v10_att_file_stl A318_wing/wing.obj
+P _obja/9/_v10_att_part -1
+P _obja/9/_v10_att_phi_ref 0.0
+P _obja/9/_v10_att_psi_ref 0.0
+P _obja/9/_v10_att_the_ref 0.0
+P _obja/9/_v10_att_x_acf_prt_ref 0.0
+P _obja/9/_v10_att_y_acf_prt_ref 0.0
+P _obja/9/_v10_att_z_acf_prt_ref 55.0
+P _obja/9/_v10_is_internal -109627974
+P _obja/9/_v10_steers_with_gear 0
+P _obja/count 11
+P _panel_inst_3d 0
 P _part/0/_bot_s1 0.0
 P _part/0/_bot_s2 0.015625000
 P _part/0/_bot_t1 0.255859375
@@ -73809,6 +73853,193 @@ P acf/_ann_triggers_warning/97 0
 P acf/_ann_triggers_warning/98 0
 P acf/_ann_triggers_warning/99 0
 P acf/_ann_triggers_warning/count 197
+P acf/_ann_wav_file/10 alarm.wav
+P acf/_ann_wav_file/100 autopilot_fail.wav
+P acf/_ann_wav_file/101 autopilot_fail.wav
+P acf/_ann_wav_file/102 autopilot_fail.wav
+P acf/_ann_wav_file/103 autopilot_fail.wav
+P acf/_ann_wav_file/104 autopilot_fail.wav
+P acf/_ann_wav_file/105 autopilot_fail.wav
+P acf/_ann_wav_file/106 autopilot_fail.wav
+P acf/_ann_wav_file/107 autopilot_fail.wav
+P acf/_ann_wav_file/108 autopilot_fail.wav
+P acf/_ann_wav_file/109 NormThrottle.wav
+P acf/_ann_wav_file/11 antonov_an-26 boom3.wav
+P acf/_ann_wav_file/110 NormThrottle.wav
+P acf/_ann_wav_file/111 NormThrottle.wav
+P acf/_ann_wav_file/112 NormThrottle.wav
+P acf/_ann_wav_file/113 NormThrottle.wav
+P acf/_ann_wav_file/114 NormThrottle.wav
+P acf/_ann_wav_file/115 NormThrottle.wav
+P acf/_ann_wav_file/116 NormThrottle.wav
+P acf/_ann_wav_file/117 silence.wav
+P acf/_ann_wav_file/118 silence.wav
+P acf/_ann_wav_file/119 silence.wav
+P acf/_ann_wav_file/12 rotor-high.wav
+P acf/_ann_wav_file/120 silence.wav
+P acf/_ann_wav_file/121 silence.wav
+P acf/_ann_wav_file/122 silence.wav
+P acf/_ann_wav_file/123 silence.wav
+P acf/_ann_wav_file/124 silence.wav
+P acf/_ann_wav_file/125 silence.wav
+P acf/_ann_wav_file/126 silence.wav
+P acf/_ann_wav_file/127 silence.wav
+P acf/_ann_wav_file/128 silence.wav
+P acf/_ann_wav_file/129 silence.wav
+P acf/_ann_wav_file/13 silence.wav
+P acf/_ann_wav_file/130 silence.wav
+P acf/_ann_wav_file/131 silence.wav
+P acf/_ann_wav_file/132 silence.wav
+P acf/_ann_wav_file/133 autopilot_disco.wav
+P acf/_ann_wav_file/134 autopilot_disco.wav
+P acf/_ann_wav_file/135 autopilot_disco.wav
+P acf/_ann_wav_file/136 autopilot_disco.wav
+P acf/_ann_wav_file/137 autopilot_disco.wav
+P acf/_ann_wav_file/138 autopilot_disco.wav
+P acf/_ann_wav_file/139 autopilot_disco.wav
+P acf/_ann_wav_file/14 transonic F16.wav
+P acf/_ann_wav_file/140 autopilot_disco.wav
+P acf/_ann_wav_file/141 autopilot_fail.wav
+P acf/_ann_wav_file/142 autopilot_fail.wav
+P acf/_ann_wav_file/143 autopilot_fail.wav
+P acf/_ann_wav_file/144 autopilot_fail.wav
+P acf/_ann_wav_file/145 autopilot_fail.wav
+P acf/_ann_wav_file/146 autopilot_fail.wav
+P acf/_ann_wav_file/147 autopilot_fail.wav
+P acf/_ann_wav_file/148 autopilot_fail.wav
+P acf/_ann_wav_file/149 NormThrottle.wav
+P acf/_ann_wav_file/15 RafaleC  flap.wav
+P acf/_ann_wav_file/150 NormThrottle.wav
+P acf/_ann_wav_file/151 NormThrottle.wav
+P acf/_ann_wav_file/152 NormThrottle.wav
+P acf/_ann_wav_file/153 NormThrottle.wav
+P acf/_ann_wav_file/154 NormThrottle.wav
+P acf/_ann_wav_file/155 NormThrottle.wav
+P acf/_ann_wav_file/156 NormThrottle.wav
+P acf/_ann_wav_file/157 NormThrottle.wav
+P acf/_ann_wav_file/158 NormThrottle.wav
+P acf/_ann_wav_file/159 NormThrottle.wav
+P acf/_ann_wav_file/16 autopilot_disco.wav
+P acf/_ann_wav_file/160 NormThrottle.wav
+P acf/_ann_wav_file/161 NormThrottle.wav
+P acf/_ann_wav_file/162 NormThrottle.wav
+P acf/_ann_wav_file/163 NormThrottle.wav
+P acf/_ann_wav_file/164 NormThrottle.wav
+P acf/_ann_wav_file/165 NormThrottle.wav
+P acf/_ann_wav_file/166 autopilot_disco.wav
+P acf/_ann_wav_file/167 autopilot_fail.wav
+P acf/_ann_wav_file/168 alarm.wav
+P acf/_ann_wav_file/169 autopilot_fail.wav
+P acf/_ann_wav_file/17 gear.wav
+P acf/_ann_wav_file/170 autopilot_disco.wav
+P acf/_ann_wav_file/171 mute.wav
+P acf/_ann_wav_file/172 mute.wav
+P acf/_ann_wav_file/173 mute.wav
+P acf/_ann_wav_file/174 Eclipse APU.wav
+P acf/_ann_wav_file/175 mute.wav
+P acf/_ann_wav_file/176 MD80 glideslope.WAV
+P acf/_ann_wav_file/177 autopilot_fail.wav
+P acf/_ann_wav_file/178 mute.wav
+P acf/_ann_wav_file/179 mute.wav
+P acf/_ann_wav_file/18 autopilot_disco.wav
+P acf/_ann_wav_file/180 bankangle.wav
+P acf/_ann_wav_file/181 mute.wav
+P acf/_ann_wav_file/182 mute.wav
+P acf/_ann_wav_file/183 0n.wav
+P acf/_ann_wav_file/184 0n.wav
+P acf/_ann_wav_file/185 0n.wav
+P acf/_ann_wav_file/186 0n.wav
+P acf/_ann_wav_file/187 0n.wav
+P acf/_ann_wav_file/188 0n.wav
+P acf/_ann_wav_file/189 mute.wav
+P acf/_ann_wav_file/19 autopilot_disco.wav
+P acf/_ann_wav_file/20 mute.wav
+P acf/_ann_wav_file/21 autopilot_fail.wav
+P acf/_ann_wav_file/22 autopilot_fail.wav
+P acf/_ann_wav_file/23 autopilot_fail.wav
+P acf/_ann_wav_file/24 autopilot_fail.wav
+P acf/_ann_wav_file/25 autopilot_fail.wav
+P acf/_ann_wav_file/26 autopilot_fail.wav
+P acf/_ann_wav_file/27 autopilot_fail.wav
+P acf/_ann_wav_file/28 autopilot_fail.wav
+P acf/_ann_wav_file/29 Warning.wav
+P acf/_ann_wav_file/3 autopilot_disco.wav
+P acf/_ann_wav_file/30 Warning.wav
+P acf/_ann_wav_file/31 Warning.wav
+P acf/_ann_wav_file/32 Warning.wav
+P acf/_ann_wav_file/33 Warning.wav
+P acf/_ann_wav_file/34 Warning.wav
+P acf/_ann_wav_file/35 Warning.wav
+P acf/_ann_wav_file/36 Warning.wav
+P acf/_ann_wav_file/37 autopilot_fail.wav
+P acf/_ann_wav_file/38 autopilot_fail.wav
+P acf/_ann_wav_file/39 autopilot_fail.wav
+P acf/_ann_wav_file/4 alarm.wav
+P acf/_ann_wav_file/40 autopilot_fail.wav
+P acf/_ann_wav_file/41 autopilot_fail.wav
+P acf/_ann_wav_file/42 autopilot_fail.wav
+P acf/_ann_wav_file/43 autopilot_fail.wav
+P acf/_ann_wav_file/44 autopilot_fail.wav
+P acf/_ann_wav_file/45 Warning.wav
+P acf/_ann_wav_file/46 Warning.wav
+P acf/_ann_wav_file/47 Warning.wav
+P acf/_ann_wav_file/48 Warning.wav
+P acf/_ann_wav_file/49 Warning.wav
+P acf/_ann_wav_file/5 Warning.wav
+P acf/_ann_wav_file/50 Warning.wav
+P acf/_ann_wav_file/51 Warning.wav
+P acf/_ann_wav_file/52 Warning.wav
+P acf/_ann_wav_file/53 Warning.wav
+P acf/_ann_wav_file/54 Warning.wav
+P acf/_ann_wav_file/55 Warning.wav
+P acf/_ann_wav_file/56 Warning.wav
+P acf/_ann_wav_file/57 Warning.wav
+P acf/_ann_wav_file/58 Warning.wav
+P acf/_ann_wav_file/59 Warning.wav
+P acf/_ann_wav_file/6 VIGGEN37 avionics.wav
+P acf/_ann_wav_file/60 Warning.wav
+P acf/_ann_wav_file/61 Firebell.wav
+P acf/_ann_wav_file/62 Firebell.wav
+P acf/_ann_wav_file/63 Firebell.wav
+P acf/_ann_wav_file/64 Firebell.wav
+P acf/_ann_wav_file/65 Firebell.wav
+P acf/_ann_wav_file/66 Firebell.wav
+P acf/_ann_wav_file/67 Firebell.wav
+P acf/_ann_wav_file/68 Firebell.wav
+P acf/_ann_wav_file/69 silence.wav
+P acf/_ann_wav_file/7 Warning.wav
+P acf/_ann_wav_file/70 silence.wav
+P acf/_ann_wav_file/71 silence.wav
+P acf/_ann_wav_file/72 silence.wav
+P acf/_ann_wav_file/73 silence.wav
+P acf/_ann_wav_file/74 silence.wav
+P acf/_ann_wav_file/75 silence.wav
+P acf/_ann_wav_file/76 silence.wav
+P acf/_ann_wav_file/77 Warning.wav
+P acf/_ann_wav_file/78 Warning.wav
+P acf/_ann_wav_file/79 Warning.wav
+P acf/_ann_wav_file/8 mute.wav
+P acf/_ann_wav_file/80 Warning.wav
+P acf/_ann_wav_file/81 Warning.wav
+P acf/_ann_wav_file/82 Warning.wav
+P acf/_ann_wav_file/83 Warning.wav
+P acf/_ann_wav_file/84 Warning.wav
+P acf/_ann_wav_file/85 CUSTOM/
+P acf/_ann_wav_file/86 CUSTOM/
+P acf/_ann_wav_file/87 CUSTOM/
+P acf/_ann_wav_file/88 CUSTOM/
+P acf/_ann_wav_file/89 CUSTOM/
+P acf/_ann_wav_file/9 TooLowTerrain.wav
+P acf/_ann_wav_file/90 CUSTOM/
+P acf/_ann_wav_file/91 CUSTOM/
+P acf/_ann_wav_file/92 CUSTOM/
+P acf/_ann_wav_file/93 autopilot_fail.wav
+P acf/_ann_wav_file/94 autopilot_fail.wav
+P acf/_ann_wav_file/95 autopilot_fail.wav
+P acf/_ann_wav_file/96 autopilot_fail.wav
+P acf/_ann_wav_file/97 autopilot_fail.wav
+P acf/_ann_wav_file/98 autopilot_fail.wav
+P acf/_ann_wav_file/99 autopilot_fail.wav
 P acf/_ann_wav_file/count 197
 P acf/_ap_crs_src 0
 P acf/_apt_req_plane 0
@@ -75688,6 +75919,44 @@ P acf/_paraf_max 0
 P acf/_paraf_vvi 0.0
 P acf/_park_non_vect_props_00_below_02 0
 P acf/_park_non_vect_props_90_below_05 0
+P acf/_part_descrip/24 test1
+P acf/_part_descrip/56 ESUFEGAL
+P acf/_part_descrip/57 engine to body fairing
+P acf/_part_descrip/58 ventral static fin
+P acf/_part_descrip/59 Tail section
+P acf/_part_descrip/60 Exhaust
+P acf/_part_descrip/61 JA gun pod useless now
+P acf/_part_descrip/62 Nose
+P acf/_part_descrip/63 ecaN ellebut
+P acf/_part_descrip/64 TE flap pod
+P acf/_part_descrip/65 orhtelttdob 
+P acf/_part_descrip/66 Main wing actuator
+P acf/_part_descrip/67 Main wing actuator
+P acf/_part_descrip/68 Main wing actuator
+P acf/_part_descrip/69 Main wing actuator
+P acf/_part_descrip/70 Main wing actuator
+P acf/_part_descrip/71 Main wing actuator
+P acf/_part_descrip/72 Main wing actuator
+P acf/_part_descrip/73 single seat canopy
+P acf/_part_descrip/74 front intake filler
+P acf/_part_descrip/75 tfeLnaL gnidaeG tS r
+P acf/_part_descrip/76 Fin Actuator
+P acf/_part_descrip/77 Nachelle Right
+P acf/_part_descrip/78 TW_Gondel_2
+P acf/_part_descrip/79 Prop3 gearbox
+P acf/_part_descrip/80 Prop4 gearbox
+P acf/_part_descrip/81 right is front
+P acf/_part_descrip/82 RR Lifter
+P acf/_part_descrip/85 Front Wheel Fairing
+P acf/_part_descrip/86 hgiReG tW raleehnaP 
+P acf/_part_descrip/87 Left Wheel Fairing
+P acf/_part_descrip/88 nose landing gear fairing
+P acf/_part_descrip/89 esoNaeG iS rF edgnal
+P acf/_part_descrip/90 cargo
+P acf/_part_descrip/91 cargo
+P acf/_part_descrip/92 Nosegear axle truck
+P acf/_part_descrip/93 Nosegear steering link arm2
+P acf/_part_descrip/94 Nosegear axle truck
 P acf/_part_descrip/count 95
 P acf/_pe_xyz/0 -1.500000000
 P acf/_pe_xyz/1 2.500000000
@@ -75969,6 +76238,9 @@ P acf/_spot_angle/0 0.0
 P acf/_spot_angle/1 0.0
 P acf/_spot_angle/2 0.0
 P acf/_spot_angle/count 3
+P acf/_spot_name_3d/0 sim/cockpit2/electrical/instrument_brightness_ratio[0]
+P acf/_spot_name_3d/1 sim/cockpit2/electrical/instrument_brightness_ratio[0]
+P acf/_spot_name_3d/2 sim/cockpit2/electrical/panel_brightness_ratio[0]
 P acf/_spot_name_3d/count 3
 P acf/_spot_psi/0 0.0
 P acf/_spot_psi/1 0.0
