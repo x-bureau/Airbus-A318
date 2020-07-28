@@ -22,8 +22,10 @@ local PFD_GREY = {0.25, 0.26, 0.26, 1.0}
 --get images
 overlay = sasl.gl.loadImage("images/PFD_Overlay.png", 0, 105, 552, 522)
 background = sasl.gl.loadImage("images/horizon_background.png", 0, 95, 263, 500)
-pscale = sasl.gl.loadImage("images/horizon_pitch_scale.png", 0, 95, 263, 395)
+pscale = sasl.gl.loadImage("images/horizon_pitch_scale.png", 0, 95, 508, 1050)
+align = sasl.gl.loadImage("PFD_Alignment.png", 0, 105, 522, 522)
 pitch_indicator = sasl.gl.loadImage("images/PFD_Other.png", 263, 500)
+
 
 --custom functions
 local function draw_speed_indicator()
@@ -38,9 +40,10 @@ end
 
 local function draw_artificial_horizon()
   sasl.gl.setClipArea(0, 100, 490, 400)
-  sasl.gl.drawRotatedTextureCenter(background, get(roll), 200, 200, -300, ((0- get(pitch)) * 5) - 30, 1000, 700, PFD_WHITE)
-  sasl.gl.drawRotatedTextureCenter(pscale, get(roll), 200, 200, 50, ((0- get(pitch)) * 5) - 10, 375, 600, PFD_WHITE)
-  sasl.gl.drawRotatedTextureCenter(pitch_indicator, get(roll), 200, 200, 50, ((0- get(pitch)) * 5) - 10, 263, 500, PFD_WHITE)
+  sasl.gl.drawRotatedTextureCenter(background, 0 - get(roll), 200, 200, -300, ((0- get(pitch)) * 5) + 25, 1000, 700, PFD_WHITE)
+  sasl.gl.drawRotatedTextureCenter(pscale, 0 - get(roll), 200, 200, 0, ((0 - get(pitch)) * 5) - 168, 500, 1000, PFD_WHITE)
+  sasl.gl.drawRotatedTextureCenter(pitch_indicator, 0 - get(roll), 200, 200, 50, ((0- get(pitch)) * 5) - 70, 263, 500, PFD_WHITE)
+  sasl.gl.drawRotatedTextureCenter(align, 0 - get(roll), 200, 200, 0, 90, 522, 522, PFD_WHITE)
 -- angle, rx, ry, x, y, width, height, color
 end
 
@@ -53,8 +56,4 @@ function draw()
 end
 
     
-  
-  
-  
-  
   
