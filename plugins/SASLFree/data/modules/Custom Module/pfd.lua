@@ -53,6 +53,7 @@ function draw()
   sasl.gl.drawTexture(overlay, 0, 90, 522, 522)
   draw_speed_indicator()
   draw_alt_indicator()
+  sasl.gl.resetClipArea()
 end
 
     
