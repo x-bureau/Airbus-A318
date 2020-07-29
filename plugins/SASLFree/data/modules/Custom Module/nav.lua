@@ -24,13 +24,13 @@ local arcTape = sasl.gl.loadImage("images/ARC_TAPE.png", 0, 0, 3072, 3072)
 --custom functions
 
 local function draw_rose_cardinal()
-   -- sasl.gl.drawRotatedTextureCenter(arcTape, 0 - get(heading), 600, 600, -350, 0, 800, 800, PFD_WHITE)
+   sasl.gl.drawRotatedTexture(arcTape, 0 - get(heading), -110, -375, 800, 800, PFD_WHITE)
 end
 
 function draw()
     sasl.gl.drawTexture(nd_overlay, 22, -44, 500, 500)
-    sasl.gl.drawTexture(arc, 24, -85, 522, 522)
-    sasl.gl.drawTexture(miniplane, 261, 40, 50, 50)
+    sasl.gl.drawTexture(arc, 24, -105, 522, 522)
+    sasl.gl.drawTexture(miniplane, 261, 20, 50, 50)
     sasl.gl.resetClipArea()
     draw_rose_cardinal()
     sasl.gl.resetClipArea()
