@@ -112,10 +112,10 @@ end
 
 local function draw_artificial_horizon()
   sasl.gl.setClipArea(0, 100, 490, 400)
-  sasl.gl.drawRotatedTextureCenter(background, 0 - get(roll), 200, 200, -300, ((0- get(pitch)) * 5) + 25, 1000, 700, PFD_WHITE)
-  sasl.gl.drawRotatedTextureCenter(pscale, 0 - get(roll), 200, 200, 0, ((0 - get(pitch)) * 5) - 168, 500, 1000, PFD_WHITE)
-  sasl.gl.drawRotatedTextureCenter(pitch_indicator, 0 - get(roll), 200, 200, 50, ((0- get(pitch)) * 5) - 70, 263, 500, PFD_WHITE)
-  sasl.gl.drawRotatedTextureCenter(align, 0 - get(roll), 200, 200, 0, 90, 522, 522, PFD_WHITE)
+  sasl.gl.drawRotatedTexture(background, 0 - get(roll), -300, ((0- get(pitch)) * 5) + 25, 1000, 700, PFD_WHITE)
+  sasl.gl.drawRotatedTexture(pscale, 0 - get(roll), 0, ((0 - get(pitch)) * 5) - 168, 500, 1000, PFD_WHITE)
+  sasl.gl.drawRotatedTexture(pitch_indicator, 0 - get(roll), 50, ((0- get(pitch)) * 5) - 70, 263, 500, PFD_WHITE)
+  sasl.gl.drawRotatedTexture(align, 0 - get(roll), 0, 90, 522, 522, PFD_WHITE)
 -- angle, rx, ry, x, y, width, height, color
 end
 
@@ -137,3 +137,4 @@ function draw()
 end
 
     
+
