@@ -22,12 +22,12 @@ local PFD_GREY = {0.25, 0.26, 0.26, 1.0}
 --custom functions
 
 local function draw_ENG_PAGE()
-    sasl.gl.drawText(AirbusFont, 205, 455, math.floor(get(npercent, 1)), 21, false, false, TEXT_ALIGN_RIGHT, PFD_GREEN)
-    sasl.gl.drawText(AirbusFont, 410, 455, math.floor(get(npercent, 2)), 21, false, false, TEXT_ALIGN_RIGHT, PFD_GREEN)
-    sasl.gl.drawText(AirbusFont, 190, 325, math.floor(get(n2percent, 1)), 21, false, false, TEXT_ALIGN_RIGHT, PFD_GREEN)
-    sasl.gl.drawText(AirbusFont, 390, 325, math.floor(get(n2percent, 2)), 21, false, false, TEXT_ALIGN_RIGHT, PFD_GREEN)
-    sasl.gl.drawText(AirbusFont, 215, 365, math.floor(get(EGT, 1)), 21, false, false, TEXT_ALIGN_RIGHT, PFD_GREEN)
-    sasl.gl.drawText(AirbusFont, 390, 365, math.floor(get(EGT, 2)), 21, false, false, TEXT_ALIGN_RIGHT, PFD_GREEN)
+    sasl.gl.drawText(AirbusFont, 205, 455, math.floor(get(npercent, 1)), 20, false, false, TEXT_ALIGN_RIGHT, PFD_GREEN)
+    sasl.gl.drawText(AirbusFont, 410, 455, math.floor(get(npercent, 2)), 20, false, false, TEXT_ALIGN_RIGHT, PFD_GREEN)
+    sasl.gl.drawText(AirbusFont, 190, 325, math.floor(get(n2percent, 1)), 20, false, false, TEXT_ALIGN_RIGHT, PFD_GREEN)
+    sasl.gl.drawText(AirbusFont, 390, 325, math.floor(get(n2percent, 2)), 20, false, false, TEXT_ALIGN_RIGHT, PFD_GREEN)
+    sasl.gl.drawText(AirbusFont, 187, 368, math.floor(get(EGT, 1)), 20, false, false, TEXT_ALIGN_RIGHT, PFD_GREEN)
+    sasl.gl.drawText(AirbusFont, 390, 368, math.floor(get(EGT, 2)), 20, false, false, TEXT_ALIGN_RIGHT, PFD_GREEN)
 end
 
 function draw()
