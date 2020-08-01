@@ -47,7 +47,7 @@ local TAPE_CFG = {
         h = 400, 
         font_size = 25,
 
-        get_data = function () return math.floor(get(airspeed)) end, -- callback to get data
+        get_data = function () return get(airspeed) end, -- callback to get data
         data_h = 100,       -- 100 knts are displayed in the height
 
         data_max = 500,     -- 500 knots is the largest number
@@ -63,7 +63,7 @@ local TAPE_CFG = {
         h = 400, 
         font_size = 25,
 
-        get_data = function () return math.floor(get(airspeed)) end, -- callback to get data
+        get_data = function () return get(airspeed) end, -- callback to get data
         data_h = 100,       -- 100 knts are displayed in the height
 
         data_max = 500,     -- 500 knots is the largest number
@@ -83,7 +83,7 @@ local function draw_tapes()
     -- 1 knts is tape.w / tape.data_h
     knt_interval = tape.h / tape.data_h
     print(knt_interval)
-    knt_interval_offset = knt_interval * (tape.get_data() % tape.num_interval)
+    knt_interval_offset = knt_interval * (math.floor(tape.get_data()) % tape.num_interval)
     knt_interval_final = knt_interval_offset * -1
     print(knt_interval_final)
 
