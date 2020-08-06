@@ -1,0 +1,25 @@
+{960270fe-8259-48a9-98d5-e8a22ff589cc} event:/Cockpit/EGPWS/2500
+{3d341f17-ab0a-4b21-86f1-dcdbd7f99159} event:/Cockpit/EGPWS/2000
+{5f91db8d-07cf-478f-91e0-f21860ce5af4} event:/Cockpit/EGPWS/1000
+{2c6c175a-173d-42fc-9bcb-0b6e714a167b} event:/Cockpit/EGPWS/500
+{419360a8-5166-4832-a526-8ec0ee342705} event:/Cockpit/EGPWS/400
+{66c2184f-1db4-4475-8a55-81d21029e2a2} event:/Cockpit/EGPWS/300
+{3ef4bff0-03ea-442a-9a37-c1879dbfd9e8} event:/Cockpit/EGPWS/200
+{4c8525b4-1db2-413d-b1b0-0334d433f704} event:/Cockpit/EGPWS/100
+{92dd98fc-ef09-47dc-bad9-5edc75dfaa8c} event:/Cockpit/EGPWS/50
+{3fb7a88b-184c-447f-9368-1aff995b973a} event:/Cockpit/EGPWS/40
+{5e8031c4-4f71-46bc-a60e-2853c96e9db1} event:/Cockpit/EGPWS/30
+{493f2bd3-7e8e-4027-887b-3d07239e4eab} event:/Cockpit/EGPWS/20
+{0dcc1ebb-6834-4b68-828a-1419d1cfb5e4} event:/Cockpit/EGPWS/10
+{18a35349-3c01-4e13-99e8-085c9695c97a} event:/Cockpit/EGPWS/5
+{9f08114d-36ec-44cc-b8bf-b2babda09f9e} bus:/
+{7f7c05a4-e05a-4d44-94fe-d4691147a9b7} bus:/Master
+{e3492bec-f854-4fbb-b2bc-23586269032e} bus:/Master/Copilot
+{a5a85a81-afd5-4425-9dc2-6e50f7776e6a} bus:/Master/Exterior Processed
+{06db5351-0b2f-4648-b97a-a33b40a00e11} bus:/Master/Exterior Processed/Aircraft
+{b6c156f1-9861-405c-a622-92b2ab8010a7} bus:/Master/Exterior Processed/Environment
+{8dbbc9d7-a954-4ed0-b1f1-f8111b03cbd1} bus:/Master/Exterior Unprocessed
+{751f5066-4651-4afb-a410-4cb9db0894c9} bus:/Master/Interior
+{d8526059-b27c-4eae-9b14-a1ee1cb3dfa1} bus:/Master/Radios
+{77575f3b-b9cd-4bff-9056-637cff744a14} bus:/Master/UI
+{73392b8e-1197-4937-80e4-c919add2d676} bank:/Master Bank
