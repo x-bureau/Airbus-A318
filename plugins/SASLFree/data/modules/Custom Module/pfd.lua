@@ -48,6 +48,7 @@ local TAPE_CFG = {
         font_size = 25,
 
         get_data = function () return get(airspeed) end, -- callback to get data
+        padding = 0,        -- do not pad
         data_h = 100,       -- 100 knts are displayed in the height
 
         data_max = 500,     -- 500 knots is the largest number
@@ -55,24 +56,23 @@ local TAPE_CFG = {
         tick_interval = 10, -- tick every 10 knts
         num_interval = 20,  -- number every 10 knts
     },
-    --[[
     --alt
     {
-        x = 54,
+        x = 378,
         y = 90,
         w = 50,
         h = 400, 
         font_size = 25,
 
-        get_data = function () return get(airspeed) end, -- callback to get data
+        get_data = function () return get(altitude) / 100 end, -- callback to get data
+        padding = 3,        -- pad 0 infront of numbers less than 3 digits
         data_h = 100,       -- 100 knts are displayed in the height
 
         data_max = 500,     -- 500 knots is the largest number
-        data_min = 40,      -- 40 knots is lowest number
+        data_min = 0,      -- 40 knots is lowest number
         tick_interval = 10, -- tick every 10 knts
         num_interval = 20,  -- number every 10 knts
     },
-    --]]
 }
 
 --custom functions
@@ -102,6 +102,12 @@ local function draw_tapes()
       y_final = y_offset + knt_interval_final
 
       if data_final >= tape.data_min then
+          --padding
+          data_final = tostring(data_final)
+          while string.len(data_final) < tape.padding do
+              data_final = "0" .. data_final
+          end
+          --draw
           sasl.gl.drawText(
             AirbusFont,
             tape.x,
