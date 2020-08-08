@@ -55,9 +55,10 @@ local TAPE_CFG = {
         tick_interval = 10, -- tick every 10 knts
         num_interval = 20,  -- number every 10 knts
     },
+    --[[
     --alt
     {
-        x = 14,
+        x = 54,
         y = 90,
         w = 50,
         h = 400, 
@@ -71,6 +72,7 @@ local TAPE_CFG = {
         tick_interval = 10, -- tick every 10 knts
         num_interval = 20,  -- number every 10 knts
     },
+    --]]
 }
 
 --custom functions
@@ -83,11 +85,11 @@ local function draw_tapes()
     -- 1 knts is tape.w / tape.data_h
     knt_interval = tape.h / tape.data_h
     print(knt_interval)
-    knt_interval_offset = knt_interval * (math.floor(tape.get_data()) % tape.num_interval)
+    knt_interval_offset = knt_interval * (math.max(tape.get_data(), tape.data_min) % tape.num_interval)
     knt_interval_final = knt_interval_offset * -1
     print(knt_interval_final)
 
-    data = tape.get_data()
+    data = math.max(tape.get_data(), tape.data_min)
     data_rounded = math.floor(data / tape.num_interval) * tape.num_interval
 
     for j = 1,interval do
@@ -99,13 +101,15 @@ local function draw_tapes()
       y_offset = (j - 1) * (tape.h / interval)
       y_final = y_offset + knt_interval_final
 
-      sasl.gl.drawText(
-        AirbusFont,
-        tape.x,
-        tape.y + y_final,
-        data_final,
-        tape.font_size,
-        false, false, TEXT_ALIGN_LEFT, PFD_WHITE)
+      if data_final >= tape.data_min then
+          sasl.gl.drawText(
+            AirbusFont,
+            tape.x,
+            tape.y + y_final,
+            data_final,
+            tape.font_size,
+            false, false, TEXT_ALIGN_LEFT, PFD_WHITE)
+        end
     end
   end
 end
