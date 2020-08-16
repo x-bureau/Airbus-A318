@@ -24,7 +24,7 @@ local PFD_GREY = {0.25, 0.26, 0.26, 1.0}
 local nd_overlay = sasl.gl.loadImage("images/Nav_Overlay.png", 0, 0, 2048, 2048)
 local miniplane = sasl.gl.loadImage("images/A320-ND-Rose-Airplane-Standalone.png", 0, 0, 160, 160)
 local arc = sasl.gl.loadImage("images/ARC_Nav.png", 0, 0, 2048, 2048)
-local arcTape = sasl.gl.loadImage("images/ARC_TAPE.png", 0, 0, 3072, 3072)
+local arcTape = sasl.gl.loadImage("images/ARC_Tape.png", 0, 0, 3072, 3072)
 
 --custom functions
 
