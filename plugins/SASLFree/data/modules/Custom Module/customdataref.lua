@@ -8,12 +8,12 @@ local rotate = createGlobalProperty("A318/controls/rotate", 0.0)
 local gpws_dataref = createGlobalPropertyi ("a318/egpws/altitude", 0)
 
 function update()
-  -- If pitch <= 0, and pitch is >= 0, set rotate dataref to 1
-  if (math.floor(get(altitude)) <= 0 and (math.floor(get(pitch)) > 0):
-    set (rotate) = 1
+-- If pitch <= 0, and pitch is >= 0, set rotate dataref to 1
+  if (math.floor(get(altitude)) <= 0 and (math.floor(get(pitch)) > 0 then
+    set(rotate, 1)
   --else set rotate to 0
   else
-    set (rotate) = 0
+    set(rotate, 0)
   end
 
   if get(altitude)  == 2500 then
