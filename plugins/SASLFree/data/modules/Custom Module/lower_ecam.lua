@@ -5,12 +5,17 @@ size = {522, 522}
 --defining dataref variables
 local current_ecam_page = createGlobalPropertyi("A318/cockpit/ecam/ecam_current_page", 1)--create variable that tells us current ecam page
 local altitude = globalPropertyf("sim/cockpit2/gauges/indicators/altitude_ft_pilot")--we define an altitude variable
-local altitude = globalPropertyf("sim/cockpit2/gauges/indicators/airspeed_kts_pilot")--we define an airspeed variable
+local airspeed = globalPropertyf("sim/cockpit2/gauges/indicators/airspeed_kts_pilot")--we define an airspeed variable
 local pitch = globalPropertyf("sim/cockpit2/gauges/indicators/pitch_electric_deg_pilot")--we define an a pitch variable
 local roll = globalPropertyf("sim/cockpit2/gauges/indicators/roll_electric_deg_pilot")--we define a roll variable
 local npercent = globalPropertyfa("sim/cockpit2/engine/indicators/N1_percent", 7)--we define the N1 Percent dataref
 local n2percent = globalPropertyfa("sim/cockpit2/engine/indicators/N1_percent", 7)--we define the N2 Percent dataref
 local door_status = globalPropertyfa("sim/flightmodel2/misc/door_open_ratio", 10)--we define the door open ratio dataref
+local fuel_init_quantity = globalPropertyf("sim/cockpit2/fuel/fuel_totalizer_init_kg")--we define the amout of fuel that the aircraft was loaded with
+local fuel_current_quantity = globalPropertyfa("sim/cockpit2/fuel/fuel_quantity", 9)--we define the amount of fuel that the aircraft has remaining
+local fuel_used = createGlobalPropertyfa("A318/systems/fuel_used", 2)--we define the amount of fuel used by each engine
+local oil_qty = globalPropertyfa("sim/flightmodel/engine/ENGN_oil_quan", 8)--we define an oil quantity dataref
+local cabin_alt = globalPropertyf("sim/cockpit2/pressurization/indicators/cabin_altitude_ft")--we define the dataref for cabin altitude
 
 --create colors
 local ECAM_RED = {255, 0, 0} --We make a red color with 255 red, 0 green, and 0 blue
@@ -161,8 +166,15 @@ end
 
 local function draw_cruise_page()--draw the cruise page
     sasl.gl.drawTexture(lower_cruise_overlay, 0, 0, 522, 522)--we are drawing the overlay
+    --engine 1 fuel used = initial fuel quantity - (the current fuel quantity of tank 1) + (The current fuel quantity of engine 2)
+    set(fuel_used, 1) = (math.floor(get(fuel_init_quantity)) - (math.floor(get(fuel_current_quantity, 1) + math.floor(get(fuel_current_quantity, 2)))))--we determine the fuel used by engine 1
+    set(fuel_used, 2) = (math.floor(get(fuel_init_quantity)) - (math.floor(get(fuel_current_quantity, 1) + math.floor(get(fuel_current_quantity, 2)))))--we determine the fuel used by engine 2
+    sasl.gl.drawText(AirbusFont, 110, 375, get(fuel_used, 1), false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)--we display the fuel used by engine 1
+    sasl.gl.drawText(AirbusFont, 210, 375, get(fuel_used, 2), false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)--we display the fuel used by engine 2
+    sasl.gl.drawText(AirbusFont, 110, 325, get(oil_qty, 1), false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)--we display the engine 1 oil quantity
+    sasl.gl.drawText(AirbusFont, 210, 325, get(oil_qty, 2), false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)--we display the engine 2 oil quantity
+    sasl.gl.drawText(AirbusFont, 490, 80, get(cabin_alt), false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)--we display the current cabin altitude
 end
-
 
 function draw() --the function that actually draws on the panel
     if get(current_ecam_page, 1) then --if the curent ecam page is 1
