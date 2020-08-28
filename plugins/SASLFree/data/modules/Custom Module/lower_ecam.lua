@@ -167,10 +167,10 @@ end
 local function draw_cruise_page()--draw the cruise page
     sasl.gl.drawTexture(lower_cruise_overlay, 0, 0, 522, 522)--we are drawing the overlay
     --engine 1 fuel used = initial fuel quantity - (the current fuel quantity of tank 1) + (The current fuel quantity of engine 2)
-    set(fuel_used, 1) = (math.floor(get(fuel_init_quantity)) - (math.floor(get(fuel_current_quantity, 1) + math.floor(get(fuel_current_quantity, 2)))))--we determine the fuel used by engine 1
-    set(fuel_used, 2) = (math.floor(get(fuel_init_quantity)) - (math.floor(get(fuel_current_quantity, 1) + math.floor(get(fuel_current_quantity, 2)))))--we determine the fuel used by engine 2
-    sasl.gl.drawText(AirbusFont, 110, 375, get(fuel_used, 1), false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)--we display the fuel used by engine 1
-    sasl.gl.drawText(AirbusFont, 210, 375, get(fuel_used, 2), false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)--we display the fuel used by engine 2
+    --set(fuel_used, 1) = (math.floor(get(fuel_init_quantity)) - (math.floor(get(fuel_current_quantity, 1) + math.floor(get(fuel_current_quantity, 2)))))--we determine the fuel used by engine 1
+    --set(fuel_used, 2) = (math.floor(get(fuel_init_quantity)) - (math.floor(get(fuel_current_quantity, 1) + math.floor(get(fuel_current_quantity, 2)))))--we determine the fuel used by engine 2
+    --sasl.gl.drawText(AirbusFont, 110, 375, get(fuel_used, 1), false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)--we display the fuel used by engine 1
+    --sasl.gl.drawText(AirbusFont, 210, 375, get(fuel_used, 2), false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)--we display the fuel used by engine 2
     sasl.gl.drawText(AirbusFont, 110, 325, get(oil_qty, 1), false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)--we display the engine 1 oil quantity
     sasl.gl.drawText(AirbusFont, 210, 325, get(oil_qty, 2), false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)--we display the engine 2 oil quantity
     sasl.gl.drawText(AirbusFont, 490, 80, get(cabin_alt), false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)--we display the current cabin altitude
