@@ -1,5 +1,5 @@
 --A318 by X-Bureau--
-position = {2048, 2048}
+position = {1144, 50, 522, 522}
 size = {522, 522}
 
 --defining dataref variables
@@ -29,7 +29,6 @@ local ECAM_YELLOW = {1.0, 1.0, 0, 1.0}--we make a yellow color with 1.0 red, 1.0
 local AirbusFont = sasl.gl.loadFont("fonts/PanelFont.ttf")
 
 --load images
---local bleed_lock = sasl.gl.loadImage("images/")--define the Bleed circle
 local lower_engine_overlay = sasl.gl.loadImage("images/ECAM_ENG_LOWER.png")--defining the lower ecam engine page overlay
 local lower_bleed_overlay = sasl.gl.loadImage("images/ECAM_ENG_LOWER.png")--defining the lower ecam bleed page overlay
 local lower_press_overlay = sasl.gl.loadImage("images/ECAM_ENG_LOWER.png")--defining the lower ecam pressure page overlay
@@ -177,31 +176,31 @@ local function draw_cruise_page()--draw the cruise page
 end
 
 function draw() --the function that actually draws on the panel
-    if get(current_ecam_page, 1) then --if the curent ecam page is 1
+    if get(current_ecam_page) == 1 then --if the curent ecam page is 1
         draw_eng_page()--draw the engine page
-    elseif get(current_ecam_page, 2) then --if the curent ecam page is 2
+    elseif get(current_ecam_page) == 2 then --if the curent ecam page is 2
         draw_bleed_page()--draw the bleed page
-    elseif get(current_ecam_page, 3) then --if the curent ecam page is 3
+    elseif get(current_ecam_pag) == 3 then --if the curent ecam page is 3
         draw_press_page()--draw the pressure page
-    elseif get(current_ecam_page, 4) then --if the curent ecam page is 4
+    elseif get(current_ecam_page)== 4 then --if the curent ecam page is 4
         draw_elec_page()--draw the electricity page
-    elseif get(current_ecam_page, 5) then --if the curent ecam page is 5
+    elseif get(current_ecam_page) == 5 then --if the curent ecam page is 5
         draw_hyd_page()--draw the hyd page
-    elseif get(current_ecam_page, 6) then --if the curent ecam page is 6
+    elseif get(current_ecam_page) == 6 then --if the curent ecam page is 6
         draw_fuel_page()--draw the fuel page
-    elseif get(current_ecam_page, 7) then --if the curent ecam page is 7
+    elseif get(current_ecam_page) == 7 then --if the curent ecam page is 7
         draw_apu_page()--draw the apu page
-    elseif get(current_ecam_page, 8) then --if the curent ecam page is 8
+    elseif get(current_ecam_page) == 8 then --if the curent ecam page is 8
         draw_air_cond_page()--draw the air conditioning page
-    elseif get(current_ecam_page, 9) then --if the curent ecam page is 9
+    elseif get(current_ecam_page) == 9 then --if the curent ecam page is 9
         draw_doors_page()--draw the doors page
-    elseif get(current_ecam_page, 10) then --if the curent ecam page is 10
+    elseif get(current_ecam_page) == 10 then --if the curent ecam page is 10
         draw_wheel_page()--draw the wheel page
-    elseif get(current_ecam_page, 11) then --if the curent ecam page is 11
+    elseif get(current_ecam_page) == 11	then --if the curent ecam page is 11
         draw_fctl_page()--draw the flight controls page
-    elseif get(current_ecam_page, 12) then --if the curent ecam page is 12
+    elseif get(current_ecam_page) == 12 then --if the curent ecam page is 12
         draw_sts_page()--draw the systems page
-    elseif get(current_ecam_page, 13) then --if the curent ecam page is 13
+    elseif get(current_ecam_page) == 13 then --if the curent ecam page is 13
         draw_cruise_page()--draw the cruise page
     end
 end
