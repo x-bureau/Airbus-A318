@@ -16,7 +16,7 @@ local fuel_current_quantity = globalPropertyfa("sim/cockpit2/fuel/fuel_quantity"
 local fuel_used = createGlobalPropertyfa("A318/systems/fuel_used", 2)--we define the amount of fuel used by each engine
 local oil_qty = globalPropertyfa("sim/flightmodel/engine/ENGN_oil_quan", 8)--we define an oil quantity dataref
 local cabin_alt = globalPropertyf("sim/cockpit2/pressurization/indicators/cabin_altitude_ft")--we define the dataref for cabin altitude
-local speedbrake_status = globalPropertyfa("sim/flightmodel2/controls/speedbrake_ratio")--we define the status of speedbrakes
+local speedbrake_status = globalPropertyfa("sim/flightmodel2/controls/speedbrake_ratio", 10)--we define the status of speedbrakes
 --create colors
 local ECAM_RED = {255, 0, 0} --We make a red color with 255 red, 0 green, and 0 blue
 local ECAM_GREEN = {0.184, 0.733, 0.219, 1.0}--we make a green color with 0.184 red, 0.733 green, 0.219 Blue, and 1.0 for the alpha
@@ -24,7 +24,6 @@ local ECAM_WHITE = {1.0, 1.0, 1.0, 1.0}--we make a white color with 1.0 red, 1.0
 local ECAM_BLUE = {0.004, 1.0, 1.0, 1.0}--we make a blue color with 0.004 red, 1.0 green, 1.0 Blue, and 1.0 for the alpha
 local ECAM_GREY = {0.25, 0.26, 0.26, 1.0}--we make a grey color with 0.25 red, 0.26 green, 0.26 Blue, and 1.0 for the alpha
 local ECAM_YELLOW = {1.0, 1.0, 0, 1.0}--we make a yellow color with 1.0 red, 1.0 green, 0 blue, and 1.0 alpha
-
 --fonts
 local AirbusFont = sasl.gl.loadFont("fonts/PanelFont.ttf")
 
@@ -37,7 +36,7 @@ local lower_hyd_overlay = sasl.gl.loadImage("images/hydraulics.png")--defining t
 local lower_fuel_overlay = sasl.gl.loadImage("images/fuel.png")--defining the lower ecam fuel page overlay
 local lower_apu_overlay = sasl.gl.loadImage("images/ECAM_ENG_LOWER.png")--defining the lower ecam APU page overlay
 local lower_air_cond_overlay = sasl.gl.loadImage("images/ECAM_ENG_LOWER.png")--defining the lower ecam Air Cond page overlay
-local lower_doors_overlay = sasl.gl.loadImage("images/ECAM_ENG_LOWER.png")--defining the lower ecam doors page overlay
+local lower_doors_overlay = sasl.gl.loadImage("images/ECAM_DOOR_OVERLAY.png")--defining the lower ecam doors page overlay
 local lower_wheel_overlay = sasl.gl.loadImage("images/ECAM_ENG_LOWER.png")--defining the lower ecam wheels page overlay
 local lower_fctl_overlay = sasl.gl.loadImage("images/ECAM_ENG_LOWER.png")--defining the lower ecam Flight Controls page overlay
 local lower_sts_overlay = sasl.gl.loadImage("images/ECAM_ENG_LOWER.png")--defining the lower ecam systems page overlay
