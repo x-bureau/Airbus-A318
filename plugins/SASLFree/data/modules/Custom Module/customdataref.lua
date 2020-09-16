@@ -4,9 +4,9 @@ local altitude = globalPropertyf("sim/cockpit2/gauges/indicators/altitude_ft_pil
 local pitch = globalPropertyf("sim/cockpit2/gauges/indicators/pitch_electric_deg_pilot")
 -- Defining the property --
 local rotate = createGlobalPropertyi("A318/controls/rotate", 0)
--- GPWS DATAREF --
-local gpws_dataref = createGlobalPropertyi("a318/egpws/altitude", 0)
-
+local gpws_dataref = createGlobalPropertyi("a318/egpws/altitude", 0)--GPWS Dataref
+local too_low_gear = createGlobalPropertyi("a318/warnings/too_low_gear", 0)--Dataref for Too Low gear alarm
+local gear_status = globalPropertyf("sim/flightmodel2/gear/deploy_ratio")--Gear deployment status dataref
 function update()
 -- If pitch <= 0, and pitch is >= 0, set rotate dataref to 1
   if (math.floor(get(altitude)) <= 0 and (math.floor(get(pitch)) > 0 then
@@ -45,4 +45,14 @@ function update()
   elseif get(altitude)  == 5 then
       set(gpws_dataref, 5)
   end
+ 
+  --TOO LOW GEAR FUNCTION
+  if get(gear_status) < 1 and math.floor(get(altitude)) <= 750 then
+      set(too_low_gear, 1)
+  else
+      set(too_low_gear, 0)
+  end
+ 
+      
+
 end
