@@ -3,9 +3,9 @@
 local altitude = globalPropertyf("sim/cockpit2/gauges/indicators/altitude_ft_pilot")
 local pitch = globalPropertyf("sim/cockpit2/gauges/indicators/pitch_electric_deg_pilot")
 -- Defining the property --
-local rotate = createGlobalProperty("A318/controls/rotate", 0.0)
+local rotate = createGlobalPropertyi("A318/controls/rotate", 0)
 -- GPWS DATAREF --
-local gpws_dataref = createGlobalPropertyi ("a318/egpws/altitude", 0)
+local gpws_dataref = createGlobalPropertyi("a318/egpws/altitude", 0)
 
 function update()
 -- If pitch <= 0, and pitch is >= 0, set rotate dataref to 1
