@@ -16,7 +16,7 @@ local fuel_current_quantity = globalPropertyfa("sim/cockpit2/fuel/fuel_quantity"
 local fuel_used = createGlobalPropertyfa("A318/systems/fuel_used", 2)--we define the amount of fuel used by each engine
 local oil_qty = globalPropertyfa("sim/flightmodel/engine/ENGN_oil_quan", 8)--we define an oil quantity dataref
 local cabin_alt = globalPropertyf("sim/cockpit2/pressurization/indicators/cabin_altitude_ft")--we define the dataref for cabin altitude
-
+local speedbrake_status = globalPropertyfa("sim/flightmodel2/controls/speedbrake_ratio", 10)--we define the status of speedbrakes
 --create colors
 local ECAM_RED = {255, 0, 0} --We make a red color with 255 red, 0 green, and 0 blue
 local ECAM_GREEN = {0.184, 0.733, 0.219, 1.0}--we make a green color with 0.184 red, 0.733 green, 0.219 Blue, and 1.0 for the alpha
@@ -24,7 +24,6 @@ local ECAM_WHITE = {1.0, 1.0, 1.0, 1.0}--we make a white color with 1.0 red, 1.0
 local ECAM_BLUE = {0.004, 1.0, 1.0, 1.0}--we make a blue color with 0.004 red, 1.0 green, 1.0 Blue, and 1.0 for the alpha
 local ECAM_GREY = {0.25, 0.26, 0.26, 1.0}--we make a grey color with 0.25 red, 0.26 green, 0.26 Blue, and 1.0 for the alpha
 local ECAM_YELLOW = {1.0, 1.0, 0, 1.0}--we make a yellow color with 1.0 red, 1.0 green, 0 blue, and 1.0 alpha
-
 --fonts
 local AirbusFont = sasl.gl.loadFont("fonts/PanelFont.ttf")
 
@@ -37,9 +36,9 @@ local lower_hyd_overlay = sasl.gl.loadImage("images/hydraulics.png")--defining t
 local lower_fuel_overlay = sasl.gl.loadImage("images/fuel.png")--defining the lower ecam fuel page overlay
 local lower_apu_overlay = sasl.gl.loadImage("images/ECAM_ENG_LOWER.png")--defining the lower ecam APU page overlay
 local lower_air_cond_overlay = sasl.gl.loadImage("images/ECAM_ENG_LOWER.png")--defining the lower ecam Air Cond page overlay
-local lower_doors_overlay = sasl.gl.loadImage("images/ECAM_ENG_LOWER.png")--defining the lower ecam doors page overlay
+local lower_doors_overlay = sasl.gl.loadImage("images/ECAM_DOOR_OVERLAY.png")--defining the lower ecam doors page overlay
 local lower_wheel_overlay = sasl.gl.loadImage("images/ECAM_ENG_LOWER.png")--defining the lower ecam wheels page overlay
-local lower_fctl_overlay = sasl.gl.loadImage("images/ECAM_ENG_LOWER.png")--defining the lower ecam Flight Controls page overlay
+local lower_fctl_overlay = sasl.gl.loadImage("images/fctl.png")--defining the lower ecam Flight Controls page overlay
 local lower_sts_overlay = sasl.gl.loadImage("images/ECAM_ENG_LOWER.png")--defining the lower ecam systems page overlay
 local lower_cruise_overlay = sasl.gl.loadImage("images/cruise.png")--defining the lower ecam cruise page overlay
 
@@ -157,6 +156,77 @@ end
 
 local function draw_fctl_page()--draw the flight controls page
     sasl.gl.drawTexture(lower_fctl_overlay, 0, 0, 522, 522)--we are drawing the overlay
+	--drawing the spoilers
+	if get(speedbrake_status, 1) == 1 then
+		sasl.gl.drawText(AirbusFont, 90, 300, 1, 25, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
+	elseif get(speedbrake_status, 1) == 0 then
+		sasl.gl.drawText(AirbusFont, 90, 300, 1, 25, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
+	else
+		sasl.gl.drawText(AirbusFont, 90, 300, 1, 25, false, false, TEXT_ALIGN_LEFT, ECAM_YELLOW)
+	end
+	if get(speedbrake_status, 2) == 1 then
+		sasl.gl.drawText(AirbusFont, 130, 310, 2, 25, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
+	elseif get(speedbrake_status, 2) == 0 then
+		sasl.gl.drawText(AirbusFont, 130, 310, 2, 25, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
+	else
+		sasl.gl.drawText(AirbusFont, 130, 310, 2, 25, false, false, TEXT_ALIGN_LEFT, ECAM_YELLOW)
+	end
+	if get(speedbrake_status, 3) == 1 then
+		sasl.gl.drawText(AirbusFont, 170, 320, 3, 25, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
+	elseif get(speedbrake_status, 3) == 0 then
+		sasl.gl.drawText(AirbusFont, 170, 320, 3, 25, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
+	else
+		sasl.gl.drawText(AirbusFont, 170, 320, 3, 25, false, false, TEXT_ALIGN_LEFT, ECAM_YELLOW)
+	end
+	if get(speedbrake_status, 4) == 1 then
+		sasl.gl.drawText(AirbusFont, 210, 330, 4, 25, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
+	elseif get(speedbrake_status, 4) == 0 then
+		sasl.gl.drawText(AirbusFont, 210, 330, 4, 25, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
+	else
+		sasl.gl.drawText(AirbusFont, 210, 330, 4, 25, false, false, TEXT_ALIGN_LEFT, ECAM_YELLOW)
+	end
+	if get(speedbrake_status, 5) == 1 then
+		sasl.gl.drawText(AirbusFont, 250, 340, 5, 25, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
+	elseif get(speedbrake_status, 5) == 0 then
+		sasl.gl.drawText(AirbusFont, 250, 340, 5, 25, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
+	else
+		sasl.gl.drawText(AirbusFont, 250, 340, 5, 25, false, false, TEXT_ALIGN_LEFT, ECAM_YELLOW)
+	end
+	if get(speedbrake_status, 6) == 1 then
+		sasl.gl.drawText(AirbusFont, 290, 340, 6, 25, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
+	elseif get(speedbrake_status, 6) == 0 then
+		sasl.gl.drawText(AirbusFont, 290, 340, 6, 25, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
+	else
+		sasl.gl.drawText(AirbusFont, 290, 340, 6, 25, false, false, TEXT_ALIGN_LEFT, ECAM_YELLOW)
+	end
+	if get(speedbrake_status, 7) == 1 then
+		sasl.gl.drawText(AirbusFont, 330, 330, 7, 25, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
+	elseif get(speedbrake_status, 7) == 0 then
+		sasl.gl.drawText(AirbusFont, 330, 330, 7, 25, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
+	else
+		sasl.gl.drawText(AirbusFont, 330, 330, 7, 25, false, false, TEXT_ALIGN_LEFT, ECAM_YELLOW)
+	end
+	if get(speedbrake_status, 8) == 1 then
+		sasl.gl.drawText(AirbusFont, 370, 320, 8, 25, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
+	elseif get(speedbrake_status, 8) == 0 then 
+		sasl.gl.drawText(AirbusFont, 370, 320, 8, 25, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
+	else
+		sasl.gl.drawText(AirbusFont, 370, 320, 8, 25, false, false, TEXT_ALIGN_LEFT, ECAM_YELLOW)
+	end
+	if get(speedbrake_status, 9) == 1 then
+		sasl.gl.drawText(AirbusFont, 410, 310, 9, 25, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
+	elseif get(speedbrake_status, 9) == 0 then
+		sasl.gl.drawText(AirbusFont, 410, 310, 9, 25, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
+	else
+		sasl.gl.drawText(AirbusFont, 410, 310, 9, 25, false, false, TEXT_ALIGN_LEFT, ECAM_YELLOW)
+	end
+	if get(speedbrake_status, 10) == 1 then
+		sasl.gl.drawText(AirbusFont, 450, 300, 10, 25, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
+	elseif get(speedbrake_status, 10) == 0 then
+		sasl.gl.drawText(AirbusFont, 450, 300, 10, 25, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
+	else
+		sasl.gl.drawText(AirbusFont, 450, 300, 10, 25, false, false, TEXT_ALIGN_LEFT, ECAM_YELLOW)
+	end
 end
 
 local function draw_sts_page()--draw the systems page
