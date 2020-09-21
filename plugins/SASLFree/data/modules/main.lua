@@ -11,6 +11,5 @@ components = {
   pfd {};
   nav {};
   ecam {};
-  lower_ecam {};
-  custom_dataref {}
+  lower_ecam {}
 }
