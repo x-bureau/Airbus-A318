@@ -84,10 +84,8 @@ local function draw_tapes()
 
     -- 1 knts is tape.w / tape.data_h
     knt_interval = tape.h / tape.data_h
-    print(knt_interval)
     knt_interval_offset = knt_interval * (math.max(tape.get_data(), tape.data_min) % tape.num_interval)
     knt_interval_final = knt_interval_offset * -1
-    print(knt_interval_final)
 
     data = math.max(tape.get_data(), tape.data_min)
     data_rounded = math.floor(data / tape.num_interval) * tape.num_interval
