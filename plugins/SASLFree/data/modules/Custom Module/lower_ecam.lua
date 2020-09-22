@@ -18,6 +18,7 @@ local oil_qty = globalPropertyfa("sim/flightmodel/engine/ENGN_oil_quan", 8)--we 
 local cabin_alt = globalPropertyf("sim/cockpit2/pressurization/indicators/cabin_altitude_ft")--we define the dataref for cabin altitude
 local speedbrake_status = globalPropertyfa("sim/flightmodel2/controls/speedbrake_ratio", 10)--we define the status of speedbrakes
 --create colors
+local ECAM_ORANGE = {255, 165, 0} --We make a red color with 255 red, 0 green, and 0 blue
 local ECAM_RED = {255, 0, 0} --We make a red color with 255 red, 0 green, and 0 blue
 local ECAM_GREEN = {0.184, 0.733, 0.219, 1.0}--we make a green color with 0.184 red, 0.733 green, 0.219 Blue, and 1.0 for the alpha
 local ECAM_WHITE = {1.0, 1.0, 1.0, 1.0}--we make a white color with 1.0 red, 1.0 green, 1.0 Blue, and 1.0 for the alpha
@@ -78,75 +79,95 @@ end
 
 local function draw_doors_page()--draw the doors page
     sasl.gl.drawTexture(lower_doors_overlay, 0, 0, 522, 522)--we are drawing the overlay
-        if get(door_status, 1) == 0 then--if the door open ratio is = 0
-            sasl.gl.drawRectangle(0, 0, 50, 100, ECAM_GREEN)--draw a green rectangle
+
+    sasl.gl.drawText(AirbusFont, 220, 355, 'CABIN -----------', 16, false, false, TEXT_ALIGN_RIGHT, ECAM_ORANGE)--we display the engine 1 oil quantity
+
+    -- door 1
+    sasl.gl.drawWidePolyLine({225, 350, 225, 370, 238, 370, 238, 350, 224, 350}, 2, ECAM_GREEN)
+    -- door 2
+    sasl.gl.drawWidePolyLine({287, 350, 287, 370, 300, 370, 300, 350, 286, 350}, 2, ECAM_GREEN)
+    -- door 3 - fwd cargo
+    sasl.gl.drawWidePolyLine({280, 310, 280, 330, 300, 330, 300, 310, 279, 310}, 2, ECAM_GREEN)
+
+    if get(door_status, 1) == 0 then--if the door open ratio is = 0
+            -- sasl.gl.drawWidePolyLine({225, 350, 225, 370, 238, 370, 238, 350, 224, 350}, 3, ECAM_GREEN)
+            -- sasl.gl.drawFrame(223, 350, 13, 20, ECAM_GREEN)--draw a green rectangle
         elseif get(door_status, 1) == 1 then--if the door open ratio is = 1
-            sasl.gl.drawRectangle(0, 0, 50, 100, ECAM_RED)--draw a red rectangle
+            sasl.gl.drawRectangle(225, 350, 13, 20, ECAM_YELLOW)--draw a red rectangle
         else--anything else results in a yellow rectangle
-            sasl.gl.drawRectangle(0, 0, 50, 100, ECAM_YELLOW)
+            sasl.gl.drawRectangle(225, 350, 13, 20, ECAM_RED)
         end
+        
         if get(door_status, 2) == 0 then
-            sasl.gl.drawRectangle(0, 0, 50, 100, ECAM_GREEN)
+            -- sasl.gl.drawFrame(287, 350, 13, 20, ECAM_GREEN)
         elseif get(door_status, 2) == 1 then
-            sasl.gl.drawRectangle(0, 0, 50, 100, ECAM_RED)
+            sasl.gl.drawRectangle(287, 350, 13, 20, ECAM_YELLOW)
         else
-            sasl.gl.drawRectangle(0, 0, 50, 100, ECAM_YELLOW)
+            sasl.gl.drawRectangle(287, 350, 13, 20, ECAM_RED)
         end
+        
         if get(door_status, 3) == 0 then
-            sasl.gl.drawRectangle(0, 0, 50, 100, ECAM_GREEN)
+            -- sasl.gl.drawFrame(0, 0, 13, 20, ECAM_GREEN)
         elseif get(door_status, 3) == 1 then
-            sasl.gl.drawRectangle(0, 0, 50, 100, ECAM_RED)
+            sasl.gl.drawRectangle(280, 310, 20, 20, ECAM_YELLOW)
         else
-            sasl.gl.drawRectangle(0, 0, 50, 100, ECAM_YELLOW) 
+            sasl.gl.drawRectangle(280, 310, 20, 20, ECAM_RED) 
         end
+        
         if get(door_status, 4) == 0 then
-            sasl.gl.drawRectangle(0, 0, 50, 100, ECAM_GREEN)
+            sasl.gl.drawFrame(0, 0, 13, 20, ECAM_GREEN)
         elseif get(door_status, 4) == 1 then
-            sasl.gl.drawRectangle(0, 0, 50, 100, ECAM_RED)
+            sasl.gl.drawRectangle(0, 0, 13, 20, ECAM_YELLOW)
         else
-            sasl.gl.drawRectangle(0, 0, 50, 100, ECAM_YELLOW)
+            sasl.gl.drawRectangle(0, 0, 13, 20, ECAM_RED)
         end
+        
         if get(door_status, 5) == 0 then
-            sasl.gl.drawRectangle(0, 0, 50, 100, ECAM_GREEN)
+            sasl.gl.drawFrame(0, 0, 13, 20, ECAM_GREEN)
         elseif get(door_status, 5) == 1 then
-            sasl.gl.drawRectangle(0, 0, 50, 100, ECAM_RED)
+            sasl.gl.drawRectangle(0, 0, 13, 20, ECAM_YELLOW)
         else
-            sasl.gl.drawRectangle(0, 0, 50, 100, ECAM_YELLOW)
+            sasl.gl.drawRectangle(0, 0, 13, 20, ECAM_RED)
         end
+        
         if get(door_status, 6) == 0 then
-            sasl.gl.drawRectangle(0, 0, 50, 100, ECAM_GREEN)
+            sasl.gl.drawFrame(0, 0, 13, 20, ECAM_GREEN)
         elseif get(door_status, 6) == 1 then
-            sasl.gl.drawRectangle(0, 0, 50, 100, ECAM_RED)
+            sasl.gl.drawRectangle(0, 0, 13, 20, ECAM_YELLOW)
         else
-            sasl.gl.drawRectangle(0, 0, 50, 100, ECAM_YELLOW)
+            sasl.gl.drawRectangle(0, 0, 13, 20, ECAM_RED)
         end
+        
         if get(door_status, 7) == 0 then
-            sasl.gl.drawRectangle(0, 0, 50, 100, ECAM_GREEN)
+            sasl.gl.drawFrame(0, 0, 13, 20, ECAM_GREEN)
         elseif get(door_status, 7) == 1 then
-            sasl.gl.drawRectangle(0, 0, 50, 100, ECAM_RED)
+            sasl.gl.drawRectangle(0, 0, 13, 20, ECAM_YELLOW)
         else
-            sasl.gl.drawRectangle(0, 0, 50, 100, ECAM_YELLOW)
+            sasl.gl.drawRectangle(0, 0, 13, 20, ECAM_RED)
         end
+        
         if get(door_status, 8) == 0 then
-            sasl.gl.drawRectangle(0, 0, 50, 100, ECAM_GREEN)
+            sasl.gl.drawFrame(0, 0, 13, 20, ECAM_GREEN)
         elseif get(door_status, 8) == 1 then
-            sasl.gl.drawRectangle(0, 0, 50, 100, ECAM_RED)
+            sasl.gl.drawRectangle(0, 0, 13, 20, ECAM_YELLOW)
         else
-            sasl.gl.drawRectangle(0, 0, 50, 100, ECAM_YELLOW)
+            sasl.gl.drawRectangle(0, 0, 13, 20, ECAM_RED)
         end
+        
         if get(door_status, 9) == 0 then
-            sasl.gl.drawRectangle(0, 0, 50, 100, ECAM_GREEN)
+            sasl.gl.drawFrame(0, 0, 13, 20, ECAM_GREEN)
         elseif get(door_status, 9) == 1 then
-            sasl.gl.drawRectangle(0, 0, 50, 100, ECAM_RED)
+            sasl.gl.drawRectangle(0, 0, 13, 20, ECAM_YELLOW)
         else
-            sasl.gl.drawRectangle(0, 0, 50, 100, ECAM_YELLOW)
+            sasl.gl.drawRectangle(0, 0, 13, 20, ECAM_RED)
         end
+        
         if get(door_status, 10) == 0 then
-            sasl.gl.drawRectangle(0, 0, 50, 100, ECAM_GREEN)
+            sasl.gl.drawFrame(0, 0, 13, 20, ECAM_GREEN)
         elseif get(door_status, 10) == 1 then
-            sasl.gl.drawRectangle(0, 0, 50, 100, ECAM_RED)
+            sasl.gl.drawRectangle(0, 0, 13, 20, ECAM_YELLOW)
         else
-            sasl.gl.drawRectangle(0, 0, 50, 100, ECAM_YELLOW)
+            sasl.gl.drawRectangle(0, 0, 13, 20, ECAM_RED)
         end
 end
 
@@ -250,7 +271,7 @@ function draw() --the function that actually draws on the panel
         draw_eng_page()--draw the engine page
     elseif get(current_ecam_page) == 2 then --if the curent ecam page is 2
         draw_bleed_page()--draw the bleed page
-    elseif get(current_ecam_pag) == 3 then --if the curent ecam page is 3
+    elseif get(current_ecam_page) == 3 then --if the curent ecam page is 3
         draw_press_page()--draw the pressure page
     elseif get(current_ecam_page)== 4 then --if the curent ecam page is 4
         draw_elec_page()--draw the electricity page
