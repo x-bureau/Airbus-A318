@@ -99,99 +99,103 @@ local function draw_doors_page()--draw the doors page
     sasl.gl.drawText(AirbusFont, 273, 23, string.format("%02d", get(local_mins)), 18, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
     -- sasl.gl.drawText(AirbusFont, 261, 32, 'H', 14, false, false, TEXT_ALIGN_RIGHT, ECAM_WHITE)
 
-    -- door 1
-    sasl.gl.drawWidePolyLine({225, 350, 225, 370, 238, 370, 238, 350, 224, 350}, 2, ECAM_GREEN)
-    -- door 2
-    sasl.gl.drawWidePolyLine({280, 350, 280, 370, 293, 370, 293, 350, 279, 350}, 2, ECAM_GREEN)
+    -- door 1 - CPT FRONT
+    sasl.gl.drawWidePolyLine({228, 350, 228, 368, 238, 368, 238, 350, 227, 350}, 2, ECAM_GREEN)
+    -- door 2 - FO FRONT
+    sasl.gl.drawWidePolyLine({283, 350, 283, 368, 293, 368, 293, 350, 282, 350}, 2, ECAM_GREEN)
     -- door 3 - fwd cargo
-    sasl.gl.drawWidePolyLine({277, 310, 277, 330, 293, 330, 293, 310, 276, 310}, 2, ECAM_GREEN)
+    sasl.gl.drawWidePolyLine({277, 297, 277, 315, 293, 315, 293, 297, 276, 297}, 2, ECAM_GREEN)
     -- L slide
-    sasl.gl.drawWidePolyLine({225, 240, 225, 260, 238, 260, 238, 240, 224, 240}, 2, ECAM_GREEN)
-    sasl.gl.drawText(AirbusFont, 217, 245, 'SLIDE', 16, false, false, TEXT_ALIGN_RIGHT, ECAM_WHITE)
+    sasl.gl.drawWidePolyLine({228, 230, 228, 248, 238, 248, 238, 230, 227, 230}, 2, ECAM_GREEN)
+    sasl.gl.drawText(AirbusFont, 217, 232, 'SLIDE', 16, false, false, TEXT_ALIGN_RIGHT, ECAM_WHITE)
     -- R slide
-    sasl.gl.drawWidePolyLine({287, 240, 287, 260, 300, 260, 300, 240, 286, 240}, 2, ECAM_GREEN)
-    sasl.gl.drawText(AirbusFont, 308, 245, 'SLIDE', 16, false, false, TEXT_ALIGN_LEFT, ECAM_WHITE)
+    sasl.gl.drawWidePolyLine({283, 230, 283, 248, 293, 248, 293, 230, 282, 230}, 2, ECAM_GREEN)
+    sasl.gl.drawText(AirbusFont, 306, 232, 'SLIDE', 16, false, false, TEXT_ALIGN_LEFT, ECAM_WHITE)
+
+    -- door 4 - aft cargo
+    sasl.gl.drawWidePolyLine({277, 172, 277, 190, 293, 190, 293, 172, 276, 172}, 2, ECAM_GREEN)
+
+    -- door 5 - CPT aft
+    sasl.gl.drawWidePolyLine({228, 110, 228, 128, 238, 128, 238, 110, 227, 110}, 2, ECAM_GREEN)
+
+    -- door 6 - FO aft
+    sasl.gl.drawWidePolyLine({283, 110, 283, 128, 293, 128, 293, 110, 282, 110}, 2, ECAM_GREEN)
+
+    -- avionics
+    sasl.gl.drawWidePolyLine({278, 140, 278, 158, 285, 158, 285, 140, 277, 140}, 2, ECAM_GREEN)
 
     if get(door_status, 1) == 0 then--if the door open ratio is = 0
-            -- sasl.gl.drawWidePolyLine({225, 350, 225, 370, 238, 370, 238, 350, 224, 350}, 3, ECAM_GREEN)
-            -- sasl.gl.drawFrame(223, 350, 13, 20, ECAM_GREEN)--draw a green rectangle
-        elseif get(door_status, 1) > 0 then--if the door open ratio is = 1
-            sasl.gl.drawText(AirbusFont, 218, 355, 'CABIN -----------', 16, false, false, TEXT_ALIGN_RIGHT, ECAM_ORANGE)
-            sasl.gl.drawRectangle(225, 350, 11, 18, ECAM_YELLOW)--draw a red rectangle
-        -- else--anything else results in a yellow rectangle
-        --     sasl.gl.drawRectangle(225, 350, 11, 18, ECAM_RED)
-        end
+        -- sasl.gl.drawWidePolyLine({225, 350, 225, 370, 238, 370, 238, 350, 224, 350}, 3, ECAM_GREEN)
+        -- sasl.gl.drawFrame(223, 350, 13, 20, ECAM_GREEN)--draw a green rectangle
+    elseif get(door_status, 1) > 0 then--if the door open ratio is = 1
+        sasl.gl.drawText(AirbusFont, 218, 355, 'CABIN -----------', 16, false, false, TEXT_ALIGN_RIGHT, ECAM_ORANGE)
+        sasl.gl.drawRectangle(228, 350, 10, 18, ECAM_YELLOW)--draw a red rectangle
+    -- else--anything else results in a yellow rectangle
+    --     sasl.gl.drawRectangle(225, 350, 11, 18, ECAM_RED)
+    end
 
-        if get(door_status, 2) > 0 then
-            sasl.gl.drawText(AirbusFont, 302, 355, '----------- CABIN', 16, false, false, TEXT_ALIGN_LEFT, ECAM_ORANGE)
-            sasl.gl.drawRectangle(280, 350, 13, 20, ECAM_YELLOW)
-        end
+    if get(door_status, 2) > 0 then
+        sasl.gl.drawText(AirbusFont, 302, 355, '----------- CABIN', 16, false, false, TEXT_ALIGN_LEFT, ECAM_ORANGE)
+        sasl.gl.drawRectangle(283, 350, 10, 18, ECAM_YELLOW)
+    end
 
-        if get(door_status, 3) == 0 then
-            -- sasl.gl.drawFrame(0, 0, 13, 20, ECAM_GREEN)
-        elseif get(door_status, 3) > 0 then
-            sasl.gl.drawText(AirbusFont, 302, 315, '------ CARGO', 16, false, false, TEXT_ALIGN_LEFT, ECAM_ORANGE)
-            sasl.gl.drawRectangle(277, 310, 17, 20, ECAM_YELLOW)
-        -- else
-        --     sasl.gl.drawRectangle(283, 310, 17, 20, ECAM_RED) 
-        end
+    if get(door_status, 3) == 1 then
+        sasl.gl.drawText(AirbusFont, 302, 300, '------ CARGO', 16, false, false, TEXT_ALIGN_LEFT, ECAM_ORANGE)
+        sasl.gl.drawRectangle(277, 297, 16, 18, ECAM_YELLOW)
+    elseif get(door_status, 3) > 0 then
+        sasl.gl.drawRectangle(277, 297, 16, 18, ECAM_RED)
+    end
 
-        if get(door_status, 4) == 0 then
-            sasl.gl.drawFrame(0, 0, 13, 20, ECAM_GREEN)
-        elseif get(door_status, 4) == 1 then
-            sasl.gl.drawRectangle(0, 0, 13, 20, ECAM_YELLOW)
-        else
-            sasl.gl.drawRectangle(0, 0, 13, 20, ECAM_RED)
-        end
+    if get(door_status, 4) == 1 then
+        sasl.gl.drawText(AirbusFont, 302, 175, '------ CARGO', 16, false, false, TEXT_ALIGN_LEFT, ECAM_ORANGE)
+        sasl.gl.drawRectangle(277, 172, 16, 18, ECAM_YELLOW)
+    elseif get(door_status, 4) > 0 then
+        sasl.gl.drawRectangle(277, 172, 16, 18, ECAM_RED)
+    end
 
-        if get(door_status, 5) == 0 then
-            sasl.gl.drawFrame(0, 0, 13, 20, ECAM_GREEN)
-        elseif get(door_status, 5) == 1 then
-            sasl.gl.drawRectangle(0, 0, 13, 20, ECAM_YELLOW)
-        else
-            sasl.gl.drawRectangle(0, 0, 13, 20, ECAM_RED)
-        end
+    if get(door_status, 5) > 0 then
+        sasl.gl.drawText(AirbusFont, 218, 115, 'CABIN -----------', 16, false, false, TEXT_ALIGN_RIGHT, ECAM_ORANGE)
+        sasl.gl.drawRectangle(228, 110, 10, 18, ECAM_YELLOW)
+    end
 
-        if get(door_status, 6) == 0 then
-            sasl.gl.drawFrame(0, 0, 13, 20, ECAM_GREEN)
-        elseif get(door_status, 6) > 0 then
-            sasl.gl.drawText(AirbusFont, 308, 150, '------ CARGO', 16, false, false, TEXT_ALIGN_LEFT, ECAM_ORANGE)
-            sasl.gl.drawRectangle(0, 0, 13, 20, ECAM_YELLOW)
-        -- else
-        --     sasl.gl.drawRectangle(0, 0, 13, 20, ECAM_RED)
-        end
+    if get(door_status, 6) > 0 then
+        sasl.gl.drawText(AirbusFont, 302, 115, '----------- CABIN', 16, false, false, TEXT_ALIGN_LEFT, ECAM_ORANGE)
+        sasl.gl.drawRectangle(283, 110, 10, 18, ECAM_YELLOW)
+    -- else
+    --     sasl.gl.drawRectangle(0, 0, 13, 20, ECAM_RED)
+    end
 
-        if get(door_status, 7) == 0 then
-            sasl.gl.drawFrame(0, 0, 13, 20, ECAM_GREEN)
-        elseif get(door_status, 7) == 1 then
-            sasl.gl.drawRectangle(0, 0, 13, 20, ECAM_YELLOW)
-        else
-            sasl.gl.drawRectangle(0, 0, 13, 20, ECAM_RED)
-        end
+    if get(door_status, 7) == 0 then
+        sasl.gl.drawFrame(0, 0, 13, 20, ECAM_GREEN)
+    elseif get(door_status, 7) == 1 then
+        sasl.gl.drawRectangle(0, 0, 13, 20, ECAM_YELLOW)
+    else
+        sasl.gl.drawRectangle(0, 0, 13, 20, ECAM_RED)
+    end
 
-        if get(door_status, 8) == 0 then
-            sasl.gl.drawFrame(0, 0, 13, 20, ECAM_GREEN)
-        elseif get(door_status, 8) == 1 then
-            sasl.gl.drawRectangle(0, 0, 13, 20, ECAM_YELLOW)
-        else
-            sasl.gl.drawRectangle(0, 0, 13, 20, ECAM_RED)
-        end
+    if get(door_status, 8) == 0 then
+        sasl.gl.drawFrame(0, 0, 13, 20, ECAM_GREEN)
+    elseif get(door_status, 8) == 1 then
+        sasl.gl.drawRectangle(0, 0, 13, 20, ECAM_YELLOW)
+    else
+        sasl.gl.drawRectangle(0, 0, 13, 20, ECAM_RED)
+    end
 
-        if get(door_status, 9) == 0 then
-            sasl.gl.drawFrame(0, 0, 13, 20, ECAM_GREEN)
-        elseif get(door_status, 9) == 1 then
-            sasl.gl.drawRectangle(0, 0, 13, 20, ECAM_YELLOW)
-        else
-            sasl.gl.drawRectangle(0, 0, 13, 20, ECAM_RED)
-        end
+    if get(door_status, 9) == 0 then
+        sasl.gl.drawFrame(0, 0, 13, 20, ECAM_GREEN)
+    elseif get(door_status, 9) == 1 then
+        sasl.gl.drawRectangle(0, 0, 13, 20, ECAM_YELLOW)
+    else
+        sasl.gl.drawRectangle(0, 0, 13, 20, ECAM_RED)
+    end
 
-        if get(door_status, 10) == 0 then
-            sasl.gl.drawFrame(0, 0, 13, 20, ECAM_GREEN)
-        elseif get(door_status, 10) == 1 then
-            sasl.gl.drawRectangle(0, 0, 13, 20, ECAM_YELLOW)
-        else
-            sasl.gl.drawRectangle(0, 0, 13, 20, ECAM_RED)
-        end
+    if get(door_status, 10) == 0 then
+        sasl.gl.drawFrame(0, 0, 13, 20, ECAM_GREEN)
+    elseif get(door_status, 10) == 1 then
+        sasl.gl.drawRectangle(0, 0, 13, 20, ECAM_YELLOW)
+    else
+        sasl.gl.drawRectangle(0, 0, 13, 20, ECAM_RED)
+    end
 end
 
 local function draw_wheel_page()--draw the wheels page
