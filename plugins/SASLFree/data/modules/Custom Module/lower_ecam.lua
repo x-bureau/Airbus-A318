@@ -17,6 +17,13 @@ local fuel_used = createGlobalPropertyfa("A318/systems/fuel_used", 2)--we define
 local oil_qty = globalPropertyfa("sim/flightmodel/engine/ENGN_oil_quan", 8)--we define an oil quantity dataref
 local cabin_alt = globalPropertyf("sim/cockpit2/pressurization/indicators/cabin_altitude_ft")--we define the dataref for cabin altitude
 local speedbrake_status = globalPropertyfa("sim/flightmodel2/controls/speedbrake_ratio", 10)--we define the status of speedbrakes
+local local_hour = globalPropertyi("sim/cockpit2/clock_timer/local_time_hours")
+local local_mins = globalPropertyi("sim/cockpit2/clock_timer/local_time_minutes")
+local zulu_hour = globalPropertyi("sim/cockpit2/clock_timer/zulu_time_hours")
+local zulu_mins = globalPropertyi("sim/cockpit2/clock_timer/zulu_time_minutes")
+local temp_sat = globalPropertyf("sim/cockpit2/temperature/outside_air_temp_degc")
+local temp_tat = globalPropertyf("sim/cockpit2/temperature/outside_air_LE_temp_degc")
+
 --create colors
 local ECAM_ORANGE = {255, 165, 0} --We make a red color with 255 red, 0 green, and 0 blue
 local ECAM_RED = {255, 0, 0} --We make a red color with 255 red, 0 green, and 0 blue
@@ -80,40 +87,55 @@ end
 local function draw_doors_page()--draw the doors page
     sasl.gl.drawTexture(lower_doors_overlay, 0, 0, 522, 522)--we are drawing the overlay
 
-    sasl.gl.drawText(AirbusFont, 220, 355, 'CABIN -----------', 16, false, false, TEXT_ALIGN_RIGHT, ECAM_ORANGE)--we display the engine 1 oil quantity
+    -- sasl.gl.drawText(AirbusFont, 70, 55, "TAT", 18, false, false, TEXT_ALIGN_RIGHT, ECAM_WHITE)
+    sasl.gl.drawText(AirbusFont, 90, 42, string.format("%+.1f", get(temp_tat)), 14, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
+    -- sasl.gl.drawText(AirbusFont, 140, 55, "°C", 18, false, false, TEXT_ALIGN_LEFT, ECAM_WHITE)
+
+    -- sasl.gl.drawText(AirbusFont, 70, 20, "SAT", 18, false, false, TEXT_ALIGN_RIGHT, ECAM_WHITE)
+    sasl.gl.drawText(AirbusFont, 90, 25, string.format("%+.1f", get(temp_sat)), 14, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
+    -- sasl.gl.drawText(AirbusFont, 140, 20, "°C", 18, false, false, TEXT_ALIGN_LEFT, ECAM_WHITE)
+
+    sasl.gl.drawText(AirbusFont, 253, 23, string.format("%02d", get(local_hour)), 18, false, false, TEXT_ALIGN_RIGHT, ECAM_GREEN)
+    sasl.gl.drawText(AirbusFont, 273, 23, string.format("%02d", get(local_mins)), 18, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
+    -- sasl.gl.drawText(AirbusFont, 261, 32, 'H', 14, false, false, TEXT_ALIGN_RIGHT, ECAM_WHITE)
 
     -- door 1
     sasl.gl.drawWidePolyLine({225, 350, 225, 370, 238, 370, 238, 350, 224, 350}, 2, ECAM_GREEN)
     -- door 2
-    sasl.gl.drawWidePolyLine({287, 350, 287, 370, 300, 370, 300, 350, 286, 350}, 2, ECAM_GREEN)
+    sasl.gl.drawWidePolyLine({280, 350, 280, 370, 293, 370, 293, 350, 279, 350}, 2, ECAM_GREEN)
     -- door 3 - fwd cargo
-    sasl.gl.drawWidePolyLine({280, 310, 280, 330, 300, 330, 300, 310, 279, 310}, 2, ECAM_GREEN)
+    sasl.gl.drawWidePolyLine({277, 310, 277, 330, 293, 330, 293, 310, 276, 310}, 2, ECAM_GREEN)
+    -- L slide
+    sasl.gl.drawWidePolyLine({225, 240, 225, 260, 238, 260, 238, 240, 224, 240}, 2, ECAM_GREEN)
+    sasl.gl.drawText(AirbusFont, 217, 245, 'SLIDE', 16, false, false, TEXT_ALIGN_RIGHT, ECAM_WHITE)
+    -- R slide
+    sasl.gl.drawWidePolyLine({287, 240, 287, 260, 300, 260, 300, 240, 286, 240}, 2, ECAM_GREEN)
+    sasl.gl.drawText(AirbusFont, 308, 245, 'SLIDE', 16, false, false, TEXT_ALIGN_LEFT, ECAM_WHITE)
 
     if get(door_status, 1) == 0 then--if the door open ratio is = 0
             -- sasl.gl.drawWidePolyLine({225, 350, 225, 370, 238, 370, 238, 350, 224, 350}, 3, ECAM_GREEN)
             -- sasl.gl.drawFrame(223, 350, 13, 20, ECAM_GREEN)--draw a green rectangle
-        elseif get(door_status, 1) == 1 then--if the door open ratio is = 1
-            sasl.gl.drawRectangle(225, 350, 13, 20, ECAM_YELLOW)--draw a red rectangle
-        else--anything else results in a yellow rectangle
-            sasl.gl.drawRectangle(225, 350, 13, 20, ECAM_RED)
+        elseif get(door_status, 1) > 0 then--if the door open ratio is = 1
+            sasl.gl.drawText(AirbusFont, 218, 355, 'CABIN -----------', 16, false, false, TEXT_ALIGN_RIGHT, ECAM_ORANGE)
+            sasl.gl.drawRectangle(225, 350, 11, 18, ECAM_YELLOW)--draw a red rectangle
+        -- else--anything else results in a yellow rectangle
+        --     sasl.gl.drawRectangle(225, 350, 11, 18, ECAM_RED)
         end
-        
-        if get(door_status, 2) == 0 then
-            -- sasl.gl.drawFrame(287, 350, 13, 20, ECAM_GREEN)
-        elseif get(door_status, 2) == 1 then
-            sasl.gl.drawRectangle(287, 350, 13, 20, ECAM_YELLOW)
-        else
-            sasl.gl.drawRectangle(287, 350, 13, 20, ECAM_RED)
+
+        if get(door_status, 2) > 0 then
+            sasl.gl.drawText(AirbusFont, 302, 355, '----------- CABIN', 16, false, false, TEXT_ALIGN_LEFT, ECAM_ORANGE)
+            sasl.gl.drawRectangle(280, 350, 13, 20, ECAM_YELLOW)
         end
-        
+
         if get(door_status, 3) == 0 then
             -- sasl.gl.drawFrame(0, 0, 13, 20, ECAM_GREEN)
-        elseif get(door_status, 3) == 1 then
-            sasl.gl.drawRectangle(280, 310, 20, 20, ECAM_YELLOW)
-        else
-            sasl.gl.drawRectangle(280, 310, 20, 20, ECAM_RED) 
+        elseif get(door_status, 3) > 0 then
+            sasl.gl.drawText(AirbusFont, 302, 315, '------ CARGO', 16, false, false, TEXT_ALIGN_LEFT, ECAM_ORANGE)
+            sasl.gl.drawRectangle(277, 310, 17, 20, ECAM_YELLOW)
+        -- else
+        --     sasl.gl.drawRectangle(283, 310, 17, 20, ECAM_RED) 
         end
-        
+
         if get(door_status, 4) == 0 then
             sasl.gl.drawFrame(0, 0, 13, 20, ECAM_GREEN)
         elseif get(door_status, 4) == 1 then
@@ -121,7 +143,7 @@ local function draw_doors_page()--draw the doors page
         else
             sasl.gl.drawRectangle(0, 0, 13, 20, ECAM_RED)
         end
-        
+
         if get(door_status, 5) == 0 then
             sasl.gl.drawFrame(0, 0, 13, 20, ECAM_GREEN)
         elseif get(door_status, 5) == 1 then
@@ -129,15 +151,16 @@ local function draw_doors_page()--draw the doors page
         else
             sasl.gl.drawRectangle(0, 0, 13, 20, ECAM_RED)
         end
-        
+
         if get(door_status, 6) == 0 then
             sasl.gl.drawFrame(0, 0, 13, 20, ECAM_GREEN)
-        elseif get(door_status, 6) == 1 then
+        elseif get(door_status, 6) > 0 then
+            sasl.gl.drawText(AirbusFont, 308, 150, '------ CARGO', 16, false, false, TEXT_ALIGN_LEFT, ECAM_ORANGE)
             sasl.gl.drawRectangle(0, 0, 13, 20, ECAM_YELLOW)
-        else
-            sasl.gl.drawRectangle(0, 0, 13, 20, ECAM_RED)
+        -- else
+        --     sasl.gl.drawRectangle(0, 0, 13, 20, ECAM_RED)
         end
-        
+
         if get(door_status, 7) == 0 then
             sasl.gl.drawFrame(0, 0, 13, 20, ECAM_GREEN)
         elseif get(door_status, 7) == 1 then
@@ -145,7 +168,7 @@ local function draw_doors_page()--draw the doors page
         else
             sasl.gl.drawRectangle(0, 0, 13, 20, ECAM_RED)
         end
-        
+
         if get(door_status, 8) == 0 then
             sasl.gl.drawFrame(0, 0, 13, 20, ECAM_GREEN)
         elseif get(door_status, 8) == 1 then
@@ -153,7 +176,7 @@ local function draw_doors_page()--draw the doors page
         else
             sasl.gl.drawRectangle(0, 0, 13, 20, ECAM_RED)
         end
-        
+
         if get(door_status, 9) == 0 then
             sasl.gl.drawFrame(0, 0, 13, 20, ECAM_GREEN)
         elseif get(door_status, 9) == 1 then
@@ -161,7 +184,7 @@ local function draw_doors_page()--draw the doors page
         else
             sasl.gl.drawRectangle(0, 0, 13, 20, ECAM_RED)
         end
-        
+
         if get(door_status, 10) == 0 then
             sasl.gl.drawFrame(0, 0, 13, 20, ECAM_GREEN)
         elseif get(door_status, 10) == 1 then
