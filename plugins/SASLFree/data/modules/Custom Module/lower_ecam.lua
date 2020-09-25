@@ -3,7 +3,7 @@ position = {1144, 50, 522, 522}
 size = {522, 522}
 
 --defining dataref variables
-local current_ecam_page = createGlobalPropertyi("A318/cockpit/ecam/ecam_current_page", 9)--create variable that tells us current ecam page
+local current_ecam_page = createGlobalPropertyi("A318/cockpit/ecam/ecam_current_page", 1)--create variable that tells us current ecam page
 local altitude = globalPropertyf("sim/cockpit2/gauges/indicators/altitude_ft_pilot")--we define an altitude variable
 local airspeed = globalPropertyf("sim/cockpit2/gauges/indicators/airspeed_kts_pilot")--we define an airspeed variable
 local pitch = globalPropertyf("sim/cockpit2/gauges/indicators/pitch_electric_deg_pilot")--we define an a pitch variable
@@ -21,8 +21,11 @@ local local_hour = globalPropertyi("sim/cockpit2/clock_timer/local_time_hours")
 local local_mins = globalPropertyi("sim/cockpit2/clock_timer/local_time_minutes")
 local zulu_hour = globalPropertyi("sim/cockpit2/clock_timer/zulu_time_hours")
 local zulu_mins = globalPropertyi("sim/cockpit2/clock_timer/zulu_time_minutes")
-local temp_sat = globalPropertyf("sim/cockpit2/temperature/outside_air_temp_degc")
-local temp_tat = globalPropertyf("sim/cockpit2/temperature/outside_air_LE_temp_degc")
+local temp_sat = globalPropertyf("sim/cockpit2/temperature/outside_air_LE_temp_degc")
+local temp_tat = globalPropertyf("sim/cockpit2/temperature/outside_air_temp_degc")
+local weight_empty = globalPropertyf("sim/aircraft/weight/acf_m_empty")
+local weight_fuel = globalPropertyf("sim/aircraft/weight/acf_m_fuel_tot")
+local vsi = globalPropertyf("sim/flightmodel/position/vh_ind_fpm")
 
 --create colors
 local ECAM_ORANGE = {255, 165, 0} --We make a red color with 255 red, 0 green, and 0 blue
@@ -88,16 +91,45 @@ local function draw_doors_page()--draw the doors page
     sasl.gl.drawTexture(lower_doors_overlay, 0, 0, 522, 522)--18, -3, 542, 542)--we are drawing the overlay
 
     -- sasl.gl.drawText(AirbusFont, 70, 55, "TAT", 18, false, false, TEXT_ALIGN_RIGHT, ECAM_WHITE)
-    sasl.gl.drawText(AirbusFont, 90, 42, string.format("%+.1f", get(temp_tat)), 14, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
+    sasl.gl.drawText(AirbusFont, 90, 48, string.format("%+.1f", get(temp_tat)), 18, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
     -- sasl.gl.drawText(AirbusFont, 140, 55, "°C", 18, false, false, TEXT_ALIGN_LEFT, ECAM_WHITE)
 
     -- sasl.gl.drawText(AirbusFont, 70, 20, "SAT", 18, false, false, TEXT_ALIGN_RIGHT, ECAM_WHITE)
-    sasl.gl.drawText(AirbusFont, 90, 25, string.format("%+.1f", get(temp_sat)), 14, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
+    sasl.gl.drawText(AirbusFont, 90, 27, string.format("%+.1f", get(temp_sat)), 18, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
     -- sasl.gl.drawText(AirbusFont, 140, 20, "°C", 18, false, false, TEXT_ALIGN_LEFT, ECAM_WHITE)
 
-    sasl.gl.drawText(AirbusFont, 253, 23, string.format("%02d", get(zulu_hour)), 18, false, false, TEXT_ALIGN_RIGHT, ECAM_GREEN)
-    sasl.gl.drawText(AirbusFont, 273, 23, string.format("%02d", get(zulu_mins)), 18, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
+    sasl.gl.drawText(AirbusFont, 251, 27, string.format("%02d", get(zulu_hour)), 18, false, false, TEXT_ALIGN_RIGHT, ECAM_GREEN)
+    sasl.gl.drawText(AirbusFont, 273, 27, string.format("%02d", get(zulu_mins)), 18, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
     -- sasl.gl.drawText(AirbusFont, 261, 32, 'H', 14, false, false, TEXT_ALIGN_RIGHT, ECAM_WHITE)
+
+    local tot_weight = get(weight_empty) + get(weight_fuel)
+    sasl.gl.drawText(AirbusFont, 472, 46, string.format("%.f", get(tot_weight)), 18, false, false, TEXT_ALIGN_RIGHT, ECAM_GREEN)
+    ----------------------------------------------------------------------------------------------------------
+
+    local function sign(v)
+        return (v >= 0 and 1) or -1
+    end
+    local function round(v, bracket)
+        bracket = bracket or 1
+        return math.floor(v/bracket + sign(v) * 0.5) * bracket
+    end
+    -- Vertical speed
+    sasl.gl.drawText(AirbusFont, 362, 410, 'V/S', 20, false, false, TEXT_ALIGN_LEFT, ECAM_WHITE)
+
+    local vs = round(get(vsi))
+    local blink = false
+    local vs_colour = ECAM_GREEN
+    if vs >= 2000 or vs <= -2000 then
+        vs_colour = ECAM_ORANGE
+    elseif (vs >= 1850 and vs < 2000) or (vs <= -1850 and vs > -2000) then
+        blink = true
+    elseif blink and (vs < 1600 or vs > -1600) then
+        blink = false
+    elseif vs > 0 then
+    end
+    sasl.gl.drawWidePolyLine({403, 411, 410, 411, 423, 424, 417, 423, 423, 418, 423, 424}, 2, vs_colour)
+    sasl.gl.drawText(AirbusFont, 476, 410, string.format("%.f", round(vs, 10)), 20, false, false, TEXT_ALIGN_RIGHT, vs_colour)
+    sasl.gl.drawText(AirbusFont, 482, 410, "FT/MIN", 14, false, false, TEXT_ALIGN_LEFT, ECAM_BLUE)
 
     -- door 1 - CPT FRONT
     sasl.gl.drawWidePolyLine({228, 350, 228, 368, 238, 368, 238, 350, 227, 350}, 2, ECAM_GREEN)
