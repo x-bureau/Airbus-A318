@@ -3,7 +3,7 @@ position = {1144, 50, 522, 522}
 size = {522, 522}
 
 --defining dataref variables
-local current_ecam_page = createGlobalPropertyi("A318/cockpit/ecam/ecam_current_page", 1)--create variable that tells us current ecam page
+local current_ecam_page = createGlobalPropertyi("A318/cockpit/ecam/ecam_current_page", 9)--create variable that tells us current ecam page
 local altitude = globalPropertyf("sim/cockpit2/gauges/indicators/altitude_ft_pilot")--we define an altitude variable
 local airspeed = globalPropertyf("sim/cockpit2/gauges/indicators/airspeed_kts_pilot")--we define an airspeed variable
 local pitch = globalPropertyf("sim/cockpit2/gauges/indicators/pitch_electric_deg_pilot")--we define an a pitch variable
@@ -85,7 +85,7 @@ local function draw_air_cond_page()--draw the air conditioning page
 end
 
 local function draw_doors_page()--draw the doors page
-    sasl.gl.drawTexture(lower_doors_overlay, 0, 0, 522, 522)--we are drawing the overlay
+    sasl.gl.drawTexture(lower_doors_overlay, 0, 0, 522, 522)--18, -3, 542, 542)--we are drawing the overlay
 
     -- sasl.gl.drawText(AirbusFont, 70, 55, "TAT", 18, false, false, TEXT_ALIGN_RIGHT, ECAM_WHITE)
     sasl.gl.drawText(AirbusFont, 90, 42, string.format("%+.1f", get(temp_tat)), 14, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
@@ -95,8 +95,8 @@ local function draw_doors_page()--draw the doors page
     sasl.gl.drawText(AirbusFont, 90, 25, string.format("%+.1f", get(temp_sat)), 14, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
     -- sasl.gl.drawText(AirbusFont, 140, 20, "°C", 18, false, false, TEXT_ALIGN_LEFT, ECAM_WHITE)
 
-    sasl.gl.drawText(AirbusFont, 253, 23, string.format("%02d", get(local_hour)), 18, false, false, TEXT_ALIGN_RIGHT, ECAM_GREEN)
-    sasl.gl.drawText(AirbusFont, 273, 23, string.format("%02d", get(local_mins)), 18, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
+    sasl.gl.drawText(AirbusFont, 253, 23, string.format("%02d", get(zulu_hour)), 18, false, false, TEXT_ALIGN_RIGHT, ECAM_GREEN)
+    sasl.gl.drawText(AirbusFont, 273, 23, string.format("%02d", get(zulu_mins)), 18, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
     -- sasl.gl.drawText(AirbusFont, 261, 32, 'H', 14, false, false, TEXT_ALIGN_RIGHT, ECAM_WHITE)
 
     -- door 1 - CPT FRONT
@@ -122,6 +122,9 @@ local function draw_doors_page()--draw the doors page
     sasl.gl.drawWidePolyLine({283, 110, 283, 128, 293, 128, 293, 110, 282, 110}, 2, ECAM_GREEN)
 
     -- avionics
+    sasl.gl.drawWidePolyLine({253, 428, 253, 436, 268, 436, 268, 428, 252, 428}, 2, ECAM_GREEN)
+    sasl.gl.drawWidePolyLine({271, 398, 271, 413, 279, 413, 279, 398, 270, 398}, 2, ECAM_GREEN)
+    sasl.gl.drawWidePolyLine({243, 398, 243, 413, 251, 413, 251, 398, 242, 398}, 2, ECAM_GREEN)
     sasl.gl.drawWidePolyLine({278, 140, 278, 158, 285, 158, 285, 140, 277, 140}, 2, ECAM_GREEN)
 
     if get(door_status, 1) == 0 then--if the door open ratio is = 0
