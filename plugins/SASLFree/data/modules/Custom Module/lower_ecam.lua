@@ -12,7 +12,7 @@ local npercent = globalPropertyfa("sim/cockpit2/engine/indicators/N1_percent", 7
 local n2percent = globalPropertyfa("sim/cockpit2/engine/indicators/N1_percent", 7)--we define the N2 Percent dataref
 local door_status = globalPropertyfa("sim/flightmodel2/misc/door_open_ratio", 10)--we define the door open ratio dataref
 local fuel_init_quantity = globalPropertyf("sim/cockpit2/fuel/fuel_totalizer_init_kg")--we define the amout of fuel that the aircraft was loaded with
-local fuel_current_quantity = globalPropertyfa("sim/cockpit2/fuel/fuel_quantity", 9)--we define the amount of fuel that the aircraft has remaining
+local fuel_current_quantity = globalPropertyfa("sim/cockpit2/fuel/fuel_quantity")--we define the amount of fuel that the aircraft has remaining
 local fuel_used = createGlobalPropertyfa("A318/systems/fuel_used", 2)--we define the amount of fuel used by each engine
 local oil_qty = globalPropertyfa("sim/flightmodel/engine/ENGN_oil_quan", 8)--we define an oil quantity dataref
 local cabin_alt = globalPropertyf("sim/cockpit2/pressurization/indicators/cabin_altitude_ft")--we define the dataref for cabin altitude
@@ -54,6 +54,14 @@ local lower_sts_overlay = sasl.gl.loadImage("images/ECAM_ENG_LOWER.png")--defini
 local lower_cruise_overlay = sasl.gl.loadImage("images/cruise.png")--defining the lower ecam cruise page overlay
 
 
+local function round(v, bracket)
+    local function sign(v)
+        return (v >= 0 and 1) or -1
+    end
+    bracket = bracket or 1
+    return math.floor(v/bracket + sign(v) * 0.5) * bracket
+end
+
 --custom functions
 local function draw_eng_page()--draw engine page
     sasl.gl.drawTexture(lower_engine_overlay, 0, 0, 522, 522)--we are drawing the overlay
@@ -90,45 +98,22 @@ end
 local function draw_doors_page()--draw the doors page
     sasl.gl.drawTexture(lower_doors_overlay, 0, 0, 522, 522)--18, -3, 542, 542)--we are drawing the overlay
 
-    -- sasl.gl.drawText(AirbusFont, 70, 55, "TAT", 18, false, false, TEXT_ALIGN_RIGHT, ECAM_WHITE)
-    sasl.gl.drawText(AirbusFont, 90, 48, string.format("%+.1f", get(temp_tat)), 18, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
-    -- sasl.gl.drawText(AirbusFont, 140, 55, "°C", 18, false, false, TEXT_ALIGN_LEFT, ECAM_WHITE)
-
-    -- sasl.gl.drawText(AirbusFont, 70, 20, "SAT", 18, false, false, TEXT_ALIGN_RIGHT, ECAM_WHITE)
-    sasl.gl.drawText(AirbusFont, 90, 27, string.format("%+.1f", get(temp_sat)), 18, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
-    -- sasl.gl.drawText(AirbusFont, 140, 20, "°C", 18, false, false, TEXT_ALIGN_LEFT, ECAM_WHITE)
-
-    sasl.gl.drawText(AirbusFont, 251, 27, string.format("%02d", get(zulu_hour)), 18, false, false, TEXT_ALIGN_RIGHT, ECAM_GREEN)
-    sasl.gl.drawText(AirbusFont, 273, 27, string.format("%02d", get(zulu_mins)), 18, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
-    -- sasl.gl.drawText(AirbusFont, 261, 32, 'H', 14, false, false, TEXT_ALIGN_RIGHT, ECAM_WHITE)
-
-    local tot_weight = get(weight_empty) + get(weight_fuel)
-    sasl.gl.drawText(AirbusFont, 472, 46, string.format("%.f", get(tot_weight)), 18, false, false, TEXT_ALIGN_RIGHT, ECAM_GREEN)
-    ----------------------------------------------------------------------------------------------------------
-
-    local function sign(v)
-        return (v >= 0 and 1) or -1
-    end
-    local function round(v, bracket)
-        bracket = bracket or 1
-        return math.floor(v/bracket + sign(v) * 0.5) * bracket
-    end
     -- Vertical speed
     sasl.gl.drawText(AirbusFont, 362, 410, 'V/S', 20, false, false, TEXT_ALIGN_LEFT, ECAM_WHITE)
 
-    local vs = round(get(vsi))
+    local vs = get(vsi)
     local blink = false
     local vs_colour = ECAM_GREEN
     if vs >= 2000 or vs <= -2000 then
         vs_colour = ECAM_ORANGE
-    elseif (vs >= 1850 and vs < 2000) or (vs <= -1850 and vs > -2000) then
+    elseif (vs >= 1800 and vs < 2000) or (vs <= -1850 and vs > -2000) then
         blink = true
     elseif blink and (vs < 1600 or vs > -1600) then
         blink = false
     elseif vs > 0 then
     end
     sasl.gl.drawWidePolyLine({403, 411, 410, 411, 423, 424, 417, 423, 423, 418, 423, 424}, 2, vs_colour)
-    sasl.gl.drawText(AirbusFont, 476, 410, string.format("%.f", round(vs, 10)), 20, false, false, TEXT_ALIGN_RIGHT, vs_colour)
+    sasl.gl.drawText(AirbusFont, 476, 410, string.format("%.f", round(vs, 50)), 20, false, false, TEXT_ALIGN_RIGHT, vs_colour)
     sasl.gl.drawText(AirbusFont, 482, 410, "FT/MIN", 14, false, false, TEXT_ALIGN_LEFT, ECAM_BLUE)
 
     -- door 1 - CPT FRONT
@@ -356,4 +341,19 @@ function draw() --the function that actually draws on the panel
     elseif get(current_ecam_page) == 13 then --if the curent ecam page is 13
         draw_cruise_page()--draw the cruise page
     end
+
+    -- draw Temperatures
+    sasl.gl.drawText(AirbusFont, 90, 48, string.format("%+.1f", get(temp_tat)), 18, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
+    sasl.gl.drawText(AirbusFont, 90, 27, string.format("%+.1f", get(temp_sat)), 18, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
+
+    -- draw Clock
+    sasl.gl.drawText(AirbusFont, 251, 27, string.format("%02d", get(zulu_hour)), 18, false, false, TEXT_ALIGN_RIGHT, ECAM_GREEN)
+    sasl.gl.drawText(AirbusFont, 273, 27, string.format("%02d", get(zulu_mins)), 18, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
+    -- sasl.gl.drawText(AirbusFont, 261, 32, 'H', 14, false, false, TEXT_ALIGN_RIGHT, ECAM_WHITE)
+
+    -- draw Gross Weight
+    local tot_weight = get(weight_empty) + get(weight_fuel)
+    sasl.gl.drawText(AirbusFont, 472, 46, string.format("%.f", get(tot_weight)), 18, false, false, TEXT_ALIGN_RIGHT, ECAM_GREEN)
+    ----------------------------------------------------------------------------------------------------------
+
 end
