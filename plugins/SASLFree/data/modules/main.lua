@@ -8,6 +8,7 @@ panelWidth3d = 2048
 panelHeight3d = 2048
 
 components = {
+  customdataref {};
   pfd {};
   nav {};
   ecam {};
