@@ -1,12 +1,27 @@
 -- A318 created by X-Bureau --
---Defining the properties
+require "enum_declarations"
+-- create control datarefs
+local rotate = createGlobalPropertyi("A318/controls/rotate", 0)
+
+-- create cockpit datarefs
+local gpws_dataref = createGlobalPropertyi("A318/cockpit/egpws/altitude", 0)--GPWS Dataref
+local too_low_gear = createGlobalPropertyi("A318/cockpit/warnings/too_low_gear", 0)--Dataref for Too Low gear alarm
+
+-- systems datarefs
+    -- fuel
+local xfer_state = createGlobalPropertyi("A318/systems/fuel/pumps/xfer_state", valve_states.closed) -- Dataref for centre fuel tank model selector 0 = auto; 1 = manual
+local centre_fuel_pump_mode = createGlobalPropertyi("A318/systems/fuel/pumps/centre_mode_sel", 0) -- Dataref for centre fuel tank model selector 0 = auto; 1 = manual
+
+    -- apu
+local apu_valve_state = createGlobalPropertyi("A318/systems/engines/apu/apu_valve", valve_states.closed)
+
+-- create efb datarefs
+local unit_weight = createGlobalPropertys("A318/efb/config/units/weight", units.kgs)
+local unit_temp = createGlobalPropertys("A318/efb/config/units/temp", "c")
+
 local altitude = globalPropertyf("sim/cockpit2/gauges/indicators/altitude_ft_pilot")
 local pitch = globalPropertyf("sim/cockpit2/gauges/indicators/pitch_electric_deg_pilot")
 local gear_status = globalProperty("sim/flightmodel2/gear/deploy_ratio")--Gear deployment status dataref
--- Defining the property --
-local rotate = createGlobalPropertyi("A318/controls/rotate", 0)
-local gpws_dataref = createGlobalPropertyi("a318/egpws/altitude", 0)--GPWS Dataref
-local too_low_gear = createGlobalPropertyi("a318/warnings/too_low_gear", 0)--Dataref for Too Low gear alarm
 
 function update()
   -- If pitch <= 0, and pitch is >= 0, set rotate dataref to 1
@@ -46,14 +61,14 @@ function update()
       set(gpws_dataref, 5)
   end
  
---   sasl.logInfo(gear_status)
-  -- TOO LOW GEAR FUNCTION
-  -- jamlen: commented out as gear_status is an array and can't compare to 1... therefore it was failing to load the module.
---   if get(gear_status) < 1 and math.floor(get(altitude)) <= 750 then
---       set(too_low_gear, 1)
---   else
---       set(too_low_gear, 0)
---   end
+    -- sasl.logInfo(get(gear_status))
+    -- TOO LOW GEAR FUNCTION
+    -- jamlen: commented out as gear_status is an array and can't compare to 1... therefore it was failing to load the module.
+    -- if get(gear_status) < 1 and math.floor(get(altitude)) <= 750 then
+    --     set(too_low_gear, 1)
+    -- else
+    --     set(too_low_gear, 0)
+    -- end
  
   updateAll(components)
 end

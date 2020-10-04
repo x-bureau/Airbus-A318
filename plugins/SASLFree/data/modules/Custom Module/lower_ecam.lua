@@ -1,9 +1,13 @@
 --A318 by X-Bureau--
-position = {1144, 50, 522, 522}
+position = {1170, 50, 522, 522}
 size = {522, 522}
+require "enum_declarations"
 
 --defining dataref variables
-local current_ecam_page = createGlobalPropertyi("A318/cockpit/ecam/ecam_current_page", 6)--create variable that tells us current ecam page
+local current_ecam_page = createGlobalPropertyi("A318/cockpit/ecam/current_page", 6)--create variable that tells us current ecam page
+local fuel_used = createGlobalPropertyfa("A318/systems/fuel/fuel_used", 2)--we define the amount of fuel used by each engine
+local fuel_flow = createGlobalPropertyf("A318/systems/fuel/fuel_flow")
+
 local altitude = globalPropertyf("sim/cockpit2/gauges/indicators/altitude_ft_pilot")--we define an altitude variable
 local airspeed = globalPropertyf("sim/cockpit2/gauges/indicators/airspeed_kts_pilot")--we define an airspeed variable
 local pitch = globalPropertyf("sim/cockpit2/gauges/indicators/pitch_electric_deg_pilot")--we define an a pitch variable
@@ -13,8 +17,12 @@ local n2percent = globalPropertyfa("sim/cockpit2/engine/indicators/N1_percent", 
 local door_status = globalPropertyfa("sim/flightmodel2/misc/door_open_ratio", 10)--we define the door open ratio dataref
 local fuel_init_quantity = globalPropertyf("sim/cockpit2/fuel/fuel_totalizer_init_kg")--we define the amout of fuel that the aircraft was loaded with
 local fuel_current_quantity = globalPropertyfa("sim/cockpit2/fuel/fuel_quantity")--we define the amount of fuel that the aircraft has remaining
-local fuel_used = createGlobalPropertyfa("A318/systems/fuel_used", 2)--we define the amount of fuel used by each engine
+local centre_fuel_pump_mode = globalPropertyi("A318/systems/fuel/pumps/centre_mode_sel")
 local fuel_tank_pumps = globalPropertyia("sim/cockpit2/fuel/fuel_tank_pump_on", 8) -- define the fuel tank pump status
+local fuel_flow_kg_sec = globalPropertyfa("sim/cockpit2/engine/indicators/fuel_flow_kg_sec", 2)
+local apu_valve_state = globalPropertyi("A318/systems/engines/apu/apu_valve", valve_states.closed)
+local apu_master = globalPropertyi("sim/cockpit/engine/APU_switch")
+
 local oil_qty = globalPropertyfa("sim/flightmodel/engine/ENGN_oil_quan", 8)--we define an oil quantity dataref
 local cabin_alt = globalPropertyf("sim/cockpit2/pressurization/indicators/cabin_altitude_ft")--we define the dataref for cabin altitude
 local speedbrake_status = globalPropertyfa("sim/flightmodel2/controls/speedbrake_ratio", 10)--we define the status of speedbrakes
@@ -28,8 +36,11 @@ local weight_empty = globalPropertyf("sim/aircraft/weight/acf_m_empty")
 local weight_fuel = globalPropertyf("sim/aircraft/weight/acf_m_fuel_tot")
 local vsi = globalPropertyf("sim/flightmodel/position/vh_ind_fpm")
 
+local unit_weight = globalPropertys("A318/efb/config/units/weight")
+local unit_temp = globalPropertys("A318/efb/config/units/temp")
+
 --create colors
-local ECAM_ORANGE = {255, 165, 0} --We make a red color with 255 red, 0 green, and 0 blue
+local ECAM_ORANGE = {1.0, 0.625, 0.0, 1.0} --We make a red color with 255 red, 0 green, and 0 blue
 local ECAM_RED = {255, 0, 0} --We make a red color with 255 red, 0 green, and 0 blue
 local ECAM_GREEN = {0.184, 0.733, 0.219, 1.0}--we make a green color with 0.184 red, 0.733 green, 0.219 Blue, and 1.0 for the alpha
 local ECAM_WHITE = {1.0, 1.0, 1.0, 1.0}--we make a white color with 1.0 red, 1.0 green, 1.0 Blue, and 1.0 for the alpha
@@ -40,19 +51,19 @@ local ECAM_YELLOW = {1.0, 1.0, 0, 1.0}--we make a yellow color with 1.0 red, 1.0
 local AirbusFont = sasl.gl.loadFont("fonts/PanelFont.ttf")
 
 --load images
-local lower_engine_overlay = sasl.gl.loadImage("images/ECAM_ENG_LOWER.png")--defining the lower ecam engine page overlay
-local lower_bleed_overlay = sasl.gl.loadImage("images/ECAM_ENG_LOWER.png")--defining the lower ecam bleed page overlay
-local lower_press_overlay = sasl.gl.loadImage("images/ECAM_ENG_LOWER.png")--defining the lower ecam pressure page overlay
-local lower_elec_overlay = sasl.gl.loadImage("images/ECAM_ENG_LOWER.png")--defining the lower ecam electricity page overlay
-local lower_hyd_overlay = sasl.gl.loadImage("images/ECAM_LOWER_HYD_OVERLAY.png")--defining the lower ecam hydraulics page overlay
-local lower_fuel_overlay = sasl.gl.loadImage("images/ECAM_LOWER_FUEL_OVERLAY.png")--defining the lower ecam fuel page overlay
-local lower_apu_overlay = sasl.gl.loadImage("images/ECAM_ENG_LOWER.png")--defining the lower ecam APU page overlay
-local lower_air_cond_overlay = sasl.gl.loadImage("images/ECAM_ENG_LOWER.png")--defining the lower ecam Air Cond page overlay
-local lower_doors_overlay = sasl.gl.loadImage("images/ECAM_LOWER_DOORS_OVERLAY.png")--defining the lower ecam doors page overlay
-local lower_wheel_overlay = sasl.gl.loadImage("images/ECAM_ENG_LOWER.png")--defining the lower ecam wheels page overlay
-local lower_fctl_overlay = sasl.gl.loadImage("images/ECAM_LOWER_FCTL_OVERLAY.png")--defining the lower ecam Flight Controls page overlay
-local lower_sts_overlay = sasl.gl.loadImage("images/ECAM_ENG_LOWER.png")--defining the lower ecam systems page overlay
-local lower_cruise_overlay = sasl.gl.loadImage("images/ECAM_LOWER_CRUISE_OVERLAY.png")--defining the lower ecam cruise page overlay
+local lower_engine_overlay = sasl.gl.loadImage("ECAM_ENG_LOWER.png")--defining the lower ecam engine page overlay
+local lower_bleed_overlay = sasl.gl.loadImage("ECAM_ENG_LOWER.png")--defining the lower ecam bleed page overlay
+local lower_press_overlay = sasl.gl.loadImage("ECAM_ENG_LOWER.png")--defining the lower ecam pressure page overlay
+local lower_elec_overlay = sasl.gl.loadImage("ECAM_ENG_LOWER.png")--defining the lower ecam electricity page overlay
+local lower_hyd_overlay = sasl.gl.loadImage("ECAM_LOWER_HYD_OVERLAY.png")--defining the lower ecam hydraulics page overlay
+local lower_fuel_overlay = sasl.gl.loadImage("ECAM_LOWER_FUEL_OVERLAY.png")--defining the lower ecam fuel page overlay
+local lower_apu_overlay = sasl.gl.loadImage("ECAM_ENG_LOWER.png")--defining the lower ecam APU page overlay
+local lower_air_cond_overlay = sasl.gl.loadImage("ECAM_ENG_LOWER.png")--defining the lower ecam Air Cond page overlay
+local lower_doors_overlay = sasl.gl.loadImage("ECAM_LOWER_DOORS_OVERLAY.png")--defining the lower ecam doors page overlay
+local lower_wheel_overlay = sasl.gl.loadImage("ECAM_ENG_LOWER.png")--defining the lower ecam wheels page overlay
+local lower_fctl_overlay = sasl.gl.loadImage("ECAM_LOWER_FCTL_OVERLAY.png")--defining the lower ecam Flight Controls page overlay
+local lower_sts_overlay = sasl.gl.loadImage("ECAM_ENG_LOWER.png")--defining the lower ecam systems page overlay
+local lower_cruise_overlay = sasl.gl.loadImage("ECAM_LOWER_CRUISE_OVERLAY.png")--defining the lower ecam cruise page overlay
 
 
 local function round(v, bracket)
@@ -61,6 +72,20 @@ local function round(v, bracket)
     end
     bracket = bracket or 1
     return math.floor(v/bracket + sign(v) * 0.5) * bracket
+end
+
+function get_weight(kg)
+    if get(unit_weight) == "kg" then
+        return kg
+    end
+    return kg * 2.20462262185
+end
+
+function get_temp(celsius)
+    if get(unit_temp) == "c" then
+        return celsius
+    end
+    return celsius * 1.8 + 32
 end
 
 --custom functions
@@ -86,6 +111,12 @@ end
 
 local function draw_fuel_page()--draw the fuel page
     sasl.gl.drawTexture(lower_fuel_overlay, 0, 0, 522, 522)--we are drawing the overlay
+    sasl.gl.drawText(AirbusFont, 190, 87, get(unit_weight), 20, false, false, TEXT_ALIGN_LEFT, ECAM_WHITE)
+    sasl.gl.drawText(AirbusFont, 175, 87, string.format("%.0f", get(weight_fuel)), 20, false, false, TEXT_ALIGN_RIGHT, ECAM_GREEN)
+
+    sasl.gl.drawText(AirbusFont, 190, 115, get(unit_weight) .. "/MIN", 20, false, false, TEXT_ALIGN_LEFT, ECAM_WHITE)
+    sasl.gl.drawText(AirbusFont, 175, 115, string.format("%.2f", get(fuel_flow)), 20, false, false, TEXT_ALIGN_RIGHT, ECAM_GREEN)
+
     -- centre tank
     sasl.gl.drawText(AirbusFont, 262, 270, round(get(fuel_current_quantity, 1), 1), 20, false, false, TEXT_ALIGN_CENTER, ECAM_GREEN)
     -- left inner tank
@@ -97,20 +128,70 @@ local function draw_fuel_page()--draw the fuel page
     -- right outer tank
     sasl.gl.drawText(AirbusFont, 485, 260, round(get(fuel_current_quantity, 3), 1), 20, false, false, TEXT_ALIGN_CENTER, ECAM_GREEN)
 
+    -- left tanks
     if get(fuel_tank_pumps, 1) == 1 then
-        sasl.gl.drawFrame(122, 311, 28, 29, ECAM_GREEN)
-        sasl.gl.drawPolyLine({136,311, 136,340}, ECAM_GREEN)
-    else
+        sasl.gl.drawFrame(122, 311, 28, 29, ECAM_GREEN) -- we are drawing the fuel pump outline
+        sasl.gl.drawWidePolyLine({135,311, 135,340}, 2, ECAM_GREEN) -- we are drawing the fuel pump indicator line
+    elseif get(fuel_tank_pumps, 1) < 1 then
         sasl.gl.drawFrame(122, 311, 28, 29, ECAM_ORANGE)
-        sasl.gl.drawPolyLine({122,326, 150,326}, ECAM_ORANGE)
+        sasl.gl.drawWidePolyLine({128,326, 144,326}, 2, ECAM_ORANGE)
     end
     if get(fuel_tank_pumps, 2) == 1 then
-        sasl.gl.drawFrame(155, 311, 28, 29, ECAM_GREEN)
-        sasl.gl.drawPolyLine({169,311, 169,340}, ECAM_GREEN)
-    else
-        sasl.gl.drawFrame(155, 311, 28, 29, ECAM_ORANGE)
-        sasl.gl.drawPolyLine({155,326, 183,326}, ECAM_ORANGE)
+        sasl.gl.drawFrame(157, 311, 28, 29, ECAM_GREEN)
+        sasl.gl.drawWidePolyLine({170,311, 170,340}, 2, ECAM_GREEN)
+    elseif get(fuel_tank_pumps, 2) < 1 then
+        sasl.gl.drawFrame(157, 311, 28, 29, ECAM_ORANGE)
+        sasl.gl.drawWidePolyLine({163,326, 179,326}, 2, ECAM_ORANGE)
     end
+
+    -- right tanks
+    if get(fuel_tank_pumps, 3) == 1 then
+        sasl.gl.drawFrame(338, 311, 28, 29, ECAM_GREEN)
+        sasl.gl.drawWidePolyLine({352,311, 352,340}, 2, ECAM_GREEN)
+    elseif get(fuel_tank_pumps, 3) < 1 then
+        sasl.gl.drawFrame(338, 311, 28, 29, ECAM_ORANGE)
+        sasl.gl.drawWidePolyLine({344,326, 360,326}, 2, ECAM_ORANGE)
+    end
+    if get(fuel_tank_pumps, 4) == 1 then
+        sasl.gl.drawFrame(374, 311, 28, 29, ECAM_GREEN)
+        sasl.gl.drawWidePolyLine({387,311, 387,340}, 2, ECAM_GREEN)
+    elseif get(fuel_tank_pumps, 4) < 1 then
+        sasl.gl.drawFrame(374, 311, 28, 29, ECAM_ORANGE)
+        sasl.gl.drawWidePolyLine({380,326, 396,326}, 2, ECAM_ORANGE)
+    end
+
+    sasl.gl.drawText(AirbusFont, 182, 448, "APU", 18, false, false, TEXT_ALIGN_CENTER, ECAM_WHITE)
+    if get(apu_valve_state) == valve_states.closed and get(apu_master) == switch_states.on then
+        sasl.gl.drawCircle(182, 426, 13, false, ECAM_ORANGE)
+        sasl.gl.drawPolyLine({169,426,  195,426}, ECAM_ORANGE)
+        -- draw horizontal line
+    elseif get(apu_valve_state) == valve_states.closed then
+        sasl.gl.drawCircle(182, 426, 13, false, ECAM_GREEN)
+        sasl.gl.drawPolyLine({169,426,  195,426}, ECAM_GREEN)
+        -- draw horizontal line
+    elseif get(apu_valve_state) == valve_states.transit then
+        sasl.gl.drawCircle(182, 426, 13, false, ECAM_ORANGE)
+        sasl.gl.drawPolyLine({172,416,  192,436}, ECAM_ORANGE)
+    elseif get(apu_valve_state) == valve_states.open then
+        sasl.gl.drawCircle(182, 426, 13, false, ECAM_GREEN)
+        sasl.gl.drawPolyLine({183,413,  183,439}, ECAM_GREEN)
+    end
+
+    -- centre tanks
+    if get(fuel_tank_pumps, 5) == 0 and get(centre_fuel_pump_mode) == 0 then
+        sasl.gl.drawFrame(224, 322, 28, 29, ECAM_GREEN)
+        -- sasl.gl.drawWidePolyLine({352,311, 352,340}, 2, ECAM_GREEN)
+    elseif get(fuel_tank_pumps, 5) < 1 then
+        sasl.gl.drawFrame(224, 322, 28, 29, ECAM_ORANGE)
+        sasl.gl.drawWidePolyLine({344,326, 360,326}, 2, ECAM_ORANGE)
+    end
+    -- if get(fuel_tank_pumps, 6) == 1 then
+    --     sasl.gl.drawFrame(374, 311, 28, 29, ECAM_GREEN)
+    --     sasl.gl.drawWidePolyLine({387,311, 387,340}, 2, ECAM_GREEN)
+    -- elseif get(fuel_tank_pumps, 6) < 1 then
+    --     sasl.gl.drawFrame(374, 311, 28, 29, ECAM_ORANGE)
+    --     sasl.gl.drawWidePolyLine({380,326, 396,326}, 2, ECAM_ORANGE)
+    -- end
 end
 
 local function draw_apu_page()--draw the apu page
@@ -127,6 +208,7 @@ local function draw_doors_page()--draw the doors page
     -- Vertical speed
     sasl.gl.drawText(AirbusFont, 362, 410, 'V/S', 20, false, false, TEXT_ALIGN_LEFT, ECAM_WHITE)
 
+    -- TODO: move this into the update function
     local vs = get(vsi)
     local blink = false
     local vs_colour = ECAM_GREEN
@@ -211,37 +293,6 @@ local function draw_doors_page()--draw the doors page
     --     sasl.gl.drawRectangle(0, 0, 13, 20, ECAM_RED)
     end
 
-    if get(door_status, 7) == 0 then
-        sasl.gl.drawFrame(0, 0, 13, 20, ECAM_GREEN)
-    elseif get(door_status, 7) == 1 then
-        sasl.gl.drawRectangle(0, 0, 13, 20, ECAM_YELLOW)
-    else
-        sasl.gl.drawRectangle(0, 0, 13, 20, ECAM_RED)
-    end
-
-    if get(door_status, 8) == 0 then
-        sasl.gl.drawFrame(0, 0, 13, 20, ECAM_GREEN)
-    elseif get(door_status, 8) == 1 then
-        sasl.gl.drawRectangle(0, 0, 13, 20, ECAM_YELLOW)
-    else
-        sasl.gl.drawRectangle(0, 0, 13, 20, ECAM_RED)
-    end
-
-    if get(door_status, 9) == 0 then
-        sasl.gl.drawFrame(0, 0, 13, 20, ECAM_GREEN)
-    elseif get(door_status, 9) == 1 then
-        sasl.gl.drawRectangle(0, 0, 13, 20, ECAM_YELLOW)
-    else
-        sasl.gl.drawRectangle(0, 0, 13, 20, ECAM_RED)
-    end
-
-    if get(door_status, 10) == 0 then
-        sasl.gl.drawFrame(0, 0, 13, 20, ECAM_GREEN)
-    elseif get(door_status, 10) == 1 then
-        sasl.gl.drawRectangle(0, 0, 13, 20, ECAM_YELLOW)
-    else
-        sasl.gl.drawRectangle(0, 0, 13, 20, ECAM_RED)
-    end
 end
 
 local function draw_wheel_page()--draw the wheels page
@@ -339,6 +390,12 @@ local function draw_cruise_page()--draw the cruise page
     sasl.gl.drawText(AirbusFont, 490, 80, get(cabin_alt), false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)--we display the current cabin altitude
 end
 
+function update() -- perform updating logic as drawing should only draw!
+    -- if get(fuel_current_quantity, 1) > 60 and get(centre_fuel_pump_mode) == 0 then -- fuel in centre tanks so centre pumps can be off and green
+        -- set()
+    set(fuel_flow, get(fuel_flow_kg_sec, 1) + get(fuel_flow_kg_sec, 2))
+end
+
 function draw() --the function that actually draws on the panel
     if get(current_ecam_page) == 1 then --if the curent ecam page is 1
         draw_eng_page()--draw the engine page
@@ -369,21 +426,21 @@ function draw() --the function that actually draws on the panel
     end
 
     -- draw Temperatures
-    sasl.gl.drawText(AirbusFont, 90, 48, string.format("%+.1f", get(temp_tat)), 18, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
-    sasl.gl.drawText(AirbusFont, 90, 27, string.format("%+.1f", get(temp_sat)), 18, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
-    sasl.gl.drawText(AirbusFont, 140, 48, "° C", 18, false, false, TEXT_ALIGN_LEFT, ECAM_BLUE)
-    sasl.gl.drawText(AirbusFont, 140, 27, "° C", 18, false, false, TEXT_ALIGN_LEFT, ECAM_BLUE)
-    sasl.gl.drawText(AirbusFont, 140, 6, "° C", 18, false, false, TEXT_ALIGN_LEFT, ECAM_BLUE)
+    sasl.gl.drawText(AirbusFont, 90, 48, string.format("%+.1f", get(temp_tat)), 20, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
+    sasl.gl.drawText(AirbusFont, 90, 27, string.format("%+.1f", get(temp_sat)), 20, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
+    sasl.gl.drawText(AirbusFont, 140, 48, "° C", 20, false, false, TEXT_ALIGN_LEFT, ECAM_BLUE)
+    sasl.gl.drawText(AirbusFont, 140, 27, "° C", 20, false, false, TEXT_ALIGN_LEFT, ECAM_BLUE)
+    sasl.gl.drawText(AirbusFont, 140, 6, "° C", 20, false, false, TEXT_ALIGN_LEFT, ECAM_BLUE)
     
     -- draw Clock
-    sasl.gl.drawText(AirbusFont, 251, 27, string.format("%02d", get(zulu_hour)), 18, false, false, TEXT_ALIGN_RIGHT, ECAM_GREEN)
-    sasl.gl.drawText(AirbusFont, 273, 27, string.format("%02d", get(zulu_mins)), 18, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
+    sasl.gl.drawText(AirbusFont, 251, 27, string.format("%02d", get(zulu_hour)), 20, false, false, TEXT_ALIGN_RIGHT, ECAM_GREEN)
+    sasl.gl.drawText(AirbusFont, 273, 27, string.format("%02d", get(zulu_mins)), 20, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
     -- sasl.gl.drawText(AirbusFont, 261, 32, 'H', 14, false, false, TEXT_ALIGN_RIGHT, ECAM_WHITE)
 
     -- draw Gross Weight
     local tot_weight = get(weight_empty) + get(weight_fuel)
-    sasl.gl.drawText(AirbusFont, 472, 46, string.format("%.f", get(tot_weight)), 18, false, false, TEXT_ALIGN_RIGHT, ECAM_GREEN)
-    sasl.gl.drawText(AirbusFont, 482, 46, "KG", 18, false, false, TEXT_ALIGN_LEFT, ECAM_BLUE)
+    sasl.gl.drawText(AirbusFont, 472, 46, string.format("%.f", get(tot_weight)), 20, false, false, TEXT_ALIGN_RIGHT, ECAM_GREEN)
+    sasl.gl.drawText(AirbusFont, 482, 46, "KG", 20, false, false, TEXT_ALIGN_LEFT, ECAM_BLUE)
     ----------------------------------------------------------------------------------------------------------
 
 end
