@@ -1,7 +1,7 @@
 --A318 by X-Bureau--
 position = {1170, 50, 522, 522}
 size = {522, 522}
-require "enum_declarations"
+require "common_declarations"
 
 --defining dataref variables
 local current_ecam_page = createGlobalPropertyi("A318/cockpit/ecam/current_page", 6)--create variable that tells us current ecam page
@@ -36,8 +36,7 @@ local weight_empty = globalPropertyf("sim/aircraft/weight/acf_m_empty")
 local weight_fuel = globalPropertyf("sim/aircraft/weight/acf_m_fuel_tot")
 local vsi = globalPropertyf("sim/flightmodel/position/vh_ind_fpm")
 
-local unit_weight = globalPropertys("A318/efb/config/units/weight")
-local unit_temp = globalPropertys("A318/efb/config/units/temp")
+local efb_units = globalPropertyi("A318/efb/config/units")
 
 --create colors
 local ECAM_ORANGE = {1.0, 0.625, 0.0, 1.0} --We make a red color with 255 red, 0 green, and 0 blue
@@ -75,14 +74,14 @@ local function round(v, bracket)
 end
 
 function get_weight(kg)
-    if get(unit_weight) == "kg" then
+    if get(efb_units) == units.metric then
         return kg
     end
     return kg * 2.20462262185
 end
 
 function get_temp(celsius)
-    if get(unit_temp) == "c" then
+    if get(efb_units) == units.metric then
         return celsius
     end
     return celsius * 1.8 + 32
@@ -111,22 +110,22 @@ end
 
 local function draw_fuel_page()--draw the fuel page
     sasl.gl.drawTexture(lower_fuel_overlay, 0, 0, 522, 522)--we are drawing the overlay
-    sasl.gl.drawText(AirbusFont, 190, 87, get(unit_weight), 20, false, false, TEXT_ALIGN_LEFT, ECAM_WHITE)
-    sasl.gl.drawText(AirbusFont, 175, 87, string.format("%.0f", get(weight_fuel)), 20, false, false, TEXT_ALIGN_RIGHT, ECAM_GREEN)
+    sasl.gl.drawText(AirbusFont, 190, 87, (get(efb_units) == units.metric and "KG" or "LBS"), 20, false, false, TEXT_ALIGN_LEFT, ECAM_WHITE)
+    sasl.gl.drawText(AirbusFont, 175, 87, string.format("%.0f", get_weight(get(weight_fuel))), 20, false, false, TEXT_ALIGN_RIGHT, ECAM_GREEN)
 
-    sasl.gl.drawText(AirbusFont, 190, 115, get(unit_weight) .. "/MIN", 20, false, false, TEXT_ALIGN_LEFT, ECAM_WHITE)
+    sasl.gl.drawText(AirbusFont, 190, 115, (get(efb_units) == units.metric and "KG" or "LBS") .. "/MIN", 20, false, false, TEXT_ALIGN_LEFT, ECAM_WHITE)
     sasl.gl.drawText(AirbusFont, 175, 115, string.format("%.2f", get(fuel_flow)), 20, false, false, TEXT_ALIGN_RIGHT, ECAM_GREEN)
 
     -- centre tank
-    sasl.gl.drawText(AirbusFont, 262, 270, round(get(fuel_current_quantity, 1), 1), 20, false, false, TEXT_ALIGN_CENTER, ECAM_GREEN)
+    sasl.gl.drawText(AirbusFont, 262, 270, round(get_weight(get(fuel_current_quantity, 1)), 1), 20, false, false, TEXT_ALIGN_CENTER, ECAM_GREEN)
     -- left inner tank
-    sasl.gl.drawText(AirbusFont, 130, 265, round(get(fuel_current_quantity, 2), 1), 20, false, false, TEXT_ALIGN_CENTER, ECAM_GREEN)
+    sasl.gl.drawText(AirbusFont, 130, 265, round(get_weight(get(fuel_current_quantity, 2)), 1), 20, false, false, TEXT_ALIGN_CENTER, ECAM_GREEN)
     -- right inner tank
-    sasl.gl.drawText(AirbusFont, 390, 265, round(get(fuel_current_quantity, 3), 1), 20, false, false, TEXT_ALIGN_CENTER, ECAM_GREEN)
+    sasl.gl.drawText(AirbusFont, 390, 265, round(get_weight(get(fuel_current_quantity, 3)), 1), 20, false, false, TEXT_ALIGN_CENTER, ECAM_GREEN)
     -- left outer tank
-    sasl.gl.drawText(AirbusFont, 35, 260, round(get(fuel_current_quantity, 2), 1), 20, false, false, TEXT_ALIGN_CENTER, ECAM_GREEN)
+    sasl.gl.drawText(AirbusFont, 35, 260, round(get_weight(get(fuel_current_quantity, 2)), 1), 20, false, false, TEXT_ALIGN_CENTER, ECAM_GREEN)
     -- right outer tank
-    sasl.gl.drawText(AirbusFont, 485, 260, round(get(fuel_current_quantity, 3), 1), 20, false, false, TEXT_ALIGN_CENTER, ECAM_GREEN)
+    sasl.gl.drawText(AirbusFont, 485, 260, round(get_weight(get(fuel_current_quantity, 3)), 1), 20, false, false, TEXT_ALIGN_CENTER, ECAM_GREEN)
 
     -- left tanks
     if get(fuel_tank_pumps, 1) == 1 then
@@ -426,11 +425,11 @@ function draw() --the function that actually draws on the panel
     end
 
     -- draw Temperatures
-    sasl.gl.drawText(AirbusFont, 90, 48, string.format("%+.1f", get(temp_tat)), 20, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
-    sasl.gl.drawText(AirbusFont, 90, 27, string.format("%+.1f", get(temp_sat)), 20, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
-    sasl.gl.drawText(AirbusFont, 140, 48, "° C", 20, false, false, TEXT_ALIGN_LEFT, ECAM_BLUE)
-    sasl.gl.drawText(AirbusFont, 140, 27, "° C", 20, false, false, TEXT_ALIGN_LEFT, ECAM_BLUE)
-    sasl.gl.drawText(AirbusFont, 140, 6, "° C", 20, false, false, TEXT_ALIGN_LEFT, ECAM_BLUE)
+    sasl.gl.drawText(AirbusFont, 90, 48, string.format("%+.1f", get_temp(get(temp_tat))), 20, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
+    sasl.gl.drawText(AirbusFont, 90, 27, string.format("%+.1f", get_temp(get(temp_sat))), 20, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
+    sasl.gl.drawText(AirbusFont, 140, 48, "° " .. (get(efb_units) == units.metric and "C" or "F"), 20, false, false, TEXT_ALIGN_LEFT, ECAM_BLUE)
+    sasl.gl.drawText(AirbusFont, 140, 27, "° " .. (get(efb_units) == units.metric and "C" or "F"), 20, false, false, TEXT_ALIGN_LEFT, ECAM_BLUE)
+    sasl.gl.drawText(AirbusFont, 140,  6, "° " .. (get(efb_units) == units.metric and "C" or "F"), 20, false, false, TEXT_ALIGN_LEFT, ECAM_BLUE)
     
     -- draw Clock
     sasl.gl.drawText(AirbusFont, 251, 27, string.format("%02d", get(zulu_hour)), 20, false, false, TEXT_ALIGN_RIGHT, ECAM_GREEN)
@@ -439,8 +438,8 @@ function draw() --the function that actually draws on the panel
 
     -- draw Gross Weight
     local tot_weight = get(weight_empty) + get(weight_fuel)
-    sasl.gl.drawText(AirbusFont, 472, 46, string.format("%.f", get(tot_weight)), 20, false, false, TEXT_ALIGN_RIGHT, ECAM_GREEN)
-    sasl.gl.drawText(AirbusFont, 482, 46, "KG", 20, false, false, TEXT_ALIGN_LEFT, ECAM_BLUE)
+    sasl.gl.drawText(AirbusFont, 472, 46, string.format("%.0f", get_weight(get(tot_weight))), 20, false, false, TEXT_ALIGN_RIGHT, ECAM_GREEN)
+    sasl.gl.drawText(AirbusFont, 482, 46, (get(efb_units) == units.metric and "KG" or "LBS"), 20, false, false, TEXT_ALIGN_LEFT, ECAM_BLUE)
     ----------------------------------------------------------------------------------------------------------
 
 end

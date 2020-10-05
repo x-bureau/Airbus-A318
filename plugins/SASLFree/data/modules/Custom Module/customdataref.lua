@@ -1,5 +1,5 @@
 -- A318 created by X-Bureau --
-require "enum_declarations"
+require "common_declarations"
 -- create control datarefs
 local rotate = createGlobalPropertyi("A318/controls/rotate", 0)
 
@@ -16,8 +16,8 @@ local centre_fuel_pump_mode = createGlobalPropertyi("A318/systems/fuel/pumps/cen
 local apu_valve_state = createGlobalPropertyi("A318/systems/engines/apu/apu_valve", valve_states.closed)
 
 -- create efb datarefs
-local unit_weight = createGlobalPropertys("A318/efb/config/units/weight", units.kgs)
-local unit_temp = createGlobalPropertys("A318/efb/config/units/temp", "c")
+-- TODO this should be fetched from some config/saved state
+local unit = createGlobalPropertyi("A318/efb/config/units", units.metric)
 
 local altitude = globalPropertyf("sim/cockpit2/gauges/indicators/altitude_ft_pilot")
 local pitch = globalPropertyf("sim/cockpit2/gauges/indicators/pitch_electric_deg_pilot")
