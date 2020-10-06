@@ -9,8 +9,9 @@ local too_low_gear = createGlobalPropertyi("A318/cockpit/warnings/too_low_gear",
 
 -- systems datarefs
     -- fuel
-local xfer_state = createGlobalPropertyi("A318/systems/fuel/pumps/xfer_state", valve_states.closed) -- Dataref for centre fuel tank model selector 0 = auto; 1 = manual
-local centre_fuel_pump_mode = createGlobalPropertyi("A318/systems/fuel/pumps/centre_mode_sel", 0) -- Dataref for centre fuel tank model selector 0 = auto; 1 = manual
+local xfeed_state = createGlobalPropertyi("A318/systems/fuel/pumps/xfeed_state", valve_states.open)
+local centre_fuel_pump_mode = createGlobalPropertyi("A318/systems/fuel/pumps/centre_mode_sel", auto_man_states.auto) -- Dataref for centre fuel tank model selector 0 = auto; 1 = manual
+local eng_valve_state = createGlobalPropertyia("A318/systems/fuel/eng_valves", {valve_states.closed, valve_states.closed})
 
     -- apu
 local apu_valve_state = createGlobalPropertyi("A318/systems/engines/apu/apu_valve", valve_states.closed)
