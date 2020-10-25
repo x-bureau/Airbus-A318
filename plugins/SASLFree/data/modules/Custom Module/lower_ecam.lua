@@ -125,7 +125,7 @@ local function draw_fuel_page()--draw the fuel page
 
     -- F.FLOW
     sasl.gl.drawText(AirbusFont, 190, 115, (get(efb_units) == units.metric and "KG" or "LBS") .. "/MIN", 20, false, false, TEXT_ALIGN_LEFT, ECAM_WHITE)
-    sasl.gl.drawText(AirbusFont, 175, 115, string.format("%.2f", get(fuel_flow)), 20, false, false, TEXT_ALIGN_RIGHT, ECAM_GREEN)
+    sasl.gl.drawText(AirbusFont, 175, 115, string.format("%.2f", round(get_weight(get(fuel_flow)), 0.01)), 20, false, false, TEXT_ALIGN_RIGHT, ECAM_GREEN)
 
     local function drawQuantities()
         -- centre tank
