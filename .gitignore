@@ -1,5 +1,10 @@
 plugins/SASLFree/data/output
 
+### StarSquared99 ###
+cockpit_new.blend
+cockpit_new.blend1
+Textures/*.psd
+
 ### macOS ###
 # General
 .DS_Store
