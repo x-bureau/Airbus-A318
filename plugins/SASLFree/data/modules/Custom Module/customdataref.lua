@@ -1,10 +1,14 @@
 -- A318 created by X-Bureau --
 require "common_declarations"
--- create control datarefs
-local rotate = createGlobalPropertyi("A318/controls/rotate", 0)
 
--- create cockpit datarefs
+-- control datarefs
+local rotate = createGlobalPropertyi("A318/controls/rotate", 0)
+local altitude = globalPropertyf("sim/cockpit2/gauges/indicators/altitude_ft_pilot")
+local pitch = globalPropertyf("sim/cockpit2/gauges/indicators/pitch_electric_deg_pilot")
+
+-- cockpit datarefs
 local gpws_dataref = createGlobalPropertyi("A318/cockpit/egpws/altitude", 0)--GPWS Dataref
+local gear_status = globalPropertyfa("sim/flightmodel2/gear/deploy_ratio")--Gear deployment status dataref
 local too_low_gear = createGlobalPropertyi("A318/cockpit/warnings/too_low_gear", 0)--Dataref for Too Low gear alarm
 
 -- systems datarefs
@@ -13,16 +17,19 @@ local xfeed_state = createGlobalPropertyi("A318/systems/fuel/pumps/xfeed_state",
 local centre_fuel_pump_mode = createGlobalPropertyi("A318/systems/fuel/pumps/centre_mode_sel", auto_man_states.auto) -- Dataref for centre fuel tank model selector 0 = auto; 1 = manual
 local eng_valve_state = createGlobalPropertyia("A318/systems/fuel/eng_valves", {valve_states.closed, valve_states.closed})
 
+    -- cond
+createGlobalPropertyi("A318/systems/aircond/ldg_elev", 100)-- selected landing elevation
+createGlobalPropertyi("A318/systems/aircond/ldg_elev_auto", 1)-- landing elevation in auto mode
+createGlobalPropertyfa("A318/systems/aircond/temps/actual", {22.5, 23.2, 24.1})-- actual temperatures in cockpit, forward and aft cabin
+createGlobalPropertyia("A318/systems/aircond/temps/selected", {23, 24, 24})-- selected temperatures in cockpit, forward and aft cabin
+
     -- apu
-local apu_valve_state = createGlobalPropertyi("A318/systems/engines/apu/apu_valve", valve_states.closed)
+createGlobalPropertyi("A318/systems/engines/apu/apu_valve", valve_states.closed)
 
--- create efb datarefs
+-- efb datarefs
 -- TODO this should be fetched from some config/saved state
-local unit = createGlobalPropertyi("A318/efb/config/units", units.metric)
+createGlobalPropertyi("A318/efb/config/units", units.metric)
 
-local altitude = globalPropertyf("sim/cockpit2/gauges/indicators/altitude_ft_pilot")
-local pitch = globalPropertyf("sim/cockpit2/gauges/indicators/pitch_electric_deg_pilot")
-local gear_status = globalProperty("sim/flightmodel2/gear/deploy_ratio")--Gear deployment status dataref
 
 function update()
   -- If pitch <= 0, and pitch is >= 0, set rotate dataref to 1

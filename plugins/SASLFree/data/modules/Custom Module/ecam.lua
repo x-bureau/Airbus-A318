@@ -5,7 +5,7 @@ size = {522, 522}
 
 --get datarefs
 local npercent = globalPropertyfa("sim/cockpit2/engine/indicators/N1_percent", 7)
-local n2percent = globalPropertyfa("sim/cockpit2/engine/indicators/N1_percent", 7)
+local n2percent = globalPropertyfa("sim/cockpit2/engine/indicators/N2_percent", 7)
 local EGT = globalPropertyfa("sim/flightmodel/engine/ENGN_EGT_c", 7)
 
 --fonts
