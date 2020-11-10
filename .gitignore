@@ -5,6 +5,9 @@ cockpit_new.blend
 cockpit_new.blend1
 Textures/*.psd
 
+### Planemaker temp ###
+.acf~
+
 ### macOS ###
 # General
 .DS_Store
