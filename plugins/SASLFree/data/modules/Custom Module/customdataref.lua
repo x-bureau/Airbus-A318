@@ -1,6 +1,9 @@
 -- A318 created by X-Bureau --
 require "common_declarations"
 
+--baro datarefs
+baro_units = {["hPa"] = 0, ["inHg"] = 1, ["STD"] = 2}
+
 -- control datarefs
 local rotate = createGlobalPropertyi("A318/controls/rotate", 0)
 local altitude = globalPropertyf("sim/cockpit2/gauges/indicators/altitude_ft_pilot")
@@ -29,7 +32,15 @@ createGlobalPropertyi("A318/systems/engines/apu/apu_valve", valve_states.closed)
 -- efb datarefs
 -- TODO this should be fetched from some config/saved state
 createGlobalPropertyi("A318/efb/config/units", units.metric)
+    --baro
+local baro_unit = createGlobalPropertyi("A318/cockpit/efis/baro_unit", baro_units.hPa)
 
+function get_baro_unit_selected(hPa)
+	if get(efb_units) == baro_units.hPa then
+		return hPa
+	end
+	return hPa * 0.02953
+end
 
 function update()
   -- If pitch <= 0, and pitch is >= 0, set rotate dataref to 1
