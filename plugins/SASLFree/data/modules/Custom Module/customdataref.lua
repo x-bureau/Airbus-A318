@@ -5,34 +5,55 @@ require "common_declarations"
 baro_units = {["hPa"] = 0, ["inHg"] = 1, ["STD"] = 2}
 
 -- control datarefs
-local rotate = createGlobalPropertyi("A318/controls/rotate", 0)
-local altitude = globalPropertyf("sim/cockpit2/gauges/indicators/altitude_ft_pilot")
-local pitch = globalPropertyf("sim/cockpit2/gauges/indicators/pitch_electric_deg_pilot")
+    local rotate = createGlobalPropertyi("A318/controls/rotate", 0)
+    local altitude = globalPropertyf("sim/cockpit2/gauges/indicators/altitude_ft_pilot")
+    local pitch = globalPropertyf("sim/cockpit2/gauges/indicators/pitch_electric_deg_pilot")
 
 -- cockpit datarefs
-local gpws_dataref = createGlobalPropertyi("A318/cockpit/egpws/altitude", 0)--GPWS Dataref
-local gear_status = globalPropertyfa("sim/flightmodel2/gear/deploy_ratio")--Gear deployment status dataref
-local too_low_gear = createGlobalPropertyi("A318/cockpit/warnings/too_low_gear", 0)--Dataref for Too Low gear alarm
+    local gpws_dataref = createGlobalPropertyi("A318/cockpit/egpws/altitude", 0)--GPWS Dataref
+    local gear_status = globalPropertyfa("sim/flightmodel2/gear/deploy_ratio")--Gear deployment status dataref
+    local too_low_gear = createGlobalPropertyi("A318/cockpit/warnings/too_low_gear", 0)--Dataref for Too Low gear alarm
 
 -- systems datarefs
     -- fuel
-local xfeed_state = createGlobalPropertyi("A318/systems/fuel/pumps/xfeed_state", valve_states.open)
-local centre_fuel_pump_mode = createGlobalPropertyi("A318/systems/fuel/pumps/centre_mode_sel", auto_man_states.auto) -- Dataref for centre fuel tank model selector 0 = auto; 1 = manual
-local eng_valve_state = createGlobalPropertyia("A318/systems/fuel/eng_valves", {valve_states.closed, valve_states.closed})
+        local xfeed_state = createGlobalPropertyi("A318/systems/fuel/pumps/xfeed_state", valve_states.open)
+        local centre_fuel_pump_mode = createGlobalPropertyi("A318/systems/fuel/pumps/centre_mode_sel", auto_man_states.auto) -- Dataref for centre fuel tank model selector 0 = auto; 1 = manual
+        local eng_valve_state = createGlobalPropertyia("A318/systems/fuel/eng_valves", {valve_states.closed, valve_states.closed})
 
     -- cond
-createGlobalPropertyi("A318/systems/aircond/ldg_elev", 100)-- selected landing elevation
-createGlobalPropertyi("A318/systems/aircond/ldg_elev_auto", 1)-- landing elevation in auto mode
-createGlobalPropertyfa("A318/systems/aircond/temps/actual", {22.5, 23.2, 24.1})-- actual temperatures in cockpit, forward and aft cabin
-createGlobalPropertyia("A318/systems/aircond/temps/selected", {23, 24, 24})-- selected temperatures in cockpit, forward and aft cabin
+        createGlobalPropertyi("A318/systems/aircond/ldg_elev", 100)-- selected landing elevation
+        createGlobalPropertyi("A318/systems/aircond/ldg_elev_auto", 1)-- landing elevation in auto mode
+        createGlobalPropertyfa("A318/systems/aircond/temps/actual", {22.5, 23.2, 24.1})-- actual temperatures in cockpit, forward and aft cabin
+        createGlobalPropertyia("A318/systems/aircond/temps/selected", {23, 24, 24})-- selected temperatures in cockpit, forward and aft cabin
 
     -- apu
-createGlobalPropertyi("A318/systems/engines/apu/apu_valve", valve_states.closed)
+        createGlobalPropertyi("A318/systems/engines/apu/apu_valve", valve_states.closed)
 
+    -- electrical
+        --BATTERIES
+            createGlobalPropertyia("A318/systems/electrical/switches/battery", {switch_states.off, switch_states.off})--Dataref for Battery switch states
+            createGlobalPropertyfa("A318/systems/electrical/dc/battery_1", {0, 0})--Dataref for Battery 1 volts|amps
+
+            createGlobalPropertyfa("A318/systems/electrical/dc/battery_2", {0, 0})--Dataref for Battery 2 volts|amps
+
+        --BUSES
+            createGlobalPropertyi("A318/systems/electrical/dc/ess_bus", switch_states.off)--Dataref for the DC ESS BUS
+            createGlobalPropertyi("A318/systems/electrical/dc/emer_bus", switch_states.off)--Dataref for the DC EMER BUS
+
+        --GENERATORS
+            createGlobalPropertyia("A318/systems/electrical/ac/ext", {switch_states.off, 0, 0}) -- switch|volts|hz
+            createGlobalPropertyia("A318/systems/electrical/ac/apu", {switch_states.off, 0, 0, 0}) -- switch|volts|hz|pcent
+            createGlobalPropertyia("A318/systems/electrical/ac/gen_1", {switch_states.on, 115, 398, 38}) -- switch|volts|hz|pcent
+            createGlobalPropertyia("A318/systems/electrical/ac/gen_2", {switch_states.on, 115, 400, 43}) -- switch|volts|hz|pcent
+
+        --IDG
+            createGlobalPropertyia("A318/systems/electrical/idg/temp", {45, 45}) --IDG temperatures
+            
 -- efb datarefs
 -- TODO this should be fetched from some config/saved state
 createGlobalPropertyi("A318/efb/config/units", units.metric)
-    --baro
+
+--baro
 local baro_unit = createGlobalPropertyi("A318/cockpit/efis/baro_unit", baro_units.hPa)
 
 function get_baro_unit_selected(hPa)
