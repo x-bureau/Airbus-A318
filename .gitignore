@@ -25,3 +25,5 @@ Textures/*.psd
 ### VisualStudioCode Patch ###
 # Ignore all local history of files
 .history
+
+luacov.stats.out
