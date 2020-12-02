@@ -36,7 +36,7 @@ local dcb1_dcb2_x_tie = createGlobalPropertyi("A318/electrical/dcb1_dcb2_x_tie",
 local BAT_1 = createGlobalPropertyi("A318/electrical/battery_1", 0)--Dataref for Battery 1
 local BAT_2 = createGlobalPropertyi("A318/electrical/battery_2", 0)--Dataref for Battery 2
 --PUSH BUTTONS
-local battery_switch = createGlobalPropertyi("A318/buttons/battery_switch", 0)--The Dataref for the battery switch
+local battery_switch = createGlobalPropertyia("A318/buttons/battery_switch", {switch_states.off, switch_states.off})--The Dataref for the battery switch
 local GPU_PB = createGlobalPropertyi("A318/buttons/gpu_pb")--Dataref for the Push Button for the GPU
 local ESS_EMER_PWR_ONLY = createGlobalPropertyi("A318/buttons/ess_emer_pwr_only", 0)--Dataref for the button for EMERGENCY PWR only 
 local GEN_1_PB = createGlobalPropertyi("A318/buttons/gen_1_pb", 0)--Dataref for Generator 1 Push Button
@@ -89,9 +89,11 @@ function update()
         set(AC_BUS_2, 1)
     end
     --If the battery switch is ON
-    if get(battery_switch) == 1 then
+    if get(battery_switch, 0) == switch_states.on then
         set(BAT_1, 1)
-        set(BAT_2, 2)
+    end
+    if get(battery_switch, 1) == switch_states.on then
+        set(BAT_2, 1)
     end
     --If BATTERIES are ON, power the EMERGENCY BUS
     if get(BAT_1) == 1 or get(BAT_2) == 1 then
