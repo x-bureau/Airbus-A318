@@ -13,5 +13,6 @@ components = {
   pfd {};
   nav {};
   ecam {};
-  lower_ecam {}
+  lower_ecam {};
+  MCDU {}
 }
