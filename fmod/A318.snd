@@ -12,8 +12,8 @@ BEGIN_SOUND_ATTACHMENT
 	VEH_PART engine 0
 	PARAM_DREF_IDX 0
 	EVENT_ALLOWED_FOR_AI
-	EVENT_START_COND sim/flightmodel2/engines/engine_rotation_speed_rad_sec[0] > 1
-	# EVENT_END_COND sim/flightmodel2/engines/engine_rotation_speed_rad_sec[0] < 1
+	EVENT_START_COND sim/cockpit2/engine/indicators/N1_percent[0] > 1
+	# EVENT_END_COND sim/cockpit2/engine/indicators/N1_percent[0] < 1
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
@@ -21,6 +21,6 @@ BEGIN_SOUND_ATTACHMENT
 	VEH_PART engine 1
 	PARAM_DREF_IDX 1
 	EVENT_ALLOWED_FOR_AI
-	EVENT_START_COND sim/flightmodel2/engines/engine_rotation_speed_rad_sec[1] > 1
-	# EVENT_END_COND sim/flightmodel2/engines/engine_rotation_speed_rad_sec[1] < 1
+	EVENT_START_COND sim/cockpit2/engine/indicators/N1_percent[1] > 1
+	# EVENT_END_COND sim/cockpit2/engine/indicators/N1_percent[1] < 1
 END_SOUND_ATTACHMENT
