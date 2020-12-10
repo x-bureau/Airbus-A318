@@ -4,108 +4,23 @@ ACF_SOUNDS
 
 DISABLE_LEGACY_ALERT_SOUNDS
 
-#COCKPIT
-BEGIN_SOUND_SPACE
-    SOUND_INDEX 0
-    BLEND_DEPTH 0.3
-    AABB -1.35 -0.105 -13.655 1.35 4.00 -10.95
-END_SOUND_SPACE
-
-#EGPWS
+#########################
+#ENGINE
+#########################
 BEGIN_SOUND_ATTACHMENT
-    EVENT_NAME /Cockpit/EGPWS/2500
-    VEH_XYZ -0.457 1.981 12.512
-    EVENT_START_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot <= 2501
-    EVENT_END_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot < 2200
+	EVENT_NAME /engine
+	VEH_PART engine 0
+	PARAM_DREF_IDX 0
+	EVENT_ALLOWED_FOR_AI
+	EVENT_START_COND sim/flightmodel2/engines/engine_rotation_speed_rad_sec[0] > 1
+	# EVENT_END_COND sim/flightmodel2/engines/engine_rotation_speed_rad_sec[0] < 1
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-    EVENT_NAME /Cockpit/EGPWS/2000
-    VEH_XYZ -0.457 1.981 12.512
-    EVENT_START_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot <= 2001
-    EVENT_END_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot < 1300
-END_SOUND_ATTACHMENT
-
-BEGIN_SOUND_ATTACHMENT
-    EVENT_NAME /Cockpit/EGPWS/1000
-    VEH_XYZ -0.457 1.981 12.512
-    EVENT_START_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot <= 1001
-    EVENT_END_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot < 600
-END_SOUND_ATTACHMENT
-
-BEGIN_SOUND_ATTACHMENT
-    EVENT_NAME /Cockpit/EGPWS/500
-    VEH_XYZ -0.457 1.981 12.512
-    EVENT_START_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot <= 505
-    EVENT_END_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot < 401
-END_SOUND_ATTACHMENT
-
-BEGIN_SOUND_ATTACHMENT
-    EVENT_NAME /Cockpit/EGPWS/400
-    VEH_XYZ -0.457 1.981 12.512
-    EVENT_START_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot <= 405
-    EVENT_END_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot < 301
-END_SOUND_ATTACHMENT
-
-BEGIN_SOUND_ATTACHMENT
-    EVENT_NAME /Cockpit/EGPWS/300
-    VEH_XYZ -0.457 1.981 12.512
-    EVENT_START_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot <= 305
-    EVENT_END_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot < 201
-END_SOUND_ATTACHMENT
-
-BEGIN_SOUND_ATTACHMENT
-    EVENT_NAME /Cockpit/EGPWS/200
-    VEH_XYZ -0.457 1.981 12.512
-    EVENT_START_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot <= 205
-    EVENT_END_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot < 101
-END_SOUND_ATTACHMENT
-
-BEGIN_SOUND_ATTACHMENT
-    EVENT_NAME /Cockpit/EGPWS/100
-    VEH_XYZ -0.457 1.981 12.512
-    EVENT_START_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot <= 105
-    EVENT_END_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot < 61
-END_SOUND_ATTACHMENT
-
-BEGIN_SOUND_ATTACHMENT
-    EVENT_NAME /Cockpit/EGPWS/50
-    VEH_XYZ -0.457 1.981 12.512
-    EVENT_START_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot <= 55
-    EVENT_END_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot < 46
-END_SOUND_ATTACHMENT
-
-BEGIN_SOUND_ATTACHMENT
-    EVENT_NAME /Cockpit/EGPWS/40
-    VEH_XYZ -0.457 1.981 12.512
-    EVENT_START_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot <= 45
-    EVENT_END_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot < 31
-END_SOUND_ATTACHMENT
-
-BEGIN_SOUND_ATTACHMENT
-    EVENT_NAME /Cockpit/EGPWS/30
-    VEH_XYZ -0.457 1.981 12.512
-    EVENT_START_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot <= 35
-    EVENT_END_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot < 21
-END_SOUND_ATTACHMENT
-
-BEGIN_SOUND_ATTACHMENT
-    EVENT_NAME /Cockpit/EGPWS/20
-    VEH_XYZ -0.457 1.981 12.512
-    EVENT_START_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot <= 25
-    EVENT_END_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot < 11
-END_SOUND_ATTACHMENT
-
-BEGIN_SOUND_ATTACHMENT
-    EVENT_NAME /Cockpit/EGPWS/10
-    VEH_XYZ -0.457 1.981 12.512
-    EVENT_START_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot <= 15
-    EVENT_END_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot < 8
-END_SOUND_ATTACHMENT
-
-BEGIN_SOUND_ATTACHMENT
-    EVENT_NAME /Cockpit/EGPWS/5
-    VEH_XYZ -0.457 1.981 12.512
-    EVENT_START_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot <= 7
-    EVENT_END_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot < 0
+	EVENT_NAME /engine
+	VEH_PART engine 1
+	PARAM_DREF_IDX 1
+	EVENT_ALLOWED_FOR_AI
+	EVENT_START_COND sim/flightmodel2/engines/engine_rotation_speed_rad_sec[1] > 1
+	# EVENT_END_COND sim/flightmodel2/engines/engine_rotation_speed_rad_sec[1] < 1
 END_SOUND_ATTACHMENT
