@@ -24,3 +24,15 @@ BEGIN_SOUND_ATTACHMENT
 	EVENT_START_COND sim/cockpit2/engine/indicators/N1_percent[1] > 1
 	# EVENT_END_COND sim/cockpit2/engine/indicators/N1_percent[1] < 1
 END_SOUND_ATTACHMENT
+
+#########################
+# LANDING GEAR
+#########################
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /gear
+	VEH_PART landing_gear
+	PARAM_DREF_IDX 0
+	EVENT_ALLOWED_FOR_AI
+	EVENT_START_COND sim/aircraft/parts/acf_gear_deploy[0] > 0
+	EVENT_END_COND sim/aircraft/parts/acf_gear_deploy[0] = 1
+END_SOUND_ATTACHMENT
