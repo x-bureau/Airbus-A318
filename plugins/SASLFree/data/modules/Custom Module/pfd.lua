@@ -16,7 +16,7 @@ local PAGE_SIZE = {x = size[1], y = size[2]}
 
 --get datarefs
 local airspeed = globalPropertyf("sim/cockpit2/gauges/indicators/airspeed_kts_pilot")
-local altitude = globalPropertyf("sim/cockpit2/gauges/indicators/altitude_ft_pilot")
+local altitude = globalPropertyf("sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot")
 local pitch = globalPropertyf("sim/cockpit2/gauges/indicators/pitch_electric_deg_pilot")
 local roll = globalPropertyf("sim/cockpit2/gauges/indicators/roll_electric_deg_pilot")
 
@@ -26,22 +26,25 @@ local AirbusFont = sasl.gl.loadFont("fonts/PanelFont.ttf")
 
 --colors
 local PFD_GREEN = {0.184, 0.733, 0.219, 1.0}
+local PFD_LIGHT_GREEN = {0, 1.0, 0.35, 1.0}
 local PFD_WHITE = {1.0, 1.0, 1.0, 1.0}
 local PFD_BLUE = {0.004, 1.0, 1.0, 1.0}
 local PFD_GREY = {0.25, 0.26, 0.26, 1.0}
 
 --get images
-local artificial_horizon_overlay = sasl.gl.loadImage("images/PFD_Overlay_1.png", 0, 105, 552, 522)
-local tapes_overlay = sasl.gl.loadImage("images/PFD_Overlay_2.png", 0, 105, 552, 522)
+local artificial_horizon_overlay = sasl.gl.loadImage("images/PFD_Overlay_1.png", 0, 0, 552, 522)
+local ground_decal = sasl.gl.loadImage("images/Ground_Horizon_Decal.png", 0, 0, 552, 522)
+local tapes_overlay = sasl.gl.loadImage("images/PFD_Overlay_2.png", 0, 0, 552, 522)
 local background = sasl.gl.loadImage("images/horizon_background.png", 0, 95, 263, 500)
 local pscale = sasl.gl.loadImage("images/horizon_pitch_scale.png", 0, 95, 508, 1050)
+local pscale_ground = sasl.gl.loadImage("images/ground_horizon_pitch_scale.png", 0, 95, 508, 1050)
 local align = sasl.gl.loadImage("PFD_Alignment.png", 0, 105, 522, 522)
-local pitch_indicator = sasl.gl.loadImage("images/PFD_Other.png", 263, 500)
+local pitch_indicator = sasl.gl.loadImage("images/PFD_Other.png", 0, 0, 226, 48)
 
 local TAPE_CFG = {
     --airspeed
     {
-        x = 14,
+        x = 18,
         y = 90,
         w = 50,
         h = 400, 
@@ -62,16 +65,16 @@ local TAPE_CFG = {
         y = 90,
         w = 50,
         h = 400, 
-        font_size = 25,
+        font_size = 20,
 
         get_data = function () return get(altitude) / 100 end, -- callback to get data
         padding = 3,        -- pad 0 infront of numbers less than 3 digits
-        data_h = 100,       -- 100 knts are displayed in the height
+        data_h = 20,       -- 100 knts are displayed in the height
 
         data_max = 500,     -- 500 knots is the largest number
         data_min = 0,      -- 40 knots is lowest number
         tick_interval = 10, -- tick every 10 knts
-        num_interval = 20,  -- number every 10 knts
+        num_interval = 5,  -- number every 10 knts
     },
 }
 
@@ -119,12 +122,20 @@ local function draw_tapes()
 end
 
 local function draw_artificial_horizon()
-  sasl.gl.setClipArea(0, 100, 490, 400)
-  sasl.gl.drawRotatedTexture(background, 0 - get(roll), -300, ((0- get(pitch)) * 5) + 25, 1000, 700, PFD_WHITE)
-  sasl.gl.drawRotatedTexture(pscale, 0 - get(roll), 0, ((0 - get(pitch)) * 5) - 168, 500, 1000, PFD_WHITE)
-  sasl.gl.drawRotatedTexture(pitch_indicator, 0 - get(roll), 50, ((0- get(pitch)) * 5) - 70, 263, 500, PFD_WHITE)
-  sasl.gl.drawRotatedTexture(align, 0 - get(roll), 0, 90, 522, 522, PFD_WHITE)
--- angle, rx, ry, x, y, width, height, color
+  sasl.gl.setClipArea(0, 51, 510, 522)
+  sasl.gl.drawRotatedTexture(background, 0 - get(roll), -300, ((0- get(pitch)) * 5) + 85, 1000, 700, PFD_WHITE)
+  if math.floor(get(altitude)) < 49 then
+	sasl.gl.drawRotatedTexture(pscale_ground, 0 - get(roll), -4, ((0 - get(pitch)) * 5) - 105, 500, 1000, PFD_WHITE)
+	sasl.gl.drawTexture(ground_decal, -5, 50, 522, 522)
+  elseif get(altitude) > 50 and get(altitude) < 250 then
+    sasl.gl.drawRotatedTexture(pscale_ground, 0 - get(roll), -4, ((0 - get(pitch)) * 5) - 105, 500, 1000, PFD_WHITE)
+	sasl.gl.drawText(AirbusFont, 198, 205, math.floor(get(altitude)), 24, false, false, TEXT_ALIGN_LEFT, PFD_LIGHT_GREEN) 
+  else
+	sasl.gl.drawRotatedTexture(pscale, 0 - get(roll), -4, ((0 - get(pitch)) * 5) - 105, 500, 1000, PFD_WHITE)
+end
+  sasl.gl.drawRotatedTexture(align, 0 - get(roll), -10, 150, 522, 522, PFD_WHITE)
+  sasl.gl.drawTexture(pitch_indicator, 100, 275, 228, 48, PFD_WHITE)
+-- angle, x, y, width, height, color
 end
 
 function draw()
@@ -132,13 +143,14 @@ function draw()
   -- draw AH
   draw_artificial_horizon()
 
-  sasl.gl.drawTexture(artificial_horizon_overlay, 0, 90, 522, 522)
+  sasl.gl.drawTexture(artificial_horizon_overlay, 0, 50, 522, 522)
 
   -- draw tapes
   draw_tapes()
 
-  sasl.gl.drawTexture(tapes_overlay, 0, 90, 522, 522)
+  sasl.gl.drawTexture(tapes_overlay, 0, 50, 522, 522)
   --sasl.gl.drawRectangle(14, 108, 50, 280, {1, 0, 0})
+  
 
   -- cleanup
   sasl.gl.resetClipArea()

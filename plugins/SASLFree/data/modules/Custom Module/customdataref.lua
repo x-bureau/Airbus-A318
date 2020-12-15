@@ -78,7 +78,7 @@ function update()
 	
   --Setting the flaps deflection dataref 
   --VALUES: 0, 10, 15, 20, 40
-  flaps = get(flapHandleDeployRatio) * 40
+  set(flaps, (get(flapHandleDeployRatio)* 40))
 
 
   if get(altitude)      == 2500 then
