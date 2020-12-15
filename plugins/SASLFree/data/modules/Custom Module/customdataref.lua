@@ -8,6 +8,10 @@ baro_units = {["hPa"] = 0, ["inHg"] = 1, ["STD"] = 2}
     local rotate = createGlobalPropertyi("A318/controls/rotate", 0)
     local altitude = globalPropertyf("sim/cockpit2/gauges/indicators/altitude_ft_pilot")
     local pitch = globalPropertyf("sim/cockpit2/gauges/indicators/pitch_electric_deg_pilot")
+    local flapHandleDeployRatio = globalPropertyf("sim/cockpit2/controls/flap_ratio")
+
+-- flaps Position datarefs
+    local flaps = createGlobalPropertyi("A318/controls/flaps/position", 0)
 
 -- cockpit datarefs
     local gpws_dataref = createGlobalPropertyi("A318/cockpit/egpws/altitude", 0)--GPWS Dataref
@@ -71,6 +75,11 @@ function update()
   else
     set(rotate, 0)
   end
+	
+  --Setting the flaps deflection dataref 
+  --VALUES: 0, 10, 15, 20, 40
+  print get(flapHandleDeployRatio)
+
 
   if get(altitude)      == 2500 then
       set(gpws_dataref, 2500)
