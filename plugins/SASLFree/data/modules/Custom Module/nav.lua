@@ -1,6 +1,6 @@
 -- A318 Created by X-Bureau --
 
-position = {10, 100, 522, 522}
+position = {0, 94, 522, 522}
 size = {522, 522}
 
 -- get datarefs
@@ -36,7 +36,7 @@ local function draw_overlay_text()
 end
 
 local function draw_rose_cardinal()
-   sasl.gl.drawRotatedTexture(arcTape, 0 - get(heading), -110, -375, 800, 800, PFD_WHITE)
+   sasl.gl.drawRotatedTexture(arcTape, 0 - get(heading), -75, -370, 768, 768, PFD_WHITE)
 end
 
 function draw()
