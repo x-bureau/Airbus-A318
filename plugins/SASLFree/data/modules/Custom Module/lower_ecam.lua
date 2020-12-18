@@ -47,9 +47,21 @@ local weight_empty = globalPropertyf("sim/aircraft/weight/acf_m_empty")
 local weight_fuel = globalPropertyf("sim/aircraft/weight/acf_m_fuel_tot")
 local vsi = {["value"] = 0, ["colour"] = ECAM_COLOURS["GREEN"], ["blink"] = false}
 local hyd = {
-    ["green"] = {["qty"] = 0}
+    ["green"] = {["qty"] = 0, ["pressure"] = 0, ["temp"] = 0},
+    ["blue"] = {["qty"] = 0, ["pressure"] = 0, ["temp"] = 0},
+    ["yellow"] = {["qty"] = 0, ["pressure"] = 0, ["temp"] = 0}
 }
-hyd.green.qty = createGlobalPropertyi("A318/systems/hyd/green/qty", 138) -- qty in cl
+hyd.green.qty = createGlobalPropertyi("A318/systems/hyd/green/qty", 145) -- qty in cl
+hyd.blue.qty = createGlobalPropertyi("A318/systems/hyd/blue/qty", 65) -- qty in cl
+hyd.yellow.qty = createGlobalPropertyi("A318/systems/hyd/yellow/qty", 125) -- qty in cl
+
+hyd.green.pressure = createGlobalPropertyi("A318/systems/hyd/green/pressure", 2784) -- pressure in psi
+hyd.blue.pressure = createGlobalPropertyi("A318/systems/hyd/blue/pressure", 0) -- pressure in psi
+hyd.yellow.pressure = createGlobalPropertyi("A318/systems/hyd/yellow/pressure", 2832) -- pressure in psi
+
+hyd.green.temp = createGlobalPropertyi("A318/systems/hyd/green/temp", 145) -- temp in c
+hyd.blue.temp = createGlobalPropertyi("A318/systems/hyd/blue/temp", 65) -- temp in c
+hyd.yellow.temp = createGlobalPropertyi("A318/systems/hyd/yellow/temp", 125) -- temp in c
 
 -- need to understand what the array elements relate to.
 local aileron = globalPropertyfa("sim/flightmodel2/wing/aileron1_deg", 4)
@@ -170,8 +182,10 @@ local function draw_hyd_page()--draw the hyd page
     --     sasl.gl.drawWidePolyLine({136,428,  136,454}, 2, ECAM_GREEN)
     -- end
 
+    -- engine pump
     sasl.gl.drawFrame(78, 271, 29, 29, ECAM_GREEN)
 
+    -- norm level
     sasl.gl.drawFrame(93, 154, 6, 15, ECAM_GREEN)
 
     sasl.gl.drawLine(93, 106, 93, 153, ECAM_WHITE)
@@ -180,7 +194,6 @@ local function draw_hyd_page()--draw the hyd page
 
     local qty = get(hyd.green.qty)
     local pos = math.floor(qty * 0.56552) + 86
-    -- sasl.gl.drawPolyLine({93,86,  82,86,  82,161,  93,161,  82,172}, ECAM_GREEN)
     sasl.gl.drawPolyLine({93,86,  82,86,  82,pos,  93,pos,  82,pos+12}, ECAM_GREEN)
 
     sasl.gl.restoreInternalLineState()
