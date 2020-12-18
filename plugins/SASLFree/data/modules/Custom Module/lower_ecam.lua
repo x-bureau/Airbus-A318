@@ -29,6 +29,7 @@ local xfeed_state = globalPropertyi("A318/systems/fuel/pumps/xfeed_state")
 local apu_valve_state = globalPropertyi("A318/systems/engines/apu/apu_valve")
 local apu_master = globalPropertyi("sim/cockpit/engine/APU_switch")
 
+local altitude = globalProperty("sim/cockpit2/gauges/indicators/altitude_ft_pilot")
 local cond_temps = globalPropertyfa("A318/systems/aircond/temps/actual", 3)
 local ldg_elev = globalPropertyi("A318/systems/aircond/ldg_elev")
 local ldg_elev_auto = globalPropertyi("A318/systems/aircond/ldg_elev_auto")
@@ -41,6 +42,7 @@ local zulu_hour = globalPropertyi("sim/cockpit2/clock_timer/zulu_time_hours")
 local zulu_mins = globalPropertyi("sim/cockpit2/clock_timer/zulu_time_minutes")
 local temp_sat = globalPropertyf("sim/cockpit2/temperature/outside_air_LE_temp_degc")
 local temp_tat = globalPropertyf("sim/cockpit2/temperature/outside_air_temp_degc")
+local is_isa_enabled = globalPropertyi("A318/efb/config/isa_enabled", enabled_states.enabled)
 local weight_empty = globalPropertyf("sim/aircraft/weight/acf_m_empty")
 local weight_fuel = globalPropertyf("sim/aircraft/weight/acf_m_fuel_tot")
 local vsi = {["value"] = 0, ["colour"] = ECAM_COLOURS["GREEN"], ["blink"] = false}
@@ -122,6 +124,8 @@ end
 
 local function draw_hyd_page()--draw the hyd page
     sasl.gl.drawTexture(lower_hyd_overlay, 0, 0, 522, 522)--we are drawing the overlay
+
+    sasl.gl.drawRectangle(75, 80, 40, 300, {0, 0, 0, 1.0})
     -- green/blue/yellow
     -- psi  3000 ±200
     -- qty
@@ -550,6 +554,12 @@ local function update_page(page)
     end
 end
 
+function get_isa()
+    local alt = get(altitude)
+    local isa = math.max(-56.5, 15 - 1.98 * math.floor(alt / 1000))
+    return tonumber(string.format("%.1f", isa))
+end
+
 function update() -- perform updating logic as drawing should only draw!
     -- if get(fuel_current_quantity, 1) > 60 and get(centre_fuel_pump_mode) == 0 then -- fuel in centre tanks so centre pumps can be off and green
         -- set()
@@ -624,7 +634,10 @@ function draw() --the function that actually draws on the panel
     sasl.gl.drawText(AirbusFont, 90, 27, string.format("%+.1f", get_temp(get(temp_sat))), 20, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
     sasl.gl.drawText(AirbusFont, 140, 48, "° " .. (get(efb_units) == units.metric and "C" or "F"), 20, false, false, TEXT_ALIGN_LEFT, ECAM_BLUE)
     sasl.gl.drawText(AirbusFont, 140, 27, "° " .. (get(efb_units) == units.metric and "C" or "F"), 20, false, false, TEXT_ALIGN_LEFT, ECAM_BLUE)
-    sasl.gl.drawText(AirbusFont, 140,  6, "° " .. (get(efb_units) == units.metric and "C" or "F"), 20, false, false, TEXT_ALIGN_LEFT, ECAM_BLUE)
+    if get(is_isa_enabled) then
+        sasl.gl.drawText(AirbusFont, 90, 6, string.format("%+.1f", get_temp(get_isa())), 20, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
+        sasl.gl.drawText(AirbusFont, 140,  6, "° " .. (get(efb_units) == units.metric and "C" or "F"), 20, false, false, TEXT_ALIGN_LEFT, ECAM_BLUE)
+    end
     
     -- draw Clock
     sasl.gl.drawText(AirbusFont, 251, 27, string.format("%02d", get(zulu_hour)), 20, false, false, TEXT_ALIGN_RIGHT, ECAM_GREEN)

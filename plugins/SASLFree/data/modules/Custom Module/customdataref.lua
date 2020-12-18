@@ -53,10 +53,14 @@ baro_units = {["hPa"] = 0, ["inHg"] = 1, ["STD"] = 2}
         --IDG
             createGlobalPropertyia("A318/systems/electrical/idg/temp", {45, 45}) --IDG temperatures
             createGlobalPropertyia("A318/systems/electrical/idg/pressure", {0.25, 0.25}) --IDG pressures, pcent of n2
-            
+
+    -- hydraulic
+        -- GREEN
+
 -- efb datarefs
 -- TODO this should be fetched from some config/saved state
 createGlobalPropertyi("A318/efb/config/units", units.metric)
+createGlobalPropertyi("A318/efb/config/isa_enabled", enabled_states.enabled)
 
 --baro
 local baro_unit = createGlobalPropertyi("A318/cockpit/efis/baro_unit", baro_units.hPa)

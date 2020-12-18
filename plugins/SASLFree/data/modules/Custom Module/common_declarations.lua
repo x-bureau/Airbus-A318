@@ -9,12 +9,13 @@ ECAM_COLOURS = {
 }
 
 AirbusFont = sasl.gl.loadFont("fonts/BloggerSans.ttf")
--- sasl.gl.setFontRenderMode(AirbusFont, TEXT_RENDER_FORCED_MONO, 0.55)
+sasl.gl.setFontRenderMode(AirbusFont, TEXT_RENDER_FORCED_MONO, 0.48)
 
 switch_states = {["off"] = 0, ["on"] = 1, ["fault"] = 2}
 auto_man_states = {["auto"] = 0, ["manual"] = 1}
 valve_states = {["closed"] = 0, ["transit"] = 1, ["open"] = 2}
 units = {["metric"] = 0, ["imperial"] = 1}
+enabled_states = {["disabled"] = 0, ["enabled"] = 1}
 flight_phases = {
     ["elec_pwr"] = 1,
     ["engine_start"] = 2,
@@ -28,7 +29,7 @@ flight_phases = {
     ["engine_shutdown"] = 10
 }
 
-local efb_units = globalPropertyi("A318/efb/config/units")
+efb_units = createGlobalPropertyi("A318/efb/config/units", units.metric)
 
 function get_weight(kg)
     if get(efb_units) == units.metric then

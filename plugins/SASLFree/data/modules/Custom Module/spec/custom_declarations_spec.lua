@@ -16,6 +16,7 @@ describe('common_declarations', function()
     
         _G.sasl.gl = {}
         _G.sasl.gl.loadFont = function(path) end
+        _G.sasl.gl.setFontRenderMode = function() end
 
         _G.get = function(dataref) return datarefs[dataref]() end
         require('../common_declarations')
