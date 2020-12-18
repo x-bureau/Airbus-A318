@@ -4,7 +4,7 @@ size = {522, 522}
 require "common_declarations"
 
 --defining dataref variables
-local current_ecam_page = createGlobalPropertyi("A318/cockpit/ecam/current_page", 13)--create variable that tells us current ecam page
+local current_ecam_page = createGlobalPropertyi("A318/cockpit/ecam/current_page", 5)--create variable that tells us current ecam page
 local current_flight_phase = createGlobalPropertyi("A318/cockpit/ecam/flight_phase", flight_phases.elec_pwr)
 local auto_change_page = false
 local fuel_used = createGlobalPropertyfa("A318/systems/fuel/fuel_used", 2)--we define the amount of fuel used by each engine
@@ -44,6 +44,10 @@ local temp_tat = globalPropertyf("sim/cockpit2/temperature/outside_air_temp_degc
 local weight_empty = globalPropertyf("sim/aircraft/weight/acf_m_empty")
 local weight_fuel = globalPropertyf("sim/aircraft/weight/acf_m_fuel_tot")
 local vsi = {["value"] = 0, ["colour"] = ECAM_COLOURS["GREEN"], ["blink"] = false}
+local hyd = {
+    ["green"] = {["qty"] = 0}
+}
+hyd.green.qty = createGlobalPropertyi("A318/systems/hyd/green/qty", 138) -- qty in cl
 
 -- need to understand what the array elements relate to.
 local aileron = globalPropertyfa("sim/flightmodel2/wing/aileron1_deg", 4)
@@ -83,20 +87,6 @@ local function round(v, bracket)
     return math.floor(v/bracket + sign(v) * 0.5) * bracket
 end
 
-function get_weight(kg)
-    if get(efb_units) == units.metric then
-        return kg
-    end
-    return kg * 2.20462262185
-end
-
-function get_temp(celsius)
-    if get(efb_units) == units.metric then
-        return celsius
-    end
-    return celsius * 1.8 + 32
-end
-
 local ecam_pages = {
     ["eng"] = 1,
     ["bleed"] = 2,
@@ -132,6 +122,64 @@ end
 
 local function draw_hyd_page()--draw the hyd page
     sasl.gl.drawTexture(lower_hyd_overlay, 0, 0, 522, 522)--we are drawing the overlay
+    -- green/blue/yellow
+    -- psi  3000 ±200
+    -- qty
+      -- max, norm, acceptable, low
+    -- temp green|yellow|blue
+    -- engine 1/2 hyd valve -> green/yellow - circle, engine 1/2 fire valve
+    -- hyd pumps (box) green/yellow -> engine pump; blue -> elec; yellow also has elec
+    -- rat on blue - white == inactive; green == active
+    -- ptu when active solid green triangles
+    -- yellow has the accumulator
+
+    -- From engineer:
+    -- Green full range 12L-14.5L (this is the green bar on the ECAM), low level 3L (top of amber bar), max gauge readable 18L
+    -- Yellow full range 10L-12.5L, low level 3L, max gauge 18L
+    -- Blue full range 5L-6.5L, low level 2L, max gauge 8L
+    -- These are all reservoir quantities...the systems themselves hold much more in pipes and actuators etc
+    -- Green max system volume is 100L, Yellow 75L, Blue 60L
+    -- That includes reservoir max volume Green 30L, Yellow 40L, Blue 30L (this includes air space)
+
+    -- sasl.gl.drawLine(92, 85, 92, 410, ECAM_GREEN)
+    sasl.gl.saveInternalLineState()
+    sasl.gl.setInternalLineStipple(false)
+    sasl.gl.setInternalLineWidth(2)
+
+    -- green system line
+    sasl.gl.drawLine(93, 85, 93, 410, ECAM_GREEN)
+
+    -- green system valve
+    sasl.gl.drawCircle(93, 210, 15, false, ECAM_GREEN)
+    -- local green_valve_state = get(hyd.green.valve.state, 1)
+    -- if green_valve_state == valve_states.closed then
+    --     sasl.gl.drawCircle(136, 441, 13, true, ECAM_ORANGE)
+    --     sasl.gl.drawCircle(136, 441, 11, true, {0, 0, 0})
+    --     sasl.gl.drawWidePolyLine({123,441,  149,441}, 2, ECAM_ORANGE)
+    -- elseif green_valve_state == valve_states.transit then
+    --     sasl.gl.drawCircle(136, 441, 13, true, ECAM_ORANGE)
+    --     sasl.gl.drawCircle(136, 441, 11, true, {0, 0, 0})
+    --     sasl.gl.drawWidePolyLine({126,431,  146,451}, 2, ECAM_ORANGE)
+    -- elseif green_valve_state == valve_states.open then
+    --     sasl.gl.drawCircle(136, 441, 13, true, ECAM_GREEN)
+    --     sasl.gl.drawCircle(136, 441, 11, true, {0, 0, 0})
+    --     sasl.gl.drawWidePolyLine({136,428,  136,454}, 2, ECAM_GREEN)
+    -- end
+
+    sasl.gl.drawFrame(78, 271, 29, 29, ECAM_GREEN)
+
+    sasl.gl.drawFrame(93, 154, 6, 15, ECAM_GREEN)
+
+    sasl.gl.drawLine(93, 106, 93, 153, ECAM_WHITE)
+    -- Low level warn
+    sasl.gl.drawFrame(93, 86, 6, 20, ECAM_ORANGE)
+
+    local qty = get(hyd.green.qty)
+    local pos = math.floor(qty * 0.56552) + 86
+    -- sasl.gl.drawPolyLine({93,86,  82,86,  82,161,  93,161,  82,172}, ECAM_GREEN)
+    sasl.gl.drawPolyLine({93,86,  82,86,  82,pos,  93,pos,  82,pos+12}, ECAM_GREEN)
+
+    sasl.gl.restoreInternalLineState()
 end
 
 local function draw_fuel_page()--draw the fuel page
@@ -496,7 +544,7 @@ local function draw_cruise_page()--draw the cruise page
     sasl.gl.drawText(AirbusFont, 448, 90, round(get(cabin_alt), 10), 20, false, false, TEXT_ALIGN_RIGHT, ECAM_GREEN)--we display the current cabin altitude
 end
 
-function update_page(page)
+local function update_page(page)
     if auto_change_page then
         set(current_ecam_page, page)
     end

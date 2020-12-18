@@ -1,6 +1,5 @@
-expose('common_declarations', function()
-    local datarefs = {
-    }
+describe('common_declarations', function()
+    local datarefs = {}
 
     local setVsi = function(vsi)
         datarefs['sim/cockpit2/gauges/indicators/vvi_fpm_pilot'] = function() return vsi end
@@ -8,18 +7,17 @@ expose('common_declarations', function()
 
     before_each(function()
         _G.sasl = {}
-        _G.globalPropertyi = function(dataref)
-            return dataref
-        end
-        _G.globalPropertyf = function(dataref)
-            return dataref
-        end
-        _G.get = function(dataref)
-            return datarefs[dataref]()
-        end
+        _G.globalPropertyi = function(dataref) return dataref end
+        _G.createGlobalPropertyi = function(dataref) return dataref end
+        _G.createGlobalPropertyia = function(dataref) return dataref end
+        _G.globalPropertyf = function(dataref) return dataref end
+        _G.createGlobalPropertyf = function(dataref) return dataref end
+        _G.createGlobalPropertyfa = function(dataref) return dataref end
     
         _G.sasl.gl = {}
         _G.sasl.gl.loadFont = function(path) end
+
+        _G.get = function(dataref) return datarefs[dataref]() end
         require('../common_declarations')
         datarefs['A318/efb/config/units'] = function() return units.metric end
     end)
