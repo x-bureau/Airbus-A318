@@ -47,35 +47,62 @@ local weight_empty = globalPropertyf("sim/aircraft/weight/acf_m_empty")
 local weight_fuel = globalPropertyf("sim/aircraft/weight/acf_m_fuel_tot")
 local vsi = {["value"] = 0, ["colour"] = ECAM_COLOURS["GREEN"], ["blink"] = false}
 local hyd = {
-    ["green"] = {["qty"] = 0, ["pressure"] = 0, ["temp"] = 0},
-    ["blue"] = {["qty"] = 0, ["pressure"] = 0, ["temp"] = 0},
-    ["yellow"] = {["qty"] = 0, ["pressure"] = 0, ["temp"] = 0}
+    ["green"] = {
+        ["qty"] = createGlobalPropertyi("A318/systems/hyd/green/qty", 145), -- qty in cl
+        ["pressure"] = createGlobalPropertyi("A318/systems/hyd/green/pressure", 2784),
+        ["temp"] = createGlobalPropertyi("A318/systems/hyd/green/temp", 145), 
+        ["valve"] = {
+            ["state"] = createGlobalPropertyi("A318/systems/hyd/green/valve", valve_states.open)
+        },
+        ["pumps"] = {
+            ["engine"] = {["state"] = createGlobalPropertyi("A318/systems/hyd/green/pumps/engine/state", pump_states.off)},
+        },
+    },
+    ["blue"] = {
+        ["qty"] = createGlobalPropertyi("A318/systems/hyd/blue/qty", 65), -- qty in cl
+        ["pressure"] = createGlobalPropertyi("A318/systems/hyd/blue/pressure", 0),
+        ["temp"] = createGlobalPropertyi("A318/systems/hyd/blue/temp", 65), 
+        ["pumps"] = {
+            ["electric"] = {["state"] = createGlobalPropertyi("A318/systems/hyd/blue/pumps/electric/state", pump_states.off)},
+            ["rat"] = {["state"] = createGlobalPropertyi("A318/systems/hyd/blue/pumps/rat/state", pump_states.off)},
+        },
+        -- ["pump"] = {["state"] = pump_states.off, ["source"] = pump_sources.electric},
+    },
+    ["yellow"] = {
+        ["qty"] = createGlobalPropertyi("A318/systems/hyd/yellow/qty", 125), -- qty in cl
+        ["pressure"] = createGlobalPropertyi("A318/systems/hyd/yellow/pressure", 2832), -- pressure in psi
+        ["temp"] = createGlobalPropertyi("A318/systems/hyd/yellow/temp", 125), -- temp in c
+        ["valve"] = {["state"] = createGlobalPropertyi("A318/systems/hyd/yellow/valve", valve_states.open)},
+        ["pumps"] = {
+            ["engine"] = {["state"] = createGlobalPropertyi("A318/systems/hyd/yellow/pumps/engine/state", pump_states.off)},
+            ["electric"] = {["state"] = createGlobalPropertyi("A318/systems/hyd/yellow/pumps/electric/state", pump_states.off)},
+        },
+        -- ["pump"] = {["state"] = pump_states.off, ["source"] = pump_sources.engine},
+    },
+    ["ptu"] = {
+        ["enabled"] = createGlobalPropertyi("A318/systems/hyd/ptu/enabled", enabled_states.disabled),
+        ["xfer"] = {["from"] = createGlobalPropertys("A318/systems/hyd/ptu/from", "yellow")}
+    }
 }
-hyd.green.qty = createGlobalPropertyi("A318/systems/hyd/green/qty", 145) -- qty in cl
-hyd.blue.qty = createGlobalPropertyi("A318/systems/hyd/blue/qty", 65) -- qty in cl
-hyd.yellow.qty = createGlobalPropertyi("A318/systems/hyd/yellow/qty", 125) -- qty in cl
+-- hyd.green.qty = createGlobalPropertyi("A318/systems/hyd/green/qty", 145) -- qty in cl
+-- hyd.blue.qty = createGlobalPropertyi("A318/systems/hyd/blue/qty", 65) -- qty in cl
+-- hyd.yellow.qty = createGlobalPropertyi("A318/systems/hyd/yellow/qty", 125) -- qty in cl
 
-hyd.green.pressure = createGlobalPropertyi("A318/systems/hyd/green/pressure", 2784) -- pressure in psi
-hyd.blue.pressure = createGlobalPropertyi("A318/systems/hyd/blue/pressure", 0) -- pressure in psi
-hyd.yellow.pressure = createGlobalPropertyi("A318/systems/hyd/yellow/pressure", 2832) -- pressure in psi
+-- hyd.green.pressure = createGlobalPropertyi("A318/systems/hyd/green/pressure", 2784) -- pressure in psi
+-- hyd.blue.pressure = createGlobalPropertyi("A318/systems/hyd/blue/pressure", 0) -- pressure in psi
+-- hyd.yellow.pressure = createGlobalPropertyi("A318/systems/hyd/yellow/pressure", 2832) -- pressure in psi
 
-hyd.green.temp = createGlobalPropertyi("A318/systems/hyd/green/temp", 145) -- temp in c
-hyd.blue.temp = createGlobalPropertyi("A318/systems/hyd/blue/temp", 65) -- temp in c
-hyd.yellow.temp = createGlobalPropertyi("A318/systems/hyd/yellow/temp", 125) -- temp in c
+-- hyd.green.temp = createGlobalPropertyi("A318/systems/hyd/green/temp", 145) -- temp in c
+-- hyd.blue.temp = createGlobalPropertyi("A318/systems/hyd/blue/temp", 65) -- temp in c
+-- hyd.yellow.temp = createGlobalPropertyi("A318/systems/hyd/yellow/temp", 125) -- temp in c
+
+-- hyd.green.valve = createGlobalPropertyi("A318/systems/hyd/green/valve", valve_states.open)
+-- hyd.yellow.valve = createGlobalPropertyi("A318/systems/hyd/yellow/valve", valve_states.open)
 
 -- need to understand what the array elements relate to.
 local aileron = globalPropertyfa("sim/flightmodel2/wing/aileron1_deg", 4)
 
 local efb_units = globalPropertyi("A318/efb/config/units")
-
---create colors
-local ECAM_ORANGE = {1.0, 0.625, 0.0, 1.0} --We make a red color with 255 red, 0 green, and 0 blue
-local ECAM_RED = {255, 0, 0} --We make a red color with 255 red, 0 green, and 0 blue
-local ECAM_GREEN = {0.184, 0.733, 0.219, 1.0}--we make a green color with 0.184 red, 0.733 green, 0.219 Blue, and 1.0 for the alpha
-local ECAM_WHITE = {1.0, 1.0, 1.0, 1.0}--we make a white color with 1.0 red, 1.0 green, 1.0 Blue, and 1.0 for the alpha
-local ECAM_BLUE = {0.004, 1.0, 1.0, 1.0}--we make a blue color with 0.004 red, 1.0 green, 1.0 Blue, and 1.0 for the alpha
-local ECAM_GREY = {0.25, 0.26, 0.26, 1.0}--we make a grey color with 0.25 red, 0.26 green, 0.26 Blue, and 1.0 for the alpha
-local ECAM_YELLOW = {1.0, 1.0, 0, 1.0}--we make a yellow color with 1.0 red, 1.0 green, 0 blue, and 1.0 alpha
 
 --load images
 local lower_engine_overlay = sasl.gl.loadImage("ECAM_ENG_LOWER.png")--defining the lower ecam engine page overlay
@@ -135,9 +162,78 @@ local function draw_elec_page()--draw the electricity page
 end
 
 local function draw_hyd_page()--draw the hyd page
-    sasl.gl.drawTexture(lower_hyd_overlay, 0, 0, 522, 522)--we are drawing the overlay
+    -- sasl.gl.drawTexture(lower_hyd_overlay, 0, 0, 522, 522)--we are drawing the overlay
 
-    sasl.gl.drawRectangle(75, 80, 40, 300, {0, 0, 0, 1.0})
+    function drawSystem(system, offset)
+        -- green system line
+        sasl.gl.drawLine(offset, 85, offset, 410, ECAM_COLOURS.GREEN)
+        local pump_offset = 271
+
+        -- system valve
+        if system.valve ~= nil then
+            sasl.logInfo('system has a valve')
+            -- sasl.gl.drawCircle(offset, 210, 15, false, ECAM_COLOURS.GREEN)
+            local valve_state = get(system.valve.state)
+            sasl.logInfo(valve_state)
+            if valve_state == valve_states.closed then
+                sasl.gl.drawCircle(offset, 210, 13, true, ECAM_COLOURS.ORANGE)
+                sasl.gl.drawCircle(offset, 210, 11, true, {0, 0, 0})
+                sasl.gl.drawWidePolyLine({offset-13,210,  offset+13,210}, 2, ECAM_COLOURS.ORANGE)
+            elseif valve_state == valve_states.transit then
+                sasl.gl.drawCircle(offset, 210, 13, true, ECAM_COLOURS.ORANGE)
+                sasl.gl.drawCircle(offset, 210, 11, true, {0, 0, 0})
+                sasl.gl.drawWidePolyLine({offset-10,200,  offset+10,220}, 2, ECAM_COLOURS.ORANGE)
+            elseif valve_state == valve_states.open then
+                sasl.gl.drawCircle(offset, 210, 13, true, ECAM_COLOURS.GREEN)
+                sasl.gl.drawCircle(offset, 210, 11, true, {0, 0, 0})
+                sasl.gl.drawWidePolyLine({offset,197,  offset,223}, 2, ECAM_COLOURS.GREEN)
+            end
+        else
+            pump_offset = 227
+        end
+
+        -- pumps
+        if system.pumps.rat ~= nil then
+            -- TODO move a little closer
+            sasl.logInfo('system has a rat pump')
+            if get(system.pumps.rat.state) == pump_states.on then
+                sasl.gl.drawTriangle(223,323,  223,341,  243,332, ECAM_COLOURS.GREEN)
+                sasl.gl.drawLine(242, 332, offset, 332, ECAM_COLOURS.GREEN)
+            else
+                sasl.gl.drawWidePolyLine({223,323,  223,341,  243,332,  223,323}, 2.0, ECAM_COLOURS.WHITE)
+            end
+            sasl.gl.drawFrame(offset-15, pump_offset, 29, 29, ECAM_COLOURS.GREEN)
+        elseif system.pumps.electric ~= nil then
+            sasl.logInfo('system has an electric pump')
+            if get(system.pumps.electric.state) == pump_states.on then
+                sasl.gl.drawTriangle(463,323,  463,341,  443,332, ECAM_COLOURS.GREEN)
+                sasl.gl.drawLine(444, 332, offset, 332, ECAM_COLOURS.GREEN)
+            else
+                sasl.gl.drawWidePolyLine({463,323,  463,341,  443,332,  463,323}, 2.0, ECAM_COLOURS.WHITE)
+            end
+        end
+        if system.pumps.engine ~= nil then
+            sasl.logInfo('system has an engine pump')
+            local pump_state = get(system.pumps.engine.state)
+            sasl.gl.drawFrame(offset-15, pump_offset, 29, 29, ECAM_COLOURS.GREEN)
+        end
+
+        -- draw fixed items
+        -- norm level
+        sasl.gl.drawFrame(offset, 154, 6, 15, ECAM_COLOURS.GREEN)
+
+        sasl.gl.drawLine(offset, 106, offset, 153, ECAM_COLOURS.WHITE)
+        -- Low level warn
+        sasl.gl.drawFrame(offset, 86, 6, 20, ECAM_COLOURS.ORANGE)
+
+        local qty = get(system.qty)
+        local pos = math.floor(qty * 0.56552) + 86
+        sasl.gl.drawPolyLine({offset,86,  offset-11,86,  offset-11,pos,  offset,pos,  offset-11,pos+12}, ECAM_COLOURS.GREEN)
+    end
+
+    -- sasl.gl.drawRectangle(75, 80, 45, 300, {0, 0, 0, 1.0})
+    -- sasl.gl.drawRectangle(200, 80, 85, 300, {0, 0, 0, 1.0})
+    -- sasl.gl.drawRectangle(410, 80, 125, 300, {0, 0, 0, 1.0})
     -- green/blue/yellow
     -- psi  3000 ±200
     -- qty
@@ -157,44 +253,44 @@ local function draw_hyd_page()--draw the hyd page
     -- Green max system volume is 100L, Yellow 75L, Blue 60L
     -- That includes reservoir max volume Green 30L, Yellow 40L, Blue 30L (this includes air space)
 
-    -- sasl.gl.drawLine(92, 85, 92, 410, ECAM_GREEN)
+    -- sasl.gl.drawLine(92, 85, 92, 410, ECAM_COLOURS.GREEN)
+
     sasl.gl.saveInternalLineState()
     sasl.gl.setInternalLineStipple(false)
     sasl.gl.setInternalLineWidth(2)
+    drawSystem(hyd.green, 93)
+    drawSystem(hyd.blue, 261)
+    drawSystem(hyd.yellow, 430)
+    if get(hyd.ptu.enabled) == enabled_states.enabled then
+        -- draw filled triangles 
+    else
+        -- draw empty triangles
+    end
 
-    -- green system line
-    sasl.gl.drawLine(93, 85, 93, 410, ECAM_GREEN)
+    if get(hyd.green.pressure) >= 1000 then
+        sasl.gl.drawText(AirbusFont, 93, 448, "GREEN", 24, false, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.WHITE)
+    else
+        sasl.gl.drawText(AirbusFont, 93, 448, "GREEN", 24, false, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.ORANGE)
+    end
+    if get(hyd.blue.pressure) >= 1000 then
+        sasl.gl.drawText(AirbusFont, 261, 448, "BLUE", 24, false, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.WHITE)
+    else
+        sasl.gl.drawText(AirbusFont, 261, 448, "BLUE", 24, false, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.ORANGE)
+    end
+    if get(hyd.yellow.pressure) >= 1000 then
+        sasl.gl.drawText(AirbusFont, 430, 448, "YELLOW", 24, false, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.WHITE)
+    else
+        sasl.gl.drawText(AirbusFont, 430, 448, "YELLOW", 24, false, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.ORANGE)
+    end
 
-    -- green system valve
-    sasl.gl.drawCircle(93, 210, 15, false, ECAM_GREEN)
-    -- local green_valve_state = get(hyd.green.valve.state, 1)
-    -- if green_valve_state == valve_states.closed then
-    --     sasl.gl.drawCircle(136, 441, 13, true, ECAM_ORANGE)
-    --     sasl.gl.drawCircle(136, 441, 11, true, {0, 0, 0})
-    --     sasl.gl.drawWidePolyLine({123,441,  149,441}, 2, ECAM_ORANGE)
-    -- elseif green_valve_state == valve_states.transit then
-    --     sasl.gl.drawCircle(136, 441, 13, true, ECAM_ORANGE)
-    --     sasl.gl.drawCircle(136, 441, 11, true, {0, 0, 0})
-    --     sasl.gl.drawWidePolyLine({126,431,  146,451}, 2, ECAM_ORANGE)
-    -- elseif green_valve_state == valve_states.open then
-    --     sasl.gl.drawCircle(136, 441, 13, true, ECAM_GREEN)
-    --     sasl.gl.drawCircle(136, 441, 11, true, {0, 0, 0})
-    --     sasl.gl.drawWidePolyLine({136,428,  136,454}, 2, ECAM_GREEN)
-    -- end
+    sasl.gl.drawText(AirbusFont, 345, 371, "PTU", 20, false, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.WHITE)
+    sasl.gl.drawText(AirbusFont, 200, 325, "RAT", 20, false, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.WHITE)
+    sasl.gl.drawText(AirbusFont, 493, 325, "ELEC", 20, false, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.WHITE)
 
-    -- engine pump
-    sasl.gl.drawFrame(78, 271, 29, 29, ECAM_GREEN)
-
-    -- norm level
-    sasl.gl.drawFrame(93, 154, 6, 15, ECAM_GREEN)
-
-    sasl.gl.drawLine(93, 106, 93, 153, ECAM_WHITE)
-    -- Low level warn
-    sasl.gl.drawFrame(93, 86, 6, 20, ECAM_ORANGE)
-
-    local qty = get(hyd.green.qty)
-    local pos = math.floor(qty * 0.56552) + 86
-    sasl.gl.drawPolyLine({93,86,  82,86,  82,pos,  93,pos,  82,pos+12}, ECAM_GREEN)
+    -- draw PTU line
+    sasl.gl.drawArc(261, 378, 14, 16, 180, 180, ECAM_COLOURS.GREEN)
+    sasl.gl.drawLine(188, 378, 246, 378, ECAM_COLOURS.GREEN)
+    sasl.gl.drawLine(276, 378, 300, 378, ECAM_COLOURS.GREEN)
 
     sasl.gl.restoreInternalLineState()
 end
@@ -202,142 +298,142 @@ end
 local function draw_fuel_page()--draw the fuel page
     sasl.gl.drawTexture(lower_fuel_overlay, 0, 0, 522, 522)--we are drawing the overlay
     -- F USED
-    -- sasl.gl.drawText(AirbusFont, 175, 87, string.format("%.0f", round(get_weight(get(weight_fuel)), 10)), 20, false, false, TEXT_ALIGN_RIGHT, ECAM_GREEN)
-    sasl.gl.drawText(AirbusFont, 262, 440, (get(efb_units) == units.metric and "KG" or "LBS"), 20, false, false, TEXT_ALIGN_CENTER, ECAM_WHITE)
+    -- sasl.gl.drawText(AirbusFont, 175, 87, string.format("%.0f", round(get_weight(get(weight_fuel)), 10)), 20, false, false, TEXT_ALIGN_RIGHT, ECAM_COLOURS.GREEN)
+    sasl.gl.drawText(AirbusFont, 262, 440, (get(efb_units) == units.metric and "KG" or "LBS"), 20, false, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.WHITE)
 
     -- FOB
-    sasl.gl.drawText(AirbusFont, 190, 87, (get(efb_units) == units.metric and "KG" or "LBS"), 20, false, false, TEXT_ALIGN_LEFT, ECAM_WHITE)
-    sasl.gl.drawText(AirbusFont, 175, 87, string.format("%.0f", round(get_weight(get(weight_fuel)), 10)), 20, false, false, TEXT_ALIGN_RIGHT, ECAM_GREEN)
+    sasl.gl.drawText(AirbusFont, 190, 87, (get(efb_units) == units.metric and "KG" or "LBS"), 20, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.WHITE)
+    sasl.gl.drawText(AirbusFont, 175, 87, string.format("%.0f", round(get_weight(get(weight_fuel)), 10)), 20, false, false, TEXT_ALIGN_RIGHT, ECAM_COLOURS.GREEN)
 
     -- F.FLOW
-    sasl.gl.drawText(AirbusFont, 190, 115, (get(efb_units) == units.metric and "KG" or "LBS") .. "/MIN", 20, false, false, TEXT_ALIGN_LEFT, ECAM_WHITE)
-    sasl.gl.drawText(AirbusFont, 175, 115, string.format("%.2f", round(get_weight(get(fuel_flow)), 0.01)), 20, false, false, TEXT_ALIGN_RIGHT, ECAM_GREEN)
+    sasl.gl.drawText(AirbusFont, 190, 115, (get(efb_units) == units.metric and "KG" or "LBS") .. "/MIN", 20, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.WHITE)
+    sasl.gl.drawText(AirbusFont, 175, 115, string.format("%.2f", round(get_weight(get(fuel_flow)), 0.01)), 20, false, false, TEXT_ALIGN_RIGHT, ECAM_COLOURS.GREEN)
 
     local function drawQuantities()
         -- centre tank
-        sasl.gl.drawText(AirbusFont, 262, 270, round(get_weight(get(fuel_current_quantity, 1)), 10), 20, false, false, TEXT_ALIGN_CENTER, ECAM_GREEN)
+        sasl.gl.drawText(AirbusFont, 262, 270, round(get_weight(get(fuel_current_quantity, 1)), 10), 20, false, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.GREEN)
         -- left inner tank
-        sasl.gl.drawText(AirbusFont, 130, 265, round(get_weight(get(fuel_current_quantity, 2)), 10), 20, false, false, TEXT_ALIGN_CENTER, ECAM_GREEN)
+        sasl.gl.drawText(AirbusFont, 130, 265, round(get_weight(get(fuel_current_quantity, 2)), 10), 20, false, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.GREEN)
         -- right inner tank
-        sasl.gl.drawText(AirbusFont, 390, 265, round(get_weight(get(fuel_current_quantity, 3)), 10), 20, false, false, TEXT_ALIGN_CENTER, ECAM_GREEN)
+        sasl.gl.drawText(AirbusFont, 390, 265, round(get_weight(get(fuel_current_quantity, 3)), 10), 20, false, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.GREEN)
         -- left outer tank
-        sasl.gl.drawText(AirbusFont, 35, 260, round(get_weight(get(fuel_current_quantity, 4)), 10), 20, false, false, TEXT_ALIGN_CENTER, ECAM_GREEN)
+        sasl.gl.drawText(AirbusFont, 35, 260, round(get_weight(get(fuel_current_quantity, 4)), 10), 20, false, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.GREEN)
         -- right outer tank
-        sasl.gl.drawText(AirbusFont, 485, 260, round(get_weight(get(fuel_current_quantity, 5)), 10), 20, false, false, TEXT_ALIGN_CENTER, ECAM_GREEN)
+        sasl.gl.drawText(AirbusFont, 485, 260, round(get_weight(get(fuel_current_quantity, 5)), 10), 20, false, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.GREEN)
     end
 
     local function drawValveStatuses()
         -- drawing the valve statuses
 
         if get(eng_valve_state, 1) == valve_states.closed then
-            sasl.gl.drawCircle(136, 441, 13, true, ECAM_ORANGE)
+            sasl.gl.drawCircle(136, 441, 13, true, ECAM_COLOURS.ORANGE)
             sasl.gl.drawCircle(136, 441, 11, true, {0, 0, 0})
-            sasl.gl.drawWidePolyLine({123,441,  149,441}, 2, ECAM_ORANGE)
+            sasl.gl.drawWidePolyLine({123,441,  149,441}, 2, ECAM_COLOURS.ORANGE)
         elseif get(eng_valve_state, 1) == valve_states.transit then
-            sasl.gl.drawCircle(136, 441, 13, true, ECAM_ORANGE)
+            sasl.gl.drawCircle(136, 441, 13, true, ECAM_COLOURS.ORANGE)
             sasl.gl.drawCircle(136, 441, 11, true, {0, 0, 0})
-            sasl.gl.drawWidePolyLine({126,431,  146,451}, 2, ECAM_ORANGE)
+            sasl.gl.drawWidePolyLine({126,431,  146,451}, 2, ECAM_COLOURS.ORANGE)
         elseif get(eng_valve_state, 1) == valve_states.open then
-            sasl.gl.drawCircle(136, 441, 13, true, ECAM_GREEN)
+            sasl.gl.drawCircle(136, 441, 13, true, ECAM_COLOURS.GREEN)
             sasl.gl.drawCircle(136, 441, 11, true, {0, 0, 0})
-            sasl.gl.drawWidePolyLine({136,428,  136,454}, 2, ECAM_GREEN)
+            sasl.gl.drawWidePolyLine({136,428,  136,454}, 2, ECAM_COLOURS.GREEN)
         end
 
         if get(eng_valve_state, 2) == valve_states.closed then
-            sasl.gl.drawCircle(387, 441, 13, true, ECAM_ORANGE)
+            sasl.gl.drawCircle(387, 441, 13, true, ECAM_COLOURS.ORANGE)
             sasl.gl.drawCircle(387, 441, 11, true, {0, 0, 0})
-            sasl.gl.drawWidePolyLine({374,441,  400,441}, 2, ECAM_ORANGE)
+            sasl.gl.drawWidePolyLine({374,441,  400,441}, 2, ECAM_COLOURS.ORANGE)
         elseif get(eng_valve_state, 2) == valve_states.transit then
-            sasl.gl.drawCircle(387, 441, 13, true, ECAM_ORANGE)
+            sasl.gl.drawCircle(387, 441, 13, true, ECAM_COLOURS.ORANGE)
             sasl.gl.drawCircle(387, 441, 11, true, {0, 0, 0})
-            sasl.gl.drawWidePolyLine({378,432,  397,451}, 2, ECAM_ORANGE)
+            sasl.gl.drawWidePolyLine({378,432,  397,451}, 2, ECAM_COLOURS.ORANGE)
         elseif get(eng_valve_state, 2) == valve_states.open then
-            sasl.gl.drawCircle(387, 441, 13, true, ECAM_GREEN)
+            sasl.gl.drawCircle(387, 441, 13, true, ECAM_COLOURS.GREEN)
             sasl.gl.drawCircle(387, 441, 11, true, {0, 0, 0})
-            sasl.gl.drawWidePolyLine({387,428,  387,454}, 2, ECAM_GREEN)
+            sasl.gl.drawWidePolyLine({387,428,  387,454}, 2, ECAM_COLOURS.GREEN)
         end
 
         if get(xfeed_state) == valve_states.closed then
-            sasl.gl.drawCircle(262, 401, 13, true, ECAM_GREEN)
+            sasl.gl.drawCircle(262, 401, 13, true, ECAM_COLOURS.GREEN)
             sasl.gl.drawCircle(262, 401, 11, true, {0, 0, 0})
-            sasl.gl.drawWidePolyLine({262,388,  262,414}, 2, ECAM_GREEN)
+            sasl.gl.drawWidePolyLine({262,388,  262,414}, 2, ECAM_COLOURS.GREEN)
         elseif get(xfeed_state) == valve_states.transit then
-            sasl.gl.drawCircle(262, 401, 13, true, ECAM_ORANGE)
+            sasl.gl.drawCircle(262, 401, 13, true, ECAM_COLOURS.ORANGE)
             sasl.gl.drawCircle(262, 401, 11, true, {0, 0, 0})
-            sasl.gl.drawWidePolyLine({262,388,  262,414}, 2, ECAM_ORANGE)
+            sasl.gl.drawWidePolyLine({262,388,  262,414}, 2, ECAM_COLOURS.ORANGE)
         elseif get(xfeed_state) == valve_states.open then
-            sasl.gl.drawCircle(262, 401, 13, true, ECAM_GREEN)
+            sasl.gl.drawCircle(262, 401, 13, true, ECAM_COLOURS.GREEN)
             sasl.gl.drawCircle(262, 401, 11, true, {0, 0, 0})
-            sasl.gl.drawWidePolyLine({235,401,  288,401}, 2, ECAM_GREEN)
+            sasl.gl.drawWidePolyLine({235,401,  288,401}, 2, ECAM_COLOURS.GREEN)
         end
     end
 
     local function drawApuStatus()
-        sasl.gl.drawText(AirbusFont, 90, 396, "APU", 18, false, false, TEXT_ALIGN_CENTER, ECAM_WHITE)
+        sasl.gl.drawText(AirbusFont, 90, 396, "APU", 18, false, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.WHITE)
 
         -- if get(apu_valve_state) == valve_states.closed and get(apu_master) == switch_states.on then
-        --     sasl.gl.drawCircle(182, 426, 13, false, ECAM_ORANGE)
-        --     sasl.gl.drawPolyLine({169,426,  195,426}, ECAM_ORANGE)
+        --     sasl.gl.drawCircle(182, 426, 13, false, ECAM_COLOURS.ORANGE)
+        --     sasl.gl.drawPolyLine({169,426,  195,426}, ECAM_COLOURS.ORANGE)
         --     -- draw horizontal line
         -- elseif get(apu_valve_state) == valve_states.closed then
-        --     sasl.gl.drawCircle(182, 426, 13, false, ECAM_GREEN)
-        --     sasl.gl.drawPolyLine({169,426,  195,426}, ECAM_GREEN)
+        --     sasl.gl.drawCircle(182, 426, 13, false, ECAM_COLOURS.GREEN)
+        --     sasl.gl.drawPolyLine({169,426,  195,426}, ECAM_COLOURS.GREEN)
         --     -- draw horizontal line
         -- elseif get(apu_valve_state) == valve_states.transit then
-        --     sasl.gl.drawCircle(182, 426, 13, false, ECAM_ORANGE)
-        --     sasl.gl.drawPolyLine({172,416,  192,436}, ECAM_ORANGE)
+        --     sasl.gl.drawCircle(182, 426, 13, false, ECAM_COLOURS.ORANGE)
+        --     sasl.gl.drawPolyLine({172,416,  192,436}, ECAM_COLOURS.ORANGE)
         -- elseif get(apu_valve_state) == valve_states.open then
-        --     sasl.gl.drawCircle(182, 426, 13, false, ECAM_GREEN)
-        --     sasl.gl.drawPolyLine({183,413,  183,439}, ECAM_GREEN)
+        --     sasl.gl.drawCircle(182, 426, 13, false, ECAM_COLOURS.GREEN)
+        --     sasl.gl.drawPolyLine({183,413,  183,439}, ECAM_COLOURS.GREEN)
         -- end
     end
 
     local function drawPumpStates()
         -- left tanks
         if get(fuel_tank_pumps, 1) == switch_states.on then
-            sasl.gl.drawFrame(122, 311, 28, 29, ECAM_GREEN) -- we are drawing the fuel pump outline
-            sasl.gl.drawWidePolyLine({135,311, 135,340}, 2, ECAM_GREEN) -- we are drawing the fuel pump indicator line
+            sasl.gl.drawFrame(122, 311, 28, 29, ECAM_COLOURS.GREEN) -- we are drawing the fuel pump outline
+            sasl.gl.drawWidePolyLine({135,311, 135,340}, 2, ECAM_COLOURS.GREEN) -- we are drawing the fuel pump indicator line
         elseif get(fuel_tank_pumps, 1) == switch_states.off then
-            sasl.gl.drawFrame(122, 311, 28, 29, ECAM_ORANGE)
-            sasl.gl.drawWidePolyLine({128,326, 144,326}, 2, ECAM_ORANGE)
+            sasl.gl.drawFrame(122, 311, 28, 29, ECAM_COLOURS.ORANGE)
+            sasl.gl.drawWidePolyLine({128,326, 144,326}, 2, ECAM_COLOURS.ORANGE)
         end
         if get(fuel_tank_pumps, 2) == switch_states.on then
-            sasl.gl.drawFrame(157, 311, 28, 29, ECAM_GREEN)
-            sasl.gl.drawWidePolyLine({170,311, 170,340}, 2, ECAM_GREEN)
+            sasl.gl.drawFrame(157, 311, 28, 29, ECAM_COLOURS.GREEN)
+            sasl.gl.drawWidePolyLine({170,311, 170,340}, 2, ECAM_COLOURS.GREEN)
         elseif get(fuel_tank_pumps, 2) == switch_states.off then
-            sasl.gl.drawFrame(157, 311, 28, 29, ECAM_ORANGE)
-            sasl.gl.drawWidePolyLine({163,326, 179,326}, 2, ECAM_ORANGE)
+            sasl.gl.drawFrame(157, 311, 28, 29, ECAM_COLOURS.ORANGE)
+            sasl.gl.drawWidePolyLine({163,326, 179,326}, 2, ECAM_COLOURS.ORANGE)
         end
 
         -- right tanks
         if get(fuel_tank_pumps, 3) == switch_states.on then
-            sasl.gl.drawFrame(338, 311, 28, 29, ECAM_GREEN)
-            sasl.gl.drawWidePolyLine({352,311, 352,340}, 2, ECAM_GREEN)
+            sasl.gl.drawFrame(338, 311, 28, 29, ECAM_COLOURS.GREEN)
+            sasl.gl.drawWidePolyLine({352,311, 352,340}, 2, ECAM_COLOURS.GREEN)
         elseif get(fuel_tank_pumps, 3) == switch_states.off then
-            sasl.gl.drawFrame(338, 311, 28, 29, ECAM_ORANGE)
-            sasl.gl.drawWidePolyLine({344,326, 360,326}, 2, ECAM_ORANGE)
+            sasl.gl.drawFrame(338, 311, 28, 29, ECAM_COLOURS.ORANGE)
+            sasl.gl.drawWidePolyLine({344,326, 360,326}, 2, ECAM_COLOURS.ORANGE)
         end
         if get(fuel_tank_pumps, 4) == switch_states.on then
-            sasl.gl.drawFrame(374, 311, 28, 29, ECAM_GREEN)
-            sasl.gl.drawWidePolyLine({387,311, 387,340}, 2, ECAM_GREEN)
+            sasl.gl.drawFrame(374, 311, 28, 29, ECAM_COLOURS.GREEN)
+            sasl.gl.drawWidePolyLine({387,311, 387,340}, 2, ECAM_COLOURS.GREEN)
         elseif get(fuel_tank_pumps, 4) == switch_states.off then
-            sasl.gl.drawFrame(374, 311, 28, 29, ECAM_ORANGE)
-            sasl.gl.drawWidePolyLine({380,326, 396,326}, 2, ECAM_ORANGE)
+            sasl.gl.drawFrame(374, 311, 28, 29, ECAM_COLOURS.ORANGE)
+            sasl.gl.drawWidePolyLine({380,326, 396,326}, 2, ECAM_COLOURS.ORANGE)
         end
         -- centre tanks
         if get(fuel_tank_pumps, 5) == switch_states.on and get(centre_fuel_pump_mode) == auto_man_states.auto then
-            sasl.gl.drawFrame(224, 322, 28, 29, ECAM_GREEN)
-            sasl.gl.drawWidePolyLine({238,322, 238,351}, 2, ECAM_GREEN)
+            sasl.gl.drawFrame(224, 322, 28, 29, ECAM_COLOURS.GREEN)
+            sasl.gl.drawWidePolyLine({238,322, 238,351}, 2, ECAM_COLOURS.GREEN)
         elseif get(fuel_tank_pumps, 5) == switch_states.off then
-            sasl.gl.drawFrame(224, 322, 28, 29, ECAM_ORANGE)
-            sasl.gl.drawWidePolyLine({229,337, 245,337}, 2, ECAM_ORANGE)
+            sasl.gl.drawFrame(224, 322, 28, 29, ECAM_COLOURS.ORANGE)
+            sasl.gl.drawWidePolyLine({229,337, 245,337}, 2, ECAM_COLOURS.ORANGE)
         end
         if get(fuel_tank_pumps, 6) == switch_states.on and get(centre_fuel_pump_mode) == auto_man_states.auto then
-            sasl.gl.drawFrame(271, 322, 28, 29, ECAM_GREEN)
-            sasl.gl.drawWidePolyLine({285,322, 285,351}, 2, ECAM_GREEN)
+            sasl.gl.drawFrame(271, 322, 28, 29, ECAM_COLOURS.GREEN)
+            sasl.gl.drawWidePolyLine({285,322, 285,351}, 2, ECAM_COLOURS.GREEN)
         elseif get(fuel_tank_pumps, 6) == switch_states.off then
-            sasl.gl.drawFrame(271, 322, 28, 29, ECAM_ORANGE)
-            sasl.gl.drawWidePolyLine({277,337, 293,337}, 2, ECAM_ORANGE)
+            sasl.gl.drawFrame(271, 322, 28, 29, ECAM_COLOURS.ORANGE)
+            sasl.gl.drawWidePolyLine({277,337, 293,337}, 2, ECAM_COLOURS.ORANGE)
         end
     end
 
@@ -359,80 +455,80 @@ local function draw_doors_page()--draw the doors page
     sasl.gl.drawTexture(lower_doors_overlay, 0, 0, 522, 522)--18, -3, 542, 542)--we are drawing the overlay
 
     -- Vertical speed
-    sasl.gl.drawText(AirbusFont, 362, 410, 'V/S', 20, false, false, TEXT_ALIGN_LEFT, ECAM_WHITE)
+    sasl.gl.drawText(AirbusFont, 362, 410, 'V/S', 20, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.WHITE)
 
     -- sasl.gl.drawWidePolyLine({403, 411, 410, 411, 423, 424, 417, 423, 423, 418, 423, 424}, 2, vsi["colour"])
     sasl.gl.drawTriangle(424, 417, 423, 423, 418, 423, vsi["colour"])
     sasl.gl.drawText(AirbusFont, 476, 410, string.format("%.f", round(vsi["value"], 50)), 20, false, false, TEXT_ALIGN_RIGHT, vsi["colour"])
-    sasl.gl.drawText(AirbusFont, 482, 410, "FT/MIN", 14, false, false, TEXT_ALIGN_LEFT, ECAM_BLUE)
+    sasl.gl.drawText(AirbusFont, 482, 410, "FT/MIN", 14, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.BLUE)
 
     -- door 1 - CPT FRONT
-    sasl.gl.drawWidePolyLine({228, 350, 228, 368, 238, 368, 238, 350, 227, 350}, 2, ECAM_GREEN)
+    sasl.gl.drawWidePolyLine({228, 350, 228, 368, 238, 368, 238, 350, 227, 350}, 2, ECAM_COLOURS.GREEN)
     -- door 2 - FO FRONT
-    sasl.gl.drawWidePolyLine({283, 350, 283, 368, 293, 368, 293, 350, 282, 350}, 2, ECAM_GREEN)
+    sasl.gl.drawWidePolyLine({283, 350, 283, 368, 293, 368, 293, 350, 282, 350}, 2, ECAM_COLOURS.GREEN)
     -- door 3 - fwd cargo
-    sasl.gl.drawWidePolyLine({277, 297, 277, 315, 293, 315, 293, 297, 276, 297}, 2, ECAM_GREEN)
+    sasl.gl.drawWidePolyLine({277, 297, 277, 315, 293, 315, 293, 297, 276, 297}, 2, ECAM_COLOURS.GREEN)
     -- L slide
-    sasl.gl.drawWidePolyLine({228, 230, 228, 248, 238, 248, 238, 230, 227, 230}, 2, ECAM_GREEN)
-    sasl.gl.drawText(AirbusFont, 217, 232, 'SLIDE', 16, false, false, TEXT_ALIGN_RIGHT, ECAM_WHITE)
+    sasl.gl.drawWidePolyLine({228, 230, 228, 248, 238, 248, 238, 230, 227, 230}, 2, ECAM_COLOURS.GREEN)
+    sasl.gl.drawText(AirbusFont, 217, 232, 'SLIDE', 16, false, false, TEXT_ALIGN_RIGHT, ECAM_COLOURS.WHITE)
     -- R slide
-    sasl.gl.drawWidePolyLine({283, 230, 283, 248, 293, 248, 293, 230, 282, 230}, 2, ECAM_GREEN)
-    sasl.gl.drawText(AirbusFont, 306, 232, 'SLIDE', 16, false, false, TEXT_ALIGN_LEFT, ECAM_WHITE)
+    sasl.gl.drawWidePolyLine({283, 230, 283, 248, 293, 248, 293, 230, 282, 230}, 2, ECAM_COLOURS.GREEN)
+    sasl.gl.drawText(AirbusFont, 306, 232, 'SLIDE', 16, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.WHITE)
 
     -- door 4 - aft cargo
-    sasl.gl.drawWidePolyLine({277, 172, 277, 190, 293, 190, 293, 172, 276, 172}, 2, ECAM_GREEN)
+    sasl.gl.drawWidePolyLine({277, 172, 277, 190, 293, 190, 293, 172, 276, 172}, 2, ECAM_COLOURS.GREEN)
 
     -- door 5 - CPT aft
-    sasl.gl.drawWidePolyLine({228, 110, 228, 128, 238, 128, 238, 110, 227, 110}, 2, ECAM_GREEN)
+    sasl.gl.drawWidePolyLine({228, 110, 228, 128, 238, 128, 238, 110, 227, 110}, 2, ECAM_COLOURS.GREEN)
 
     -- door 6 - FO aft
-    sasl.gl.drawWidePolyLine({283, 110, 283, 128, 293, 128, 293, 110, 282, 110}, 2, ECAM_GREEN)
+    sasl.gl.drawWidePolyLine({283, 110, 283, 128, 293, 128, 293, 110, 282, 110}, 2, ECAM_COLOURS.GREEN)
 
     -- avionics
-    sasl.gl.drawWidePolyLine({253, 428, 253, 436, 268, 436, 268, 428, 252, 428}, 2, ECAM_GREEN)
-    sasl.gl.drawWidePolyLine({271, 398, 271, 413, 279, 413, 279, 398, 270, 398}, 2, ECAM_GREEN)
-    sasl.gl.drawWidePolyLine({243, 398, 243, 413, 251, 413, 251, 398, 242, 398}, 2, ECAM_GREEN)
-    sasl.gl.drawWidePolyLine({278, 140, 278, 158, 285, 158, 285, 140, 277, 140}, 2, ECAM_GREEN)
+    sasl.gl.drawWidePolyLine({253, 428, 253, 436, 268, 436, 268, 428, 252, 428}, 2, ECAM_COLOURS.GREEN)
+    sasl.gl.drawWidePolyLine({271, 398, 271, 413, 279, 413, 279, 398, 270, 398}, 2, ECAM_COLOURS.GREEN)
+    sasl.gl.drawWidePolyLine({243, 398, 243, 413, 251, 413, 251, 398, 242, 398}, 2, ECAM_COLOURS.GREEN)
+    sasl.gl.drawWidePolyLine({278, 140, 278, 158, 285, 158, 285, 140, 277, 140}, 2, ECAM_COLOURS.GREEN)
 
     if get(door_status, 1) == 0 then--if the door open ratio is = 0
-        -- sasl.gl.drawWidePolyLine({225, 350, 225, 370, 238, 370, 238, 350, 224, 350}, 3, ECAM_GREEN)
-        -- sasl.gl.drawFrame(223, 350, 13, 20, ECAM_GREEN)--draw a green rectangle
+        -- sasl.gl.drawWidePolyLine({225, 350, 225, 370, 238, 370, 238, 350, 224, 350}, 3, ECAM_COLOURS.GREEN)
+        -- sasl.gl.drawFrame(223, 350, 13, 20, ECAM_COLOURS.GREEN)--draw a green rectangle
     elseif get(door_status, 1) > 0 then--if the door open ratio is = 1
-        sasl.gl.drawText(AirbusFont, 218, 355, 'CABIN -----------', 16, false, false, TEXT_ALIGN_RIGHT, ECAM_ORANGE)
-        sasl.gl.drawRectangle(228, 350, 10, 18, ECAM_YELLOW)--draw a red rectangle
+        sasl.gl.drawText(AirbusFont, 218, 355, 'CABIN -----------', 16, false, false, TEXT_ALIGN_RIGHT, ECAM_COLOURS.ORANGE)
+        sasl.gl.drawRectangle(228, 350, 10, 18, ECAM_COLOURS.YELLOW)--draw a red rectangle
     -- else--anything else results in a yellow rectangle
-    --     sasl.gl.drawRectangle(225, 350, 11, 18, ECAM_RED)
+    --     sasl.gl.drawRectangle(225, 350, 11, 18, ECAM_COLOURS.RED)
     end
 
     if get(door_status, 2) > 0 then
-        sasl.gl.drawText(AirbusFont, 302, 355, '----------- CABIN', 16, false, false, TEXT_ALIGN_LEFT, ECAM_ORANGE)
-        sasl.gl.drawRectangle(283, 350, 10, 18, ECAM_YELLOW)
+        sasl.gl.drawText(AirbusFont, 302, 355, '----------- CABIN', 16, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.ORANGE)
+        sasl.gl.drawRectangle(283, 350, 10, 18, ECAM_COLOURS.YELLOW)
     end
 
     if get(door_status, 3) == 1 then
-        sasl.gl.drawText(AirbusFont, 302, 300, '------ CARGO', 16, false, false, TEXT_ALIGN_LEFT, ECAM_ORANGE)
-        sasl.gl.drawRectangle(277, 297, 16, 18, ECAM_YELLOW)
+        sasl.gl.drawText(AirbusFont, 302, 300, '------ CARGO', 16, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.ORANGE)
+        sasl.gl.drawRectangle(277, 297, 16, 18, ECAM_COLOURS.YELLOW)
     elseif get(door_status, 3) > 0 then
-        sasl.gl.drawRectangle(277, 297, 16, 18, ECAM_RED)
+        sasl.gl.drawRectangle(277, 297, 16, 18, ECAM_COLOURS.RED)
     end
 
     if get(door_status, 4) == 1 then
-        sasl.gl.drawText(AirbusFont, 302, 175, '------ CARGO', 16, false, false, TEXT_ALIGN_LEFT, ECAM_ORANGE)
-        sasl.gl.drawRectangle(277, 172, 16, 18, ECAM_YELLOW)
+        sasl.gl.drawText(AirbusFont, 302, 175, '------ CARGO', 16, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.ORANGE)
+        sasl.gl.drawRectangle(277, 172, 16, 18, ECAM_COLOURS.YELLOW)
     elseif get(door_status, 4) > 0 then
-        sasl.gl.drawRectangle(277, 172, 16, 18, ECAM_RED)
+        sasl.gl.drawRectangle(277, 172, 16, 18, ECAM_COLOURS.RED)
     end
 
     if get(door_status, 5) > 0 then
-        sasl.gl.drawText(AirbusFont, 218, 115, 'CABIN -----------', 16, false, false, TEXT_ALIGN_RIGHT, ECAM_ORANGE)
-        sasl.gl.drawRectangle(228, 110, 10, 18, ECAM_YELLOW)
+        sasl.gl.drawText(AirbusFont, 218, 115, 'CABIN -----------', 16, false, false, TEXT_ALIGN_RIGHT, ECAM_COLOURS.ORANGE)
+        sasl.gl.drawRectangle(228, 110, 10, 18, ECAM_COLOURS.YELLOW)
     end
 
     if get(door_status, 6) > 0 then
-        sasl.gl.drawText(AirbusFont, 302, 115, '----------- CABIN', 16, false, false, TEXT_ALIGN_LEFT, ECAM_ORANGE)
-        sasl.gl.drawRectangle(283, 110, 10, 18, ECAM_YELLOW)
+        sasl.gl.drawText(AirbusFont, 302, 115, '----------- CABIN', 16, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.ORANGE)
+        sasl.gl.drawRectangle(283, 110, 10, 18, ECAM_COLOURS.YELLOW)
     -- else
-    --     sasl.gl.drawRectangle(0, 0, 13, 20, ECAM_RED)
+    --     sasl.gl.drawRectangle(0, 0, 13, 20, ECAM_COLOURS.RED)
     end
 
 end
@@ -445,74 +541,74 @@ local function draw_fctl_page()--draw the flight controls page
     sasl.gl.drawTexture(lower_fctl_overlay, 0, 0, 522, 522)--we are drawing the overlay
 	--drawing the spoilers
 	if get(speedbrake_status, 1) == 1 then
-		sasl.gl.drawText(AirbusFont, 90, 300, 1, 25, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
+		sasl.gl.drawText(AirbusFont, 90, 300, 1, 25, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.GREEN)
 	elseif get(speedbrake_status, 1) == 0 then
-		sasl.gl.drawText(AirbusFont, 90, 300, 1, 25, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
+		sasl.gl.drawText(AirbusFont, 90, 300, 1, 25, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.GREEN)
 	else
-		sasl.gl.drawText(AirbusFont, 90, 300, 1, 25, false, false, TEXT_ALIGN_LEFT, ECAM_YELLOW)
+		sasl.gl.drawText(AirbusFont, 90, 300, 1, 25, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.YELLOW)
 	end
 	if get(speedbrake_status, 2) == 1 then
-		sasl.gl.drawText(AirbusFont, 130, 310, 2, 25, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
+		sasl.gl.drawText(AirbusFont, 130, 310, 2, 25, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.GREEN)
 	elseif get(speedbrake_status, 2) == 0 then
-		sasl.gl.drawText(AirbusFont, 130, 310, 2, 25, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
+		sasl.gl.drawText(AirbusFont, 130, 310, 2, 25, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.GREEN)
 	else
-		sasl.gl.drawText(AirbusFont, 130, 310, 2, 25, false, false, TEXT_ALIGN_LEFT, ECAM_YELLOW)
+		sasl.gl.drawText(AirbusFont, 130, 310, 2, 25, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.YELLOW)
 	end
 	if get(speedbrake_status, 3) == 1 then
-		sasl.gl.drawText(AirbusFont, 170, 320, 3, 25, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
+		sasl.gl.drawText(AirbusFont, 170, 320, 3, 25, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.GREEN)
 	elseif get(speedbrake_status, 3) == 0 then
-		sasl.gl.drawText(AirbusFont, 170, 320, 3, 25, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
+		sasl.gl.drawText(AirbusFont, 170, 320, 3, 25, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.GREEN)
 	else
-		sasl.gl.drawText(AirbusFont, 170, 320, 3, 25, false, false, TEXT_ALIGN_LEFT, ECAM_YELLOW)
+		sasl.gl.drawText(AirbusFont, 170, 320, 3, 25, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.YELLOW)
 	end
 	if get(speedbrake_status, 4) == 1 then
-		sasl.gl.drawText(AirbusFont, 210, 330, 4, 25, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
+		sasl.gl.drawText(AirbusFont, 210, 330, 4, 25, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.GREEN)
 	elseif get(speedbrake_status, 4) == 0 then
-		sasl.gl.drawText(AirbusFont, 210, 330, 4, 25, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
+		sasl.gl.drawText(AirbusFont, 210, 330, 4, 25, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.GREEN)
 	else
-		sasl.gl.drawText(AirbusFont, 210, 330, 4, 25, false, false, TEXT_ALIGN_LEFT, ECAM_YELLOW)
+		sasl.gl.drawText(AirbusFont, 210, 330, 4, 25, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.YELLOW)
 	end
 	if get(speedbrake_status, 5) == 1 then
-		sasl.gl.drawText(AirbusFont, 250, 340, 5, 25, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
+		sasl.gl.drawText(AirbusFont, 250, 340, 5, 25, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.GREEN)
 	elseif get(speedbrake_status, 5) == 0 then
-		sasl.gl.drawText(AirbusFont, 250, 340, 5, 25, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
+		sasl.gl.drawText(AirbusFont, 250, 340, 5, 25, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.GREEN)
 	else
-		sasl.gl.drawText(AirbusFont, 250, 340, 5, 25, false, false, TEXT_ALIGN_LEFT, ECAM_YELLOW)
+		sasl.gl.drawText(AirbusFont, 250, 340, 5, 25, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.YELLOW)
 	end
 	if get(speedbrake_status, 6) == 1 then
-		sasl.gl.drawText(AirbusFont, 290, 340, 6, 25, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
+		sasl.gl.drawText(AirbusFont, 290, 340, 6, 25, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.GREEN)
 	elseif get(speedbrake_status, 6) == 0 then
-		sasl.gl.drawText(AirbusFont, 290, 340, 6, 25, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
+		sasl.gl.drawText(AirbusFont, 290, 340, 6, 25, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.GREEN)
 	else
-		sasl.gl.drawText(AirbusFont, 290, 340, 6, 25, false, false, TEXT_ALIGN_LEFT, ECAM_YELLOW)
+		sasl.gl.drawText(AirbusFont, 290, 340, 6, 25, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.YELLOW)
 	end
 	if get(speedbrake_status, 7) == 1 then
-		sasl.gl.drawText(AirbusFont, 330, 330, 7, 25, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
+		sasl.gl.drawText(AirbusFont, 330, 330, 7, 25, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.GREEN)
 	elseif get(speedbrake_status, 7) == 0 then
-		sasl.gl.drawText(AirbusFont, 330, 330, 7, 25, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
+		sasl.gl.drawText(AirbusFont, 330, 330, 7, 25, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.GREEN)
 	else
-		sasl.gl.drawText(AirbusFont, 330, 330, 7, 25, false, false, TEXT_ALIGN_LEFT, ECAM_YELLOW)
+		sasl.gl.drawText(AirbusFont, 330, 330, 7, 25, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.YELLOW)
 	end
 	if get(speedbrake_status, 8) == 1 then
-		sasl.gl.drawText(AirbusFont, 370, 320, 8, 25, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
+		sasl.gl.drawText(AirbusFont, 370, 320, 8, 25, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.GREEN)
 	elseif get(speedbrake_status, 8) == 0 then 
-		sasl.gl.drawText(AirbusFont, 370, 320, 8, 25, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
+		sasl.gl.drawText(AirbusFont, 370, 320, 8, 25, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.GREEN)
 	else
-		sasl.gl.drawText(AirbusFont, 370, 320, 8, 25, false, false, TEXT_ALIGN_LEFT, ECAM_YELLOW)
+		sasl.gl.drawText(AirbusFont, 370, 320, 8, 25, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.YELLOW)
 	end
 	if get(speedbrake_status, 9) == 1 then
-		sasl.gl.drawText(AirbusFont, 410, 310, 9, 25, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
+		sasl.gl.drawText(AirbusFont, 410, 310, 9, 25, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.GREEN)
 	elseif get(speedbrake_status, 9) == 0 then
-		sasl.gl.drawText(AirbusFont, 410, 310, 9, 25, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
+		sasl.gl.drawText(AirbusFont, 410, 310, 9, 25, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.GREEN)
 	else
-		sasl.gl.drawText(AirbusFont, 410, 310, 9, 25, false, false, TEXT_ALIGN_LEFT, ECAM_YELLOW)
+		sasl.gl.drawText(AirbusFont, 410, 310, 9, 25, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.YELLOW)
 	end
 	if get(speedbrake_status, 10) == 1 then
-		sasl.gl.drawText(AirbusFont, 450, 300, 10, 25, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
+		sasl.gl.drawText(AirbusFont, 450, 300, 10, 25, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.GREEN)
 	elseif get(speedbrake_status, 10) == 0 then
-		sasl.gl.drawText(AirbusFont, 450, 300, 10, 25, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
+		sasl.gl.drawText(AirbusFont, 450, 300, 10, 25, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.GREEN)
 	else
-		sasl.gl.drawText(AirbusFont, 450, 300, 10, 25, false, false, TEXT_ALIGN_LEFT, ECAM_YELLOW)
+		sasl.gl.drawText(AirbusFont, 450, 300, 10, 25, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.YELLOW)
     end
     
     -- if get(aileron, 1)
@@ -525,40 +621,40 @@ end
 local function draw_cruise_page()--draw the cruise page
     sasl.gl.drawTexture(lower_cruise_overlay, 0, 72, 522, 450)--we are drawing the overlay
     -- draw fixed text
-    sasl.gl.drawText(AirbusFont, 261, 404, "KG", 16, false, false, TEXT_ALIGN_CENTER, ECAM_WHITE)-- F.USED KG
-    sasl.gl.drawText(AirbusFont, 460, 228, "FT", 16, false, false, TEXT_ALIGN_LEFT, ECAM_WHITE)-- LDG ELEV FT
-    sasl.gl.drawText(AirbusFont, 460, 153, "FT/MIN", 16, false, false, TEXT_ALIGN_LEFT, ECAM_WHITE)-- VS FT/MIN
-    sasl.gl.drawText(AirbusFont, 460, 90, "FT", 16, false, false, TEXT_ALIGN_LEFT, ECAM_WHITE)-- CABIN ALT FT
+    sasl.gl.drawText(AirbusFont, 261, 404, "KG", 16, false, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.WHITE)-- F.USED KG
+    sasl.gl.drawText(AirbusFont, 460, 228, "FT", 16, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.WHITE)-- LDG ELEV FT
+    sasl.gl.drawText(AirbusFont, 460, 153, "FT/MIN", 16, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.WHITE)-- VS FT/MIN
+    sasl.gl.drawText(AirbusFont, 460, 90, "FT", 16, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.WHITE)-- CABIN ALT FT
     
     --engine 1 fuel used = initial fuel quantity - (the current fuel quantity of tank 1) + (The current fuel quantity of engine 2)
-    --sasl.gl.drawText(AirbusFont, 110, 375, get(fuel_used, 1), false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)--we display the fuel used by engine 1
-    --sasl.gl.drawText(AirbusFont, 210, 375, get(fuel_used, 2), false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)--we display the fuel used by engine 2
+    --sasl.gl.drawText(AirbusFont, 110, 375, get(fuel_used, 1), false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.GREEN)--we display the fuel used by engine 1
+    --sasl.gl.drawText(AirbusFont, 210, 375, get(fuel_used, 2), false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.GREEN)--we display the fuel used by engine 2
 
-    sasl.gl.drawText(AirbusFont, 180, 447, "0", 20, false, false, TEXT_ALIGN_RIGHT, ECAM_GREEN)-- Fuel used 1
-    sasl.gl.drawText(AirbusFont, 342, 447, "0", 20, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)-- Fuel used 2
-    sasl.gl.drawText(AirbusFont, 261, 424, "0", 20, false, false, TEXT_ALIGN_CENTER, ECAM_GREEN)-- Fuel used total
+    sasl.gl.drawText(AirbusFont, 180, 447, "0", 20, false, false, TEXT_ALIGN_RIGHT, ECAM_COLOURS.GREEN)-- Fuel used 1
+    sasl.gl.drawText(AirbusFont, 342, 447, "0", 20, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.GREEN)-- Fuel used 2
+    sasl.gl.drawText(AirbusFont, 261, 424, "0", 20, false, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.GREEN)-- Fuel used total
 
-    sasl.gl.drawText(AirbusFont, 180, 365, round(get(oil_qty, 1), 0.1), 20, false, false, TEXT_ALIGN_RIGHT, ECAM_GREEN)--we display the engine 1 oil quantity
-    sasl.gl.drawText(AirbusFont, 342, 365, round(get(oil_qty, 2), 0.1), 20, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)--we display the engine 2 oil quantity
+    sasl.gl.drawText(AirbusFont, 180, 365, round(get(oil_qty, 1), 0.1), 20, false, false, TEXT_ALIGN_RIGHT, ECAM_COLOURS.GREEN)--we display the engine 1 oil quantity
+    sasl.gl.drawText(AirbusFont, 342, 365, round(get(oil_qty, 2), 0.1), 20, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.GREEN)--we display the engine 2 oil quantity
 
-    sasl.gl.drawText(AirbusFont, 180, 323, "0.1", 20, false, false, TEXT_ALIGN_RIGHT, ECAM_GREEN)
-    sasl.gl.drawText(AirbusFont, 342, 323, "0.2", 20, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
+    sasl.gl.drawText(AirbusFont, 180, 323, "0.1", 20, false, false, TEXT_ALIGN_RIGHT, ECAM_COLOURS.GREEN)
+    sasl.gl.drawText(AirbusFont, 342, 323, "0.2", 20, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.GREEN)
 
-    sasl.gl.drawText(AirbusFont, 180, 293, "0.7", 20, false, false, TEXT_ALIGN_RIGHT, ECAM_GREEN)
-    sasl.gl.drawText(AirbusFont, 342, 293, "0.7", 20, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
+    sasl.gl.drawText(AirbusFont, 180, 293, "0.7", 20, false, false, TEXT_ALIGN_RIGHT, ECAM_COLOURS.GREEN)
+    sasl.gl.drawText(AirbusFont, 342, 293, "0.7", 20, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.GREEN)
 
     if get(ldg_elev_auto) then
-        sasl.gl.drawText(AirbusFont, 333, 228, "AUTO", 20, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
+        sasl.gl.drawText(AirbusFont, 333, 228, "AUTO", 20, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.GREEN)
     end
-    sasl.gl.drawText(AirbusFont, 448, 228, get(ldg_elev), 20, false, false, TEXT_ALIGN_RIGHT, ECAM_GREEN)
+    sasl.gl.drawText(AirbusFont, 448, 228, get(ldg_elev), 20, false, false, TEXT_ALIGN_RIGHT, ECAM_COLOURS.GREEN)
 
-    sasl.gl.drawText(AirbusFont, 33, 124, round(get(cond_temps, 1), 1), 20, false, false, TEXT_ALIGN_LEFT, ECAM_BLUE)-- CKPT A/C temp
-    sasl.gl.drawText(AirbusFont, 108, 124, round(get(cond_temps, 2), 1), 20, false, false, TEXT_ALIGN_LEFT, ECAM_BLUE)-- FWD A/C temp
-    sasl.gl.drawText(AirbusFont, 183, 124, round(get(cond_temps, 3), 1), 20, false, false, TEXT_ALIGN_LEFT, ECAM_BLUE)-- AFT A/C temp
+    sasl.gl.drawText(AirbusFont, 33, 124, round(get(cond_temps, 1), 1), 20, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.BLUE)-- CKPT A/C temp
+    sasl.gl.drawText(AirbusFont, 108, 124, round(get(cond_temps, 2), 1), 20, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.BLUE)-- FWD A/C temp
+    sasl.gl.drawText(AirbusFont, 183, 124, round(get(cond_temps, 3), 1), 20, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.BLUE)-- AFT A/C temp
     
     sasl.gl.drawText(AirbusFont, 448, 153, vsi.value, 20, false, false, TEXT_ALIGN_RIGHT, vsi.colour)
 
-    sasl.gl.drawText(AirbusFont, 448, 90, round(get(cabin_alt), 10), 20, false, false, TEXT_ALIGN_RIGHT, ECAM_GREEN)--we display the current cabin altitude
+    sasl.gl.drawText(AirbusFont, 448, 90, round(get(cabin_alt), 10), 20, false, false, TEXT_ALIGN_RIGHT, ECAM_COLOURS.GREEN)--we display the current cabin altitude
 end
 
 local function update_page(page)
@@ -643,24 +739,24 @@ function draw() --the function that actually draws on the panel
     sasl.gl.drawTexture(lower_overlay, 0, 0, 522, 72)--we are drawing the overlay
 
     -- draw Temperatures
-    sasl.gl.drawText(AirbusFont, 90, 48, string.format("%+.1f", get_temp(get(temp_tat))), 20, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
-    sasl.gl.drawText(AirbusFont, 90, 27, string.format("%+.1f", get_temp(get(temp_sat))), 20, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
-    sasl.gl.drawText(AirbusFont, 140, 48, "° " .. (get(efb_units) == units.metric and "C" or "F"), 20, false, false, TEXT_ALIGN_LEFT, ECAM_BLUE)
-    sasl.gl.drawText(AirbusFont, 140, 27, "° " .. (get(efb_units) == units.metric and "C" or "F"), 20, false, false, TEXT_ALIGN_LEFT, ECAM_BLUE)
+    sasl.gl.drawText(AirbusFont, 90, 48, string.format("%+.1f", get_temp(get(temp_tat))), 20, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.GREEN)
+    sasl.gl.drawText(AirbusFont, 90, 27, string.format("%+.1f", get_temp(get(temp_sat))), 20, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.GREEN)
+    sasl.gl.drawText(AirbusFont, 140, 48, "° " .. (get(efb_units) == units.metric and "C" or "F"), 20, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.BLUE)
+    sasl.gl.drawText(AirbusFont, 140, 27, "° " .. (get(efb_units) == units.metric and "C" or "F"), 20, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.BLUE)
     if get(is_isa_enabled) then
-        sasl.gl.drawText(AirbusFont, 90, 6, string.format("%+.1f", get_temp(get_isa())), 20, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
-        sasl.gl.drawText(AirbusFont, 140,  6, "° " .. (get(efb_units) == units.metric and "C" or "F"), 20, false, false, TEXT_ALIGN_LEFT, ECAM_BLUE)
+        sasl.gl.drawText(AirbusFont, 90, 6, string.format("%+.1f", get_temp(get_isa())), 20, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.GREEN)
+        sasl.gl.drawText(AirbusFont, 140,  6, "° " .. (get(efb_units) == units.metric and "C" or "F"), 20, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.BLUE)
     end
     
     -- draw Clock
-    sasl.gl.drawText(AirbusFont, 251, 27, string.format("%02d", get(zulu_hour)), 20, false, false, TEXT_ALIGN_RIGHT, ECAM_GREEN)
-    sasl.gl.drawText(AirbusFont, 273, 27, string.format("%02d", get(zulu_mins)), 20, false, false, TEXT_ALIGN_LEFT, ECAM_GREEN)
-    sasl.gl.drawText(AirbusFont, 268, 27, 'H', 20, false, false, TEXT_ALIGN_RIGHT, ECAM_BLUE)
+    sasl.gl.drawText(AirbusFont, 251, 27, string.format("%02d", get(zulu_hour)), 20, false, false, TEXT_ALIGN_RIGHT, ECAM_COLOURS.GREEN)
+    sasl.gl.drawText(AirbusFont, 273, 27, string.format("%02d", get(zulu_mins)), 20, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.GREEN)
+    sasl.gl.drawText(AirbusFont, 268, 27, 'H', 20, false, false, TEXT_ALIGN_RIGHT, ECAM_COLOURS.BLUE)
 
     -- draw Gross Weight
     local tot_weight = get(weight_empty) + get(weight_fuel)
-    sasl.gl.drawText(AirbusFont, 472, 46, string.format("%.0f", round(get_weight(get(tot_weight)), 10)), 20, false, false, TEXT_ALIGN_RIGHT, ECAM_GREEN)
-    sasl.gl.drawText(AirbusFont, 482, 46, (get(efb_units) == units.metric and "KG" or "LBS"), 20, false, false, TEXT_ALIGN_LEFT, ECAM_BLUE)
+    sasl.gl.drawText(AirbusFont, 472, 46, string.format("%.0f", round(get_weight(get(tot_weight)), 10)), 20, false, false, TEXT_ALIGN_RIGHT, ECAM_COLOURS.GREEN)
+    sasl.gl.drawText(AirbusFont, 482, 46, (get(efb_units) == units.metric and "KG" or "LBS"), 20, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.BLUE)
     ----------------------------------------------------------------------------------------------------------
 
 end

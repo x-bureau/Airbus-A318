@@ -9,8 +9,10 @@ ECAM_COLOURS = {
 }
 
 AirbusFont = sasl.gl.loadFont("fonts/BloggerSans.ttf")
-sasl.gl.setFontRenderMode(AirbusFont, TEXT_RENDER_FORCED_MONO, 0.48)
+sasl.gl.setFontRenderMode(AirbusFont, TEXT_RENDER_FORCED_MONO, 0.52)
 
+pump_states = {["off"] = 0, ["on"] = 1, ["low"] = 2}
+pump_sources = {["engine"] = 0, ["electric"] = 1, ["rat"] = 2}
 switch_states = {["off"] = 0, ["on"] = 1, ["fault"] = 2}
 auto_man_states = {["auto"] = 0, ["manual"] = 1}
 valve_states = {["closed"] = 0, ["transit"] = 1, ["open"] = 2}
