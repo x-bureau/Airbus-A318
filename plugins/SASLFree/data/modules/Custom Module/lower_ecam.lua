@@ -49,13 +49,13 @@ local vsi = {["value"] = 0, ["colour"] = ECAM_COLOURS["GREEN"], ["blink"] = fals
 local hyd = {
     ["green"] = {
         ["qty"] = createGlobalPropertyi("A318/systems/hyd/green/qty", 145), -- qty in cl
-        ["pressure"] = createGlobalPropertyi("A318/systems/hyd/green/pressure", 2784),
+        ["pressure"] = createGlobalPropertyi("A318/systems/hyd/green/pressure", 0),
         ["temp"] = createGlobalPropertyi("A318/systems/hyd/green/temp", 145), 
         ["valve"] = {
             ["state"] = createGlobalPropertyi("A318/systems/hyd/green/valve", valve_states.open)
         },
         ["pumps"] = {
-            ["engine"] = {["state"] = createGlobalPropertyi("A318/systems/hyd/green/pumps/engine/state", pump_states.off)},
+            ["engine"] = {["state"] = createGlobalPropertyi("A318/systems/hyd/green/pumps/engine/state", pump_states.low)},
         },
     },
     ["blue"] = {
@@ -66,38 +66,22 @@ local hyd = {
             ["electric"] = {["state"] = createGlobalPropertyi("A318/systems/hyd/blue/pumps/electric/state", pump_states.off)},
             ["rat"] = {["state"] = createGlobalPropertyi("A318/systems/hyd/blue/pumps/rat/state", pump_states.off)},
         },
-        -- ["pump"] = {["state"] = pump_states.off, ["source"] = pump_sources.electric},
     },
     ["yellow"] = {
         ["qty"] = createGlobalPropertyi("A318/systems/hyd/yellow/qty", 125), -- qty in cl
-        ["pressure"] = createGlobalPropertyi("A318/systems/hyd/yellow/pressure", 2832), -- pressure in psi
+        ["pressure"] = createGlobalPropertyi("A318/systems/hyd/yellow/pressure", 0), -- pressure in psi
         ["temp"] = createGlobalPropertyi("A318/systems/hyd/yellow/temp", 125), -- temp in c
         ["valve"] = {["state"] = createGlobalPropertyi("A318/systems/hyd/yellow/valve", valve_states.open)},
         ["pumps"] = {
-            ["engine"] = {["state"] = createGlobalPropertyi("A318/systems/hyd/yellow/pumps/engine/state", pump_states.off)},
+            ["engine"] = {["state"] = createGlobalPropertyi("A318/systems/hyd/yellow/pumps/engine/state", pump_states.low)},
             ["electric"] = {["state"] = createGlobalPropertyi("A318/systems/hyd/yellow/pumps/electric/state", pump_states.off)},
         },
-        -- ["pump"] = {["state"] = pump_states.off, ["source"] = pump_sources.engine},
     },
     ["ptu"] = {
         ["enabled"] = createGlobalPropertyi("A318/systems/hyd/ptu/enabled", enabled_states.disabled),
         ["xfer"] = {["from"] = createGlobalPropertys("A318/systems/hyd/ptu/from", "yellow")}
     }
 }
--- hyd.green.qty = createGlobalPropertyi("A318/systems/hyd/green/qty", 145) -- qty in cl
--- hyd.blue.qty = createGlobalPropertyi("A318/systems/hyd/blue/qty", 65) -- qty in cl
--- hyd.yellow.qty = createGlobalPropertyi("A318/systems/hyd/yellow/qty", 125) -- qty in cl
-
--- hyd.green.pressure = createGlobalPropertyi("A318/systems/hyd/green/pressure", 2784) -- pressure in psi
--- hyd.blue.pressure = createGlobalPropertyi("A318/systems/hyd/blue/pressure", 0) -- pressure in psi
--- hyd.yellow.pressure = createGlobalPropertyi("A318/systems/hyd/yellow/pressure", 2832) -- pressure in psi
-
--- hyd.green.temp = createGlobalPropertyi("A318/systems/hyd/green/temp", 145) -- temp in c
--- hyd.blue.temp = createGlobalPropertyi("A318/systems/hyd/blue/temp", 65) -- temp in c
--- hyd.yellow.temp = createGlobalPropertyi("A318/systems/hyd/yellow/temp", 125) -- temp in c
-
--- hyd.green.valve = createGlobalPropertyi("A318/systems/hyd/green/valve", valve_states.open)
--- hyd.yellow.valve = createGlobalPropertyi("A318/systems/hyd/yellow/valve", valve_states.open)
 
 -- need to understand what the array elements relate to.
 local aileron = globalPropertyfa("sim/flightmodel2/wing/aileron1_deg", 4)
@@ -161,18 +145,26 @@ local function draw_elec_page()--draw the electricity page
     sasl.gl.drawTexture(lower_elec_overlay, 0, 0, 522, 522)--we are drawing the overlay
 end
 
+local arrow_points = {["left"] = -1, ["right"] = 1}
+
 local function draw_hyd_page()--draw the hyd page
     -- sasl.gl.drawTexture(lower_hyd_overlay, 0, 0, 522, 522)--we are drawing the overlay
 
+    function drawHydArrows(x, y, dir, colour, filled)
+        local point = 10 * (dir or arrow_points.left)
+        if filled then
+            sasl.gl.drawTriangle(x,y,  x,y+14, x+point,y+7, ECAM_COLOURS.GREEN)
+        else
+            sasl.gl.drawWidePolyLine({x,y,  x,y+14,  x+point,y+7,  x,y}, 2.0, colour or ECAM_COLOURS.GREEN)
+        end
+    end
+
     function drawSystem(system, offset)
-        -- green system line
-        sasl.gl.drawLine(offset, 85, offset, 410, ECAM_COLOURS.GREEN)
         local pump_offset = 271
 
         -- system valve
         if system.valve ~= nil then
             sasl.logInfo('system has a valve')
-            -- sasl.gl.drawCircle(offset, 210, 15, false, ECAM_COLOURS.GREEN)
             local valve_state = get(system.valve.state)
             sasl.logInfo(valve_state)
             if valve_state == valve_states.closed then
@@ -192,30 +184,57 @@ local function draw_hyd_page()--draw the hyd page
             pump_offset = 227
         end
 
+        -- draw system line
+        sasl.gl.drawLine(offset, 85, offset, pump_offset, ECAM_COLOURS.GREEN)
+
         -- pumps
         if system.pumps.rat ~= nil then
             -- TODO move a little closer
             sasl.logInfo('system has a rat pump')
             if get(system.pumps.rat.state) == pump_states.on then
-                sasl.gl.drawTriangle(223,323,  223,341,  243,332, ECAM_COLOURS.GREEN)
+                drawHydArrows(223, 323, arrow_points.right, ECAM_COLOURS.GREEN, true)
                 sasl.gl.drawLine(242, 332, offset, 332, ECAM_COLOURS.GREEN)
             else
-                sasl.gl.drawWidePolyLine({223,323,  223,341,  243,332,  223,323}, 2.0, ECAM_COLOURS.WHITE)
-            end
-            sasl.gl.drawFrame(offset-15, pump_offset, 29, 29, ECAM_COLOURS.GREEN)
-        elseif system.pumps.electric ~= nil then
-            sasl.logInfo('system has an electric pump')
-            if get(system.pumps.electric.state) == pump_states.on then
-                sasl.gl.drawTriangle(463,323,  463,341,  443,332, ECAM_COLOURS.GREEN)
-                sasl.gl.drawLine(444, 332, offset, 332, ECAM_COLOURS.GREEN)
-            else
-                sasl.gl.drawWidePolyLine({463,323,  463,341,  443,332,  463,323}, 2.0, ECAM_COLOURS.WHITE)
+                drawHydArrows(223, 323, arrow_points.right, ECAM_COLOURS.WHITE)
             end
         end
         if system.pumps.engine ~= nil then
             sasl.logInfo('system has an engine pump')
             local pump_state = get(system.pumps.engine.state)
-            sasl.gl.drawFrame(offset-15, pump_offset, 29, 29, ECAM_COLOURS.GREEN)
+            if pump_state == pump_states.on then
+                sasl.gl.drawFrame(offset-15, pump_offset, 29, 29, ECAM_COLOURS.GREEN)
+                sasl.gl.drawLine(offset, pump_offset, offset, 410, ECAM_COLOURS.GREEN)
+            elseif pump_state == pump_states.low then
+                sasl.gl.drawFrame(offset-15, pump_offset, 29, 29, ECAM_COLOURS.ORANGE)
+                -- TODO only draw the orange line up to the elec pump if on yellow system
+                sasl.gl.drawLine(offset, pump_offset+29, offset, 410, ECAM_COLOURS.ORANGE)
+                sasl.gl.drawText(AirbusFont, offset, pump_offset+7, "LO", 22, false, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.ORANGE)
+            end
+        end
+        if system.pumps.electric ~= nil then
+            sasl.logInfo('system has an electric pump')
+            local pump_state = get(system.pumps.electric.state)
+            -- if the system also has an engine pump, then it is yellow and draw triangles
+            if system.pumps.engine ~= nil then
+                if pump_state == pump_states.on then
+                    drawHydArrows(463, 323, arrow_points.left, ECAM_COLOURS.GREEN, true)
+                    sasl.gl.drawLine(444, 332, offset, 332, ECAM_COLOURS.GREEN)
+                    sasl.gl.drawLine(offset, pump_offset+29, offset, 410, ECAM_COLOURS.GREEN)
+                else
+                    drawHydArrows(463, 323, arrow_points.left, ECAM_COLOURS.WHITE)
+                    sasl.gl.drawLine(offset, pump_offset+29, offset, 410, ECAM_COLOURS.ORANGE)
+                end
+            else
+                -- draw elec pump as boxes because system is blue
+                if pump_state == pump_states.off then
+                    sasl.gl.drawFrame(offset-15, pump_offset, 29, 29, ECAM_COLOURS.ORANGE)
+                    sasl.gl.drawLine(offset-10, pump_offset+15, offset+10, pump_offset+15, ECAM_COLOURS.ORANGE)
+                    sasl.gl.drawLine(offset, pump_offset+29, offset, 410, ECAM_COLOURS.ORANGE)
+                elseif pump_state == pump_states.on then
+                    sasl.gl.drawFrame(offset-15, pump_offset, 29, 29, ECAM_COLOURS.GREEN)
+                    sasl.gl.drawLine(offset, pump_offset, offset, 410, ECAM_COLOURS.GREEN)
+                end
+            end
         end
 
         -- draw fixed items
@@ -231,10 +250,7 @@ local function draw_hyd_page()--draw the hyd page
         sasl.gl.drawPolyLine({offset,86,  offset-11,86,  offset-11,pos,  offset,pos,  offset-11,pos+12}, ECAM_COLOURS.GREEN)
     end
 
-    -- sasl.gl.drawRectangle(75, 80, 45, 300, {0, 0, 0, 1.0})
-    -- sasl.gl.drawRectangle(200, 80, 85, 300, {0, 0, 0, 1.0})
-    -- sasl.gl.drawRectangle(410, 80, 125, 300, {0, 0, 0, 1.0})
-    -- green/blue/yellow
+     -- green/blue/yellow
     -- psi  3000 ±200
     -- qty
       -- max, norm, acceptable, low
@@ -253,41 +269,54 @@ local function draw_hyd_page()--draw the hyd page
     -- Green max system volume is 100L, Yellow 75L, Blue 60L
     -- That includes reservoir max volume Green 30L, Yellow 40L, Blue 30L (this includes air space)
 
-    -- sasl.gl.drawLine(92, 85, 92, 410, ECAM_COLOURS.GREEN)
-
     sasl.gl.saveInternalLineState()
     sasl.gl.setInternalLineStipple(false)
     sasl.gl.setInternalLineWidth(2)
     drawSystem(hyd.green, 93)
     drawSystem(hyd.blue, 261)
     drawSystem(hyd.yellow, 430)
-    if get(hyd.ptu.enabled) == enabled_states.enabled then
-        -- draw filled triangles 
-    else
-        -- draw empty triangles
-    end
 
     if get(hyd.green.pressure) >= 1000 then
         sasl.gl.drawText(AirbusFont, 93, 448, "GREEN", 24, false, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.WHITE)
+        sasl.gl.drawText(AirbusFont, 93, 420, round(get(hyd.green.pressure), 10), 24, false, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.GREEN)
     else
         sasl.gl.drawText(AirbusFont, 93, 448, "GREEN", 24, false, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.ORANGE)
+        sasl.gl.drawText(AirbusFont, 93, 420, round(get(hyd.green.pressure), 10), 24, false, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.ORANGE)
     end
     if get(hyd.blue.pressure) >= 1000 then
         sasl.gl.drawText(AirbusFont, 261, 448, "BLUE", 24, false, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.WHITE)
+        sasl.gl.drawText(AirbusFont, 261, 420, round(get(hyd.blue.pressure), 10), 24, false, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.GREEN)
     else
         sasl.gl.drawText(AirbusFont, 261, 448, "BLUE", 24, false, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.ORANGE)
+        sasl.gl.drawText(AirbusFont, 261, 420, round(get(hyd.blue.pressure), 10), 24, false, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.ORANGE)
     end
     if get(hyd.yellow.pressure) >= 1000 then
         sasl.gl.drawText(AirbusFont, 430, 448, "YELLOW", 24, false, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.WHITE)
+        sasl.gl.drawText(AirbusFont, 430, 420, round(get(hyd.yellow.pressure), 10), 24, false, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.GREEN)
     else
         sasl.gl.drawText(AirbusFont, 430, 448, "YELLOW", 24, false, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.ORANGE)
+        sasl.gl.drawText(AirbusFont, 430, 420, round(get(hyd.yellow.pressure), 10), 24, false, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.ORANGE)
     end
 
     sasl.gl.drawText(AirbusFont, 345, 371, "PTU", 20, false, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.WHITE)
     sasl.gl.drawText(AirbusFont, 200, 325, "RAT", 20, false, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.WHITE)
     sasl.gl.drawText(AirbusFont, 493, 325, "ELEC", 20, false, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.WHITE)
+    sasl.gl.drawText(AirbusFont, 261+45, 227+29, "ELEC", 20, false, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.WHITE)
 
     -- draw PTU line
+    if get(hyd.ptu.enabled) == enabled_states.enabled then
+        -- draw filled triangles 
+        drawHydArrows(373, 370, arrow_points.left, ECAM_COLOURS.GREEN, true)
+        drawHydArrows(311, 370, arrow_points.left, ECAM_COLOURS.GREEN, true)
+        drawHydArrows(187, 370, arrow_points.left, ECAM_COLOURS.GREEN, true)
+        sasl.gl.drawLine(93, 378, 188, 378, ECAM_COLOURS.GREEN)
+        sasl.gl.drawLine(373, 378, 430, 378, ECAM_COLOURS.GREEN)
+    else
+        -- draw empty triangles
+        drawHydArrows(373, 370, arrow_points.right)
+        drawHydArrows(311, 370)
+        drawHydArrows(187, 370)
+    end
     sasl.gl.drawArc(261, 378, 14, 16, 180, 180, ECAM_COLOURS.GREEN)
     sasl.gl.drawLine(188, 378, 246, 378, ECAM_COLOURS.GREEN)
     sasl.gl.drawLine(276, 378, 300, 378, ECAM_COLOURS.GREEN)
