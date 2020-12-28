@@ -3,38 +3,38 @@
 --COMPONENTS
 -------------------------------------------------------------------------------
 --ENGINE GENERATORS
-local GEN_1 = createGlobalPropertyi("A318/electrical/generator_1", 0)--Supplies AC BUS 1
-local GEN_2 = createGlobalPropertyi("A318/electrical/generator_2", 0)--Supplies AC BUS 2
+local GEN_1 = createGlobalPropertyi("A318/systems/electrical/generator_1", 0)--Supplies AC BUS 1
+local GEN_2 = createGlobalPropertyi("A318/systems/electrical/generator_2", 0)--Supplies AC BUS 2
 --Auxillary Power Unit (APU)
-local APU_ON = createGlobalProperyi("A318/electrical/gpu_on", 0)--IS THE GPU ON
-local APU_GEN = createGlobalPropertyi("A318/electrical/apu_gen", 0)--APU Generator
+local APU_ON = createGlobalPropertyi("A318/systems/electrical/gpu_on", 0)--IS THE GPU ON
+local APU_GEN = createGlobalPropertyi("A318/systems/electrical/apu_gen", 0)--APU Generator
 --EXTERNAL POWER
-local GPU_IS_AVAIL = createGlobalPropertyi("A318/electrical/gpu_is_avail", 0)--Is the GPU Available
-local GPU_PWR = createGlobalPropertyi("A318/electrical/gpu_pwr", 0)--GPU Power
+local GPU_IS_AVAIL = createGlobalPropertyi("A318/systems/electrical/gpu_is_avail", 0)--Is the GPU Available
+local GPU_PWR = createGlobalPropertyi("A318/systems/electrical/gpu_pwr", 0)--GPU Power
 --CREATING THE AC BUSSES
-local AC_BUS_1 = createGlobalPropertyi("A318/electrical/ac_bus_1", 0)--Dataref for AC BUS 1
-local AC_BUS_2 = createGlobalPropertyi("A318/electrical/ac_bus_2", 0)--Dataref for AC BUS 2
-local AC_ESS_BUS = createGlobalPropertyi("A318/electrical/ac_ess_bus", 0)--Dataref for the AC ESS BUS
+local AC_BUS_1 = createGlobalPropertyi("A318/systems/electrical/ac_bus_1", 0)--Dataref for AC BUS 1
+local AC_BUS_2 = createGlobalPropertyi("A318/systems/electrical/ac_bus_2", 0)--Dataref for AC BUS 2
+local AC_ESS_BUS = createGlobalPropertyi("A318/systems/electrical/ac_ess_bus", 0)--Dataref for the AC ESS BUS
 local AC_EMER_BUS = createGlobalPropertyi("A318/electric/ac_emer_bus", 0)--Dataref for the EMERGENCY BUS
-local AC_GND_SER_BUS = createGlobalPropertyi("A318/electrical/ac_gnd_ser_bus", 0)--Dataref for AC GROUND SERVICE BUS
+local AC_GND_SER_BUS = createGlobalPropertyi("A318/systems/electrical/ac_gnd_ser_bus", 0)--Dataref for AC GROUND SERVICE BUS
 --CREATING THE TRU
-local TRU_1 = createGlobalPropertyi("A318/electrical/tru_1", 0)--Powered by AC BUS 1
-local TRU_2 = createGlobalPropertyi("A318/electrical/tru_2", 0)--Powered by AC BUS 2
-local TRU_ESS = createGlobalPropertyi("A318/electrical/tru_ess", 0)--Powered by ESS BUS
-local TRU_EMER = createGlobalPropertyi("A318/electrical/tru_emer", 0)
-local TRU_GND_SER = createGlobalPropertyi("A318/electrical/tru_gnd_ser", 0)--Powered by AC GND SER BUS
+local TRU_1 = createGlobalPropertyi("A318/systems/electrical/tru_1", 0)--Powered by AC BUS 1
+local TRU_2 = createGlobalPropertyi("A318/systems/electrical/tru_2", 0)--Powered by AC BUS 2
+local TRU_ESS = createGlobalPropertyi("A318/systems/electrical/tru_ess", 0)--Powered by ESS BUS
+local TRU_EMER = createGlobalPropertyi("A318/systems/electrical/tru_emer", 0)
+local TRU_GND_SER = createGlobalPropertyi("A318/systems/electrical/tru_gnd_ser", 0)--Powered by AC GND SER BUS
 --CREATING THE DC BUSSES
-local DC_BUS_1 = createGlobalPropertyi("A318/electrical/dc_bus_1", 0)--Dataref for AC BUS 1
-local DC_BUS_2 = createGlobalPropertyi("A318/electrical/dc_bus_2", 0)--Dataref for AC BUS 2
-local DC_ESS_BUS = createGlobalPropertyi("A318/electrical/dc_ess_bus", 0)--Dataref for the DC ESS BUS
+local DC_BUS_1 = createGlobalPropertyi("A318/systems/electrical/dc_bus_1", 0)--Dataref for AC BUS 1
+local DC_BUS_2 = createGlobalPropertyi("A318/systems/electrical/dc_bus_2", 0)--Dataref for AC BUS 2
+local DC_ESS_BUS = createGlobalPropertyi("A318/systems/electrical/dc_ess_bus", 0)--Dataref for the DC ESS BUS
 local DC_EMER_BUS = createGlobalPropertyi("A318/electric/dc_emer_bus", 0)--Dataref for the EMERGENCY BUS
-local DC_GND_SER_BUS = createGlobalPropertyi("A318/electrical/dc_gnd_ser_bus", 0)--Dataref for AC GROUND SERVICE BUS
-local DUAL_DC_BUS = createGlobalPropertyi("A318/electrical/dual_DC_Bus", 0)--Dataref for the DUAL DC BUS
+local DC_GND_SER_BUS = createGlobalPropertyi("A318/systems/electrical/dc_gnd_ser_bus", 0)--Dataref for AC GROUND SERVICE BUS
+local DUAL_DC_BUS = createGlobalPropertyi("A318/systems/electrical/dual_DC_Bus", 0)--Dataref for the DUAL DC BUS
 --CROSS TIES
-local dcb1_dcb2_x_tie = createGlobalPropertyi("A318/electrical/dcb1_dcb2_x_tie", 0)--DC BUS 1 and DC BUS 2 Cross-Tie
+local dcb1_dcb2_x_tie = createGlobalPropertyi("A318/systems/electrical/dcb1_dcb2_x_tie", 0)--DC BUS 1 and DC BUS 2 Cross-Tie
 --BATTERIES
-local BAT_1 = createGlobalPropertyi("A318/electrical/battery_1", 0)--Dataref for Battery 1
-local BAT_2 = createGlobalPropertyi("A318/electrical/battery_2", 0)--Dataref for Battery 2
+local BAT_1 = createGlobalPropertyi("A318/systems/electrical/battery_1", 0)--Dataref for Battery 1
+local BAT_2 = createGlobalPropertyi("A318/systems/electrical/battery_2", 0)--Dataref for Battery 2
 --PUSH BUTTONS
 local battery_switch = createGlobalPropertyia("A318/buttons/battery_switch", {switch_states.off, switch_states.off})--The Dataref for the battery switch
 local GPU_PB = createGlobalPropertyi("A318/buttons/gpu_pb")--Dataref for the Push Button for the GPU
@@ -89,10 +89,10 @@ function update()
         set(AC_BUS_2, 1)
     end
     --If the battery switch is ON
-    if get(battery_switch, 0) == switch_states.on then
+    if get(battery_switch, 1) == switch_states.on then
         set(BAT_1, 1)
     end
-    if get(battery_switch, 1) == switch_states.on then
+    if get(battery_switch, 2) == switch_states.on then
         set(BAT_2, 1)
     end
     --If BATTERIES are ON, power the EMERGENCY BUS

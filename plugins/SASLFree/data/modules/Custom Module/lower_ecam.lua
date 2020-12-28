@@ -46,40 +46,39 @@ local is_isa_enabled = globalPropertyi("A318/efb/config/isa_enabled", enabled_st
 local weight_empty = globalPropertyf("sim/aircraft/weight/acf_m_empty")
 local weight_fuel = globalPropertyf("sim/aircraft/weight/acf_m_fuel_tot")
 local vsi = {["value"] = 0, ["colour"] = ECAM_COLOURS["GREEN"], ["blink"] = false}
+
 local hyd = {
     ["green"] = {
-        ["qty"] = createGlobalPropertyi("A318/systems/hyd/green/qty", 145), -- qty in cl
-        ["pressure"] = createGlobalPropertyi("A318/systems/hyd/green/pressure", 0),
-        ["temp"] = createGlobalPropertyi("A318/systems/hyd/green/temp", 145), 
-        ["valve"] = {
-            ["state"] = createGlobalPropertyi("A318/systems/hyd/green/valve", valve_states.open)
-        },
+        ["qty"] = globalPropertyi("A318/systems/hyd/green/qty", 145), -- qty in cl
+        ["pressure"] = globalPropertyi("A318/systems/hyd/green/pressure", 0),
+        ["temp"] = globalPropertyi("A318/systems/hyd/green/temp", 145), 
+        ["shutoff_valve"] = {["state"] = globalPropertyi("A318/systems/hyd/green/shutoff_valve", valve_states.open)},
         ["pumps"] = {
-            ["engine"] = {["state"] = createGlobalPropertyi("A318/systems/hyd/green/pumps/engine/state", pump_states.low)},
+            ["engine"] = {["state"] = globalPropertyi("A318/systems/hyd/green/pumps/engine/state", pump_states.low)},
         },
     },
     ["blue"] = {
-        ["qty"] = createGlobalPropertyi("A318/systems/hyd/blue/qty", 65), -- qty in cl
-        ["pressure"] = createGlobalPropertyi("A318/systems/hyd/blue/pressure", 0),
-        ["temp"] = createGlobalPropertyi("A318/systems/hyd/blue/temp", 65), 
+        ["qty"] = globalPropertyi("A318/systems/hyd/blue/qty", 65), -- qty in cl
+        ["pressure"] = globalPropertyi("A318/systems/hyd/blue/pressure", 0),
+        ["temp"] = globalPropertyi("A318/systems/hyd/blue/temp", 65), 
         ["pumps"] = {
-            ["electric"] = {["state"] = createGlobalPropertyi("A318/systems/hyd/blue/pumps/electric/state", pump_states.off)},
-            ["rat"] = {["state"] = createGlobalPropertyi("A318/systems/hyd/blue/pumps/rat/state", pump_states.off)},
+            ["electric"] = {["state"] = globalPropertyi("A318/systems/hyd/blue/pumps/electric/state", pump_states.off)},
+            ["rat"] = {["state"] = globalPropertyi("A318/systems/hyd/blue/pumps/rat/state", pump_states.off)},
         },
     },
     ["yellow"] = {
-        ["qty"] = createGlobalPropertyi("A318/systems/hyd/yellow/qty", 125), -- qty in cl
-        ["pressure"] = createGlobalPropertyi("A318/systems/hyd/yellow/pressure", 0), -- pressure in psi
-        ["temp"] = createGlobalPropertyi("A318/systems/hyd/yellow/temp", 125), -- temp in c
-        ["valve"] = {["state"] = createGlobalPropertyi("A318/systems/hyd/yellow/valve", valve_states.open)},
+        ["qty"] = globalPropertyi("A318/systems/hyd/yellow/qty", 125), -- qty in cl
+        ["pressure"] = globalPropertyi("A318/systems/hyd/yellow/pressure", 0), -- pressure in psi
+        ["temp"] = globalPropertyi("A318/systems/hyd/yellow/temp", 125), -- temp in c
+        ["shutoff_valve"] = {["state"] = globalPropertyi("A318/systems/hyd/yellow/shutoff_valve", valve_states.open)},
         ["pumps"] = {
-            ["engine"] = {["state"] = createGlobalPropertyi("A318/systems/hyd/yellow/pumps/engine/state", pump_states.low)},
-            ["electric"] = {["state"] = createGlobalPropertyi("A318/systems/hyd/yellow/pumps/electric/state", pump_states.off)},
+            ["engine"] = {["state"] = globalPropertyi("A318/systems/hyd/yellow/pumps/engine/state", pump_states.low)},
+            ["electric"] = {["state"] = globalPropertyi("A318/systems/hyd/yellow/pumps/electric/state", pump_states.off)},
         },
     },
     ["ptu"] = {
-        ["enabled"] = createGlobalPropertyi("A318/systems/hyd/ptu/enabled", enabled_states.disabled),
-        ["xfer"] = {["from"] = createGlobalPropertys("A318/systems/hyd/ptu/from", "yellow")}
+        ["enabled"] = globalPropertyi("A318/systems/hyd/ptu/enabled", enabled_states.disabled),
+        ["xfer"] = {["from"] = globalPropertys("A318/systems/hyd/ptu/from", "yellow")}
     }
 }
 
@@ -163,10 +162,8 @@ local function draw_hyd_page()--draw the hyd page
         local pump_offset = 271
 
         -- system valve
-        if system.valve ~= nil then
-            sasl.logInfo('system has a valve')
-            local valve_state = get(system.valve.state)
-            sasl.logInfo(valve_state)
+        if system.shutoff_valve ~= nil then
+            local valve_state = get(system.shutoff_valve.state)
             if valve_state == valve_states.closed then
                 sasl.gl.drawCircle(offset, 210, 13, true, ECAM_COLOURS.ORANGE)
                 sasl.gl.drawCircle(offset, 210, 11, true, {0, 0, 0})
@@ -190,7 +187,6 @@ local function draw_hyd_page()--draw the hyd page
         -- pumps
         if system.pumps.rat ~= nil then
             -- TODO move a little closer
-            sasl.logInfo('system has a rat pump')
             if get(system.pumps.rat.state) == pump_states.on then
                 drawHydArrows(223, 323, arrow_points.right, ECAM_COLOURS.GREEN, true)
                 sasl.gl.drawLine(242, 332, offset, 332, ECAM_COLOURS.GREEN)
@@ -199,7 +195,6 @@ local function draw_hyd_page()--draw the hyd page
             end
         end
         if system.pumps.engine ~= nil then
-            sasl.logInfo('system has an engine pump')
             local pump_state = get(system.pumps.engine.state)
             if pump_state == pump_states.on then
                 sasl.gl.drawFrame(offset-15, pump_offset, 29, 29, ECAM_COLOURS.GREEN)
@@ -212,7 +207,6 @@ local function draw_hyd_page()--draw the hyd page
             end
         end
         if system.pumps.electric ~= nil then
-            sasl.logInfo('system has an electric pump')
             local pump_state = get(system.pumps.electric.state)
             -- if the system also has an engine pump, then it is yellow and draw triangles
             if system.pumps.engine ~= nil then
