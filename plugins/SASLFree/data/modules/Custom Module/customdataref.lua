@@ -59,8 +59,22 @@ baro_units = {["hPa"] = 0, ["inHg"] = 1, ["STD"] = 2}
 
 -- efb datarefs
 -- TODO this should be fetched from some config/saved state
-createGlobalPropertyi("A318/efb/config/units", units.metric)
+-- createGlobalPropertyi("A318/efb/config/units", units.metric)
 createGlobalPropertyi("A318/efb/config/isa_enabled", enabled_states.disabled)
+
+
+------------------------------------------------------------------------------------------------------
+-- Commands
+------------------------------------------------------------------------------------------------------
+
+sasl.createCommand("A318/systems/hyd/pbs/rat", "RAT push button")
+sasl.createCommand("A318/systems/hyd/pbs/ptu", "PTU push button")
+sasl.createCommand("A318/systems/hyd/pbs/green/eng1_pump", "GREEN system Engine 1 Pump push button")
+sasl.createCommand("A318/systems/hyd/pbs/yellow/eng2_pump", "YELLOW system Engine 1 Pump push button")
+sasl.createCommand("A318/systems/hyd/pbs/yellow/elec_pump", "YELLOW system Electric Pump push button")
+sasl.createCommand("A318/systems/hyd/pbs/blue/elec_pump", "BLUE system Electric Pump push button")
+
+
 
 --baro
 local baro_unit = createGlobalPropertyi("A318/cockpit/efis/baro_unit", baro_units.hPa)

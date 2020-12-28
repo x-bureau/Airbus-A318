@@ -4,60 +4,80 @@
 --FBI914
 
 require "common_declarations"
+local EventEmitter = require "events_min"
 
 ------------------------------------------------------------------------
 --Defining the Hydraulic System Components
 ------------------------------------------------------------------------
 
---TIMER FUNCTION
---This function counts up and when it reaches a certain threshold it will trigger an event
-function timerThing()
-    local timer = 0 --Defining a TIMER to be used with the pumps
-    while timer < 2000 do
-        timer = timer + 1
-    end
-end
-
 local hyd = {
-    ["green"] = {
-        ["qty"] = createGlobalPropertyi("A318/systems/hyd/green/qty", 145), -- qty in cl
-        ["pressure"] = createGlobalPropertyi("A318/systems/hyd/green/pressure", 0),
-        ["temp"] = createGlobalPropertyi("A318/systems/hyd/green/temp", 145), 
-        ["shutoff_valve"] = {["state"] = createGlobalPropertyi("A318/systems/hyd/green/shutoff_valve", valve_states.open)},
-        ["pumps"] = {
-            ["engine"] = {["state"] = createGlobalPropertyi("A318/systems/hyd/green/pumps/engine/state", pump_states.low)},
+    green = EventEmitter:new({
+        qty = createGlobalPropertyi("A318/systems/hyd/green/qty", 145), -- qty in cl
+        pressure = createGlobalPropertyi("A318/systems/hyd/green/pressure", 0),
+        temp = createGlobalPropertyi("A318/systems/hyd/green/temp", 145), 
+        shutoff_valve = {state = createGlobalPropertyi("A318/systems/hyd/green/shutoff_valve", valve_states.open)},
+        pumps = {
+            engine = {state = createGlobalPropertyi("A318/systems/hyd/green/pumps/engine/state", pump_states.low)},
         },
-    },
-    ["blue"] = {
-        ["qty"] = createGlobalPropertyi("A318/systems/hyd/blue/qty", 65), -- qty in cl
-        ["pressure"] = createGlobalPropertyi("A318/systems/hyd/blue/pressure", 0),
-        ["temp"] = createGlobalPropertyi("A318/systems/hyd/blue/temp", 65), 
-        ["pumps"] = {
-            ["electric"] = {["state"] = createGlobalPropertyi("A318/systems/hyd/blue/pumps/electric/state", pump_states.off)},
-            ["rat"] = {
-                ["pb"] = createGlobalPropertyi("A318/systems/hyd/blue/pumps/rat/pb", switch_states.off),
-                ["state"] = createGlobalPropertyi("A318/systems/hyd/blue/pumps/rat/state", pump_states.off),
-                ["is_extended"] = createGlobalPropertyi("A318/systems/hyd/blue/pumps/rat/is_extended", 0),
-                ["can_retract"] = false
+    }),
+    blue = EventEmitter:new({
+        qty = createGlobalPropertyi("A318/systems/hyd/blue/qty", 65), -- qty in cl
+        pressure = createGlobalPropertyi("A318/systems/hyd/blue/pressure", 0),
+        temp = createGlobalPropertyi("A318/systems/hyd/blue/temp", 65), 
+        pumps = {
+            electric = {state = createGlobalPropertyi("A318/systems/hyd/blue/pumps/electric/state", pump_states.off)},
+            rat = {
+                pb = createGlobalPropertyi("A318/systems/hyd/blue/pumps/rat/pb", switch_states.off),
+                state = createGlobalPropertyi("A318/systems/hyd/blue/pumps/rat/state", pump_states.off),
+                is_extended = createGlobalPropertyi("A318/systems/hyd/blue/pumps/rat/is_extended", 0),
+                can_retract = false
             },
         },
-    },
-    ["yellow"] = {
-        ["qty"] = createGlobalPropertyi("A318/systems/hyd/yellow/qty", 125), -- qty in cl
-        ["pressure"] = createGlobalPropertyi("A318/systems/hyd/yellow/pressure", 0), -- pressure in psi
-        ["temp"] = createGlobalPropertyi("A318/systems/hyd/yellow/temp", 125), -- temp in c
-        ["shutoff_valve"] = {["state"] = createGlobalPropertyi("A318/systems/hyd/yellow/shutoff_valve", valve_states.open)},
-        ["pumps"] = {
-            ["engine"] = {["state"] = createGlobalPropertyi("A318/systems/hyd/yellow/pumps/engine/state", pump_states.low)},
-            ["electric"] = {["state"] = createGlobalPropertyi("A318/systems/hyd/yellow/pumps/electric/state", pump_states.off)},
+    }),
+    yellow = EventEmitter:new({
+        qty = createGlobalPropertyi("A318/systems/hyd/yellow/qty", 125), -- qty in cl
+        pressure = createGlobalPropertyi("A318/systems/hyd/yellow/pressure", 0), -- pressure in psi
+        temp = createGlobalPropertyi("A318/systems/hyd/yellow/temp", 125), -- temp in c
+        shutoff_valve = {state = createGlobalPropertyi("A318/systems/hyd/yellow/shutoff_valve", valve_states.open)},
+        pumps = {
+            engine = {state = createGlobalPropertyi("A318/systems/hyd/yellow/pumps/engine/state", pump_states.low)},
+            electric = {state = createGlobalPropertyi("A318/systems/hyd/yellow/pumps/electric/state", pump_states.off)},
         },
-    },
-    ["ptu"] = {
-        ["enabled"] = createGlobalPropertyi("A318/systems/hyd/ptu/enabled", enabled_states.disabled),
-        ["xfer"] = {["from"] = createGlobalPropertys("A318/systems/hyd/ptu/from", "yellow")},
-        ["auto_xfer_psi_diff"] = 500
-    }
+    }),
+    ptu = EventEmitter:new({
+        enabled = createGlobalPropertyi("A318/systems/hyd/ptu/enabled", enabled_states.disabled),
+        xfer = {from = createGlobalPropertys("A318/systems/hyd/ptu/from", "yellow")},
+        auto_xfer_psi_diff = 500
+    })
 }
+
+hyd.blue:on('rat_pb', function(pb_state)
+    if pb_state == switch_states.on then
+        set(hyd.blue.pumps.rat.state, pump_states.on)
+    else
+        set(hyd.blue.pumps.rat.state, pump_states.off)
+    end
+    print("rat state " .. get(hyd.blue.pumps.rat.state))
+end)
+
+function rat_pb_handler(phase)
+    local current_pb_state = get(hyd.blue.pumps.rat.pb)
+    local new_pb_state = current_pb_state
+    if phase == SASL_COMMAND_BEGIN then
+        if current_pb_state == switch_states.off then
+            new_pb_state = switch_states.on
+        else
+            new_pb_state = switch_states.off
+        end
+        set(hyd.blue.pumps.rat.pb, new_pb_state)
+    elseif phase == SASL_COMMAND_END then
+        hyd.blue:emit('rat_pb', new_pb_state)
+    end
+    return 1 
+end
+
+local rat_pb = sasl.findCommand("A318/systems/hyd/pbs/rat")
+sasl.registerCommandHandler(rat_pb, 0, rat_pb_handler)
 
 local NmlOpPress = 3000 --The NORMAL OPERATION TEMPERATURE is 3000 psi
 local RAT = 2500 --The RAM AIR TURBINE (RAT) powers the BLUE system in an emergency at 2500 psi
@@ -75,17 +95,17 @@ function update()
     ----------------------------------------------------------------------------------
     --If the Aircraft is on the ground, then the RAT can retract.
     if get(isOnGround) == 1 then
-        set(hyd.blue.pumps.rat.can_retract, true)
+        set(hyd.blue.pumps.rat.can_retract, 1)
     else
-        set(hyd.blue.pumps.rat.can_retract, false)
+        set(hyd.blue.pumps.rat.can_retract, 0)
         set(hyd.blue.pumps.rat.is_extended, 1)
     end
 
     --If the Aircraft is on the ground, then the RAT can be deployed manually
     if get(isOnGround) == 1 and get(hyd.blue.pumps.rat.pb) == switch_states.on then
-        set(hyd.blue.pumps.rat.is_extended, true)
+        set(hyd.blue.pumps.rat.is_extended, 1)
     elseif get(isOnGround) == 0 and get(hyd.blue.pumps.rat.pb) == switch_states.on then
-        set(hyd.blue.pumps.rat.can_retract, false)
+        set(hyd.blue.pumps.rat.can_retract, 0)
     end
 
     --If the Ram Air Turbine (RAT) cannot retract, then it will continue in the extended position
@@ -112,7 +132,6 @@ function update()
         sasl.logInfo("xfer from yellow")
     else
         set(hyd.ptu.enabled, enabled_states.disabled)
-        sasl.logInfo("disable ptu")
     end
 
     --Logic to determine how much pressure to transfer to the other system
@@ -150,10 +169,12 @@ function update()
     end
 
     --Logic for the GREEN SYSTEM PUMP
-    if get(hyd.green.shutoff_valve.state) == valve_states.open and get(hyd.green.pressure) < 3000 and get(hyd.ptu.xfer.from) == 'yellow' then
-        while get(hyd.green.pressure) < 3000 do
-            timerThing()
-            set(hyd.green.pressure, get(hyd.green.pressure) + 10)
+    -- TODO only if system has pump creating pressure
+    if get(hyd.green.pumps.engine.state) ==pump_states.on then
+        if get(hyd.green.shutoff_valve.state) == valve_states.open and get(hyd.green.pressure) < 3000 and get(hyd.ptu.xfer.from) == 'yellow' then
+            if get(hyd.green.pressure) < 3000 then
+                set(hyd.green.pressure, get(hyd.green.pressure) + 10)
+            end
         end
     end
 

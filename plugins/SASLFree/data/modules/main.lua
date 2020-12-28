@@ -15,4 +15,10 @@ components = {
   nav {};
   ecam {};
   lower_ecam {};
+  menu {};
 }
+
+function onModuleDone()
+  print('TODO: save state')
+  -- saveState('a318.state')
+end

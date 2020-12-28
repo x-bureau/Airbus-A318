@@ -47,6 +47,32 @@ function get_temp(celsius)
     return celsius * 1.8 + 32
 end
 
+a318Maths = {
+    round = function(v, bracket)
+        local function sign(v)
+            return (v >= 0 and 1) or -1
+        end
+        bracket = bracket or 1
+        return math.floor(v/bracket + sign(v) * 0.5) * bracket
+    end,
+    clamp = function(val, min, max)
+        if min > max then 
+            print("Min is larger than Max, invalid")
+            print("Minimum was: " .. min)
+            print("Maximum was: " .. max)
+            print("Original value: " .. val .. " will be returned")
+            return val
+        end
+        if val < min then
+            return min
+        elseif val > max then
+            return max
+        elseif min <= val and val <= max then
+            return val
+        end
+    end
+}
+
 local vsi = globalPropertyf("sim/cockpit2/gauges/indicators/vvi_fpm_pilot")
 function get_vsi()
     local vs = {["value"] = 0,
