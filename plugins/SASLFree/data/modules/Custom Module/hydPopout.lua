@@ -4,11 +4,11 @@ require "common_declarations"
 
 local overlay = sasl.gl.loadImage("a320-hyd-fuel-popout.png")--defining the page overlay
 local rat_pb = sasl.findCommand("A318/systems/hyd/pbs/rat")
-local ptu_pb = sasl.createCommand("A318/systems/hyd/pbs/ptu", "PTU push button")
-local eng1_pb = sasl.createCommand("A318/systems/hyd/pbs/green/eng1_pump", "GREEN system Engine 1 Pump push button")
-local eng2_pb = sasl.createCommand("A318/systems/hyd/pbs/yellow/eng2_pump", "YELLOW system Engine 1 Pump push button")
-local elec_pb = sasl.createCommand("A318/systems/hyd/pbs/yellow/elec_pump", "YELLOW system Electric Pump push button")
-local blue_pb = sasl.createCommand("A318/systems/hyd/pbs/blue/elec_pump", "BLUE system Electric Pump push button")
+local ptu_pb = sasl.findCommand("A318/systems/hyd/pbs/ptu")
+local eng1_pb = sasl.findCommand("A318/systems/hyd/pbs/green/eng1_pump")
+local eng2_pb = sasl.findCommand("A318/systems/hyd/pbs/yellow/eng2_pump")
+local elec_pb = sasl.findCommand("A318/systems/hyd/pbs/yellow/elec_pump")
+local blue_pb = sasl.findCommand("A318/systems/hyd/pbs/blue/elec_pump")
 
 
 function update()

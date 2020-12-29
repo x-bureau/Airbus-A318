@@ -270,21 +270,21 @@ local function draw_hyd_page()--draw the hyd page
     drawSystem(hyd.blue, 261)
     drawSystem(hyd.yellow, 430)
 
-    if get(hyd.green.pressure) >= 1000 then
+    if get(hyd.green.pressure) >= 2800 then
         sasl.gl.drawText(AirbusFont, 93, 448, "GREEN", 24, false, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.WHITE)
         sasl.gl.drawText(AirbusFont, 93, 420, round(get(hyd.green.pressure), 10), 24, false, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.GREEN)
     else
         sasl.gl.drawText(AirbusFont, 93, 448, "GREEN", 24, false, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.ORANGE)
         sasl.gl.drawText(AirbusFont, 93, 420, round(get(hyd.green.pressure), 10), 24, false, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.ORANGE)
     end
-    if get(hyd.blue.pressure) >= 1000 then
+    if get(hyd.blue.pressure) >= 2800 then
         sasl.gl.drawText(AirbusFont, 261, 448, "BLUE", 24, false, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.WHITE)
         sasl.gl.drawText(AirbusFont, 261, 420, round(get(hyd.blue.pressure), 10), 24, false, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.GREEN)
     else
         sasl.gl.drawText(AirbusFont, 261, 448, "BLUE", 24, false, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.ORANGE)
         sasl.gl.drawText(AirbusFont, 261, 420, round(get(hyd.blue.pressure), 10), 24, false, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.ORANGE)
     end
-    if get(hyd.yellow.pressure) >= 1000 then
+    if get(hyd.yellow.pressure) >= 2800 then
         sasl.gl.drawText(AirbusFont, 430, 448, "YELLOW", 24, false, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.WHITE)
         sasl.gl.drawText(AirbusFont, 430, 420, round(get(hyd.yellow.pressure), 10), 24, false, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.GREEN)
     else
@@ -300,9 +300,13 @@ local function draw_hyd_page()--draw the hyd page
     -- draw PTU line
     if get(hyd.ptu.enabled) == enabled_states.enabled then
         -- draw filled triangles 
-        drawHydArrows(373, 370, arrow_points.left, ECAM_COLOURS.GREEN, true)
-        drawHydArrows(311, 370, arrow_points.left, ECAM_COLOURS.GREEN, true)
-        drawHydArrows(187, 370, arrow_points.left, ECAM_COLOURS.GREEN, true)
+        local pointing = arrow_points.left
+        if get(hyd.ptu.xfer.from) == "green" then
+            pointing = arrow_points.right
+        end
+        drawHydArrows(373, 370, pointing, ECAM_COLOURS.GREEN, true)
+        drawHydArrows(311, 370, pointing, ECAM_COLOURS.GREEN, true)
+        drawHydArrows(187, 370, pointing, ECAM_COLOURS.GREEN, true)
         sasl.gl.drawLine(93, 378, 188, 378, ECAM_COLOURS.GREEN)
         sasl.gl.drawLine(373, 378, 430, 378, ECAM_COLOURS.GREEN)
     else

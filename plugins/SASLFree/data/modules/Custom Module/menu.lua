@@ -16,7 +16,7 @@ end)
 local hyd_popout_menuItem = sasl.appendMenuItemWithCommand(xb_menu, "Show/hide HYD popup", hydPopout_cmd)
 
 hydPopoutWindow = contextWindow { name = 'HYD panel';
-  position = { 100, 250, 768, 300 }; noBackground = true; proportional = true; minimumSize = { 512, 200 }; maximumSize = { 1356, 530 }; gravity = { 0, 1, 0, 1 }; visible = true; saveState = false;
+  position = { 100, 250, 768, 300 }; noBackground = true; proportional = true; minimumSize = { 512, 200 }; maximumSize = { 1356, 530 }; gravity = { 0, 1, 0, 1 }; visible = false; saveState = false;
   components = {
     hydPopout {};
   }
