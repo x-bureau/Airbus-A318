@@ -46,7 +46,7 @@ function onMouseDown(component, x, y, button, parentX, parentY)
         elseif x > 585 and x < 585+50 and y > 152 and y < 152+50 then
             sasl.commandBegin(eng2_pb)
             sasl.commandEnd(eng2_pb)
-        elseif x > 664 and x < 664+50 and y > 69 and y < 69+50 then
+        elseif x > 664 and x < 664+50 and y > 169 and y < 169+50 then
             sasl.commandBegin(elec_pb)
             sasl.commandEnd(elec_pb)
         end

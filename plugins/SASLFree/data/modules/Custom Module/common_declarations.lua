@@ -1,34 +1,36 @@
 ECAM_COLOURS = {
-    ["ORANGE"] = {1.0, 0.625, 0.0, 1.0},
-    ["RED"] = {255, 0, 0, 1.0},
-    ["GREEN"] = {0.184, 0.733, 0.219, 1.0},
-    ["WHITE"] = {1.0, 1.0, 1.0, 1.0},
-    ["BLUE"] = {0.004, 1.0, 1.0, 1.0},
-    ["GREY"] = {0.25, 0.26, 0.26, 1.0},
-    ["YELLOW"] = {1.0, 1.0, 0, 1.0},
+    ORANGE = {1.0, 0.625, 0.0, 1.0},
+    RED = {255, 0, 0, 1.0},
+    GREEN = {0.184, 0.733, 0.219, 1.0},
+    WHITE = {1.0, 1.0, 1.0, 1.0},
+    BLUE = {0.004, 1.0, 1.0, 1.0},
+    GREY = {0.25, 0.26, 0.26, 1.0},
+    YELLOW = {1.0, 1.0, 0, 1.0},
 }
 
 AirbusFont = sasl.gl.loadFont("fonts/BloggerSans.ttf")
 sasl.gl.setFontRenderMode(AirbusFont, TEXT_RENDER_FORCED_MONO, 0.52)
 
-pump_states = {["off"] = 0, ["on"] = 1, ["low"] = 2}
-pump_sources = {["engine"] = 0, ["electric"] = 1, ["rat"] = 2}
-switch_states = {["off"] = 0, ["on"] = 1, ["fault"] = 2}
-auto_man_states = {["auto"] = 0, ["manual"] = 1}
-valve_states = {["closed"] = 0, ["transit"] = 1, ["open"] = 2}
-units = {["metric"] = 0, ["imperial"] = 1}
-enabled_states = {["disabled"] = 0, ["enabled"] = 1}
+pump_states = {off = 0, on = 1, low = 2}
+pump_sources = {engine = 0, electric = 1, rat = 2}
+switch_states = {off = 0, on = 1, fault = 2}
+auto_man_states = {auto = 0, manual = 1}
+auto_off_states = {auto = 0, off = 1}
+valve_states = {closed = 0, transit = 1, open = 2}
+units = {metric = 0, imperial = 1}
+active_states = {inactive = 0, active = 1}
+enabled_states = {disabled = 0, enabled = 1}
 flight_phases = {
-    ["elec_pwr"] = 1,
-    ["engine_start"] = 2,
-    ["engine_power"] = 3,
-    ["at_80_kts"] = 4,
-    ["liftoff"] = 5,
-    ["above_1500_ft"] = 6,
-    ["below_800_ft"] = 7,
-    ["touchdown"] = 8,
-    ["below_80_kts"] = 9,
-    ["engine_shutdown"] = 10
+    elec_pwr = 1,
+    engine_start = 2,
+    engine_power = 3,
+    at_80_kts = 4,
+    liftoff = 5,
+    above_1500_ft = 6,
+    below_800_ft = 7,
+    touchdown = 8,
+    below_80_kts = 9,
+    engine_shutdown = 10
 }
 
 efb_units = createGlobalPropertyi("A318/efb/config/units", units.metric)

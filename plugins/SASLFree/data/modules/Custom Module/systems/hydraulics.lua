@@ -26,7 +26,7 @@ local hyd = {
     blue = EventEmitter:new({
         qty = createGlobalPropertyi("A318/systems/hyd/blue/qty", 65), -- qty in cl
         pressure = createGlobalPropertyi("A318/systems/hyd/blue/pressure", 0),
-        temp = createGlobalPropertyi("A318/systems/hyd/blue/temp", 65), 
+        temp = createGlobalPropertyi("A318/systems/hyd/blue/temp", 65),
         pumps = {
             electric = {
                 state = createGlobalPropertyi("A318/systems/hyd/blue/pumps/electric/state", pump_states.off),
@@ -57,8 +57,9 @@ local hyd = {
         },
     }),
     ptu = EventEmitter:new({
-        pb = createGlobalPropertyi("A318/systems/hyd/ptu/pb", switch_states.off),
-        enabled = createGlobalPropertyi("A318/systems/hyd/ptu/enabled", enabled_states.disabled),
+        pb = createGlobalPropertyi("A318/systems/hyd/ptu/pb", auto_off_states.auto),
+        enabled = createGlobalPropertyi("A318/systems/hyd/ptu/enabled", enabled_states.enabled),
+        state = createGlobalPropertyi("A318/systems/hyd/ptu/state", active_states.inactive),
         xfer = {from = createGlobalPropertys("A318/systems/hyd/ptu/from", "yellow")},
         auto_xfer_psi_diff = 500
     })
@@ -83,12 +84,12 @@ sasl.registerCommandHandler(sasl.findCommand("A318/systems/hyd/pbs/ptu"), 0, fun
     local current_pb_state = get(hyd.ptu.pb)
     print('ptu pb handler: '..current_pb_state)
     if phase == SASL_COMMAND_END then
-        if current_pb_state == auto_man_states.manual then
+        if current_pb_state == auto_off_states.off then
             set(hyd.ptu.enabled, enabled_states.enabled)
-            set(hyd.ptu.pb, auto_man_states.auto)
+            set(hyd.ptu.pb, auto_off_states.auto)
         else
             set(hyd.ptu.enabled, enabled_states.disabled)
-            set(hyd.ptu.pb, auto_man_states.manual)
+            set(hyd.ptu.pb, auto_off_states.off)
         end
     end
     return 1 
@@ -202,7 +203,7 @@ function update()
     --Power Transfer Unit (PTU) Logic
     ----------------------------------------------------------------------------------
     --Automatically activating the PTU when it reaches the 500 psi difference threshold
-    if get(hyd.ptu.pb) == switch_states.on then
+    if get(hyd.ptu.pb) == auto_off_states.auto then
         if get(hyd.green.pressure) - get(hyd.yellow.pressure) >= 500 and get(hyd.yellow.shutoff_valve.state) == valve_states.open then --If the GREEN SYSTEM - the YELLOW SYSTEM is = or > than 500, then activate the Power Transfer Unit (PTU)
             set(hyd.ptu.enabled, enabled_states.enabled)
             set(hyd.ptu.xfer.from, "green")
@@ -217,21 +218,27 @@ function update()
     local green_pressure = get(hyd.green.pressure)
     local yellow_pressure = get(hyd.yellow.pressure)
     if get(hyd.ptu.enabled) == enabled_states.enabled then
-        if get(hyd.yellow.shutoff_valve.state) == valve_states.open and green_pressure >= yellow_pressure then
-            set(hyd.yellow.pressure, yellow_pressure + math.random(0,2))
-            if hyd.ptu.enabled == enabled_states.enabled and green_pressure < NmlOpPress then --While the PTU is active and the GREEN SYSTEM is less than 3000 psi, add to it until it once again meets that threshold
-                set(hyd.green.pressure, green_pressure + 1)
+        if get(hyd.ptu.xfer.from) == "green" and green_pressure > 2500 then
+            if get(hyd.yellow.shutoff_valve.state) == valve_states.open and green_pressure >= yellow_pressure then
+                set(hyd.ptu.state, active_states.active)
+                set(hyd.yellow.pressure, yellow_pressure + math.random(0,2))
+                if green_pressure < NmlOpPress then --While the PTU is active and the GREEN SYSTEM is less than 3000 psi, add to it until it once again meets that threshold
+                    set(hyd.green.pressure, green_pressure + 1)
+                end
             end
-        elseif get(hyd.green.shutoff_valve.state) == valve_states.open and yellow_pressure >= green_pressure then
-            set(hyd.green.pressure, green_pressure + math.random(0,2))
-            if hyd.ptu.enabled == enabled_states.enabled and yellow_pressure < NmlOpPress then --While the PTU is active and the GREEN SYSTEM is less than 3000 psi, add to it until it once again meets that threshold
-                set(hyd.yellow.pressure, yellow_pressure + 1)
+        elseif get(hyd.ptu.xfer.from) == "yellow" and yellow_pressure > 2500 then
+            if get(hyd.green.shutoff_valve.state) == valve_states.open and yellow_pressure >= green_pressure then
+                set(hyd.ptu.state, active_states.active)
+                set(hyd.green.pressure, green_pressure + math.random(0,2))
+                if yellow_pressure < NmlOpPress then --While the PTU is active and the GREEN SYSTEM is less than 3000 psi, add to it until it once again meets that threshold
+                    set(hyd.yellow.pressure, yellow_pressure + 1)
+                end
             end
         end
         if green_pressure == 3000 and yellow_pressure == 3000 then --If both the GREEN and YELLOW systems once again meet the threshold, turn off the PTU.
-            set(hyd.ptu.enabled, enabled_states.disabled)
+            set(hyd.ptu.state, active_states.inactive)
         end
-end
+    end
     ----------------------------------------------------------------------------------
     --PUMP LOGIC
     ----------------------------------------------------------------------------------
@@ -262,6 +269,11 @@ end
         end
     end
 
+    if get(hyd.yellow.pumps.electric.state) == pump_states.on then
+        if get(hyd.yellow.pressure) < 3000 then
+            set(hyd.yellow.pressure, get(hyd.yellow.pressure) + math.random(0,1))
+        end
+    end
     -- ----------------------------------------------------------------------------------
     -- --TODO: WRITE THE LOGIC FOR THE FIRE SHUT OFF
     -- ----------------------------------------------------------------------------------

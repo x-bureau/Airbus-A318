@@ -48,37 +48,38 @@ local weight_fuel = globalPropertyf("sim/aircraft/weight/acf_m_fuel_tot")
 local vsi = {["value"] = 0, ["colour"] = ECAM_COLOURS["GREEN"], ["blink"] = false}
 
 local hyd = {
-    ["green"] = {
-        ["qty"] = globalPropertyi("A318/systems/hyd/green/qty", 145), -- qty in cl
-        ["pressure"] = globalPropertyi("A318/systems/hyd/green/pressure", 0),
-        ["temp"] = globalPropertyi("A318/systems/hyd/green/temp", 145), 
-        ["shutoff_valve"] = {["state"] = globalPropertyi("A318/systems/hyd/green/shutoff_valve", valve_states.open)},
-        ["pumps"] = {
-            ["engine"] = {["state"] = globalPropertyi("A318/systems/hyd/green/pumps/engine/state", pump_states.low)},
+    green = {
+        qty = globalPropertyi("A318/systems/hyd/green/qty", 145), -- qty in cl
+        pressure = globalPropertyi("A318/systems/hyd/green/pressure", 0),
+        temp = globalPropertyi("A318/systems/hyd/green/temp", 145), 
+        shutoff_valve = {state = globalPropertyi("A318/systems/hyd/green/shutoff_valve", valve_states.open)},
+        pumps = {
+            engine = {state = globalPropertyi("A318/systems/hyd/green/pumps/engine/state", pump_states.low)},
         },
     },
-    ["blue"] = {
-        ["qty"] = globalPropertyi("A318/systems/hyd/blue/qty", 65), -- qty in cl
-        ["pressure"] = globalPropertyi("A318/systems/hyd/blue/pressure", 0),
-        ["temp"] = globalPropertyi("A318/systems/hyd/blue/temp", 65), 
-        ["pumps"] = {
-            ["electric"] = {["state"] = globalPropertyi("A318/systems/hyd/blue/pumps/electric/state", pump_states.off)},
-            ["rat"] = {["state"] = globalPropertyi("A318/systems/hyd/blue/pumps/rat/state", pump_states.off)},
+    blue = {
+        qty = globalPropertyi("A318/systems/hyd/blue/qty", 65), -- qty in cl
+        pressure = globalPropertyi("A318/systems/hyd/blue/pressure", 0),
+        temp = globalPropertyi("A318/systems/hyd/blue/temp", 65), 
+        pumps = {
+            electric = {state = globalPropertyi("A318/systems/hyd/blue/pumps/electric/state", pump_states.off)},
+            rat = {state = globalPropertyi("A318/systems/hyd/blue/pumps/rat/state", pump_states.off)},
         },
     },
-    ["yellow"] = {
-        ["qty"] = globalPropertyi("A318/systems/hyd/yellow/qty", 125), -- qty in cl
-        ["pressure"] = globalPropertyi("A318/systems/hyd/yellow/pressure", 0), -- pressure in psi
-        ["temp"] = globalPropertyi("A318/systems/hyd/yellow/temp", 125), -- temp in c
-        ["shutoff_valve"] = {["state"] = globalPropertyi("A318/systems/hyd/yellow/shutoff_valve", valve_states.open)},
-        ["pumps"] = {
-            ["engine"] = {["state"] = globalPropertyi("A318/systems/hyd/yellow/pumps/engine/state", pump_states.low)},
-            ["electric"] = {["state"] = globalPropertyi("A318/systems/hyd/yellow/pumps/electric/state", pump_states.off)},
+    yellow = {
+        qty = globalPropertyi("A318/systems/hyd/yellow/qty", 125), -- qty in cl
+        pressure = globalPropertyi("A318/systems/hyd/yellow/pressure", 0), -- pressure in psi
+        temp = globalPropertyi("A318/systems/hyd/yellow/temp", 125), -- temp in c
+        shutoff_valve = {state = globalPropertyi("A318/systems/hyd/yellow/shutoff_valve", valve_states.open)},
+        pumps = {
+            engine = {state = globalPropertyi("A318/systems/hyd/yellow/pumps/engine/state", pump_states.low)},
+            electric = {state = globalPropertyi("A318/systems/hyd/yellow/pumps/electric/state", pump_states.off)},
         },
     },
-    ["ptu"] = {
-        ["enabled"] = globalPropertyi("A318/systems/hyd/ptu/enabled", enabled_states.disabled),
-        ["xfer"] = {["from"] = globalPropertys("A318/systems/hyd/ptu/from", "yellow")}
+    ptu = {
+        enabled = globalPropertyi("A318/systems/hyd/ptu/enabled", enabled_states.disabled),
+        state = createGlobalPropertyi("A318/systems/hyd/ptu/state", active_states.inactive),
+        xfer = {from = globalPropertys("A318/systems/hyd/ptu/from", "yellow")}
     }
 }
 
@@ -112,19 +113,19 @@ local function round(v, bracket)
 end
 
 local ecam_pages = {
-    ["eng"] = 1,
-    ["bleed"] = 2,
-    ["press"] = 3,
-    ["elec"] = 4,
-    ["hyd"] = 5,
-    ["fuel"] = 6,
-    ["apu"] = 7,
-    ["air_cond"] = 8,
-    ["doors"] = 9,
-    ["wheel"] = 10,
-    ["fctl"] = 11,
-    ["sts"] = 12,
-    ["cruise"] = 13,
+    eng = 1,
+    bleed = 2,
+    press = 3,
+    elec = 4,
+    hyd = 5,
+    fuel = 6,
+    apu = 7,
+    air_cond = 8,
+    doors = 9,
+    wheel = 10,
+    fctl = 11,
+    sts = 12,
+    cruise = 13,
 }
 
 --custom functions
@@ -144,7 +145,7 @@ local function draw_elec_page()--draw the electricity page
     sasl.gl.drawTexture(lower_elec_overlay, 0, 0, 522, 522)--we are drawing the overlay
 end
 
-local arrow_points = {["left"] = -1, ["right"] = 1}
+local arrow_points = {left = -1, right = 1}
 
 local function draw_hyd_page()--draw the hyd page
     -- sasl.gl.drawTexture(lower_hyd_overlay, 0, 0, 522, 522)--we are drawing the overlay
@@ -194,18 +195,7 @@ local function draw_hyd_page()--draw the hyd page
                 drawHydArrows(223, 323, arrow_points.right, ECAM_COLOURS.WHITE)
             end
         end
-        if system.pumps.engine ~= nil then
-            local pump_state = get(system.pumps.engine.state)
-            if pump_state == pump_states.on then
-                sasl.gl.drawFrame(offset-15, pump_offset, 29, 29, ECAM_COLOURS.GREEN)
-                sasl.gl.drawLine(offset, pump_offset, offset, 410, ECAM_COLOURS.GREEN)
-            elseif pump_state == pump_states.low then
-                sasl.gl.drawFrame(offset-15, pump_offset, 29, 29, ECAM_COLOURS.ORANGE)
-                -- TODO only draw the orange line up to the elec pump if on yellow system
-                sasl.gl.drawLine(offset, pump_offset+29, offset, 410, ECAM_COLOURS.ORANGE)
-                sasl.gl.drawText(AirbusFont, offset, pump_offset+7, "LO", 22, false, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.ORANGE)
-            end
-        end
+
         if system.pumps.electric ~= nil then
             local pump_state = get(system.pumps.electric.state)
             -- if the system also has an engine pump, then it is yellow and draw triangles
@@ -213,10 +203,10 @@ local function draw_hyd_page()--draw the hyd page
                 if pump_state == pump_states.on then
                     drawHydArrows(463, 323, arrow_points.left, ECAM_COLOURS.GREEN, true)
                     sasl.gl.drawLine(444, 332, offset, 332, ECAM_COLOURS.GREEN)
-                    sasl.gl.drawLine(offset, pump_offset+29, offset, 410, ECAM_COLOURS.GREEN)
+                    sasl.gl.drawLine(offset, pump_offset+60, offset, 410, ECAM_COLOURS.GREEN)
                 else
                     drawHydArrows(463, 323, arrow_points.left, ECAM_COLOURS.WHITE)
-                    sasl.gl.drawLine(offset, pump_offset+29, offset, 410, ECAM_COLOURS.ORANGE)
+                    sasl.gl.drawLine(offset, pump_offset+60, offset, 410, ECAM_COLOURS.ORANGE)
                 end
             else
                 -- draw elec pump as boxes because system is blue
@@ -228,6 +218,26 @@ local function draw_hyd_page()--draw the hyd page
                     sasl.gl.drawFrame(offset-15, pump_offset, 29, 29, ECAM_COLOURS.GREEN)
                     sasl.gl.drawLine(offset, pump_offset, offset, 410, ECAM_COLOURS.GREEN)
                 end
+            end
+        end
+
+        if system.pumps.engine ~= nil then
+            local pump_state = get(system.pumps.engine.state)
+            if pump_state == pump_states.on then
+                sasl.gl.drawFrame(offset-15, pump_offset, 29, 29, ECAM_COLOURS.GREEN)
+                sasl.gl.drawLine(offset, pump_offset, offset, 410, ECAM_COLOURS.GREEN)
+            elseif pump_state == pump_states.low then
+                sasl.gl.drawFrame(offset-15, pump_offset, 29, 29, ECAM_COLOURS.ORANGE)
+                if system.pumps.elec ~= nil then
+                    if get(system.pumps.electric.state) == pump_states.off then
+                        sasl.gl.drawLine(offset, pump_offset+29, offset, pump_offset+60, ECAM_COLOURS.ORANGE)
+                    else
+                        sasl.gl.drawLine(offset, pump_offset+29, offset, pump_offset+60, ECAM_COLOURS.ORANGE)
+                    end
+                else
+                    sasl.gl.drawLine(offset, pump_offset+29, offset, 410, ECAM_COLOURS.ORANGE)
+                end
+                sasl.gl.drawText(AirbusFont, offset, pump_offset+7, "LO", 22, false, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.ORANGE)
             end
         end
 
@@ -298,7 +308,7 @@ local function draw_hyd_page()--draw the hyd page
     sasl.gl.drawText(AirbusFont, 261+45, 227+29, "ELEC", 20, false, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.WHITE)
 
     -- draw PTU line
-    if get(hyd.ptu.enabled) == enabled_states.enabled then
+    if get(hyd.ptu.state) == active_states.active then
         -- draw filled triangles 
         local pointing = arrow_points.left
         if get(hyd.ptu.xfer.from) == "green" then
