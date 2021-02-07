@@ -33,6 +33,86 @@ local function draw_ENG_PAGE()
     sasl.gl.drawRotatedTexture(needle1, get(npercent, 2) * 1.8, 343, 450, 89, 47, PFD_WHITE)
 end
 
+--[[===============================
+			DRAW ECAM MEMOS
+=================================]]
+local message_mode = {
+    [1] = "Level 1";
+    [2] = "Level 2";
+    [3] = "Level 3";
+    [4] = "Advisory";
+    [5] = "Memo"
+}
+local message1 = ""
+local message2 = ""
+local message3 = ""
+local message4 = ""
+local message5 = ""
+local message6 = ""
+
+local inputmessage = ""
+
+local message6IsInUse = 0 --0 = FALSE, 1 = TRUE
+--[[
+    THIS IS A TEMPLATE FOR A MESSAGE:
+
+    if get(variable) <operator> [value] then
+        inputmessage = "ECAM MEMO/MESSAGE"
+        message6 = message5
+        message5 = message4
+        message4 = message3
+        message3 = message2
+        message2 = message1
+        message1 = inputmessage
+    end
+]]
+
+inputmessage = "FBI914 AIRBUS A318"
+if inputmessage ~= message1 then
+    message6 = message5
+    message5 = message4
+    message4 = message3
+    message3 = message2
+    message2 = message1
+    message1 = inputmessage
+end
+
+inputmessage = "X-BUREAU IS THE BEST DEV TEAM"
+if inputmessage ~= message1 then
+    message6 = message5
+    message5 = message4
+    message4 = message3
+    message3 = message2
+    message2 = message1
+    message1 = inputmessage
+end
+
+local function draw_messages()
+    if message_mode == 5 then
+        if message1 ~= "" then
+            sasl.gl.drawText(AirbusFont, 30, 60, message1, 20, false, false, TEXT_ALIGN_LEFT, PFD_WHITE)
+        end
+        if message2 ~= "" then
+            sasl.gl.drawText(AirbusFont, 30, 80, message2, 20, false, false, TEXT_ALIGN_LEFT, PFD_WHITE)
+        end
+        if message3 ~= "" then
+            sasl.gl.drawText(AirbusFont, 30, 100, message3, 20, false, false, TEXT_ALIGN_LEFT, PFD_WHITE)
+        end
+        if message4 ~= "" then
+            sasl.gl.drawText(AirbusFont, 30, 120, message4, 20, false, false, TEXT_ALIGN_LEFT, PFD_WHITE)
+        end
+        if message5 ~= "" then
+            sasl.gl.drawText(AirbusFont, 30, 140, message5, 20, false, false, TEXT_ALIGN_LEFT, PFD_WHITE)
+        end
+        if message6 ~= "" then
+            sasl.gl.drawText(AirbusFont, 30, 160, message6, 20, false, false, TEXT_ALIGN_LEFT, PFD_WHITE)
+        end
+    end
+end
+
+
 function draw()
+    message_mode = 5
     draw_ENG_PAGE()
+    draw_messages()
 end
