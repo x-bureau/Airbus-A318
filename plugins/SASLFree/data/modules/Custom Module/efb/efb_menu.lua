@@ -5,6 +5,8 @@ local BUTTON_LENGTH = 70
 local button_locs = {}
 local isButtonLocsSet = false
 
+local logo = sasl.gl.loadImage("efb/icons/xb_logo.png")
+
 function drawButtons()
     x = WIDTH-350
     y = 0
@@ -36,6 +38,7 @@ end
 
 function draw() 
     sasl.gl.drawWideLine(0, 1.5, WIDTH, 1.5, 3, SYSTEM_COLORS.FRONT_GREEN)
-    sasl.gl.drawText(SYSTEM_FONTS.ROBOTO_BOLD, 15, 20, "X-Bureau's A318 EFB", 36, false, false, TEXT_ALIGN_LEFT, SYSTEM_COLORS.FRONT_GREEN)
+    sasl.gl.drawText(SYSTEM_FONTS.ROBOTO_BOLD, 125, 22, "A318 EFB", 36, false, false, TEXT_ALIGN_LEFT, SYSTEM_COLORS.FRONT_GREEN)
+    sasl.gl.drawTexture(logo, 10, -20, 100, 100)
     drawButtons()
 end
