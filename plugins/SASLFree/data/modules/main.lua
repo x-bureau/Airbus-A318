@@ -2,6 +2,7 @@ sasl.options.setAircraftPanelRendering(true)
 sasl.options.set3DRendering(true)
 sasl.options.setInteractivity(true)
 addSearchPath(moduleDirectory.."/images/")
+--addSearchPath(moduleDirectory.."/efb/pages/")
 
 size = {2048, 2048}
 
@@ -16,6 +17,7 @@ components = {
   ecam {};
   lower_ecam {};
   menu {};
+  efb{};
 }
 
 function onModuleDone()

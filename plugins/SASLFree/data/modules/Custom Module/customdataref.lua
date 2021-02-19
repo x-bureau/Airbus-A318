@@ -61,6 +61,7 @@ baro_units = {["hPa"] = 0, ["inHg"] = 1, ["STD"] = 2}
 -- TODO this should be fetched from some config/saved state
 -- createGlobalPropertyi("A318/efb/config/units", units.metric)
 createGlobalPropertyi("A318/efb/config/isa_enabled", enabled_states.disabled)
+createGlobalPropertyi("A318/efb/config/activePage", 1)
 
 
 ------------------------------------------------------------------------------------------------------
