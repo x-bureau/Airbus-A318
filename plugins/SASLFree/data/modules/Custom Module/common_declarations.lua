@@ -42,6 +42,13 @@ function get_weight(kg)
     return kg * 2.20462262185
 end
 
+function get_weight_label()
+    if get(efb_units) == units.metric then
+        return "kg"
+    end
+    return "lbs"
+end
+
 function get_temp(celsius)
     if get(efb_units) == units.metric then
         return celsius
@@ -92,4 +99,17 @@ function get_vsi()
     end
     vs["blink"] = blink
     return vs
+end
+
+function getMETAR(ICAO)
+    local path = getXPlanePath()
+    local file = io.open(path.."METAR.rwx", "r+")
+    local METAR = ""
+    for line in file:lines() do
+        if string.match(line, ICAO) then
+            METAR = line
+            break
+        end
+    end
+    return METAR
 end

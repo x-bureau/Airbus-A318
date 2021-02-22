@@ -8,9 +8,9 @@ local totalFuel = globalPropertyf("sim/flightmodel/weight/m_fuel_total")
 local center_tank = globalPropertyf("sim/flightmodel/weight/m_fuel1")
 local totalWeight = globalPropertyf("sim/flightmodel/weight/m_total") --read only
 
-local pax_field = Textfield:new(225, 415, 87, 25, "", false)
-local cargo_field = Textfield:new(225, 365, 87, 25, "", false)
-local block_fuel_field = Textfield:new(225, 315, 87, 25, "", false)
+local pax_field = Textfield:new(217, 415, 87, 25, "", false)
+local cargo_field = Textfield:new(217, 365, 87, 25, "", false)
+local block_fuel_field = Textfield:new(217, 315, 87, 25, "", false)
 local fields = {pax_field, cargo_field, block_fuel_field}
 local field_locs = {}
 local widgets_set = false
@@ -30,9 +30,6 @@ function drawWidgets()
     end
     for i = 1, table.getn(fields), 1 do
         fields[i]:drawField()
-        if fields[i].isActive == true then
-            sasl.gl.drawFrame(field_locs[i][1], field_locs[i][2], field_locs[i][3], field_locs[i][4], SYSTEM_COLORS.FRONT_GREEN)
-        end
     end
     for i = 1, table.getn(checkboxes), 1 do
         checkboxes[i]:drawBox()
@@ -105,6 +102,11 @@ function drawFuelAndLoad()
     sasl.gl.drawText(SYSTEM_FONTS.ROBOTO_BOLD, 50, 420, "PAX", 17, false, false, TEXT_ALIGN_LEFT, SYSTEM_COLORS.FRONT_GREEN)
     sasl.gl.drawText(SYSTEM_FONTS.ROBOTO_BOLD, 50, 370, "CARGO", 17, false, false, TEXT_ALIGN_LEFT, SYSTEM_COLORS.FRONT_GREEN)
     sasl.gl.drawText(SYSTEM_FONTS.ROBOTO_BOLD, 50, 320, "BLOCK FUEL", 17, false, false, TEXT_ALIGN_LEFT, SYSTEM_COLORS.FRONT_GREEN)
+
+    sasl.gl.drawText(SYSTEM_FONTS.ROBOTO_BOLD, 310, 420, get_weight_label(), 17, false, false, TEXT_ALIGN_LEFT, SYSTEM_COLORS.FRONT_GREEN)
+    sasl.gl.drawText(SYSTEM_FONTS.ROBOTO_BOLD, 310, 370, get_weight_label(), 17, false, false, TEXT_ALIGN_LEFT, SYSTEM_COLORS.FRONT_GREEN)
+    sasl.gl.drawText(SYSTEM_FONTS.ROBOTO_BOLD, 310, 320, get_weight_label(), 17, false, false, TEXT_ALIGN_LEFT, SYSTEM_COLORS.FRONT_GREEN)
+    
     sasl.gl.drawRectangle(60, 65, 250, 40, SYSTEM_COLORS.FRONT_GREEN)
     sasl.gl.drawText(SYSTEM_FONTS.ROBOTO_BOLD, 183, 79, "LOAD PLANE", 20, false, false, TEXT_ALIGN_CENTER, SYSTEM_COLORS.BG_BLUE)
 end
@@ -125,3 +127,4 @@ function draw()
         drawWidgets()
     end
 end
+

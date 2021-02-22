@@ -32,7 +32,7 @@ SYSTEM_ICONS = {
 components = {
     efb_menu{};
     fuel_and_load{};
-    testPage{};
+    perf_calc{};
 }
 
 function draw()

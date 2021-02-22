@@ -24,11 +24,8 @@ end
 
 function Textfield:drawField()
     sasl.gl.drawRectangle(self.x, self.y, self.width, self.height, default_field_color)
-    if self.isActive == false then
-        --sasl.gl.drawText(SYSTEM_FONTS.REGULAR, 0, 0, self.text, 20, false, false, TEXT_ALIGN_RIGHT, SYSTEM_COLORS.FRONT_GREEN)
-    end
     if self.isActive == true then
-        --sasl.gl.drawText(SYSTEM_FONTS.REGULAR, self.width/2, self.height/2, self.text, 20, false, false, TEXT_ALIGN_CENTER, SYSTEM_COLORS.FRONT_GREEN)
+        sasl.gl.drawFrame(self.x, self.y, self.width, self.height, SYSTEM_COLORS.FRONT_GREEN)
     end
     sasl.gl.drawText(SYSTEM_FONTS.ROBOTO_REGULAR, self.x + (self.width / 2), self.y + (self.height / 2) - 5, self.text, 15, false, false, TEXT_ALIGN_CENTER, SYSTEM_COLORS.FRONT_GREEN)
 end
@@ -39,8 +36,9 @@ end
 
 function Textfield:addLetter(character)
     -- add a character to the current text in the field
-    self.text = self.text..character
-    --print(self.text)
+    if string.len(self.text) < 10 then
+        self.text = self.text..character
+    end
 end
 
 function Textfield:removeLetter()
