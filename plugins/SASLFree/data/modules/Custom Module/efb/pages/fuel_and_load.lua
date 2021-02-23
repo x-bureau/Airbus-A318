@@ -1,8 +1,8 @@
-include("efb/widgets/Textfield.lua")
-include("efb/widgets/Checkbox.lua")
+require 'efb.widgets.Checkbox'
+require 'efb.widgets.Textfield'
 
-position = {0, 0, PAGE_WIDTH, PAGE_HEIGHT}
-size = {PAGE_WIDTH, PAGE_HEIGHT}
+PAGE_WIDTH = 902
+PAGE_HEIGHT = 637 - 70
 
 local totalFuel = globalPropertyf("sim/flightmodel/weight/m_fuel_total")
 local center_tank = globalPropertyf("sim/flightmodel/weight/m_fuel1")
@@ -12,7 +12,6 @@ local pax_field = Textfield:new(217, 415, 87, 25, "", false)
 local cargo_field = Textfield:new(217, 365, 87, 25, "", false)
 local block_fuel_field = Textfield:new(217, 315, 87, 25, "", false)
 local fields = {pax_field, cargo_field, block_fuel_field}
-local field_locs = {}
 local widgets_set = false
 local activeField = nil
 
@@ -21,80 +20,43 @@ local fuelTruckCheckBox = Checkbox:new(PAGE_WIDTH - 505, 366, 25, false)
 local chocksCheckBox = Checkbox:new(PAGE_WIDTH - 505, 316, 25, false)
 local paxBusCheckBox = Checkbox:new(PAGE_WIDTH - 505, 266, 25, false)
 local checkboxes = {gpuCheckBox, fuelTruckCheckBox, chocksCheckBox, paxBusCheckBox}
-local checkboxes_locs = {}
 
-function drawWidgets()
-    if widgets_set == false then
-        setWidgetLocs()
-        widgets_set = true
-    end
-    for i = 1, table.getn(fields), 1 do
-        fields[i]:drawField()
-    end
+-- CLICK HANDLING
+
+function handleFuelLoadClick(x, y)
     for i = 1, table.getn(checkboxes), 1 do
-        checkboxes[i]:drawBox()
+        local box = checkboxes[i]
+        if isInRect({box.x, box.y, box.size, box.size}, x, y) then
+            box:click()
+        end
     end
-end
-
-function setWidgetsInactive()
-    -- sets all active widgets on this page to inactive state
-    -- set fields inactive
-    for i = 1, table.getn(fields), 1 do
-        fields[i]:setInactive()
-    end
+    setFieldsInactive(fields)
     activeField = nil
-end
-
-function setWidgetLocs() 
-    print("setting text field location")
     for i = 1, table.getn(fields), 1 do
-        table.insert(field_locs, {fields[i].x, fields[i].y, fields[i].width, fields[i].height})
-    end
-
-    for i = 1, table.getn(checkboxes), 1 do
-        table.insert(checkboxes_locs, {checkboxes[i].x, checkboxes[i].y, checkboxes[i].size, checkboxes[i].size})
-    end
-end
-
-function onMouseDown(component, x, y, button, parentX, parentY)
-    if get(activePage) == 2 then
-        if button == MB_LEFT then
-            setWidgetsInactive()
-            for i = 1, table.getn(fields), 1 do
-                if isInRect(field_locs[i], x, y) then
-                    if fields[i].isActive == false then
-                        fields[i]:setActive()
-                        activeField = fields[i]
-                    end
-                end
-            end
-            for i = 1, table.getn(checkboxes), 1 do
-                if isInRect(checkboxes_locs[i], x, y) then
-                    checkboxes[i]:setEnabled(not checkboxes[i].isEnabled)
-                end
-            end
+        local field = fields[i]
+        if isInRect({field.x, field.y, field.width, field.height}, x, y) then
+            field:setActive()
+            activeField = field
         end
     end
 end
 
-function onKeyDown ( component , char , key , shDown , ctrlDown , altOptDown )
-    if get(activePage) == 2 then
-        if activeField == nil then
-            -- do nothing
-        else 
-            if tonumber(string.char(char)) then
-                activeField:addLetter(string.char(char))
-            end
-            if char == 8 then
-                activeField:removeLetter()
-            end
-            if char == 13 then
-                setWidgetsInactive()
-            end
+function handleFuelLoadKey(char)
+    if activeField == nil then
+        -- do something
+    else
+        if char == 8 then
+            activeField:removeLetter()
+        elseif char == 13 then
+            setFieldsInactive(fields)
+            activeField = nil
+        else
+            activeField:addLetter(string.char(char))
         end
     end
-    return true
 end
+
+-- SECONDARY DRAW FUNCTIONS
 
 function drawFuelAndLoad()
     sasl.gl.drawFrame(40, 50, 300, PAGE_HEIGHT - 100, SYSTEM_COLORS.FRONT_GREEN)
@@ -120,11 +82,17 @@ function drawGroundHandling()
     sasl.gl.drawText(SYSTEM_FONTS.ROBOTO_BOLD, PAGE_WIDTH - 465, 270, "PASSENGER BUS", 20, false, false, TEXT_ALIGN_LEFT, SYSTEM_COLORS.FRONT_GREEN)
 end
 
-function draw() 
-    if get(activePage) == 2 then
-        drawFuelAndLoad()
-        drawGroundHandling()
-        drawWidgets()
+
+-- MAIN DRAW LOOP
+
+function drawFuelLoadPage() 
+    drawFuelAndLoad()
+    drawGroundHandling()
+    for i = 1, table.getn(checkboxes), 1 do
+        drawCheckBox(checkboxes[i])
+    end
+    for i = 1, table.getn(fields), 1 do
+        drawTextField(fields[i])
     end
 end
 

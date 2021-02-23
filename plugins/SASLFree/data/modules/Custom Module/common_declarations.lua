@@ -101,6 +101,9 @@ function get_vsi()
     return vs
 end
 
+
+-- EFB Global Functions
+
 function getMETAR(ICAO)
     local path = getXPlanePath()
     local file = io.open(path.."METAR.rwx", "r+")

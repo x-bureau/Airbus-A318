@@ -22,13 +22,13 @@ function Textfield:new(x, y, width, height, text, isActive)
     return o
 end
 
-function Textfield:drawField()
-    sasl.gl.drawRectangle(self.x, self.y, self.width, self.height, default_field_color)
-    if self.isActive == true then
-        sasl.gl.drawFrame(self.x, self.y, self.width, self.height, SYSTEM_COLORS.FRONT_GREEN)
-    end
-    sasl.gl.drawText(SYSTEM_FONTS.ROBOTO_REGULAR, self.x + (self.width / 2), self.y + (self.height / 2) - 5, self.text, 15, false, false, TEXT_ALIGN_CENTER, SYSTEM_COLORS.FRONT_GREEN)
-end
+-- function Textfield:drawField()
+--     sasl.gl.drawRectangle(self.x, self.y, self.width, self.height, default_field_color)
+--     if self.isActive == true then
+--         sasl.gl.drawFrame(self.x, self.y, self.width, self.height, SYSTEM_COLORS.FRONT_GREEN)
+--     end
+--     sasl.gl.drawText(SYSTEM_FONTS.ROBOTO_REGULAR, self.x + (self.width / 2), self.y + (self.height / 2) - 5, self.text, 15, false, false, TEXT_ALIGN_CENTER, SYSTEM_COLORS.FRONT_GREEN)
+-- end
 
 function Textfield:getText()
     return self.text
