@@ -24,19 +24,19 @@ local PFD_GREY = {0.25, 0.26, 0.26, 1.0}
 local nd_overlay = sasl.gl.loadImage("images/Nav_Overlay.png", 0, 0, 2048, 2048)
 local miniplane = sasl.gl.loadImage("images/A320-ND-Rose-Airplane-Standalone.png", 0, 0, 160, 160)
 local arc = sasl.gl.loadImage("images/ARC_Nav.png", 0, 0, 2048, 2048)
-local arcTape = sasl.gl.loadImage("images/ARC_Tape.png", 0, 0, 3072, 3072)
+local arcTape = sasl.gl.loadImage("images/ARC_Tape.png", 0, 0, 768, 768)
 
 --custom functions
 
 local function draw_overlay_text()
-    sasl.gl.drawText(AirbusFont, 185, 432, math.floor(get(tairspeed)), 18, false, false, TEXT_ALIGN_RIGHT, PFD_WHITE)
-    sasl.gl.drawText(AirbusFont, 80, 432, math.floor(get(gspeed)), 18, false, false, TEXT_ALIGN_RIGHT, PFD_WHITE)
-    sasl.gl.drawText(AirbusFont, 80, 410, math.floor(get(winddirection)), 18, false, false, TEXT_ALIGN_LEFT, PFD_WHITE)
-    sasl.gl.drawText(AirbusFont, 120, 410, math.floor(get(windspeed)), 18, false, false, TEXT_ALIGN_RIGHT, PFD_WHITE)
+    sasl.gl.drawText(AirbusFont, 185, 432, math.floor(get(tairspeed)), 18, false, false, TEXT_ALIGN_RIGHT, PFD_GREEN) -- TAS
+    sasl.gl.drawText(AirbusFont, 80, 432, math.floor(get(gspeed)), 18, false, false, TEXT_ALIGN_RIGHT, PFD_GREEN) -- GROUND SPEED 
+    sasl.gl.drawText(AirbusFont, 80, 410, math.floor(get(winddirection)), 18, false, false, TEXT_ALIGN_LEFT, PFD_GREEN)
+    sasl.gl.drawText(AirbusFont, 120, 410, math.floor(get(windspeed)), 18, false, false, TEXT_ALIGN_RIGHT, PFD_GREEN)
 end
 
 local function draw_rose_cardinal()
-   sasl.gl.drawRotatedTexture(arcTape, 0 - get(heading), -75, -370, 768, 768, PFD_WHITE)
+   sasl.gl.drawRotatedTexture(arcTape, 0 - get(heading), -65 , -285, 700, 700, PFD_WHITE)
 end
 
 function draw()
