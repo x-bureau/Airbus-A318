@@ -4,8 +4,9 @@
 
 --Written By:
 --FBI914
+-- Future (ofc ofc)
 ------------------------------------------------------------------
-position = {505, 1543, 510, 410}
+position = {20, 1200, 515, 370}
 size = {510, 410}
 ------------------------------------------------------------------
 --Defining Variables
@@ -64,7 +65,7 @@ local R_label_5 = "label 5"
 local R_label_6 = "label 6"
 local L_label_1 = "label 1"
 local L_label_2 = "label 2"
-local L_lable_3 = "label 3"
+local L_label_3 = "label 3"
 local L_label_4 = "label 4"
 local L_label_5 = "label 5"
 local L_label_6 = "label 6"
@@ -84,137 +85,173 @@ local L_data_6 = "DATA 1"
 
 local MCDU_GREEN = {0, 1.0, 0}
 local MCDU_WHITE = {0, 1.0, 0}
-local AIRBUS_FONT = sasl.gl.loadFont("panel_font.ttf")
+local AIRBUS_FONT = sasl.gl.loadFont("fonts/PanelFont.ttf")
 
 -----------------------------------------
 --Setting up the pages
 -----------------------------------------
 --Drawing the page
-local function drawPage()
-	--DRAWING THE DATA
-	if get(L_data_1) != null then
-		sasl.gl.drawText(AIRBUS_FONT, 15, 350, get(L_data_1), TEXT_ALIGN_LEFT, MCDU_GREEN)
-	end
-	if get(L_data_2) != null then
-		sasl.gl.drawText(AIRBUS_FONT, 15, 300, get(L_data_2), TEXT_ALIGN_LEFT, MCDU_GREEN)
-	end
-	if get(L_data_3) != null then
-		sasl.gl.drawText(AIRBUS_FONT, 15, 250, get(L_data_3), TEXT_ALIGN_LEFT, MCDU_GREEN)
-	end
-	if get(L_data_4) != null then
-		sasl.gl.drawText(AIRBUS_FONT, 15, 200, get(L_data_4), TEXT_ALIGN_LEFT, MCDU_GREEN)
-	end
-	if get(L_data_5) != null then
-		sasl.gl.drawText(AIRBUS_FONT, 15, 150, get(L_data_5), TEXT_ALIGN_LEFT, MCDU_GREEN)
-	end
-	if get(L_data_6) != null then
-		sasl.gl.drawText(AIRBUS_FONT, 15, 100, get(L_data_6), TEXT_ALIGN_LEFT, MCDU_GREEN)
-	end
-	if get(R_data_1) != null then
-		sasl.gl.drawText(AIRBUS_FONT, 410, 350, get(R_data_1), TEXT_ALIGN_LEFT, MCDU_GREEN)
-	end
-	if get(R_data_2) != null then
-		sasl.gl.drawText(AIRBUS_FONT, 410, 300, get(R_data_2), TEXT_ALIGN_LEFT, MCDU_GREEN)
-	end
-	if get(R_data_3) != null then
-		sasl.gl.drawText(AIRBUS_FONT, 410, 250, get(R_data_3), TEXT_ALIGN_LEFT, MCDU_GREEN)
-	end
-	if get(R_data_4) != null then
-		sasl.gl.drawText(AIRBUS_FONT, 410, 200, get(R_data_4), TEXT_ALIGN_LEFT, MCDU_GREEN)
-	end
-	if get(R_data_5) != null then
-		sasl.gl.drawText(AIRBUS_FONT, 410, 150, get(R_data_5), TEXT_ALIGN_LEFT, MCDU_GREEN)
-	end
-	if get(R_data_6) != null then
-		sasl.gl.drawText(AIRBUS_FONT, 410, 100, get(R_data_6), TEXT_ALIGN_LEFT, MCDU_GREEN)
-	end
-	--DRAWING THE LABELS
-	if get(R_label_1) != null then
-		sasl.gl.drawText(AIRBUS_FONT, 410, 370, get(L_label_1), TEXT_ALIGN_LEFT, MCDU_WHITE)
-	end
-	if get(R_label_2) != null then
-		sasl.gl.drawText(AIRBUS_FONT, 410, 320, get(L_label_2), TEXT_ALIGN_LEFT, MCDU_WHITE)
-	end
-	if get(R_label_3) != null then
-		sasl.gl.drawText(AIRBUS_FONT, 410, 270, get(L_label_3), TEXT_ALIGN_LEFT, MCDU_WHITE)
-	end
-	if get(R_label_4) != null then
-		sasl.gl.drawText(AIRBUS_FONT, 410, 220, get(L_label_4), TEXT_ALIGN_LEFT, MCDU_WHITE)
-	end
-	if get(R_label_5) != null then
-		sasl.gl.drawText(AIRBUS_FONT, 410, 170, get(L_label_5), TEXT_ALIGN_LEFT, MCDU_WHITE)
-	end
-	if get(R_label_6) != null then
-		sasl.gl.drawText(AIRBUS_FONT, 410, 120, get(L_label_6), TEXT_ALIGN_LEFT, MCDU_WHITE)
-	end
-	if get(L_label_1) != null then
-		sasl.gl.drawText(AIRBUS_FONT, 15, 370, get(R_label_1), TEXT_ALIGN_LEFT, MCDU_WHITE)
-	end
-	if get(L_label_2) != null then
-		sasl.gl.drawText(AIRBUS_FONT, 15, 320, get(R_label_2), TEXT_ALIGN_LEFT, MCDU_WHITE)
-	end
-	if get(L_label_3) != null then
-		sasl.gl.drawText(AIRBUS_FONT, 15, 270, get(R_label_3), TEXT_ALIGN_LEFT, MCDU_WHITE)
-	end
-	if get(L_label_4) != null then
-		sasl.gl.drawText(AIRBUS_FONT, 15, 220, get(R_label_4), TEXT_ALIGN_LEFT, MCDU_WHITE)
-	end
-	if get(L_label_5) != null then
-		sasl.gl.drawText(AIRBUS_FONT, 15, 170, get(R_label_5), TEXT_ALIGN_LEFT, MCDU_WHITE)
-	end
-	if get(L_label_6) != null then
-		sasl.gl.drawText(AIRBUS_FONT, 15, 120, get(R_label_6), TEXT_ALIGN_LEFT, MCDU_WHITE)
-	end
-end
 
---if get(MCDU_CURRENT_PAGE) == 0
 
-if get(MCDU_CURRENT_PAGE) == 1 --MENU Page of the MCDU
-	local R_label_1 = null
-	local R_label_2 = null
-	local R_label_3 = null
-	local R_label_4 = null
-	local R_label_5 = null
-	local R_label_6 = null
-	local L_label_1 = null
-	local L_label_2 = null
-	local L_lable_3 = null
-	local L_label_4 = null
-	local L_label_5 = null
-	local L_label_6 = null
 
-	local R_data_1 = null
-	local R_data_2 = null
-	local R_data_3 = null
-	local R_data_4 = null
-	local R_data_5 = null
+
+if get(MCDU_CURRENT_PAGE) == 1 then --MENU Page of the MCDU
+	local R_label_1 = 0
+	local R_label_2 = 0
+	local R_label_3 = 0
+	local R_label_4 = 0
+	local R_label_5 = 0
+	local R_label_6 = 0
+	local L_label_1 = 0
+	local L_label_2 = 0
+	local L_lable_3 = 0
+	local L_label_4 = 0
+	local L_label_5 = 0
+	local L_label_6 = 0
+
+	local R_data_1 = 0
+	local R_data_2 = 0
+	local R_data_3 = 0
+	local R_data_4 = 0
+	local R_data_5 = 0
 	local R_data_6 = "Return>"
 	local L_data_1 = "<FMGC"
 	local L_data_2 = "<DATA LINK"
 	local L_data_3 = "<AIDS"
 	local L_data_4 = "CFDS [REQ]"
-	local L_data_5 = null
-	local L_data_6 = null
+	local L_data_5 = 0
+	local L_data_6 = 0
 
 	if get(MCDU_LINE_L_1) == 1 then
-		set(MCDU_CURRENT_PAGE) == 2 --FMGS PAGE
+		set(MCDU_CURRENT_PAGE, 2) --FMGS PAGE
 	end
 
 	if get(MCDU_LINE_L_2) == 1 then
-		set(MCDU_CURRENT_PAGE) == 3 --DATA LINK PAGE
+		set(MCDU_CURRENT_PAGE, 3)  --DATA LINK PAGE
 	end
 
 	if get(MCDU_LINE_L_3) == 1 then
-		set(MCDU_CURRENT_PAGE) == 4 --AIDS PAGE
+		set(MCDU_CURRENT_PAGE, 4) --AIDS PAGE
 	end
 
 	if get(MCDU_LINE_L_3) == 1 then
-		set(MCDU_CURRENT_PAGE) == 5 --CFDS PAGE
+		set(MCDU_CURRENT_PAGE, 5) --CFDS PAGE
 	end
 end
 
 
+if get(MCDU_CURRENT_PAGE) == 2 then -- init page 
+	local R_label_1 = 0
+	local R_label_2 = 0
+	local R_label_3 = 0
+	local R_label_4 = 0
+	local R_label_5 = 0
+	local R_label_6 = 0
+	local L_label_1 = 0
+	local L_label_2 = 0
+	local L_lable_3 = 0 
+	local L_label_4 = 0
+	local L_label_5 = 0
+	local L_label_6 = 0
+
+	local R_data_1 = 0
+	local R_data_2 = 0
+	local R_data_3 = 0
+	local R_data_4 = 0
+	local R_data_5 = 0
+	local R_data_6 = "Return>"
+	local L_data_1 = "<FMGC"
+	local L_data_2 = "<DATA LINK"
+	local L_data_3 = "<AIDS"
+	local L_data_4 = "CFDS [REQ]"
+	local L_data_5 = 0
+	local L_data_6 = 0
+
+end 
+
+local function drawPage()
+	--DRAWING THE DATA
+	if get(L_data_1) ~= 0 then
+		sasl.gl.drawText(AIRBUS_FONT, 15, 350, get(L_data_1), 20, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
+	end
+	if get(L_data_2) ~= 0 then
+		sasl.gl.drawText(AIRBUS_FONT, 15, 300, get(L_data_2), 20, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
+	end
+	if get(L_data_3) ~= 0 then
+		sasl.gl.drawText(AIRBUS_FONT, 15, 250, get(L_data_3), 20, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
+	end
+	if get(L_data_4) ~= 0 then
+		sasl.gl.drawText(AIRBUS_FONT, 15, 200, get(L_data_4), 20, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
+	end
+	if get(L_data_5) ~= 0 then
+		sasl.gl.drawText(AIRBUS_FONT, 15, 150, get(L_data_5), 20, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
+	end
+	if get(L_data_6) ~= 0 then
+		sasl.gl.drawText(AIRBUS_FONT, 15, 100, get(L_data_6), 20, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
+	end
+	if get(R_data_1) ~= 0 then
+		sasl.gl.drawText(AIRBUS_FONT, 410, 350, get(R_data_1), 20, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
+	end
+	if get(R_data_2) ~= 0 then
+		sasl.gl.drawText(AIRBUS_FONT, 410, 300, get(R_data_2), 20, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
+	end
+	if get(R_data_3) ~= 0 then
+		sasl.gl.drawText(AIRBUS_FONT, 410, 250, get(R_data_3), 20, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
+	end
+	if get(R_data_4) ~= 0 then
+		sasl.gl.drawText(AIRBUS_FONT, 410, 200, get(R_data_4), 20, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
+	end
+	if get(R_data_5) ~= 0 then
+		sasl.gl.drawText(AIRBUS_FONT, 410, 150, get(R_data_5), 20, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
+	end
+	if get(R_data_6) ~= 0 then
+		sasl.gl.drawText(AIRBUS_FONT, 410, 100, get(R_data_6), 20, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
+	end
+	--DRAWING THE LABELS
+	if get(R_label_1) ~= 0 then
+		sasl.gl.drawText(AIRBUS_FONT, 410, 370, get(L_label_1), 20, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
+	end
+	if get(R_label_2) ~= 0 then
+		sasl.gl.drawText(AIRBUS_FONT, 410, 320, get(L_label_2), 20, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
+	end
+	if get(R_label_3) ~= 0 then
+		sasl.gl.drawText(AIRBUS_FONT, 410, 270, get(L_label_3), 20, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
+	end
+	if get(R_label_4) ~= 0 then
+		sasl.gl.drawText(AIRBUS_FONT, 410, 220, get(L_label_4), 20, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
+	end
+	if get(R_label_5) ~= 0 then
+		sasl.gl.drawText(AIRBUS_FONT, 410, 170, get(L_label_5), 20, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
+	end
+	if get(R_label_6) ~= 0 then
+		sasl.gl.drawText(AIRBUS_FONT, 410, 120, get(L_label_6), 20, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
+	end
+	if get(L_label_1) ~= 0 then
+		sasl.gl.drawText(AIRBUS_FONT, 15, 370, get(R_label_1), 20, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
+	end
+	if get(L_label_2) ~= 0 then
+		sasl.gl.drawText(AIRBUS_FONT, 15, 320, get(R_label_2), 20, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
+	end
+	-- if get(L_label_3) ~= 0 then
+	-- 	sasl.gl.drawText(AIRBUS_FONT, 15, 270, get(R_label_3), 20, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
+	-- end
+	if get(L_label_4) ~= 0 then
+		sasl.gl.drawText(AIRBUS_FONT, 15, 220, get(R_label_4), 20, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
+	end
+	if get(L_label_5) ~= 0 then
+		sasl.gl.drawText(AIRBUS_FONT, 15, 170, get(R_label_5), 20, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
+	end
+	if get(L_label_6) ~= 0 then
+		sasl.gl.drawText(AIRBUS_FONT, 15, 120, get(R_label_6), 20, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
+	end
+end
+
+
+--if get(MCDU_CURRENT_PAGE) == 0
 function draw()
 	drawPage()
 end
+
+-- page 1 : menu page
+-- page 2 : init 
 
