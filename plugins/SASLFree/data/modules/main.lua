@@ -2,6 +2,9 @@ sasl.options.setAircraftPanelRendering(true)
 sasl.options.set3DRendering(true)
 sasl.options.setInteractivity(true)
 addSearchPath(moduleDirectory.."/images/")
+addSearchPath(moduleDirectory .. "/Custom Module/ATSAW/")
+addSearchPath(moduleDirectory .. "/Custom Module/ND/")
+-- addSearchPath(moduleDirectory .. "/Custom Module/ADIRS/")
 
 size = {2048, 2048}
 
@@ -10,9 +13,11 @@ panelHeight3d = 2048
 
 components = {
   customdataref {};
+  -- ADIRS {};
   systems {};
   pfd {};
-  nav {};
+  ND_CAPT {};
+  -- ATSAW {};
   ecam {};
   lower_ecam {};
   menu {};
