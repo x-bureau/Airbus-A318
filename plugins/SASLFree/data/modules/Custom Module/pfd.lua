@@ -122,19 +122,25 @@ local function draw_tapes()
 end
 
 local function draw_artificial_horizon()
+
   sasl.gl.setClipArea(0, 51, 510, 522)
 	sasl.gl.drawRotatedTexture(background, 0 - get(roll), -7, ((0 - get(pitch)) * 5) - 200, 500, 1000, PFD_WHITE)
   if math.floor(get(altitude)) < 49 then
 	sasl.gl.drawRotatedTexture(pscale_ground, 0 - get(roll), -7, ((0 - get(pitch)) * 5) - 200, 500, 1000, PFD_WHITE)
-	sasl.gl.drawTexture(ground_decal, -5, 50, 522, 522)
+	sasl.gl.drawTexture(ground_decal, -5, 50, 522, 522, PFD_WHITE)
   elseif get(altitude) > 50 and get(altitude) < 2500 then
     sasl.gl.drawRotatedTexture(pscale_ground, 0 - get(roll), -7, ((0 - get(pitch)) * 5) -200, 500, 1000, PFD_WHITE)
 	sasl.gl.drawText(AirbusFont, 198, 205, math.floor(get(altitude)), 24, false, false, TEXT_ALIGN_LEFT, PFD_LIGHT_GREEN) 
   else
 	sasl.gl.drawRotatedTexture(pscale, 0 - get(roll), -7, ((0 - get(pitch)) * 5) - 198, 500, 1000, PFD_WHITE)
-end
-  sasl.gl.drawRotatedTexture(align, 0 - get(roll), -16, 155, 522, 522, PFD_WHITE)
+  end
+
+
+
+ 
+  sasl.gl.drawRotatedTexture(align, 0, -16, 155, 522, 522, PFD_WHITE)
   sasl.gl.drawTexture(pitch_indicator, 97, 275, 228, 48, PFD_WHITE)
+
 -- angle, x, y, width, height, color
 end
 
@@ -143,12 +149,12 @@ function draw()
   -- draw AH
   draw_artificial_horizon()
 
-  sasl.gl.drawTexture(artificial_horizon_overlay, -15, 50, 550, 522)
+  sasl.gl.drawTexture(artificial_horizon_overlay, -15, 50, 550, 522, PFD_WHITE)
 
   -- draw tapes
   draw_tapes()
 
-  sasl.gl.drawTexture(tapes_overlay, -15, 50, 550, 522)
+  sasl.gl.drawTexture(tapes_overlay, -15, 50, 550, 522,PFD_WHITE)
   --sasl.gl.drawRectangle(14, 108, 50, 280, {1, 0, 0})
   
 
