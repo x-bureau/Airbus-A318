@@ -4,254 +4,429 @@
 
 --Written By:
 --FBI914
--- Future (ofc ofc)
+--Future 
+--Jamlen
 ------------------------------------------------------------------
 position = {20, 1200, 515, 370}
 size = {510, 410}
 ------------------------------------------------------------------
 --Defining Variables
 ------------------------------------------------------------------
---Defining all the MCDU keys
-local MCDU_KEY_A = createGlobalPropertyi("A318/cockpit/mcdu/keys/a", 0)--Define the A key of the MCDU, Value goes to 1 when pushed.
-local MCDU_KEY_B = createGlobalPropertyi("A318/cockpit/mcdu/keys/b", 0)--Define the B key of the MCDU, Value goes to 1 when pushed.
-local MCDU_KEY_C = createGlobalPropertyi("A318/cockpit/mcdu/keys/c", 0)--Define the C key of the MCDU, Value goes to 1 when pushed.
-local MCDU_KEY_D = createGlobalPropertyi("A318/cockpit/mcdu/keys/d", 0)--Define the D key of the MCDU, Value goes to 1 when pushed.
-local MCDU_KEY_E = createGlobalPropertyi("A318/cockpit/mcdu/keys/e", 0)--Define the E key of the MCDU, Value goes to 1 when pushed.
-local MCDU_KEY_F = createGlobalPropertyi("A318/cockpit/mcdu/keys/f", 0)--Define the F key of the MCDU, Value goes to 1 when pushed.
-local MCDU_KEY_G = createGlobalPropertyi("A318/cockpit/mcdu/keys/g", 0)--Define the G key of the MCDU, Value goes to 1 when pushed.
-local MCDU_KEY_H = createGlobalPropertyi("A318/cockpit/mcdu/keys/h", 0)--Define the H key of the MCDU, Value goes to 1 when pushed.
-local MCDU_KEY_I = createGlobalPropertyi("A318/cockpit/mcdu/keys/i", 0)--Define the I key of the MCDU, Value goes to 1 when pushed.
-local MCDU_KEY_J = createGlobalPropertyi("A318/cockpit/mcdu/keys/j", 0)--Define the J key of the MCDU, Value goes to 1 when pushed.
-local MCDU_KEY_K = createGlobalPropertyi("A318/cockpit/mcdu/keys/k", 0)--Define the K key of the MCDU, Value goes to 1 when pushed.
-local MCDU_KEY_L = createGlobalPropertyi("A318/cockpit/mcdu/keys/l", 0)--Define the L key of the MCDU, Value goes to 1 when pushed.
-local MCDU_KEY_M = createGlobalPropertyi("A318/cockpit/mcdu/keys/m", 0)--Define the M key of the MCDU, Value goes to 1 when pushed.
-local MCDU_KEY_N = createGlobalPropertyi("A318/cockpit/mcdu/keys/n", 0)--Define the N key of the MCDU, Value goes to 1 when pushed.
-local MCDU_KEY_O = createGlobalPropertyi("A318/cockpit/mcdu/keys/o", 0)--Define the O key of the MCDU, Value goes to 1 when pushed.
-local MCDU_KEY_P = createGlobalPropertyi("A318/cockpit/mcdu/keys/p", 0)--Define the P key of the MCDU, Value goes to 1 when pushed.
-local MCDU_KEY_Q = createGlobalPropertyi("A318/cockpit/mcdu/keys/q", 0)--Define the Q key of the MCDU, Value goes to 1 when pushed.
-local MCDU_KEY_R = createGlobalPropertyi("A318/cockpit/mcdu/keys/r", 0)--Define the R key of the MCDU, Value goes to 1 when pushed.
-local MCDU_KEY_S = createGlobalPropertyi("A318/cockpit/mcdu/keys/s", 0)--Define the S key of the MCDU, Value goes to 1 when pushed.
-local MCDU_KEY_T = createGlobalPropertyi("A318/cockpit/mcdu/keys/t", 0)--Define the T key of the MCDU, Value goes to 1 when pushed.
-local MCDU_KEY_U = createGlobalPropertyi("A318/cockpit/mcdu/keys/u", 0)--Define the U key of the MCDU, Value goes to 1 when pushed.
-local MCDU_KEY_V = createGlobalPropertyi("A318/cockpit/mcdu/keys/v", 0)--Define the V key of the MCDU, Value goes to 1 when pushed.
-local MCDU_KEY_W = createGlobalPropertyi("A318/cockpit/mcdu/keys/w", 0)--Define the W key of the MCDU, Value goes to 1 when pushed.
-local MCDU_KEY_X = createGlobalPropertyi("A318/cockpit/mcdu/keys/x", 0)--Define the X key of the MCDU, Value goes to 1 when pushed.
-local MCDU_KEY_Y = createGlobalPropertyi("A318/cockpit/mcdu/keys/y", 0)--Define the Y key of the MCDU, Value goes to 1 when pushed.
-local MCDU_KEY_Z = createGlobalPropertyi("A318/cockpit/mcdu/keys/z", 0)--Define the Z key of the MCDU, Value goes to 1 when pushed.
+local MCDU_GREEN = {0.184, 0.733, 0.219, 1.0}
+local MCDU_WHITE = {1.0, 1.0, 1.0, 1.0}
+local MCDU_BLUE = {0.004, 1.0, 1.0, 1.0}
 
---LINE SELECTOR BUTTONS (LEFT)
-local MCDU_LINE_L_1 = createGlobalPropertyi("A318/cockpit/mcdu/keys/line_l_1", 0)--Define the LEFT 1st LINE SELECTOR key of the MCDU, Value goes to 1 when pushed.
-local MCDU_LINE_L_2 = createGlobalPropertyi("A318/cockpit/mcdu/keys/line_l_2", 0)--Define the LEFT 2nd LINE SELECTOR key of the MCDU, Value goes to 1 when pushed.
-local MCDU_LINE_L_3 = createGlobalPropertyi("A318/cockpit/mcdu/keys/line_l_3", 0)--Define the LEFT 3rd LINE SELECTOR key of the MCDU, Value goes to 1 when pushed.
-local MCDU_LINE_L_4 = createGlobalPropertyi("A318/cockpit/mcdu/keys/line_l_4", 0)--Define the LEFT 4th LINE SELECTOR key of the MCDU, Value goes to 1 when pushed.
-local MCDU_LINE_L_5 = createGlobalPropertyi("A318/cockpit/mcdu/keys/line_l_5", 0)--Define the LEFT 5th LINE SELECTOR key of the MCDU, Value goes to 1 when pushed.
-local MCDU_LINE_L_6 = createGlobalPropertyi("A318/cockpit/mcdu/keys/line_l_6", 0)--Define the LEFT 6th LINE SELECTOR key of the MCDU, Value goes to 1 when pushed.
---LINE SELECTOR BUTTONS (RIGHT)
-local MCDU_LINE_R_1 = createGlobalPropertyi("A318/cockpit/mcdu/keys/line_r_1", 0)--Define the RIGHT 1st LINE SELECTOR key of the MCDU, Value goes to 1 when pushed.
-local MCDU_LINE_R_2 = createGlobalPropertyi("A318/cockpit/mcdu/keys/line_r_2", 0)--Define the RIGHT 2nd LINE SELECTOR key of the MCDU, Value goes to 1 when pushed.
-local MCDU_LINE_R_3 = createGlobalPropertyi("A318/cockpit/mcdu/keys/line_r_3", 0)--Define the RIGHT 3rd LINE SELECTOR key of the MCDU, Value goes to 1 when pushed.
-local MCDU_LINE_R_4 = createGlobalPropertyi("A318/cockpit/mcdu/keys/line_r_4", 0)--Define the RIGHT 4th LINE SELECTOR key of the MCDU, Value goes to 1 when pushed.
-local MCDU_LINE_R_5 = createGlobalPropertyi("A318/cockpit/mcdu/keys/line_r_5", 0)--Define the RIGHT 5th LINE SELECTOR key of the MCDU, Value goes to 1 when pushed.
-local MCDU_LINE_R_6 = createGlobalPropertyi("A318/cockpit/mcdu/keys/line_r_6", 0)--Define the RIGHT 6th LINE SELECTOR key of the MCDU, Value goes to 1 when pushed.
-
-local MCDU_CURRENT_PAGE = createGlobalPropertyi("A318/cockpit/mcdu/current_page", 1)--0 is the template page. WILL BE REMOVED AFTER TESTING
-
---PAGE LABELS
-local R_label_1 = "label 1"
-local R_label_2 = "label 2"
-local R_label_3 = "label 3"
-local R_label_4 = "label 4"
-local R_label_5 = "label 5"
-local R_label_6 = "label 6"
-local L_label_1 = "label 1"
-local L_label_2 = "label 2"
-local L_label_3 = "label 3"
-local L_label_4 = "label 4"
-local L_label_5 = "label 5"
-local L_label_6 = "label 6"
-
-local R_data_1 = "DATA 1"
-local R_data_2 = "DATA 1"
-local R_data_3 = "DATA 1"
-local R_data_4 = "DATA 1"
-local R_data_5 = "DATA 1"
-local R_data_6 = "DATA 1"
-local L_data_1 = "DATA 1"
-local L_data_2 = "DATA 1"
-local L_data_3 = "DATA 1"
-local L_data_4 = "DATA 1"
-local L_data_5 = "DATA 1"
-local L_data_6 = "DATA 1"
-
-local MCDU_GREEN = {0, 1.0, 0}
-local MCDU_WHITE = {0, 1.0, 0}
 local AIRBUS_FONT = sasl.gl.loadFont("fonts/PanelFont.ttf")
+local MCDU_CURRENT_PAGE = createGlobalPropertyi("A318/cockpit/mcdu/current_page", 11)
+local Airbus_VERSION = "A318-100"
+local ENG_TYPE = "CFM-56-B"
 
------------------------------------------
---Setting up the pages
------------------------------------------
---Drawing the page
+--Buttons Datarefs 
+
+local BUTTON_1_L = createGlobalPropertyi("A318/cockpit/mcdu/buttons/left/1", 0)
+local BUTTON_2_L = createGlobalPropertyi("A318/cockpit/mcdu/buttons/left/2", 0)
+local BUTTON_3_L = createGlobalPropertyi("A318/cockpit/mcdu/buttons/left/3", 0)
+local BUTTON_4_L = createGlobalPropertyi("A318/cockpit/mcdu/buttons/left/4", 0)
+local BUTTON_5_L = createGlobalPropertyi("A318/cockpit/mcdu/buttons/left/5", 0)
+local BUTTON_6_L = createGlobalPropertyi("A318/cockpit/mcdu/buttons/left/6", 0)
+
+local BUTTON_1_R = createGlobalPropertyi("A318/cockpit/mcdu/buttons/right/1", 0)
+local BUTTON_2_R = createGlobalPropertyi("A318/cockpit/mcdu/buttons/right/2", 0)
+local BUTTON_3_R = createGlobalPropertyi("A318/cockpit/mcdu/buttons/right/3", 0)
+local BUTTON_4_R = createGlobalPropertyi("A318/cockpit/mcdu/buttons/right/4", 0)
+local BUTTON_5_R = createGlobalPropertyi("A318/cockpit/mcdu/buttons/right/5", 0)
+local BUTTON_6_R = createGlobalPropertyi("A318/cockpit/mcdu/buttons/right/6", 0)
+-- Info Arrays 
+letters = {
+  "A", -- 1
+  "B", -- 2
+  "C", -- 3
+  "D", -- 4
+  "E", -- 5
+  "F", -- 6
+  "G", -- 7
+  "H", -- 8
+  "I", -- 9
+  "J", -- 11
+  "K", -- 11
+  "L", -- 12 
+  "M", -- 13
+  "N", -- 14
+  "O", -- 15
+  "P", -- 16
+  "Q", -- 17
+  "R", -- 18
+  "S", -- 19
+  "T", -- 20
+  "U", -- 21
+  "V", -- 22
+  "W", -- 23
+  "X", -- 24
+  "Y", -- 25
+  "Z", -- 26
+  1, -- 27
+  2, -- 28
+  3, -- 29
+  4, -- 30
+  5, -- 31
+  6, -- 32
+  7, -- 33
+  8, -- 34
+  9, -- 35
+  0, -- 36
+  "/",
+  "."
+ -- "[]", -- 37
+}
+
+local CLR_KEY = createGlobalPropertyi("A318/cockpit/mcdu/keys/clr", 0) --1
+keys = {
+  [1] = createGlobalPropertyi("A318/cockpit/mcdu/keys/a", 0), --1
+  [2] = createGlobalPropertyi("A318/cockpit/mcdu/keys/b", 0), --2
+  [3] = createGlobalPropertyi("A318/cockpit/mcdu/keys/c", 0), --3 
+  [4] = createGlobalPropertyi("A318/cockpit/mcdu/keys/d", 0), --4
+  [5] = createGlobalPropertyi("A318/cockpit/mcdu/keys/e", 0), --5
+  [6] = createGlobalPropertyi("A318/cockpit/mcdu/keys/f", 0), --6
+  [7] = createGlobalPropertyi("A318/cockpit/mcdu/keys/g", 0), --7
+  [8] = createGlobalPropertyi("A318/cockpit/mcdu/keys/h", 0), --8
+  [9] = createGlobalPropertyi("A318/cockpit/mcdu/keys/i", 0), --9
+  [10] = createGlobalPropertyi("A318/cockpit/mcdu/keys/j", 0), --10
+  [11] = createGlobalPropertyi("A318/cockpit/mcdu/keys/k", 0), --11
+  [12] = createGlobalPropertyi("A318/cockpit/mcdu/keys/l", 0), --12
+  [13] = createGlobalPropertyi("A318/cockpit/mcdu/keys/m", 0), --13
+  [14] = createGlobalPropertyi("A318/cockpit/mcdu/keys/n", 0), --14
+  [15] = createGlobalPropertyi("A318/cockpit/mcdu/keys/o", 0), --15
+  [16] = createGlobalPropertyi("A318/cockpit/mcdu/keys/p", 0), --16
+  [17] = createGlobalPropertyi("A318/cockpit/mcdu/keys/q", 0), --17 
+  [18] = createGlobalPropertyi("A318/cockpit/mcdu/keys/r", 0), --18
+  [19] = createGlobalPropertyi("A318/cockpit/mcdu/keys/s", 0), --19
+  [20] = createGlobalPropertyi("A318/cockpit/mcdu/keys/t", 0), --20 
+  [21] = createGlobalPropertyi("A318/cockpit/mcdu/keys/u", 0), --21
+  [22] = createGlobalPropertyi("A318/cockpit/mcdu/keys/v", 0), --22
+  [23] = createGlobalPropertyi("A318/cockpit/mcdu/keys/w", 0), --23
+  [24] = createGlobalPropertyi("A318/cockpit/mcdu/keys/x", 0), --24
+  [25] = createGlobalPropertyi("A318/cockpit/mcdu/keys/y", 0), --25
+  [26] = createGlobalPropertyi("A318/cockpit/mcdu/keys/z", 0), --26
+  [27] = createGlobalPropertyi("A318/cockpit/mcdu/keys/1", 0), --27
+  [28] = createGlobalPropertyi("A318/cockpit/mcdu/keys/2", 0), --28
+  [29] = createGlobalPropertyi("A318/cockpit/mcdu/keys/3", 0), --29
+  [30] = createGlobalPropertyi("A318/cockpit/mcdu/keys/4", 0), --30
+  [31] = createGlobalPropertyi("A318/cockpit/mcdu/keys/5", 0), --31
+  [32] = createGlobalPropertyi("A318/cockpit/mcdu/keys/6", 0), --32
+  [33] = createGlobalPropertyi("A318/cockpit/mcdu/keys/7", 0), --33
+  [34] = createGlobalPropertyi("A318/cockpit/mcdu/keys/8", 0), --34
+  [35] = createGlobalPropertyi("A318/cockpit/mcdu/keys/9", 0), --35
+  [36] = createGlobalPropertyi("A318/cockpit/mcdu/keys/0", 0), --36
+  [37] = createGlobalPropertyi("A318/cockpit/mcdu/keys/slash", 0), --37
+  [38] = createGlobalPropertyi("A318/cockpit/mcdu/keys/period", 0), --38
+}
 
 
 
+data_L = {
+  [1] = {
+    value = "0",
+    isWriteable = "true",
+    maxChar = 9,
+  };
+  [2] = {
+    value = "0",
+    isWriteable = "false",
+    maxChar = 9,
+  };
+  [3] = {
+    value = "0",
+    isWriteable = "false",
+    maxChar = 8,
+  };
+  [4] = {
+    value = "0",
+    isWriteable = "false",
+    maxChar = 8,
+  };
+  [5] = {
+    value = "0",
+    isWriteable = "false",
+    maxChar = 8,
+  };
+  [6] = {
+    value = "0",
+    isWriteable = "false",
+    maxChar = 8,
+  }
+}
 
-if get(MCDU_CURRENT_PAGE) == 1 then --MENU Page of the MCDU
-	local R_label_1 = 0
-	local R_label_2 = 0
-	local R_label_3 = 0
-	local R_label_4 = 0
-	local R_label_5 = 0
-	local R_label_6 = 0
-	local L_label_1 = 0
-	local L_label_2 = 0
-	local L_lable_3 = 0
-	local L_label_4 = 0
-	local L_label_5 = 0
-	local L_label_6 = 0
-
-	local R_data_1 = 0
-	local R_data_2 = 0
-	local R_data_3 = 0
-	local R_data_4 = 0
-	local R_data_5 = 0
-	local R_data_6 = "Return>"
-	local L_data_1 = "<FMGC"
-	local L_data_2 = "<DATA LINK"
-	local L_data_3 = "<AIDS"
-	local L_data_4 = "CFDS [REQ]"
-	local L_data_5 = 0
-	local L_data_6 = 0
-
-	if get(MCDU_LINE_L_1) == 1 then
-		set(MCDU_CURRENT_PAGE, 2) --FMGS PAGE
-	end
-
-	if get(MCDU_LINE_L_2) == 1 then
-		set(MCDU_CURRENT_PAGE, 3)  --DATA LINK PAGE
-	end
-
-	if get(MCDU_LINE_L_3) == 1 then
-		set(MCDU_CURRENT_PAGE, 4) --AIDS PAGE
-	end
-
-	if get(MCDU_LINE_L_3) == 1 then
-		set(MCDU_CURRENT_PAGE, 5) --CFDS PAGE
-	end
-end
+data_R = {
+  [1] = {
+    value = "0",
+    isWriteable = "false",
+    maxChar = 8,
+  };
+  [2] = {
+    value = "0",
+    isWriteable = "false",
+    maxChar = 8,
+  };
+  [3] = {
+    value = "0",
+    isWriteable = "false",
+    maxChar = 8,
+  };
+  [4] = {
+    value = "0",
+    isWriteable = "false",
+    maxChar = 8,
+  };
+  [5] = {
+    value = "0",
+    isWriteable = "false",
+    maxChar = 8,
+  };
+  [6] = {
+    value = "0",
+    isWriteable = "false",
+    maxChar = 8,
+  }
+}
 
 
-if get(MCDU_CURRENT_PAGE) == 2 then -- init page 
-	local R_label_1 = 0
-	local R_label_2 = 0
-	local R_label_3 = 0
-	local R_label_4 = 0
-	local R_label_5 = 0
-	local R_label_6 = 0
-	local L_label_1 = 0
-	local L_label_2 = 0
-	local L_lable_3 = 0 
-	local L_label_4 = 0
-	local L_label_5 = 0
-	local L_label_6 = 0
+local scratchPad_Data = {
+  "[]",
+  "[]",
+  "[]",
+  "[]",
+  "[]",
+  "[]",
+  "[]",
+  "[]",
+  "[]",
+  "[]",
+  "[]",
+}
 
-	local R_data_1 = 0
-	local R_data_2 = 0
-	local R_data_3 = 0
-	local R_data_4 = 0
-	local R_data_5 = 0
-	local R_data_6 = "Return>"
-	local L_data_1 = "<FMGC"
-	local L_data_2 = "<DATA LINK"
-	local L_data_3 = "<AIDS"
-	local L_data_4 = "CFDS [REQ]"
-	local L_data_5 = 0
-	local L_data_6 = 0
 
+key_datarefs = {
+
+  
+}
+
+local FromTo_Data = {
+  "[]",
+  "[]",
+  "[]",
+  "[]",
+  "[]",
+  "[]",
+  "[]",
+  "[]",
+}
+
+
+--Creating the blank character space
+local blankChar = "[]"
+--print(blankChar)
+
+
+
+local function draw_scratchPad()
+  local x = "[]" 
+  for i,v in ipairs(keys) do 
+    if get(v) ~= 0 then 
+      x = letters[i]-- X is set to match the letter corresponding to the index value from keys here we set x to letter 
+      print(x) --We want X to be the letter we want to draw
+
+      if scratchPad_Data[1] == "[]" then
+        scratchPad_Data[1] = x
+        set(v, 0)
+        elseif scratchPad_Data[2] == "[]" then
+         scratchPad_Data[2] = x
+         set(v, 0)
+        elseif scratchPad_Data[3] == "[]" then
+          scratchPad_Data[3] = x
+          set(v, 0)
+        elseif scratchPad_Data[4] == "[]" then
+          scratchPad_Data[4] = x
+          set(v, 0)
+        elseif scratchPad_Data[5] == "[]" then
+          scratchPad_Data[5] = x
+          set(v, 0)
+        elseif scratchPad_Data[6] == "[]" then
+          scratchPad_Data[6] = x
+          set(v, 0)
+        elseif scratchPad_Data[7] == "[]" then
+          scratchPad_Data[7] = x
+          set(v, 0)
+        elseif scratchPad_Data[8] == "[]" then
+          scratchPad_Data[8] = x
+          set(v, 0)
+        elseif scratchPad_Data[9] == "[]" then
+          scratchPad_Data[9] = x
+          set(v, 0)
+        elseif scratchPad_Data[10] == "[]" then
+          scratchPad_Data[10] = x
+          set(v, 0)
+      end
+    end
+  end 
+
+  sasl.gl.drawText(AIRBUS_FONT, 20, 35, scratchPad_Data[1], 40, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
+  sasl.gl.drawText(AIRBUS_FONT, 60, 35, scratchPad_Data[2], 40, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
+  sasl.gl.drawText(AIRBUS_FONT, 100, 35, scratchPad_Data[3], 40, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
+  sasl.gl.drawText(AIRBUS_FONT, 140, 35, scratchPad_Data[4], 40, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
+  sasl.gl.drawText(AIRBUS_FONT, 180, 35, scratchPad_Data[5], 40, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
+  sasl.gl.drawText(AIRBUS_FONT, 220, 35, scratchPad_Data[6], 40, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
+  sasl.gl.drawText(AIRBUS_FONT, 260, 35, scratchPad_Data[7], 40, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
+  sasl.gl.drawText(AIRBUS_FONT, 300, 35, scratchPad_Data[8], 40, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
+  sasl.gl.drawText(AIRBUS_FONT, 340, 35, scratchPad_Data[9], 40, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
+  sasl.gl.drawText(AIRBUS_FONT, 380, 35, scratchPad_Data[10], 40, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
 end 
 
+
 local function drawPage()
-	--DRAWING THE DATA
-	if get(L_data_1) ~= 0 then
-		sasl.gl.drawText(AIRBUS_FONT, 15, 350, get(L_data_1), 20, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
-	end
-	if get(L_data_2) ~= 0 then
-		sasl.gl.drawText(AIRBUS_FONT, 15, 300, get(L_data_2), 20, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
-	end
-	if get(L_data_3) ~= 0 then
-		sasl.gl.drawText(AIRBUS_FONT, 15, 250, get(L_data_3), 20, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
-	end
-	if get(L_data_4) ~= 0 then
-		sasl.gl.drawText(AIRBUS_FONT, 15, 200, get(L_data_4), 20, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
-	end
-	if get(L_data_5) ~= 0 then
-		sasl.gl.drawText(AIRBUS_FONT, 15, 150, get(L_data_5), 20, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
-	end
-	if get(L_data_6) ~= 0 then
-		sasl.gl.drawText(AIRBUS_FONT, 15, 100, get(L_data_6), 20, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
-	end
-	if get(R_data_1) ~= 0 then
-		sasl.gl.drawText(AIRBUS_FONT, 410, 350, get(R_data_1), 20, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
-	end
-	if get(R_data_2) ~= 0 then
-		sasl.gl.drawText(AIRBUS_FONT, 410, 300, get(R_data_2), 20, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
-	end
-	if get(R_data_3) ~= 0 then
-		sasl.gl.drawText(AIRBUS_FONT, 410, 250, get(R_data_3), 20, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
-	end
-	if get(R_data_4) ~= 0 then
-		sasl.gl.drawText(AIRBUS_FONT, 410, 200, get(R_data_4), 20, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
-	end
-	if get(R_data_5) ~= 0 then
-		sasl.gl.drawText(AIRBUS_FONT, 410, 150, get(R_data_5), 20, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
-	end
-	if get(R_data_6) ~= 0 then
-		sasl.gl.drawText(AIRBUS_FONT, 410, 100, get(R_data_6), 20, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
-	end
-	--DRAWING THE LABELS
-	if get(R_label_1) ~= 0 then
-		sasl.gl.drawText(AIRBUS_FONT, 410, 370, get(L_label_1), 20, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
-	end
-	if get(R_label_2) ~= 0 then
-		sasl.gl.drawText(AIRBUS_FONT, 410, 320, get(L_label_2), 20, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
-	end
-	if get(R_label_3) ~= 0 then
-		sasl.gl.drawText(AIRBUS_FONT, 410, 270, get(L_label_3), 20, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
-	end
-	if get(R_label_4) ~= 0 then
-		sasl.gl.drawText(AIRBUS_FONT, 410, 220, get(L_label_4), 20, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
-	end
-	if get(R_label_5) ~= 0 then
-		sasl.gl.drawText(AIRBUS_FONT, 410, 170, get(L_label_5), 20, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
-	end
-	if get(R_label_6) ~= 0 then
-		sasl.gl.drawText(AIRBUS_FONT, 410, 120, get(L_label_6), 20, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
-	end
-	if get(L_label_1) ~= 0 then
-		sasl.gl.drawText(AIRBUS_FONT, 15, 370, get(R_label_1), 20, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
-	end
-	if get(L_label_2) ~= 0 then
-		sasl.gl.drawText(AIRBUS_FONT, 15, 320, get(R_label_2), 20, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
-	end
-	-- if get(L_label_3) ~= 0 then
-	-- 	sasl.gl.drawText(AIRBUS_FONT, 15, 270, get(R_label_3), 20, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
-	-- end
-	if get(L_label_4) ~= 0 then
-		sasl.gl.drawText(AIRBUS_FONT, 15, 220, get(R_label_4), 20, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
-	end
-	if get(L_label_5) ~= 0 then
-		sasl.gl.drawText(AIRBUS_FONT, 15, 170, get(R_label_5), 20, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
-	end
-	if get(L_label_6) ~= 0 then
-		sasl.gl.drawText(AIRBUS_FONT, 15, 120, get(R_label_6), 20, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
-	end
+  if get(MCDU_CURRENT_PAGE) == 11 then -- Draw Menu Page
+    sasl.gl.drawText(AIRBUS_FONT, 170, 400, "MCDU MENU" , 30, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
+    sasl.gl.drawText(AIRBUS_FONT, 15, 350, "<FMGC" , 25, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
+    sasl.gl.drawText(AIRBUS_FONT, 15, 300, "<ATSU", 25, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
+    sasl.gl.drawText(AIRBUS_FONT, 15, 250, "<AIDS", 25, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
+    sasl.gl.drawText(AIRBUS_FONT, 15, 200, "<CFDS", 25, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
+    sasl.gl.drawText(AIRBUS_FONT, 365, 380, "SELECT", 22, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
+    sasl.gl.drawText(AIRBUS_FONT, 345, 350, "NAV B/UP>", 25, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
+    sasl.gl.drawText(AIRBUS_FONT, 345, 100, "RETURN>", 25, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
+   
+    if get(BUTTON_1_L) == 1 then 
+      MCDU_CURRENT_PAGE = 1 
+    end
+    elseif get(MCDU_CURRENT_PAGE) == 1 then -- Draw main Page
+      sasl.gl.drawText(AIRBUS_FONT, 190, 400, Airbus_VERSION , 30, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
+      sasl.gl.drawText(AIRBUS_FONT, 30, 380, "ENG" , 24, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
+      sasl.gl.drawText(AIRBUS_FONT, 15, 350, ENG_TYPE , 29, false, false, TEXT_ALIGN_LEFT, MCDU_GREEN)
+  
+    elseif get(MCDU_CURRENT_PAGE) == 2 then 
+      -- TITLE --  
+      sasl.gl.drawText(AIRBUS_FONT, 215, 400, "INIT" , 30, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
+      --   LEFT SIDE
+      sasl.gl.drawText(AIRBUS_FONT, 40, 380, "CO RTE" , 24, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
+      
+
+      sasl.gl.drawText(AIRBUS_FONT, 15, 350, "[              ]" , 29, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
+  
+      sasl.gl.drawText(AIRBUS_FONT, 15, 320, "ALTN/CO RTE" , 24, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
+      sasl.gl.drawText(AIRBUS_FONT, 15, 290, "----/---------" , 29, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
+
+      sasl.gl.drawText(AIRBUS_FONT, 15, 265, "FLT NBR" , 24, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
+      sasl.gl.drawText(AIRBUS_FONT, 15, 235, "[][][][][][][][][]" , 29, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
+
+      sasl.gl.drawText(AIRBUS_FONT, 15, 195, "LAT" , 24, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
+      sasl.gl.drawText(AIRBUS_FONT, 15, 170, "inop" , 29, false, false, TEXT_ALIGN_LEFT, MCDU_BLUE)
+    
+      -- RIGHT SIDE 
+      sasl.gl.drawText(AIRBUS_FONT, 325, 380, "FROM/TO", 24, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
+
+    
+      local x = 325 --We add the base X - Value so we space out the input fields.
+      for i in ipairs(FromTo_Data) do   
+        sasl.gl.drawText(AIRBUS_FONT, x, 350, FromTo_Data[i], 29, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
+        x = x + 15
+        if i == 4 then 
+          x = x + 25
+        end
+      end
+      sasl.gl.drawText(AIRBUS_FONT, 390, 350, "/", 29, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE) --Draw the slash separately from the dataset
+    elseif get(MCDU_CURRENT_PAGE) == 3 then 
+    
+    elseif get(MCDU_CURRENT_PAGE) == 4 then
+  
+    end
+
+    
+    --Delete(Clear) Button
+    for i,v in ipairs(letters) do 
+      if get(v) ~= 0 then 
+        if get(CLR_KEY) == 1 and scratchPad_Data[10] ~= "[]" then 
+          scratchPad_Data[10] = "[]"
+          set(CLR_KEY, 0)
+        elseif get(CLR_KEY) == 1 and scratchPad_Data[9] ~= "[]" then 
+          scratchPad_Data[9] = "[]"
+          set(CLR_KEY, 0)
+        elseif get(CLR_KEY) == 1 and scratchPad_Data[8] ~= "[]" then
+          scratchPad_Data[8] = "[]"
+          set(CLR_KEY, 0)
+        elseif get(CLR_KEY) == 1 and scratchPad_Data[7] ~= "[]" then 
+          scratchPad_Data[7] = "[]"
+          set(CLR_KEY, 0)
+        elseif get(CLR_KEY) == 1 and scratchPad_Data[6] ~= "[]" then 
+          scratchPad_Data[6] = "[]"
+          set(CLR_KEY, 0)
+        elseif get(CLR_KEY) == 1 and scratchPad_Data[5] ~= "[]" then 
+          scratchPad_Data[5] = "[]"
+          set(CLR_KEY, 0)
+        elseif get(CLR_KEY) == 1 and scratchPad_Data[4] ~= "[]" then 
+          scratchPad_Data[4] = "[]"
+          set(CLR_KEY, 0)
+        elseif get(CLR_KEY) == 1 and scratchPad_Data[3] ~= "[]" then 
+          scratchPad_Data[3] = "[]"
+          set(CLR_KEY, 0)
+        elseif get(CLR_KEY) == 1 and scratchPad_Data[2] ~= "[]" then 
+          scratchPad_Data[2] = "[]"
+          set(CLR_KEY, 0)
+        elseif get(CLR_KEY) == 1 and scratchPad_Data[1] ~= "[]" then 
+          scratchPad_Data[1] = "[]"
+          set(CLR_KEY, 0)
+        end     
+      end
+    end  
+  end
+  
+--You realize that's gonna last for like a nanosecond? If you're at like 10fps that's gonna be like 1/2 a second
+function THROW_INVALID()
+  scratchPad_Data[1] = "I"
+  scratchPad_Data[2] = "N"
+  scratchPad_Data[3] = "V"
+  scratchPad_Data[4] = "A"
+  scratchPad_Data[5] = "L"
+  scratchPad_Data[6] = "I"
+  scratchPad_Data[7] = "D"  
+  scratchPad_Data[8] = ""
+  scratchPad_Data[9] = ""
+  scratchPad_Data[10] = ""
+  CLEAR_ALL()
+end 
+
+function CLEAR_ALL()
+if get(CLR_KEY) == 1 and scratchPad_Data[1] == "I" and scratchPad_Data[2] == "N" and scratchPad_Data[3] == "V" and scratchPad_Data[4] == "A" and scratchPad_Data[5] == "L" and scratchPad_Data[6] == "I" and scratchPad_Data[7] == "D"and scratchPad_Data[8] == "" and scratchPad_Data[9] == "" and scratchPad_Data[10] == "" then
+    scratchPad_Data[1] = "[]"
+    scratchPad_Data[2] = "[]"
+    scratchPad_Data[3] = "[]"
+    scratchPad_Data[4] = "[]"
+    scratchPad_Data[5] = "[]"
+    scratchPad_Data[6] = "[]"
+    scratchPad_Data[7] = "[]"  
+    scratchPad_Data[8] = "[]"
+    scratchPad_Data[9] = "[]"
+    scratchPad_Data[10] = "[]"
+  end
+end 
+function update()
+  CLEAR_ALL()
+  -- Add text to FROM/TO
+  if get(MCDU_CURRENT_PAGE) == 2 and get(BUTTON_1_R) == 1 then 
+    if scratchPad_Data[5] ~= "/" or  scratchPad_Data[1] == "[]" or scratchPad_Data[2] == "[]" or scratchPad_Data[3] == "[]" or scratchPad_Data[4] == "[]" or scratchPad_Data[5] == "[]" or scratchPad_Data[6] == "[]" or scratchPad_Data[7] == "[]" or scratchPad_Data[8] == "[]" or scratchPad_Data[9] == "[]" then 
+        THROW_INVALID()
+    else --What are you trying to do here? also, we need to throw an error if it's greater than macChar or we can just leave it as is where it takes the first 8 letters
+      FromTo_Data[1] =  scratchPad_Data[1]
+      FromTo_Data[2] =  scratchPad_Data[2]
+      FromTo_Data[3] =  scratchPad_Data[3]
+      FromTo_Data[4] =  scratchPad_Data[4]
+      FromTo_Data[5] =  scratchPad_Data[6]
+      FromTo_Data[6] =  scratchPad_Data[7]
+      FromTo_Data[7] =  scratchPad_Data[8]
+      FromTo_Data[8] =  scratchPad_Data[9]
+    end
+  end 
 end
 
-
---if get(MCDU_CURRENT_PAGE) == 0
 function draw()
-	drawPage()
-end
-
--- page 1 : menu page
--- page 2 : init 
-
+  update()
+	drawPage()   
+  draw_scratchPad()
+end.
