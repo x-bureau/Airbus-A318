@@ -31,8 +31,8 @@ local copilot_sat = globalProperty("sim/cockpit2/temperature/outside_air_temp_de
 
 adirs ={
     adirs_1 = {
-        mode = createGlobalPropertyi("A318/systems/ADIRS/1/mode", 0), -- mode switch
-        aligned = createGlobalPropertyi("A318/systems/ADIRS/1/aligned", 0), -- is aligned
+        mode = createGlobalPropertyi("A318/systems/ADIRS/1/mode", 1), -- mode switch
+        aligned = createGlobalPropertyi("A318/systems/ADIRS/1/aligned", 1), -- is aligned
         inertial = {
             latitude = createGlobalPropertyf("A318/systems/ADIRS/1/inertial/latitude", 0.0),
             longitude = createGlobalPropertyf("A318/systems/ADIRS/1/inertial/longitude", 0.0),
@@ -52,8 +52,8 @@ adirs ={
         }
     },
     adirs_2 = {
-        mode = createGlobalPropertyi("A318/systems/ADIRS/2/mode", 0), -- mode switch
-        aligned = createGlobalPropertyi("A318/systems/ADIRS/2/aligned", 0),
+        mode = createGlobalPropertyi("A318/systems/ADIRS/2/mode", 1), -- mode switch
+        aligned = createGlobalPropertyi("A318/systems/ADIRS/2/aligned", 1),
         inertial = {
             latitude = createGlobalPropertyf("A318/systems/ADIRS/2/inertial/latitude", 0.0),
             longitude = createGlobalPropertyf("A318/systems/ADIRS/2/inertial/longitude", 0.0),
@@ -73,8 +73,8 @@ adirs ={
         }
     },
     adirs_3 = {
-        mode = createGlobalPropertyi("A318/systems/ADIRS/3/mode", 0), -- mode switch
-        aligned = createGlobalPropertyi("A318/systems/ADIRS/3/aligned", 0),
+        mode = createGlobalPropertyi("A318/systems/ADIRS/3/mode", 1), -- mode switch
+        aligned = createGlobalPropertyi("A318/systems/ADIRS/3/aligned", 1),
         inertial = {
             latitude = createGlobalPropertyi("A318/systems/ADIRS/3/inertial/latitude", 0),
             longitude = createGlobalPropertyi("A318/systems/ADIRS/3/inertial/longitude", 0),
@@ -103,7 +103,7 @@ function ADIRS1()
     local InertialData = get(adirs.adirs_1.inertial)
 
     if get(isAligned) == 0  and get(mode) > 0 then -- on and aligning
-
+        set(isAligned, 1)
     elseif get(isAligned) == 1 and get(mode) == 1 then -- on and aligned
         -- inertial data
         set(InertialData.latitude, get(pilot_latitude))
