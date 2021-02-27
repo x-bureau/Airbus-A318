@@ -4,7 +4,7 @@ sasl.options.setInteractivity(true)
 addSearchPath(moduleDirectory.."/images/")
 addSearchPath(moduleDirectory .. "/Custom Module/ATSAW/")
 addSearchPath(moduleDirectory .. "/Custom Module/ND/")
--- addSearchPath(moduleDirectory .. "/Custom Module/ADIRS/")
+addSearchPath(moduleDirectory .. "/Custom Module/ADIRS/")
 
 size = {2048, 2048}
 
@@ -13,10 +13,12 @@ panelHeight3d = 2048
 
 components = {
   customdataref {};
-  -- ADIRS {};
   systems {};
+  ADIRS {};
+  MCDU {};
   pfd {};
   ND_CAPT {};
+  --ND_FRST {};
   -- ATSAW {};
   ecam {};
   lower_ecam {};
