@@ -15,6 +15,7 @@ size = {510, 410}
 local MCDU_GREEN = {0.184, 0.733, 0.219, 1.0}
 local MCDU_WHITE = {1.0, 1.0, 1.0, 1.0}
 local MCDU_BLUE = {0.004, 1.0, 1.0, 1.0}
+local MCDU_ORANGE = {1.0, 0.625, 0.0, 1.0}
 
 local AIRBUS_FONT = sasl.gl.loadFont("fonts/PanelFont.ttf")
 local MCDU_CURRENT_PAGE = createGlobalPropertyi("A318/cockpit/mcdu/current_page", 11)
@@ -285,7 +286,7 @@ end
 local function drawPage()
   if get(MCDU_CURRENT_PAGE) == 11 then -- Draw Menu Page
     sasl.gl.drawText(AIRBUS_FONT, 170, 400, "MCDU MENU" , 30, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
-    sasl.gl.drawText(AIRBUS_FONT, 15, 350, "<FMGC" , 25, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
+    sasl.gl.drawText(AIRBUS_FONT, 15, 350, "<FMGC" , 25, false, false, TEXT_ALIGN_LEFT, MCDU_GREEN)
     sasl.gl.drawText(AIRBUS_FONT, 15, 300, "<ATSU", 25, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
     sasl.gl.drawText(AIRBUS_FONT, 15, 250, "<AIDS", 25, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
     sasl.gl.drawText(AIRBUS_FONT, 15, 200, "<CFDS", 25, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
@@ -316,9 +317,12 @@ local function drawPage()
       sasl.gl.drawText(AIRBUS_FONT, 15, 265, "FLT NBR" , 24, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
       sasl.gl.drawText(AIRBUS_FONT, 15, 235, "[][][][][][][][][]" , 29, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
 
-      sasl.gl.drawText(AIRBUS_FONT, 15, 195, "LAT" , 24, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
-      sasl.gl.drawText(AIRBUS_FONT, 15, 170, "inop" , 29, false, false, TEXT_ALIGN_LEFT, MCDU_BLUE)
+      -- sasl.gl.drawText(AIRBUS_FONT, 15, 195, "LAT" , 24, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
+      -- sasl.gl.drawText(AIRBUS_FONT, 15, 170, "inop" , 29, false, false, TEXT_ALIGN_LEFT, MCDU_BLUE)
     
+      sasl.gl.drawText(AIRBUS_FONT, 15, 145, "COST INDEX" , 24, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
+      sasl.gl.drawText(AIRBUS_FONT, 15, 120, "---" , 29, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
+     
       -- RIGHT SIDE 
       sasl.gl.drawText(AIRBUS_FONT, 325, 380, "FROM/TO", 24, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
 
@@ -332,6 +336,13 @@ local function drawPage()
         end
       end
       sasl.gl.drawText(AIRBUS_FONT, 390, 350, "/", 29, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE) --Draw the slash separately from the dataset
+   
+      sasl.gl.drawText(AIRBUS_FONT, 423, 320, "INIT", 24, false, false, TEXT_ALIGN_LEFT, MCDU_ORANGE)
+      sasl.gl.drawText(AIRBUS_FONT, 345, 295, "REQUEST*", 29, false, false, TEXT_ALIGN_LEFT, MCDU_ORANGE)
+    
+      sasl.gl.drawText(AIRBUS_FONT, 345, 245, "IRS INIT>", 29, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
+
+      sasl.gl.drawText(AIRBUS_FONT, 379, 195, "WIND>", 29, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
     elseif get(MCDU_CURRENT_PAGE) == 3 then 
     
     elseif get(MCDU_CURRENT_PAGE) == 4 then
@@ -389,7 +400,6 @@ function THROW_INVALID()
   scratchPad_Data[8] = ""
   scratchPad_Data[9] = ""
   scratchPad_Data[10] = ""
-  CLEAR_ALL()
 end 
 
 function CLEAR_ALL()
@@ -406,7 +416,9 @@ if get(CLR_KEY) == 1 and scratchPad_Data[1] == "I" and scratchPad_Data[2] == "N"
     scratchPad_Data[10] = "[]"
   end
 end 
-function update()
+
+
+function Misc()
   CLEAR_ALL()
   -- Add text to FROM/TO
   if get(MCDU_CURRENT_PAGE) == 2 and get(BUTTON_1_R) == 1 then 
@@ -426,7 +438,7 @@ function update()
 end
 
 function draw()
-  update()
+  Misc()
 	drawPage()   
   draw_scratchPad()
 end
