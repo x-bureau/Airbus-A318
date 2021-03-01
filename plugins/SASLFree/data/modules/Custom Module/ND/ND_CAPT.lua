@@ -5,19 +5,19 @@ size = {500, 500}
 local ADIRS_aligned = globalProperty("A318/systems/ADIRS/1/aligned")
 local heading = globalPropertyf("A318/systems/ADIRS/1/inertial/heading")
 
-local nav1id = globalProperty("sim/cockpit2/radios/indicators/nav1_nav_id")
-local nav1freq = globalProperty("sim/cockpit/radios/nav1_freq_hz")
-local nav1Crs = globalProperty("sim/cockpit/radios/nav1_course_degm")
-local nav1hdev = globalProperty("sim/cockpit/radios/nav1_hdef_dot")
-local nav1vdev = globalProperty("sim/cockpit/radios/nav1_vdef_dot")
+local navid = globalProperty("sim/cockpit2/radios/indicators/nav1_nav_id")
+local navfreq = globalProperty("sim/cockpit/radios/nav1_freq_hz")
+local navCrs = globalProperty("sim/cockpit/radios/nav1_course_degm")
+local navhdev = globalProperty("sim/cockpit/radios/nav1_hdef_dot")
+local navvdev = globalProperty("sim/cockpit/radios/nav1_vdef_dot")
 
 local tas = globalPropertyf("A318/systems/ADIRS/1/air/tas")
 local gs = globalPropertyf("A318/systems/ADIRS/1/inertial/gs")
 local winddirection = globalPropertyf("sim/weather/wind_direction_degt")
 local windspeed = globalPropertyf("sim/weather/wind_speed_kt")
 
-local CaptNdMode = createGlobalPropertyi("A318/systems/ND/capt_mode", 3)
-local CaptNdRnge = createGlobalPropertyi("A318/systems/ND/capt_rnge", 10)
+local CaptNdMode = createGlobalPropertyi("A318/systems/ND/capt_mode", 2)
+local CaptNdRnge = createGlobalPropertyi("A318/systems/ND/capt_rnge", 40)
 
 local CaptNdCSTR = createGlobalPropertyi("A318/systems/ND/capt_cstr", 0)
 local CaptNdWPT = createGlobalPropertyi("A318/systems/ND/capt_wpt", 0)
@@ -33,7 +33,7 @@ local ndFont = sasl.gl.loadFont("fonts/PanelFont.ttf")
 local PFD_GREEN = {0.184, 0.733, 0.219, 1.0}
 local ND_YELLOW = {1, 1, 0, 1.0}
 local ND_PURPLE = {1, 0, 1, 1.0}
-local ND_ORANGE = {0.85, 0.5, 0.12, 1.0}
+local ND_ORANGE = {1, 0.625, 0.0, 1.0}
 local PFD_WHITE = {1.0, 1.0, 1.0, 1.0}
 local PFD_BLUE = {0.004, 1.0, 1.0, 1.0}
 local PFD_RED = {1.0, 0.0, 0.0, 1.0}
@@ -80,14 +80,14 @@ end
 
 local function draw_ils()
     sasl.gl.drawText(ndFont, 450, 475, "ILS1  ", 18, false, false, TEXT_ALIGN_RIGHT, PFD_WHITE)
-    sasl.gl.drawText(ndFont, 490, 475, string.format("%.2f", get(nav1freq) / 100), 15, false, false, TEXT_ALIGN_RIGHT, ND_PURPLE)
+    sasl.gl.drawText(ndFont, 490, 475, string.format("%.2f", get(navfreq) / 100), 15, false, false, TEXT_ALIGN_RIGHT, ND_PURPLE)
     sasl.gl.drawText(ndFont, 460, 455, "CRS  ", 18, false, false, TEXT_ALIGN_RIGHT, PFD_WHITE)
-    sasl.gl.drawText(ndFont, 490, 455, string.format("%03d", (math.floor(get(nav1Crs) + 0.5))).."°", 15, false, false, TEXT_ALIGN_RIGHT, ND_PURPLE)
-    sasl.gl.drawText(ndFont, 490, 435, get(nav1id), 18, false, false, TEXT_ALIGN_RIGHT, ND_PURPLE)
+    sasl.gl.drawText(ndFont, 490, 455, string.format("%03d", (math.floor(get(navCrs) + 0.5))).."°", 15, false, false, TEXT_ALIGN_RIGHT, ND_PURPLE)
+    sasl.gl.drawText(ndFont, 490, 435, get(navid), 18, false, false, TEXT_ALIGN_RIGHT, ND_PURPLE)
 
     sasl.gl.saveGraphicsContext ()
     sasl.gl.setTranslateTransform (250, 250)
-    sasl.gl.setRotateTransform(-1 * (get(heading) - get(nav1Crs)))
+    sasl.gl.setRotateTransform(-1 * (get(heading) - get(navCrs)))
     sasl.gl.drawWideLine(0, 90, 0, 175, 3, ND_PURPLE)
     sasl.gl.drawWideLine(-20, 107, 20, 107, 3, ND_PURPLE)
 
@@ -96,7 +96,7 @@ local function draw_ils()
     sasl.gl.drawCircle(50, 0, 4, false, PFD_WHITE)
     sasl.gl.drawCircle(100, 0, 4, false, PFD_WHITE) -- full right
 
-    sasl.gl.drawWideLine(0 + (50 * get(nav1hdev)), 80, 0 + (50 * get(nav1hdev)), -80, 3, ND_PURPLE) -- Horizontal Deviation bar
+    sasl.gl.drawWideLine(0 + (50 * get(navhdev)), 80, 0 + (50 * get(navhdev)), -80, 3, ND_PURPLE) -- Horizontal Deviation bar
 
     sasl.gl.drawWideLine(0, -90, 0, -175, 3, ND_PURPLE)
     sasl.gl.restoreGraphicsContext ()
@@ -107,12 +107,12 @@ local function draw_ils()
     sasl.gl.drawCircle(480, 200, 4, false, PFD_WHITE)
     sasl.gl.drawCircle(480, 150, 4, false, PFD_WHITE) -- full up
 
-    if get(nav1vdev) > 2 then
+    if get(navvdev) > 2 then
         sasl.gl.drawWidePolyLine({488, 150, 480, 137, 472, 150}, 1.5, ND_PURPLE)
-    elseif get(nav1vdev) < -2 then
+    elseif get(navvdev) < -2 then
         sasl.gl.drawWidePolyLine({ 472, 350, 480, 363, 488, 350}, 1.5, ND_PURPLE)
     else
-        sasl.gl.drawWidePolyLine({ 472, 250 - (50 * get(nav1vdev)), 480, 263 - (50 * get(nav1vdev)), 488, 250 - (50 * get(nav1vdev)), 480, 237 - (50 * get(nav1vdev)), 472, 250 - (50 * get(nav1vdev))}, 1.5, ND_PURPLE) -- Vertical Deviation bar
+        sasl.gl.drawWidePolyLine({ 472, 250 - (50 * get(navvdev)), 480, 263 - (50 * get(navvdev)), 488, 250 - (50 * get(navvdev)), 480, 237 - (50 * get(navvdev)), 472, 250 - (50 * get(navvdev))}, 1.5, ND_PURPLE) -- Vertical Deviation bar
     end
 
     sasl.gl.drawRotatedTexture(rose, -1 * get(heading), 0, 0, 500, 500, PFD_WHITE)
@@ -124,10 +124,10 @@ end
 
 local function draw_ils_unaligned()
     sasl.gl.drawText(ndFont, 450, 475, "ILS1  ", 18, false, false, TEXT_ALIGN_RIGHT, PFD_WHITE)
-    sasl.gl.drawText(ndFont, 490, 475, string.format("%.2f", get(nav1freq) / 100), 15, false, false, TEXT_ALIGN_RIGHT, ND_PURPLE)
+    sasl.gl.drawText(ndFont, 490, 475, string.format("%.2f", get(navfreq) / 100), 15, false, false, TEXT_ALIGN_RIGHT, ND_PURPLE)
     sasl.gl.drawText(ndFont, 460, 455, "CRS  ", 18, false, false, TEXT_ALIGN_RIGHT, PFD_WHITE)
-    sasl.gl.drawText(ndFont, 490, 455, string.format("%03d", (math.floor(get(nav1Crs) + 0.5))).."°", 15, false, false, TEXT_ALIGN_RIGHT, ND_PURPLE)
-    sasl.gl.drawText(ndFont, 490, 435, get(nav1id), 18, false, false, TEXT_ALIGN_RIGHT, ND_PURPLE)
+    sasl.gl.drawText(ndFont, 490, 455, string.format("%03d", (math.floor(get(navCrs) + 0.5))).."°", 15, false, false, TEXT_ALIGN_RIGHT, ND_PURPLE)
+    sasl.gl.drawText(ndFont, 490, 435, get(navid), 18, false, false, TEXT_ALIGN_RIGHT, ND_PURPLE)
 
     sasl.gl.saveGraphicsContext ()
     sasl.gl.setTranslateTransform (250, 250)
@@ -139,7 +139,7 @@ local function draw_ils_unaligned()
     sasl.gl.drawCircle(50, 0, 4, false, PFD_WHITE)
     sasl.gl.drawCircle(100, 0, 4, false, PFD_WHITE) -- full right
 
-    sasl.gl.drawWideLine(0 + (50 * get(nav1hdev)), 80, 0 + (50 * get(nav1hdev)), -80, 3, ND_PURPLE) -- Horizontal Deviation bar
+    sasl.gl.drawWideLine(0 + (50 * get(navhdev)), 80, 0 + (50 * get(navhdev)), -80, 3, ND_PURPLE) -- Horizontal Deviation bar
 
     sasl.gl.drawWideLine(0, -90, 0, -175, 3, ND_PURPLE)
     sasl.gl.restoreGraphicsContext ()
@@ -150,12 +150,12 @@ local function draw_ils_unaligned()
     sasl.gl.drawCircle(480, 200, 4, false, PFD_WHITE)
     sasl.gl.drawCircle(480, 150, 4, false, PFD_WHITE) -- full up
 
-    if get(nav1vdev) > 2 then
+    if get(navvdev) > 2 then
         sasl.gl.drawWidePolyLine({488, 150, 480, 137, 472, 150}, 1.5, ND_PURPLE)
-    elseif get(nav1vdev) < -2 then
+    elseif get(navvdev) < -2 then
         sasl.gl.drawWidePolyLine({ 472, 350, 480, 363, 488, 350}, 1.5, ND_PURPLE)
     else
-        sasl.gl.drawWidePolyLine({ 472, 250 - (50 * get(nav1vdev)), 480, 263 - (50 * get(nav1vdev)), 488, 250 - (50 * get(nav1vdev)), 480, 237 - (50 * get(nav1vdev)), 472, 250 - (50 * get(nav1vdev))}, 1.5, ND_PURPLE) -- Vertical Deviation bar
+        sasl.gl.drawWidePolyLine({ 472, 250 - (50 * get(navvdev)), 480, 263 - (50 * get(navvdev)), 488, 250 - (50 * get(navvdev)), 480, 237 - (50 * get(navvdev)), 472, 250 - (50 * get(navvdev))}, 1.5, ND_PURPLE) -- Vertical Deviation bar
     end
 
     sasl.gl.drawCircle(250, 250, 6, true, PFD_RED)
@@ -168,14 +168,14 @@ end
 
 local function draw_vor()
     sasl.gl.drawText(ndFont, 450, 475, "VOR1  ", 18, false, false, TEXT_ALIGN_RIGHT, PFD_WHITE)
-    sasl.gl.drawText(ndFont, 490, 475, string.format("%.2f", get(nav1freq) / 100), 15, false, false, TEXT_ALIGN_RIGHT, ND_PURPLE)
+    sasl.gl.drawText(ndFont, 490, 475, string.format("%.2f", get(navfreq) / 100), 15, false, false, TEXT_ALIGN_RIGHT, ND_PURPLE)
     sasl.gl.drawText(ndFont, 460, 455, "CRS  ", 18, false, false, TEXT_ALIGN_RIGHT, PFD_WHITE)
-    sasl.gl.drawText(ndFont, 490, 455, string.format("%03d", (math.floor(get(nav1Crs) + 0.5))).."°", 15, false, false, TEXT_ALIGN_RIGHT, ND_PURPLE)
-    sasl.gl.drawText(ndFont, 490, 435, get(nav1id), 18, false, false, TEXT_ALIGN_RIGHT, PFD_WHITE)
+    sasl.gl.drawText(ndFont, 490, 455, string.format("%03d", (math.floor(get(navCrs) + 0.5))).."°", 15, false, false, TEXT_ALIGN_RIGHT, ND_PURPLE)
+    sasl.gl.drawText(ndFont, 490, 435, get(navid), 18, false, false, TEXT_ALIGN_RIGHT, PFD_WHITE)
 
     sasl.gl.saveGraphicsContext ()
     sasl.gl.setTranslateTransform (250, 250)
-    sasl.gl.setRotateTransform(-1 * (get(heading) - get(nav1Crs)))
+    sasl.gl.setRotateTransform(-1 * (get(heading) - get(navCrs)))
     sasl.gl.drawWideLine(0, 90, 0, 175, 3, ND_PURPLE)
     sasl.gl.drawWideLine(-20, 107, 20, 107, 3, ND_PURPLE)
 
@@ -184,8 +184,8 @@ local function draw_vor()
     sasl.gl.drawCircle(50, 0, 4, false, PFD_WHITE)
     sasl.gl.drawCircle(100, 0, 4, false, PFD_WHITE) -- full right
 
-    sasl.gl.drawWideLine(0 + (50 * get(nav1hdev)), 80, 0 + (50 * get(nav1hdev)), -80, 3, ND_PURPLE) -- Horizontal Deviation bar
-    sasl.gl.drawWidePolyLine({-10 + (50 * get(nav1hdev)), 70, 0 + (50 * get(nav1hdev)), 80, 10 + (50 * get(nav1hdev)), 70}, 3, ND_PURPLE)
+    sasl.gl.drawWideLine(0 + (50 * get(navhdev)), 80, 0 + (50 * get(navhdev)), -80, 3, ND_PURPLE) -- Horizontal Deviation bar
+    sasl.gl.drawWidePolyLine({-10 + (50 * get(navhdev)), 70, 0 + (50 * get(navhdev)), 80, 10 + (50 * get(navhdev)), 70}, 3, ND_PURPLE)
 
     sasl.gl.drawWideLine(0, -90, 0, -175, 3, ND_PURPLE)
     sasl.gl.restoreGraphicsContext ()
@@ -199,10 +199,10 @@ end
 
 local function draw_vor_unaligned()
     sasl.gl.drawText(ndFont, 450, 475, "VOR1  ", 18, false, false, TEXT_ALIGN_RIGHT, PFD_WHITE)
-    sasl.gl.drawText(ndFont, 490, 475, string.format("%.2f", get(nav1freq) / 100), 15, false, false, TEXT_ALIGN_RIGHT, ND_PURPLE)
+    sasl.gl.drawText(ndFont, 490, 475, string.format("%.2f", get(navfreq) / 100), 15, false, false, TEXT_ALIGN_RIGHT, ND_PURPLE)
     sasl.gl.drawText(ndFont, 460, 455, "CRS  ", 18, false, false, TEXT_ALIGN_RIGHT, PFD_WHITE)
-    sasl.gl.drawText(ndFont, 490, 455, string.format("%03d", (math.floor(get(nav1Crs) + 0.5))).."°", 15, false, false, TEXT_ALIGN_RIGHT, ND_PURPLE)
-    sasl.gl.drawText(ndFont, 490, 435, get(nav1id), 18, false, false, TEXT_ALIGN_RIGHT, PFD_WHITE)
+    sasl.gl.drawText(ndFont, 490, 455, string.format("%03d", (math.floor(get(navCrs) + 0.5))).."°", 15, false, false, TEXT_ALIGN_RIGHT, ND_PURPLE)
+    sasl.gl.drawText(ndFont, 490, 435, get(navid), 18, false, false, TEXT_ALIGN_RIGHT, PFD_WHITE)
 
     sasl.gl.saveGraphicsContext ()
     sasl.gl.setTranslateTransform (250, 250)
@@ -214,8 +214,8 @@ local function draw_vor_unaligned()
     sasl.gl.drawCircle(50, 0, 4, false, PFD_WHITE)
     sasl.gl.drawCircle(100, 0, 4, false, PFD_WHITE) -- full right
 
-    sasl.gl.drawWideLine(0 + (50 * get(nav1hdev)), 80, 0 + (50 * get(nav1hdev)), -80, 3, ND_PURPLE) -- Horizontal Deviation bar
-    sasl.gl.drawWidePolyLine({-10 + (50 * get(nav1hdev)), 70, 0 + (50 * get(nav1hdev)), 80, 10 + (50 * get(nav1hdev)), 70}, 3, ND_PURPLE)
+    sasl.gl.drawWideLine(0 + (50 * get(navhdev)), 80, 0 + (50 * get(navhdev)), -80, 3, ND_PURPLE) -- Horizontal Deviation bar
+    sasl.gl.drawWidePolyLine({-10 + (50 * get(navhdev)), 70, 0 + (50 * get(navhdev)), 80, 10 + (50 * get(navhdev)), 70}, 3, ND_PURPLE)
 
     sasl.gl.drawWideLine(0, -90, 0, -175, 3, ND_PURPLE)
     sasl.gl.restoreGraphicsContext ()

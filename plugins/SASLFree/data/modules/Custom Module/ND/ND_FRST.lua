@@ -1,4 +1,4 @@
-position = {42, 647, 513, 522}
+position = {595, 47, 500, 500}
 size = {500, 500}
 
 -- get datarefs
@@ -16,13 +16,13 @@ local gs = globalPropertyf("A318/systems/ADIRS/2/inertial/gs")
 local winddirection = globalPropertyf("sim/weather/wind_direction_degt")
 local windspeed = globalPropertyf("sim/weather/wind_speed_kt")
 
-local frstNdMode = createGlobalPropertyi("A318/systems/ND/frst_mode", 0)
-local frstNdRnge = createGlobalPropertyi("A318/systems/ND/frst_rnge", 10)
+local frstNdMode = createGlobalPropertyi("A318/systems/ND/frst_mode", 2)
+local frstNdRnge = createGlobalPropertyi("A318/systems/ND/frst_rnge", 40)
 
 local frstNdCSTR = createGlobalPropertyi("A318/systems/ND/frst_cstr", 0)
 local frstNdWPT = createGlobalPropertyi("A318/systems/ND/frst_wpt", 0)
 local frstNdVORD = createGlobalPropertyi("A318/systems/ND/frst_vord", 0)
-local frsttNdNDB = createGlobalPropertyi("A318/systems/ND/frst_ndb", 0)
+local frstNdNDB = createGlobalPropertyi("A318/systems/ND/frst_ndb", 0)
 local frstNdARPT = createGlobalPropertyi("A318/systems/ND/frst_arpt", 0)
 local frstNdTERR = createGlobalPropertyi("A318/systems/ND/frst_terr", 0)
 
@@ -39,10 +39,11 @@ local PFD_BLUE = {0.004, 1.0, 1.0, 1.0}
 local PFD_RED = {1.0, 0.0, 0.0, 1.0}
 
 --get images
-local miniplane = sasl.gl.loadImage("A320-ND-Rose-Airplane-Standalone.png", 0, 0, 160, 160)
-local rose = sasl.gl.loadImage("A320-ND-Rose-Cardinals-01.png", 0, 0, 550, 550)
-local rose_unaligned = sasl.gl.loadImage("Rose-Unaligned.png", 0, 0, 550, 550)
-local arcTape = sasl.gl.loadImage("ARC_Tape.png", 0, 0, 768, 768)
+local miniplane = sasl.gl.loadImage("plane.png", 0, 0, 160, 160)
+local rose = sasl.gl.loadImage("rose.png", 0, 0, 550, 550)
+local rose_unaligned = sasl.gl.loadImage("rose-unaligned.png", 0, 0, 550, 550)
+local arcTape = sasl.gl.loadImage("arc.png", 0, 0, 2048, 2048)
+local arcTape_unaligned = sasl.gl.loadImage("arc_unaligned.png", 0, 0, 2048, 2048)
 
 --custom functions
 
@@ -297,6 +298,7 @@ end
 
 function draw()
     sasl.gl.setClipArea(0,0,500,500)
+
     if get(frstNdMode) == 0 then
         if get(ADIRS_aligned) == 0 then
             draw_ils_unaligned()
