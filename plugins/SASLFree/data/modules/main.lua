@@ -5,6 +5,7 @@ addSearchPath(moduleDirectory.."/images/")
 addSearchPath(moduleDirectory .. "/Custom Module/ATSAW/")
 addSearchPath(moduleDirectory .. "/Custom Module/ND/")
 addSearchPath(moduleDirectory .. "/Custom Module/ADIRS/")
+addSearchPath(moduleDirectory .. "/Custom Module/PFD/")
 
 size = {2048, 2048}
 
@@ -16,9 +17,10 @@ components = {
   systems {};
   ADIRS {};
   MCDU {};
-  pfd {};
+  PFD_CAPT {};
+  PFD_FRST {};
   ND_CAPT {};
-  --ND_FRST {};
+  ND_FRST {};
   -- ATSAW {};
   ecam {};
   lower_ecam {};
