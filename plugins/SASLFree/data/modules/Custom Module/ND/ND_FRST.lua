@@ -17,7 +17,7 @@ local winddirection = globalPropertyf("sim/weather/wind_direction_degt")
 local windspeed = globalPropertyf("sim/weather/wind_speed_kt")
 
 local frstNdMode = createGlobalPropertyi("A318/systems/ND/frst_mode", 2)
-local frstNdRnge = createGlobalPropertyi("A318/systems/ND/frst_rnge", 40)
+local rngeKnob = createGlobalPropertyi("A318/systems/ND/frst_rnge", 2)
 
 local frstNdCSTR = createGlobalPropertyi("A318/systems/ND/frst_cstr", 0)
 local frstNdWPT = createGlobalPropertyi("A318/systems/ND/frst_wpt", 0)
@@ -294,6 +294,30 @@ local function draw_unavail()
     sasl.gl.drawCircle(250, 250, 4, true, {0.0, 0.0, 0.0, 1.0})
     sasl.gl.drawTexture(rose_unaligned,0, 0, 500, 500, PFD_WHITE)
     sasl.gl.drawText(ndFont, 250, 295, "MAP NOT AVAIL", 27, false, false, TEXT_ALIGN_CENTER, PFD_RED)
+end
+
+function update()
+    if get(rngeKnob) == 6 then
+        set(rngeKnob, 5)
+    end
+
+    if get(frstNdMode) > 4 then
+        set(frstNdMode, 4)
+    end
+
+    if get(rngeKnob) == 0 then
+        frstNdRnge = 10
+    elseif get(rngeKnob) == 1 then
+        frstNdRnge = 20
+    elseif get(rngeKnob) == 2 then
+        frstNdRnge = 40
+    elseif get(rngeKnob) == 3 then
+        frstNdRnge = 80
+    elseif get(rngeKnob) == 4 then
+        frstNdRnge = 160
+    elseif get(rngeKnob) == 5 then
+        frstNdRnge = 320
+    end
 end
 
 function draw()

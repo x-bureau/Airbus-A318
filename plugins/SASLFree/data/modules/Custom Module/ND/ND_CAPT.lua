@@ -17,7 +17,10 @@ local winddirection = globalPropertyf("sim/weather/wind_direction_degt")
 local windspeed = globalPropertyf("sim/weather/wind_speed_kt")
 
 local CaptNdMode = createGlobalPropertyi("A318/systems/ND/capt_mode", 2)
-local CaptNdRnge = createGlobalPropertyi("A318/systems/ND/capt_rnge", 40)
+local rngeKnob = createGlobalPropertyi("A318/systems/ND/capt_rnge", 2)
+--local CaptNdRnge = 40
+
+
 
 local CaptNdCSTR = createGlobalPropertyi("A318/systems/ND/capt_cstr", 0)
 local CaptNdWPT = createGlobalPropertyi("A318/systems/ND/capt_wpt", 0)
@@ -299,7 +302,33 @@ local function draw_plan()
     sasl.gl.drawWideLine(250, 417, 250, 433, 3, ND_YELLOW )
 end
 
+function update()
+    if get(rngeKnob) == 6 then
+        set(rngeKnob, 5)
+    end
+
+    if get(CaptNdMode) > 4 then
+        set(CaptNdMode, 4)
+    end
+
+    if get(rngeKnob) == 0 then
+        CaptNdRnge = 10
+    elseif get(rngeKnob) == 1 then
+        CaptNdRnge = 20
+    elseif get(rngeKnob) == 2 then
+        CaptNdRnge = 40
+    elseif get(rngeKnob) == 3 then
+        CaptNdRnge = 80
+    elseif get(rngeKnob) == 4 then
+        CaptNdRnge = 160
+    elseif get(rngeKnob) == 5 then
+        CaptNdRnge = 320
+    end
+end
+
 function draw()
+
+
     sasl.gl.setClipArea(0,0,500,500)
     if get(CaptNdMode) == 0 then
         if get(ADIRS_aligned) == 0 then
