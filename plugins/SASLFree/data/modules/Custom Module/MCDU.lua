@@ -16,7 +16,7 @@ local MCDU_GREEN = {0.184, 0.733, 0.219, 1.0}
 local MCDU_WHITE = {1.0, 1.0, 1.0, 1.0}
 local MCDU_BLUE = {0.004, 1.0, 1.0, 1.0}
 local MCDU_ORANGE = {1.0, 0.625, 0.0, 1.0}
-
+local MCDU_BLACK = {0 , 0 , 0 , 1.0}
 local AIRBUS_FONT = sasl.gl.loadFont("fonts/PanelFont.ttf")
 local MCDU_CURRENT_PAGE = createGlobalPropertyi("A318/cockpit/mcdu/current_page", 11)
 local Airbus_VERSION = "A318-100"
@@ -235,7 +235,6 @@ local function draw_scratchPad()
     if get(v) ~= 0 then 
       x = letters[i]-- X is set to match the letter corresponding to the index value from keys here we set x to letter 
       print(x) --We want X to be the letter we want to draw
-
       if scratchPad_Data[1] == "[]" then
         scratchPad_Data[1] = x
         set(v, 0)
@@ -269,17 +268,15 @@ local function draw_scratchPad()
       end
     end
   end 
-
-  sasl.gl.drawText(AIRBUS_FONT, 20, 35, scratchPad_Data[1], 40, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
-  sasl.gl.drawText(AIRBUS_FONT, 60, 35, scratchPad_Data[2], 40, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
-  sasl.gl.drawText(AIRBUS_FONT, 100, 35, scratchPad_Data[3], 40, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
-  sasl.gl.drawText(AIRBUS_FONT, 140, 35, scratchPad_Data[4], 40, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
-  sasl.gl.drawText(AIRBUS_FONT, 180, 35, scratchPad_Data[5], 40, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
-  sasl.gl.drawText(AIRBUS_FONT, 220, 35, scratchPad_Data[6], 40, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
-  sasl.gl.drawText(AIRBUS_FONT, 260, 35, scratchPad_Data[7], 40, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
-  sasl.gl.drawText(AIRBUS_FONT, 300, 35, scratchPad_Data[8], 40, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
-  sasl.gl.drawText(AIRBUS_FONT, 340, 35, scratchPad_Data[9], 40, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
-  sasl.gl.drawText(AIRBUS_FONT, 380, 35, scratchPad_Data[10], 40, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
+  local distance = 0
+  for i,v in ipairs(scratchPad_Data) do 
+    if v ~= 0 then 
+      if scratchPad_Data[i] ~= "[]" then 
+        distance = distance + 40
+        sasl.gl.drawText(AIRBUS_FONT, distance / 1.3, 35, scratchPad_Data[i], 40, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
+      end
+    end
+  end 
 end 
 
 
@@ -424,7 +421,7 @@ function Misc()
   if get(MCDU_CURRENT_PAGE) == 2 and get(BUTTON_1_R) == 1 then 
     if scratchPad_Data[5] ~= "/" or  scratchPad_Data[1] == "[]" or scratchPad_Data[2] == "[]" or scratchPad_Data[3] == "[]" or scratchPad_Data[4] == "[]" or scratchPad_Data[5] == "[]" or scratchPad_Data[6] == "[]" or scratchPad_Data[7] == "[]" or scratchPad_Data[8] == "[]" or scratchPad_Data[9] == "[]" then 
         THROW_INVALID()
-    else --What are you trying to do here? also, we need to throw an error if it's greater than macChar or we can just leave it as is where it takes the first 8 letters
+    else 
       FromTo_Data[1] =  scratchPad_Data[1]
       FromTo_Data[2] =  scratchPad_Data[2]
       FromTo_Data[3] =  scratchPad_Data[3]
