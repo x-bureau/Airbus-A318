@@ -28,15 +28,10 @@ local PFD_ORANGE = {1.0, 0.625, 0.0, 1.0}
 
 --custom functions
 
-function round(num, numDecimalPlaces)
-    local mult = 10^(numDecimalPlaces or 0)
-    return math.floor(num * mult + 0.5) / mult
-end
-
 
 -- todo : get fuel in all tanks check if engines are burning fuel if they are get fuel burned and take it away from the tank value 
 FOB = get(FOB, 1) + get(FOB, 2) + get(FOB, 3) + get(FOB, 4) + get(FOB, 5)
-FOB = round(FOB, 1)
+FOB = math.floor(FOB)
 print(FOB)
 local function draw_ENG_PAGE()
     sasl.gl.drawTexture(Backround, 10, 47, 550, 520, PFD_WHITE)
