@@ -1,7 +1,17 @@
 -- A318 Created by X-Bureau --
 
+position = {296, 1630, 143, 180}
+size = {40, 250}
+
+DELTA_TIME = globalProperty("sim/operation/misc/frame_rate_period")
+local font = sasl.gl.loadFont("fonts/digital.ttf")
+local colour = {0.96, 0.73, 0.28, 1.0}
+
 local onGround = globalProperty("sim/flightmodel/failures/onground_any")
 local GS = globalProperty("sim/flightmodel/position/groundspeed")
+
+local eng1N1 = globalProperty("sim/flightmodel/engine/ENGN_N1_[0]")
+local eng2N1 = globalProperty("sim/flightmodel/engine/ENGN_N1_[1]")
 
 -- AC SYSTEM
 ext_pwr = {
@@ -42,32 +52,32 @@ ac_bus_ess = {
 
 -- DC SYSTEM
 bat_1 = {
-    voltage = createGlobalPropertyi("A318/systems/ELEC/BAT1_V", 28),
+    voltage = createGlobalPropertyf("A318/systems/ELEC/BAT1_V", 28),
     amps = createGlobalPropertyi("A318/systems/ELEC/BAT1_A", 0),
     pb = createGlobalPropertyi("A318/systems/ELEC/bat1/pb", 0)
 }
 
 bat_2 = {
-    voltage = createGlobalPropertyi("A318/systems/ELEC/BAT2_V", 28),
+    voltage = createGlobalPropertyf("A318/systems/ELEC/BAT2_V", 28),
     amps = createGlobalPropertyi("A318/systems/ELEC/BAT2_A", 0),
     pb = createGlobalPropertyi("A318/systems/ELEC/bat2/pb", 0)
 }
 
 dc_bat_bus = {
-    voltage = createGlobalPropertyi("A318/systems/ELEC/DCBAT_V", 0),
+    voltage = createGlobalPropertyf("A318/systems/ELEC/DCBAT_V", 0),
     amps = createGlobalPropertyi("A318/systems/ELEC/DCBAT_A", 0)
 }
 
 dc_bus_1 = {
-    voltage = createGlobalPropertyi("A318/systems/ELEC/DC1_V", 0),
+    voltage = createGlobalPropertyf("A318/systems/ELEC/DC1_V", 0),
     amps = createGlobalPropertyi("A318/systems/ELEC/DC1_A", 0)
 }
 dc_bus_2 = {
-    voltage = createGlobalPropertyi("A318/systems/ELEC/DC2_V", 0),
+    voltage = createGlobalPropertyf("A318/systems/ELEC/DC2_V", 0),
     amps = createGlobalPropertyi("A318/systems/ELEC/DC2_A", 0)
 }
 dc_bus_ess = {
-    voltage = createGlobalPropertyi("A318/systems/ELEC/DCESS_V", 0),
+    voltage = createGlobalPropertyf("A318/systems/ELEC/DCESS_V", 0),
     amps = createGlobalPropertyi("A318/systems/ELEC/DCESS_A", 0)
 }
 
@@ -106,6 +116,45 @@ contacts = {
 }
 
 function update()
+    -- BATTERY DISCHARGE
+    if get(bat_1.amps) > 0 then
+        set(bat_1.voltage, get(bat_1.voltage) + (-10 * (get(DELTA_TIME) / 3600)))
+    else
+        if get(dc_bat_bus.voltage) > 0 and get(contacts.BC2) == 0 then
+            set(bat_1.voltage, 28)
+            else
+                --charge remains
+            end
+    end
+
+    if get(bat_2.amps) > 0 then
+        set(bat_2.voltage, get(bat_2.voltage) + (-10 * (get(DELTA_TIME) / 3600)))
+    else
+        if get(dc_bat_bus.voltage) > 0 and get(contacts.BC1) == 0 then
+        set(bat_2.voltage, 28)
+        else
+            --charge remains
+        end
+    end
+
+    -- ENGINE GENERATORS
+    if get(eng1N1) > 15 then
+        set(gen_1.voltage, 115)
+        set(gen_1.hertz, 400)
+    else
+        set(gen_1.voltage, 0)
+        set(gen_1.hertz, 0)
+    end
+
+    if get(eng2N1) > 15 then
+        set(gen_2.voltage, 115)
+        set(gen_2.hertz, 400)
+    else
+        set(gen_2.voltage, 0)
+        set(gen_2.hertz, 0)
+    end
+
+
     -- GROUND POWER ON/OFF
     if get(onGround) == 1 and get(GS) < 1 then
         set(ext_pwr.avail, 1)
@@ -153,18 +202,29 @@ function update()
 
     -- BUS TIE LOGIC
     if get(bus_tie) == 0 then
-        if get(contacts.GLC1) == 1 and get(contacts.AGC) == 1 and get(gen_1.voltage) > 0 then
-            set(contacts.BTC1, 0)
-            set(contacts.BTC2, 1)
-        elseif get(contacts.GLC2) == 1 and get(contacts.AGC) == 1 and get(gen_2.voltage) > 0 then
-            set(contacts.BTC1, 1)
-            set(contacts.BTC2, 0)
-        elseif get(contacts.EPC) == 1 or get(contacts.AGC) == 1 then
-            set(contacts.BTC1, 1)
-            set(contacts.BTC2, 1)
-        elseif get(contacts.GLC1) == 1 and get(contacts.GLC2) == 1 and get(gen_1.voltage) > 0 and get(gen_2.voltage) > 0 then
+        if get(contacts.GLC1) == 1 and get(gen_1.voltage) > 0 and get(contacts.GLC2) == 1 and get(gen_1.voltage) > 0 then
+            -- BTC1 and 2 off
             set(contacts.BTC1, 0)
             set(contacts.BTC2, 0)
+        elseif get(contacts.GLC1) == 0 and get(gen_1.voltage) > 0 and get(contacts.GLC2) == 1 and get(gen_1.voltage) > 0 and (get(contacts.AGC) == 1 or get(contacts.EPC) == 1) then
+            -- BTC 1 on BTC 2 off
+            set(contacts.BTC1, 1)
+            set(contacts.BTC2, 0)
+        elseif get(contacts.GLC1) == 1 and get(gen_1.voltage) > 0 and get(contacts.GLC2) == 0 and get(gen_1.voltage) > 0 and (get(contacts.AGC) == 1 or get(contacts.EPC) == 1) then
+            -- BTC 1 off BTC 2 on
+            set(contacts.BTC1, 0)
+            set(contacts.BTC2, 1)
+        elseif get(contacts.GLC1) == 0 and get(gen_1.voltage) > 0 and get(contacts.GLC2) == 1 and get(gen_1.voltage) > 0 and get(contacts.AGC) == 0 and get(contacts.EPC) == 0 then
+            -- BTC 1 on BTC 2 off
+            set(contacts.BTC1, 1)
+            set(contacts.BTC2, 1)
+        elseif get(contacts.GLC1) == 1 and get(gen_1.voltage) > 0 and get(contacts.GLC2) == 0 and get(gen_1.voltage) > 0 and get(contacts.AGC) == 0 and get(contacts.EPC) == 0 then
+            -- BTC 1 off BTC 2 on
+            set(contacts.BTC1, 1)
+            set(contacts.BTC2, 1)
+        elseif get(contacts.AGC) == 1 or get(contacts.EPC) == 1 then
+            set(contacts.BTC1, 1)
+            set(contacts.BTC2, 1)
         end
     else
         set(contacts.BTC1, 0)
@@ -333,5 +393,24 @@ function update()
         set(contacts.DCT2, 1)
     else
         set(contacts.DCT2, 0)
+    end
+end
+
+function round(num, numDecimalPlaces)
+    local mult = 10^(numDecimalPlaces or 0)
+    return math.floor(num * mult + 0.5) / mult
+  end
+
+function draw()
+    
+    if get(bat_1.voltage) > 14 then
+        sasl.gl.saveGraphicsContext()
+        sasl.gl.setRotateTransform(90)
+        sasl.gl.setTranslateTransform(-250,0)
+        sasl.gl.drawText(font, 2.5, 2.5, string.format("%.1f", round(get(bat_1.voltage), 1)), 50, false, false, TEXT_ALIGN_LEFT, colour)
+        sasl.gl.drawText(font, 145.5, 2.5, string.format("%.1f", round(get(bat_2.voltage), 1)), 50, false, false, TEXT_ALIGN_LEFT, colour)
+        sasl.gl.restoreGraphicsContext()
+    else
+        -- Nothing
     end
 end
