@@ -295,9 +295,9 @@ local function drawPage()
     sasl.gl.drawText(AIRBUS_FONT, 345, 350, "NAV B/UP>", 25, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
     sasl.gl.drawText(AIRBUS_FONT, 345, 100, "RETURN>", 25, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
     if get(BUTTON_1_L) == 1 then 
-      MCDU_CURRENT_PAGE = 1 
+      MCDU_CURRENT_PAGE = 110
     end
-    elseif get(MCDU_CURRENT_PAGE) == 1 then -- Draw main Page
+    elseif get(MCDU_CURRENT_PAGE) == 110 then -- Draw main Page
       sasl.gl.drawText(AIRBUS_FONT, 190, 400, Airbus_VERSION , 30, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
       sasl.gl.drawText(AIRBUS_FONT, 30, 380, "ENG" , 24, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
       sasl.gl.drawText(AIRBUS_FONT, 15, 350, ENG_TYPE , 29, false, false, TEXT_ALIGN_LEFT, MCDU_GREEN)
@@ -343,7 +343,7 @@ local function drawPage()
         end
         if get(BUTTON_1_R) == 1 and FromTo_Data[1] ~= "[]" and scratchPad_Data[1] ~= "[]" and scratchPad_Data[5] == "/" then -- actually can execute code for flight planning in here
           CLEAR_SCRATCHPAD()
-          MCDU_CURRENT_PAGE = 5
+          MCDU_CURRENT_PAGE = 100
         end
       end
 
@@ -355,7 +355,7 @@ local function drawPage()
       sasl.gl.drawText(AIRBUS_FONT, 379, 195, "WIND>", 29, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
     elseif get(MCDU_CURRENT_PAGE) == 3 then 
     elseif get(MCDU_CURRENT_PAGE) == 4 then -- random page
-    elseif get(MCDU_CURRENT_PAGE) == 5 then  -- PAGE AFTER TO/FROM HAS BEEN INSERTED
+    elseif get(MCDU_CURRENT_PAGE) == 100 then  -- PAGE AFTER TO/FROM HAS BEEN INSERTED
       sasl.gl.drawText(AIRBUS_FONT, 15, 60, "<RETURN", 25, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
       if get(BUTTON_6_L) == 1 then 
         MCDU_CURRENT_PAGE = 2
