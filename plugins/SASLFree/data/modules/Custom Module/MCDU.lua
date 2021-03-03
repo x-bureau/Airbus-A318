@@ -204,7 +204,18 @@ local scratchPad_Data = {
   "[]",
   "[]",
 }
-
+local NUMS = {
+  1, -- 27
+  2, -- 28
+  3, -- 29
+  4, -- 30
+  5, -- 31
+  6, -- 32
+  7, -- 33
+  8, -- 34
+  9, -- 35
+  0, -- 36
+}
 
 key_datarefs = {
 
@@ -315,6 +326,7 @@ local function drawPage()
 
       -- COST INDEX (TODO : MAKE IT PARSE SINGLE NUMBERS EXAMPLE : INPUT : 6 , SHOWS : 006)-- 
       local distance = 15
+      local x_num = 0
       sasl.gl.drawText(AIRBUS_FONT, distance, 145, "COST INDEX" , 24, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
       for i in ipairs(CostIndex_Data) do
         sasl.gl.drawText(AIRBUS_FONT, distance, 120, CostIndex_Data[i] , 29, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
@@ -322,12 +334,28 @@ local function drawPage()
         if i == 4 then 
           distance = distance + 25
         end
-        local Costindex = tonumber(scratchPad_Data[i])
-        if get(BUTTON_5_L) == 1 and tonumber(scratchPad_Data[i]) == nil then 
-          THROW_INVALID()
-        elseif get(BUTTON_5_L) == 1 then -- EXECUTE CODE FOR COST INDEX IN HERE
-          CostIndex_Data[i] = scratchPad_Data[i]
+     --CostIndex is equal to the ScratchPad Data
+       if get(BUTTON_5_L) == 1 and scratchPad_Data[1] == NUMS[i] then 
+        --Single Didget input
+ 
+        if scratchPad_Data[1] ~= "[]" and scratchPad_Data[2] == "[]" then 
+         CostIndex_Data[1] = "0"
+         CostIndex_Data[2] = "0"
+         CostIndex_Data[3] = scratchPad_Data[1]
+        -- elseif scratchPad_Data[1] ~= "[]" and scratchPad_Data[2] == "[]" then
+        --   CostIndex
+        elseif scratchPad_Data[1] ~= "[]" and scratchPad_Data[2] ~= "[]" and scratchPad_Data[3] == "[]" then
+          CostIndex_Data[1] = "0"
+          CostIndex_Data[2] = scratchPad_Data[1]
+          CostIndex_Data[3] = scratchPad_Data[2]
+        elseif scratchPad_Data[1] ~= "[]" and scratchPad_Data[2] ~= "[]" and scratchPad_Data[3] ~= "[]" and scratchPad_Data[4] == "[]" then
+          CostIndex_Data[1] = scratchPad_Data[1]
+          CostIndex_Data[2] = scratchPad_Data[2]
+          CostIndex_Data[3] = scratchPad_Data[3]
         end 
+      elseif get(BUTTON_5_L) == 1 and tonumber(scratchPad_Data[1]) == nil then --If the button is pressed and scratchpad_data doesn't equal someting in nums
+        THROW_INVALID() 
+       end 
       end
       -- 
       -- RIGHT SIDE 
