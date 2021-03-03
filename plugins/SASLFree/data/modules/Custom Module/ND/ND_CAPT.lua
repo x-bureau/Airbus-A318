@@ -2,6 +2,8 @@ position = {30, 50, 495, 500}
 size = {500, 500}
 
 -- get datarefs
+local AC_BUS = globalProperty("A318/systems/ELEC/ACESS_V")
+
 local ADIRS_aligned = globalProperty("A318/systems/ADIRS/1/aligned")
 local heading = globalPropertyf("A318/systems/ADIRS/1/inertial/heading")
 
@@ -18,7 +20,6 @@ local windspeed = globalPropertyf("sim/weather/wind_speed_kt")
 
 local CaptNdMode = createGlobalPropertyi("A318/systems/ND/capt_mode", 2)
 local rngeKnob = createGlobalPropertyi("A318/systems/ND/capt_rnge", 2)
---local CaptNdRnge = 40
 
 
 
@@ -303,6 +304,7 @@ local function draw_plan()
 end
 
 function update()
+
     if get(rngeKnob) == 6 then
         set(rngeKnob, 5)
     end
@@ -327,40 +329,44 @@ function update()
 end
 
 function draw()
-
-
     sasl.gl.setClipArea(0,0,500,500)
-    if get(CaptNdMode) == 0 then
-        if get(ADIRS_aligned) == 0 then
-            draw_ils_unaligned()
-        else
-            draw_ils()
+
+    if get(AC_BUS) > 0 then
+        if get(CaptNdMode) == 0 then
+            if get(ADIRS_aligned) == 0 then
+                draw_ils_unaligned()
+            else
+                draw_ils()
+            end
+        elseif get(CaptNdMode) == 1 then
+            if get(ADIRS_aligned) == 0 then
+                draw_vor_unaligned()
+            else
+                draw_vor()
+            end
+        elseif get(CaptNdMode) == 2 then
+            if get(ADIRS_aligned) == 0 then
+                draw_nav_unaligned()
+            else
+                draw_nav()
+            end
+        elseif get(CaptNdMode) == 3 then
+            if get(ADIRS_aligned) == 0 then
+                draw_arc_unaligned()
+            else
+                draw_arc()
+            end
+        elseif get(CaptNdMode) == 4 then
+            if get(ADIRS_aligned) == 0 then
+                draw_unavail()
+            else
+                draw_unavail()
+            end
         end
-    elseif get(CaptNdMode) == 1 then
-        if get(ADIRS_aligned) == 0 then
-            draw_vor_unaligned()
-        else
-            draw_vor()
-        end
-    elseif get(CaptNdMode) == 2 then
-        if get(ADIRS_aligned) == 0 then
-            draw_nav_unaligned()
-        else
-            draw_nav()
-        end
-    elseif get(CaptNdMode) == 3 then
-        if get(ADIRS_aligned) == 0 then
-            draw_arc_unaligned()
-        else
-            draw_arc()
-        end
-    elseif get(CaptNdMode) == 4 then
-        if get(ADIRS_aligned) == 0 then
-            draw_unavail()
-        else
-            draw_unavail()
-        end
+        draw_overlay_text()
+    else
+        -- off
     end
-    draw_overlay_text()
+
     sasl.gl.resetClipArea()
 end

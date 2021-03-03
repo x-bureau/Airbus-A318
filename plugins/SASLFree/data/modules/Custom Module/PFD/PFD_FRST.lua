@@ -4,6 +4,8 @@ position = {605, 650, 512, 513}
 size = {1000, 1000}
 
 --get datarefs
+local AC_BUS = globalProperty("A318/systems/ELEC/AC2_V")
+
 local ADIRS_aligned = globalProperty("A318/systems/ADIRS/2/aligned")
 local ADIRS_mode = globalProperty("A318/systems/ADIRS/2/mode")
 local ias = globalProperty("A318/systems/ADIRS/2/air/ias")
@@ -298,6 +300,10 @@ end
 
 function draw()
   sasl.gl.setClipArea(0, 0, 1000, 1000)
-  pfd()
+  if get(AC_BUS) > 0 then
+   pfd()
+  else
+    -- off
+  end
   sasl.gl.resetClipArea()
 end

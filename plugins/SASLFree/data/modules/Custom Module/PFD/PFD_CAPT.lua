@@ -4,6 +4,8 @@ position = {43, 647, 512, 513}
 size = {1000, 1000}
 
 --get datarefs
+local AC_BUS = globalProperty("A318/systems/ELEC/ACESS_V")
+
 ADIRS_aligned = globalProperty("A318/systems/ADIRS/1/aligned")
 ADIRS_mode = globalProperty("A318/systems/ADIRS/1/mode")
 ias = globalProperty("A318/systems/ADIRS/1/air/ias")
@@ -282,6 +284,7 @@ function altitude_tape()
 end
 
 function update()
+  
   isAligned = get(ADIRS_aligned)
   mode = get(ADIRS_mode)
 
@@ -298,6 +301,10 @@ end
 
 function draw()
   sasl.gl.setClipArea(0, 0, 1000, 1000)
-  pfd()
+  if get(AC_BUS) > 0 then
+    pfd()
+  else
+    -- off
+  end
   sasl.gl.resetClipArea()
 end
