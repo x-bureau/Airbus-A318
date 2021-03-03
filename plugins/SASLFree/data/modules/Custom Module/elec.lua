@@ -3,6 +3,8 @@
 position = {296, 1630, 143, 180}
 size = {40, 250}
 
+local startup_complete = false
+
 DELTA_TIME = globalProperty("sim/operation/misc/frame_rate_period")
 local font = sasl.gl.loadFont("fonts/digital.ttf")
 local colour = {0.96, 0.73, 0.28, 1.0}
@@ -115,7 +117,26 @@ contacts = {
     TR2 = createGlobalPropertyi("A318/systems/ELEC/contacts/TR2", 0),
 }
 
+function startup()
+    if get(eng1N1) > 1 then
+        -- engines running
+        print("Starting with engines running")
+        set(bat_1.pb, 1)
+        set(bat_2.pb, 1)
+    else
+        -- cold and dark
+        print("Starting cold and dark")
+        set(bat_1.pb, 0)
+        set(bat_2.pb, 0)
+    end
+end
+
 function update()
+    if not startup_complete then
+        startup()
+        startup_complete = true
+    end
+
     -- BATTERY DISCHARGE
     if get(bat_1.amps) > 0 then
         set(bat_1.voltage, get(bat_1.voltage) + (-10 * (get(DELTA_TIME) / 3600)))
@@ -414,3 +435,4 @@ function draw()
         -- Nothing
     end
 end
+
