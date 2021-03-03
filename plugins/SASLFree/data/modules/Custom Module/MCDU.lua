@@ -222,6 +222,12 @@ local FromTo_Data = {
   "[]",
 }
 
+local CostIndex_Data = {
+  "-",
+  "-",
+  "-"
+}
+
 
 --Creating the blank character space
 local blankChar = "[]"
@@ -270,11 +276,9 @@ local function draw_scratchPad()
   end 
   local distance = 0
   for i,v in ipairs(scratchPad_Data) do 
-    if v ~= 0 then 
       if scratchPad_Data[i] ~= "[]" then 
         distance = distance + 40
         sasl.gl.drawText(AIRBUS_FONT, distance / 1.3, 35, scratchPad_Data[i], 40, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
-      end
     end
   end 
 end 
@@ -290,7 +294,6 @@ local function drawPage()
     sasl.gl.drawText(AIRBUS_FONT, 365, 380, "SELECT", 22, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
     sasl.gl.drawText(AIRBUS_FONT, 345, 350, "NAV B/UP>", 25, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
     sasl.gl.drawText(AIRBUS_FONT, 345, 100, "RETURN>", 25, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
-   
     if get(BUTTON_1_L) == 1 then 
       MCDU_CURRENT_PAGE = 1 
     end
@@ -299,31 +302,38 @@ local function drawPage()
       sasl.gl.drawText(AIRBUS_FONT, 30, 380, "ENG" , 24, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
       sasl.gl.drawText(AIRBUS_FONT, 15, 350, ENG_TYPE , 29, false, false, TEXT_ALIGN_LEFT, MCDU_GREEN)
   
-    elseif get(MCDU_CURRENT_PAGE) == 2 then 
+    elseif get(MCDU_CURRENT_PAGE) == 2 then  -- INIT PAGE
       -- TITLE --  
       sasl.gl.drawText(AIRBUS_FONT, 215, 400, "INIT" , 30, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
       --   LEFT SIDE
       sasl.gl.drawText(AIRBUS_FONT, 40, 380, "CO RTE" , 24, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
-      
-
       sasl.gl.drawText(AIRBUS_FONT, 15, 350, "[              ]" , 29, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
-  
       sasl.gl.drawText(AIRBUS_FONT, 15, 320, "ALTN/CO RTE" , 24, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
       sasl.gl.drawText(AIRBUS_FONT, 15, 290, "----/---------" , 29, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
-
       sasl.gl.drawText(AIRBUS_FONT, 15, 265, "FLT NBR" , 24, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
       sasl.gl.drawText(AIRBUS_FONT, 15, 235, "[][][][][][][][][]" , 29, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
 
-      -- sasl.gl.drawText(AIRBUS_FONT, 15, 195, "LAT" , 24, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
-      -- sasl.gl.drawText(AIRBUS_FONT, 15, 170, "inop" , 29, false, false, TEXT_ALIGN_LEFT, MCDU_BLUE)
-    
-      sasl.gl.drawText(AIRBUS_FONT, 15, 145, "COST INDEX" , 24, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
-      sasl.gl.drawText(AIRBUS_FONT, 15, 120, "---" , 29, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
-     
+      -- COST INDEX (TODO : MAKE IT PARSE SINGLE NUMBERS EXAMPLE : INPUT : 6 , SHOWS : 006)-- 
+      local distance = 15
+      sasl.gl.drawText(AIRBUS_FONT, distance, 145, "COST INDEX" , 24, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
+      for i in ipairs(CostIndex_Data) do
+        sasl.gl.drawText(AIRBUS_FONT, distance, 120, CostIndex_Data[i] , 29, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
+        distance = distance + 15
+        if i == 4 then 
+          distance = distance + 25
+        end
+        local Costindex = tonumber(scratchPad_Data[i])
+        if get(BUTTON_5_L) == 1 and tonumber(scratchPad_Data[i]) == nil then 
+          THROW_INVALID()
+        elseif get(BUTTON_5_L) == 1 then -- EXECUTE CODE FOR COST INDEX IN HERE
+          CostIndex_Data[i] = scratchPad_Data[i]
+        end 
+      end
+      -- 
       -- RIGHT SIDE 
-      sasl.gl.drawText(AIRBUS_FONT, 325, 380, "FROM/TO", 24, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
 
-    
+      -- FROM TO -- 
+      sasl.gl.drawText(AIRBUS_FONT, 325, 380, "FROM/TO", 24, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
       local x = 325 --We add the base X - Value so we space out the input fields.
       for i in ipairs(FromTo_Data) do   
         sasl.gl.drawText(AIRBUS_FONT, x, 350, FromTo_Data[i], 29, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
@@ -331,19 +341,25 @@ local function drawPage()
         if i == 4 then 
           x = x + 25
         end
+        if get(BUTTON_1_R) == 1 and FromTo_Data[1] ~= "[]" and scratchPad_Data[1] ~= "[]" and scratchPad_Data[5] == "/" then -- actually can execute code for flight planning in here
+          CLEAR_SCRATCHPAD()
+          MCDU_CURRENT_PAGE = 5
+        end
       end
+
+      -- 
       sasl.gl.drawText(AIRBUS_FONT, 390, 350, "/", 29, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE) --Draw the slash separately from the dataset
-   
       sasl.gl.drawText(AIRBUS_FONT, 423, 320, "INIT", 24, false, false, TEXT_ALIGN_LEFT, MCDU_ORANGE)
       sasl.gl.drawText(AIRBUS_FONT, 345, 295, "REQUEST*", 29, false, false, TEXT_ALIGN_LEFT, MCDU_ORANGE)
-    
       sasl.gl.drawText(AIRBUS_FONT, 345, 245, "IRS INIT>", 29, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
-
       sasl.gl.drawText(AIRBUS_FONT, 379, 195, "WIND>", 29, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
     elseif get(MCDU_CURRENT_PAGE) == 3 then 
-    
-    elseif get(MCDU_CURRENT_PAGE) == 4 then
-  
+    elseif get(MCDU_CURRENT_PAGE) == 4 then -- random page
+    elseif get(MCDU_CURRENT_PAGE) == 5 then  -- PAGE AFTER TO/FROM HAS BEEN INSERTED
+      sasl.gl.drawText(AIRBUS_FONT, 15, 60, "<RETURN", 25, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
+      if get(BUTTON_6_L) == 1 then 
+        MCDU_CURRENT_PAGE = 2
+      end 
     end
 
     
@@ -399,6 +415,19 @@ function THROW_INVALID()
   scratchPad_Data[10] = ""
 end 
 
+function CLEAR_SCRATCHPAD()
+  scratchPad_Data[1] = "[]"
+  scratchPad_Data[2] = "[]"
+  scratchPad_Data[3] = "[]"
+  scratchPad_Data[4] = "[]"
+  scratchPad_Data[5] = "[]"
+  scratchPad_Data[6] = "[]"
+  scratchPad_Data[7] = "[]"  
+  scratchPad_Data[8] = "[]"
+  scratchPad_Data[9] = "[]"
+  scratchPad_Data[10] = "[]"
+end
+
 function CLEAR_ALL()
 if get(CLR_KEY) == 1 and scratchPad_Data[1] == "I" and scratchPad_Data[2] == "N" and scratchPad_Data[3] == "V" and scratchPad_Data[4] == "A" and scratchPad_Data[5] == "L" and scratchPad_Data[6] == "I" and scratchPad_Data[7] == "D"and scratchPad_Data[8] == "" and scratchPad_Data[9] == "" and scratchPad_Data[10] == "" then
     scratchPad_Data[1] = "[]"
@@ -419,9 +448,9 @@ function Misc()
   CLEAR_ALL()
   -- Add text to FROM/TO
   if get(MCDU_CURRENT_PAGE) == 2 and get(BUTTON_1_R) == 1 then 
-    if scratchPad_Data[5] ~= "/" or  scratchPad_Data[1] == "[]" or scratchPad_Data[2] == "[]" or scratchPad_Data[3] == "[]" or scratchPad_Data[4] == "[]" or scratchPad_Data[5] == "[]" or scratchPad_Data[6] == "[]" or scratchPad_Data[7] == "[]" or scratchPad_Data[8] == "[]" or scratchPad_Data[9] == "[]" then 
+    if scratchPad_Data[5] ~= "/" or scratchPad_Data[1] == "/" or scratchPad_Data[2] == "/" or scratchPad_Data[3] == "/" or scratchPad_Data[4] == "/" or scratchPad_Data[6] == "/" or scratchPad_Data[7] == "/" or scratchPad_Data[8] == "/" or scratchPad_Data[9] == "/" or  scratchPad_Data[1] == "[]" or scratchPad_Data[2] == "[]" or scratchPad_Data[3] == "[]" or scratchPad_Data[4] == "[]" or scratchPad_Data[5] == "[]" or scratchPad_Data[6] == "[]" or scratchPad_Data[7] == "[]" or scratchPad_Data[8] == "[]" or scratchPad_Data[9] == "[]" then 
         THROW_INVALID()
-    else 
+    else --What are you trying to do here? also, we need to throw an error if it's greater than macChar or we can just leave it as is where it takes the first 8 letters
       FromTo_Data[1] =  scratchPad_Data[1]
       FromTo_Data[2] =  scratchPad_Data[2]
       FromTo_Data[3] =  scratchPad_Data[3]
@@ -434,8 +463,11 @@ function Misc()
   end 
 end
 
+function update()
+Misc()
+end
+
 function draw()
-  Misc()
 	drawPage()   
   draw_scratchPad()
 end
