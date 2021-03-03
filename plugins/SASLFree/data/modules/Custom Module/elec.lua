@@ -1,0 +1,337 @@
+-- A318 Created by X-Bureau --
+
+local onGround = globalProperty("sim/flightmodel/failures/onground_any")
+local GS = globalProperty("sim/flightmodel/position/groundspeed")
+
+-- AC SYSTEM
+ext_pwr = {
+    voltage = createGlobalPropertyi("A318/systems/ELEC/gpu_V", 115),
+    hertz = createGlobalPropertyi("A318/systems/ELEC/gpu_H", 400),
+    avail = createGlobalPropertyi("A318/systems/ELEC/gpu_Avail", 0),
+}
+
+apu_pwr = {
+    voltage = createGlobalPropertyi("A318/systems/ELEC/apu_V", 0),
+    hertz = createGlobalPropertyi("A318/systems/ELEC/apu_H", 0),
+    avail = createGlobalPropertyi("A318/systems/ELEC/apu_Avail", 0),
+}
+
+gen_1 = {
+    voltage = createGlobalPropertyi("A318/systems/ELEC/gen1_V", 0),
+    hertz = createGlobalPropertyi("A318/systems/ELEC/gen1_H", 0),
+}
+
+gen_2 = {
+    voltage = createGlobalPropertyi("A318/systems/ELEC/gen2_V", 0),
+    hertz = createGlobalPropertyi("A318/systems/ELEC/gen2_H", 0),
+}
+
+ac_bus_1 = {
+    voltage = createGlobalPropertyi("A318/systems/ELEC/AC1_V", 0),
+    hertz = createGlobalPropertyi("A318/systems/ELEC/AC1_H", 0)
+}
+ac_bus_2 = {
+    voltage = createGlobalPropertyi("A318/systems/ELEC/AC2_V", 0),
+    hertz = createGlobalPropertyi("A318/systems/ELEC/AC2_H", 0)
+}
+ac_bus_ess = {
+    voltage = createGlobalPropertyi("A318/systems/ELEC/ACESS_V", 0),
+    hertz = createGlobalPropertyi("A318/systems/ELEC/ACESS_H", 0)
+}
+
+
+-- DC SYSTEM
+bat_1 = {
+    voltage = createGlobalPropertyi("A318/systems/ELEC/BAT1_V", 28),
+    amps = createGlobalPropertyi("A318/systems/ELEC/BAT1_A", 0),
+    pb = createGlobalPropertyi("A318/systems/ELEC/bat1/pb", 0)
+}
+
+bat_2 = {
+    voltage = createGlobalPropertyi("A318/systems/ELEC/BAT2_V", 28),
+    amps = createGlobalPropertyi("A318/systems/ELEC/BAT2_A", 0),
+    pb = createGlobalPropertyi("A318/systems/ELEC/bat2/pb", 0)
+}
+
+dc_bat_bus = {
+    voltage = createGlobalPropertyi("A318/systems/ELEC/DCBAT_V", 0),
+    amps = createGlobalPropertyi("A318/systems/ELEC/DCBAT_A", 0)
+}
+
+dc_bus_1 = {
+    voltage = createGlobalPropertyi("A318/systems/ELEC/DC1_V", 0),
+    amps = createGlobalPropertyi("A318/systems/ELEC/DC1_A", 0)
+}
+dc_bus_2 = {
+    voltage = createGlobalPropertyi("A318/systems/ELEC/DC2_V", 0),
+    amps = createGlobalPropertyi("A318/systems/ELEC/DC2_A", 0)
+}
+dc_bus_ess = {
+    voltage = createGlobalPropertyi("A318/systems/ELEC/DCESS_V", 0),
+    amps = createGlobalPropertyi("A318/systems/ELEC/DCESS_A", 0)
+}
+
+bus_tie = createGlobalPropertyi("A318/systems/ELEC/busTieSwtch", 0)
+ac_ess_feed = createGlobalPropertyi("A318/systems/ELEC/ESSFeedSwtch", 0)
+
+contacts = {
+    -- Batteries
+    BC1 = createGlobalPropertyi("A318/systems/ELEC/contacts/BC1", 0),
+    BC2 = createGlobalPropertyi("A318/systems/ELEC/contacts/BC2", 0),
+
+    -- DC TIE
+    DCT1 = createGlobalPropertyi("A318/systems/ELEC/contacts/DCBTC1", 0),
+    DCT2 = createGlobalPropertyi("A318/systems/ELEC/contacts/DCBTC2", 0),
+    DCE  = createGlobalPropertyi("A318/systems/ELEC/contacts/DCEBTC", 0),
+
+    -- Engine Generator Contacts
+    GLC1 = createGlobalPropertyi("A318/systems/ELEC/contacts/GLC1", 1),
+    GLC2 = createGlobalPropertyi("A318/systems/ELEC/contacts/GLC2", 1),
+
+    -- Bus Tie Contacts
+    BTC1 = createGlobalPropertyi("A318/systems/ELEC/contacts/BTC1", 0),
+    BTC2 = createGlobalPropertyi("A318/systems/ELEC/contacts/BTC2", 0),
+
+    -- Auxilary Power Contacts
+    AGC = createGlobalPropertyi("A318/systems/ELEC/contacts/AGC", 0),
+    EPC = createGlobalPropertyi("A318/systems/ELEC/contacts/EPC", 0),
+
+    -- Essential Bus Contacts
+    ACEssF1 = createGlobalPropertyi("A318/systems/ELEC/contacts/ACEssF1", 1),
+    ACEssF2 = createGlobalPropertyi("A318/systems/ELEC/contacts/ACEssF2", 0),
+
+    -- TRU Contacts
+    TR1 = createGlobalPropertyi("A318/systems/ELEC/contacts/TR1", 0),
+    TR2 = createGlobalPropertyi("A318/systems/ELEC/contacts/TR2", 0),
+}
+
+function update()
+    -- GROUND POWER ON/OFF
+    if get(onGround) == 1 and get(GS) < 1 then
+        set(ext_pwr.avail, 1)
+        set(ext_pwr.voltage, 115)
+        set(ext_pwr.hertz, 400)
+    else
+        set(ext_pwr.avail, 0)
+        set(ext_pwr.voltage, 0)
+        set(ext_pwr.hertz, 0)
+    end
+
+    -- BAT BUTTON LOGIC
+    if get(bat_1.pb) == 1 then
+        if get(contacts.DCT1) == 1 or get(contacts.DCT2) == 1 then
+            set(contacts.BC1, 0)
+            set(bat_1.amps, 0)
+        elseif get(onGround) == 1 and get(GS) < 50 then
+            set(contacts.BC1, 1)
+            set(bat_1.amps, 150)
+        else
+            set(contacts.BC1, 0)
+            set(bat_1.amps, 0)
+        end
+    else
+        set(contacts.BC1, 0)
+        set(bat_1.amps, 0)
+    end
+
+    if get(bat_2.pb) == 1 then
+        if get(contacts.DCT1) == 1 or get(contacts.DCT2) == 1 then
+            set(contacts.BC2, 0)
+            set(bat_2.amps, 0)
+        elseif get(onGround) == 1 and get(GS) < 50 then
+            set(contacts.BC2, 1)
+            set(bat_2.amps, 150)
+        else
+            set(contacts.BC2, 0)
+            set(bat_2.amps, 0)
+        end
+    else
+        set(contacts.BC2, 0)
+        set(bat_2.amps, 0)
+    end
+
+
+    -- BUS TIE LOGIC
+    if get(bus_tie) == 0 then
+        if get(contacts.GLC1) == 1 and get(contacts.AGC) == 1 and get(gen_1.voltage) > 0 then
+            set(contacts.BTC1, 0)
+            set(contacts.BTC2, 1)
+        elseif get(contacts.GLC2) == 1 and get(contacts.AGC) == 1 and get(gen_2.voltage) > 0 then
+            set(contacts.BTC1, 1)
+            set(contacts.BTC2, 0)
+        elseif get(contacts.EPC) == 1 or get(contacts.AGC) == 1 then
+            set(contacts.BTC1, 1)
+            set(contacts.BTC2, 1)
+        elseif get(contacts.GLC1) == 1 and get(contacts.GLC2) == 1 and get(gen_1.voltage) > 0 and get(gen_2.voltage) > 0 then
+            set(contacts.BTC1, 0)
+            set(contacts.BTC2, 0)
+        end
+    else
+        set(contacts.BTC1, 0)
+        set(contacts.BTC2, 0)
+    end
+
+    -- AC ESS FEED LOGIC
+    if get(ac_ess_feed) == 0 then
+        set(contacts.ACEssF1, 1)
+        set(contacts.ACEssF2, 0)
+    else
+        set(contacts.ACEssF1, 0)
+        set(contacts.ACEssF2, 1)
+    end
+
+    -- AC BUS 1
+    if get(contacts.BTC1) == 1 then
+        if get(ext_pwr.voltage) > 0 and get(contacts.EPC) == 1 then
+            set(ac_bus_1.voltage, get(ext_pwr.voltage))
+            set(ac_bus_1.hertz, get(ext_pwr.hertz))
+        elseif get(apu_pwr.voltage) > 0 and get(contacts.AGC) == 1 then
+            set(contacts.EPC, 0)
+            set(ac_bus_1.voltage, get(apu_pwr.voltage))
+            set(ac_bus_1.hertz, get(apu_pwr.hertz))
+        elseif get(gen_2.voltage) > 0 and get(contacts.GLC2) == 1 and get(contacts.BTC2) == 1 then
+            set(ac_bus_1.voltage, get(gen_2.voltage))
+            set(ac_bus_1.hertz, get(gen_2.hertz))
+        else
+            if get(contacts.GLC1) == 1 then
+                set(ac_bus_1.voltage, get(gen_1.voltage))
+                set(ac_bus_1.hertz, get(gen_1.hertz))
+            else
+                set(ac_bus_1.voltage, 0)
+                set(ac_bus_1.hertz, 0)
+            end
+        end
+    elseif get(contacts.GLC1) == 1 then
+        set(ac_bus_1.voltage, get(gen_1.voltage))
+        set(ac_bus_1.hertz, get(gen_1.hertz))
+    else
+        set(ac_bus_1.voltage, 0)
+        set(ac_bus_1.hertz, 0)
+    end
+
+    -- AC BUS 2
+    if get(contacts.BTC2) == 1 then
+        if get(ext_pwr.voltage) > 0 and get(contacts.EPC) == 1 then
+            set(ac_bus_2.voltage, get(ext_pwr.voltage))
+            set(ac_bus_2.hertz, get(ext_pwr.hertz))
+        elseif get(apu_pwr.voltage) > 0 and get(contacts.AGC) == 1 then
+            set(contacts.EPC, 0)
+            set(ac_bus_2.voltage, get(apu_pwr.voltage))
+            set(ac_bus_2.hertz, get(apu_pwr.hertz))
+        elseif get(gen_1.voltage) > 0 and get(contacts.GLC1) == 1 and get(contacts.BTC1) == 1 then
+            set(ac_bus_2.voltage, get(gen_1.voltage))
+            set(ac_bus_2.hertz, get(gen_1.hertz))
+        else
+            if get(contacts.GLC2) == 1 then
+                set(ac_bus_2.voltage, get(gen_2.voltage))
+                set(ac_bus_2.hertz, get(gen_2.hertz))
+            else
+                set(ac_bus_2.voltage, 0)
+                set(ac_bus_2.hertz, 0)
+            end
+        end
+    elseif get(contacts.GLC2) == 1 then
+        set(ac_bus_2.voltage, get(gen_2.voltage))
+        set(ac_bus_2.hertz, get(gen_2.hertz))
+    else
+        set(ac_bus_2.voltage, 0)
+        set(ac_bus_2.hertz, 0)
+    end
+
+    -- AC ESS BUS
+    if get(contacts.ACEssF1) == 1 then
+        set(ac_bus_ess.voltage, get(ac_bus_1.voltage))
+        set(ac_bus_ess.hertz, get(ac_bus_1.hertz))
+    elseif get(contacts.ACEssF2) == 1 then
+        set(ac_bus_ess.voltage, get(ac_bus_2.voltage))
+        set(ac_bus_ess.hertz, get(ac_bus_2.hertz))
+    else
+        set(ac_bus_ess.voltage, 0)
+        set(ac_bus_ess.hertz, 0)
+    end
+
+    --TR 1
+    if get(ac_bus_1.voltage) > 0 then
+        set(contacts.TR1, 1)
+    else
+        set(contacts.TR1, 0)
+    end
+
+    --TR 2
+    if get(ac_bus_2.voltage) > 0 then
+        set(contacts.TR2, 1)
+    else
+        set(contacts.TR2, 0)
+    end
+
+    -- DC BUS 1
+    if get(contacts.TR1) == 1 and get(ac_bus_1.voltage) > 0 then
+        set(dc_bus_1.voltage, 28)
+        set(dc_bus_1.amps, 150)
+    elseif get(contacts.TR1) == 0 and get(contacts.DCT2) == 1 and get(dc_bat_bus.voltage) > 0 then
+        set(dc_bus_1.voltage, get(dc_bat_bus.voltage))
+        set(dc_bus_1.amps, get(dc_bat_bus.amps))
+    else
+        set(dc_bus_1.voltage, 0)
+        set(dc_bus_1.amps, 0)
+    end
+
+    -- DC BUS 2
+    if get(contacts.TR2) == 1 and get(ac_bus_2.voltage) > 0 then
+        set(dc_bus_2.voltage, 28)
+        set(dc_bus_2.amps, 150)
+    elseif get(contacts.TR2) == 0 and get(contacts.DCT1) == 1 and get(dc_bat_bus.voltage) > 0 then
+        set(dc_bus_2.voltage, get(dc_bat_bus.voltage))
+        set(dc_bus_2.amps, get(dc_bat_bus.amps))
+    else
+        set(dc_bus_2.voltage, 0)
+        set(dc_bus_2.amps, 0)
+    end
+
+    -- DC ESS BUS
+    if get(contacts.DCE) == 1 then
+        set(dc_bus_ess.voltage, get(dc_bat_bus.voltage))
+        set(dc_bus_ess.amps, get(dc_bat_bus.amps))
+    else
+        set(dc_bus_ess.voltage, 0)
+        set(dc_bus_ess.amps, 0)
+    end
+
+    --DC BAT BUS
+    if get(contacts.BC1) == 1 or get(contacts.BC2) == 1 then
+        -- powered by batteries
+        if get(contacts.BC1) == 1 then
+            set(dc_bat_bus.voltage, get(bat_1.voltage))
+            set(dc_bat_bus.amps, get(bat_1.amps))
+        elseif get(contacts.BC2) == 1 then
+            set(dc_bat_bus.voltage, get(bat_2.voltage))
+            set(dc_bat_bus.amps, get(bat_2.amps))
+        end
+    elseif get(contacts.DCT1) == 1 then
+        -- powered by DC BUS 1
+        set(dc_bat_bus.voltage, get(dc_bus_1.voltage))
+        set(dc_bat_bus.amps, get(dc_bus_1.amps))
+    elseif get(contacts.DCT2) == 1 then
+        -- powered by DC BUS 2
+        set(dc_bat_bus.voltage, get(dc_bus_2.voltage))
+        set(dc_bat_bus.amps, get(dc_bus_2.amps))
+    else
+        set(dc_bat_bus.voltage, 0)
+        set(dc_bat_bus.amps, 0)
+    end
+
+    -- DC BUS TIE CONT LOGIC
+    if get(dc_bus_1.voltage) > 0 and get(contacts.TR1) == 1 then
+        set(contacts.DCT1, 1)
+        set(contacts.DCT2, 0)
+    else
+        set(contacts.DCT1, 0)
+    end
+        
+    if get(dc_bus_2.voltage) > 0 and get(contacts.TR2) == 1 then
+        set(contacts.DCT1, 0)
+        set(contacts.DCT2, 1)
+    else
+        set(contacts.DCT2, 0)
+    end
+end
