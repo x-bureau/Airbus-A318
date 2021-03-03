@@ -1,3 +1,6 @@
+local startup_complete = false
+local eng1N1 = globalProperty("sim/flightmodel/engine/ENGN_N1_[0]")
+
 local pilot_latitude = globalProperty("sim/flightmodel/position/latitude")
 local pilot_longitude = globalProperty("sim/flightmodel/position/longitude")
 local pilot_heading = globalProperty("sim/cockpit/gyros/psi_ind_ahars_pilot_degm")
@@ -99,6 +102,28 @@ adirs = {
         }
     },
 }
+
+function plane_startup()
+    if get(eng1N1) > 1 then
+        -- engines running
+        print("Starting with engines running")
+        set(adirs.adirs_1.mode, 1)
+        set(adirs.adirs_1.aligned, 1)
+        set(adirs.adirs_2.mode, 1)
+        set(adirs.adirs_2.aligned, 1)
+        set(adirs.adirs_3.mode, 1)
+        set(adirs.adirs_3.aligned, 1)
+    else
+        -- cold and dark
+        print("Starting cold and dark")
+        set(adirs.adirs_1.mode, 0)
+        set(adirs.adirs_1.aligned, 0)
+        set(adirs.adirs_2.mode, 0)
+        set(adirs.adirs_2.aligned, 0)
+        set(adirs.adirs_3.mode, 0)
+        set(adirs.adirs_3.aligned, 0)
+    end
+end
 
 function ADIRS1()
     local mode = adirs.adirs_1.mode
@@ -275,6 +300,11 @@ function ADIRS3()
 end
 
 function update()
+    if not startup_complete then
+        plane_startup()
+        startup_complete = true
+    end
+
     ADIRS1()
     ADIRS2()
     ADIRS3()
