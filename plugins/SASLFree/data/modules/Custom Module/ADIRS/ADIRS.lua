@@ -31,10 +31,10 @@ local copilot_aoa = globalProperty("sim/flightmodel2/misc/AoA_angle_degrees")
 local copilot_tat = globalProperty("sim/cockpit2/temperature/outside_air_LE_temp_degc")
 local copilot_sat = globalProperty("sim/cockpit2/temperature/outside_air_temp_degc")
 
-adirs ={
+adirs = {
     adirs_1 = {
-        mode = createGlobalPropertyi("A318/systems/ADIRS/1/mode", 1), -- mode switch
-        aligned = createGlobalPropertyi("A318/systems/ADIRS/1/aligned", 1), -- is aligned
+        mode = createGlobalPropertyi("A318/systems/ADIRS/1/mode", 0), -- mode switch
+        aligned = createGlobalPropertyi("A318/systems/ADIRS/1/aligned", 0), -- is aligned
         inertial = {
             latitude = createGlobalPropertyf("A318/systems/ADIRS/1/inertial/latitude", 0.0),
             longitude = createGlobalPropertyf("A318/systems/ADIRS/1/inertial/longitude", 0.0),
@@ -55,8 +55,8 @@ adirs ={
         }
     },
     adirs_2 = {
-        mode = createGlobalPropertyi("A318/systems/ADIRS/2/mode", 1), -- mode switch
-        aligned = createGlobalPropertyi("A318/systems/ADIRS/2/aligned", 1),
+        mode = createGlobalPropertyi("A318/systems/ADIRS/2/mode", 0), -- mode switch
+        aligned = createGlobalPropertyi("A318/systems/ADIRS/2/aligned", 0),
         inertial = {
             latitude = createGlobalPropertyf("A318/systems/ADIRS/2/inertial/latitude", 0.0),
             longitude = createGlobalPropertyf("A318/systems/ADIRS/2/inertial/longitude", 0.0),
@@ -77,8 +77,8 @@ adirs ={
         }
     },
     adirs_3 = {
-        mode = createGlobalPropertyi("A318/systems/ADIRS/3/mode", 1), -- mode switch
-        aligned = createGlobalPropertyi("A318/systems/ADIRS/3/aligned", 1),
+        mode = createGlobalPropertyi("A318/systems/ADIRS/3/mode", 0), -- mode switch
+        aligned = createGlobalPropertyi("A318/systems/ADIRS/3/aligned", 0),
         inertial = {
             latitude = createGlobalPropertyf("A318/systems/ADIRS/3/inertial/latitude", 0.0),
             longitude = createGlobalPropertyf("A318/systems/ADIRS/3/inertial/longitude", 0.0),
@@ -274,7 +274,7 @@ function ADIRS3()
     end
 end
 
-function draw()
+function update()
     ADIRS1()
     ADIRS2()
     ADIRS3()
