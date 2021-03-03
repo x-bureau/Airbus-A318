@@ -15,7 +15,7 @@ panelHeight3d = 2048
 
 components = {
   customdataref {};
-  electrical {};
+  elec {};
   hydraulics {};
   ADIRS {};
   MCDU {};
@@ -35,6 +35,7 @@ components = {
     fbo = true ,
     fpsLimit = 29
   };
+
   -- ATSAW {};
   ecam {};
   lower_ecam {};
