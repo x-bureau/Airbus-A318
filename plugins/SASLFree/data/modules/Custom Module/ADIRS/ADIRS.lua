@@ -1,6 +1,13 @@
 local startup_complete = false
 local eng1N1 = globalProperty("sim/flightmodel/engine/ENGN_N1_[0]")
 
+local onGround = globalProperty("sim/flightmodel/failures/onground_any")
+local GS = globalProperty("sim/flightmodel/position/groundspeed")
+
+local AC_1 = globalProperty("A318/systems/ELEC/AC1_V")
+local AC_2 = globalProperty("A318/systems/ELEC/AC2_V")
+local AC_ESS = globalProperty("A318/systems/ELEC/ACESS_V")
+
 local pilot_latitude = globalProperty("sim/flightmodel/position/latitude")
 local pilot_longitude = globalProperty("sim/flightmodel/position/longitude")
 local pilot_heading = globalProperty("sim/cockpit/gyros/psi_ind_ahars_pilot_degm")
@@ -33,6 +40,17 @@ local copilot_mach = globalProperty("sim/cockpit2/gauges/indicators/mach_copilot
 local copilot_aoa = globalProperty("sim/flightmodel2/misc/AoA_angle_degrees")
 local copilot_tat = globalProperty("sim/cockpit2/temperature/outside_air_LE_temp_degc")
 local copilot_sat = globalProperty("sim/cockpit2/temperature/outside_air_temp_degc")
+
+local Timer1 = 0
+local TimerFinal1 = 60
+
+local Timer2 = 0
+local TimerFinal2 = 60
+
+local Timer3 = 0
+local TimerFinal3 = 60
+
+local DELTA_TIME = globalProperty("sim/operation/misc/frame_rate_period")
 
 adirs = {
     adirs_1 = {
@@ -132,8 +150,13 @@ function ADIRS1()
     local airData = get(adirs.adirs_1.airdata)
     local InertialData = get(adirs.adirs_1.inertial)
 
-    if get(isAligned) == 0  and get(mode) > 0 then -- on and aligning
-
+    if get(isAligned) == 0 and get(mode) == 1 and get(onGround) == 1 and get(GS) < 1 then -- on and aligning
+        if Timer1 < TimerFinal1 then
+            Timer1 = Timer1 + 1 * get(DELTA_TIME)
+          else
+            Timer1 = 0
+            set(isAligned, 1)
+          end
         -- air data
         set(airData.altitude, get(pilot_altitude))
         set(airData.tas, get(pilot_tas))
@@ -143,6 +166,8 @@ function ADIRS1()
         set(airData.tat, math.floor(get(pilot_tat) + 0.5))
         set(airData.sat, math.floor(get(pilot_sat) + 0.5))
     elseif get(isAligned) == 1 and get(mode) == 1 then -- on and aligned
+        Timer1 = 0
+
         -- inertial data
         set(InertialData.latitude, get(pilot_latitude))
         set(InertialData.longitude, get(pilot_longitude))
@@ -161,7 +186,24 @@ function ADIRS1()
         set(airData.tat, math.floor(get(pilot_tat) + 0.5))
         set(airData.sat, math.floor(get(pilot_sat) + 0.5))
 
+    elseif get(mode) == 2 then -- ATT mode
+        Timer1 = 0
+
+        -- inertial data
+        set(InertialData.pitch, get(pilot_pitch))
+        set(InertialData.roll, get(pilot_roll))
+
+        -- air data
+        set(airData.altitude, get(pilot_altitude))
+        set(airData.tas, get(pilot_tas))
+        set(airData.ias, get(pilot_ias))
+        set(airData.mach, get(pilot_mach))
+        set(airData.aoa, get(pilot_aoa))
+        set(airData.tat, math.floor(get(pilot_tat) + 0.5))
+        set(airData.sat, math.floor(get(pilot_sat) + 0.5))
     elseif get(mode) == 0 then -- off
+        Timer1 = 0
+
         set(isAligned, 0)
         -- inertial data
         set(InertialData.latitude, 0.0)
@@ -190,7 +232,13 @@ function ADIRS2()
     local airData = get(adirs.adirs_2.airdata)
     local InertialData = get(adirs.adirs_2.inertial)
 
-    if get(isAligned) == 0  and get(mode) > 0 then -- on and aligning
+    if get(isAligned) == 0  and get(mode) == 1 and get(onGround) == 1 and get(GS) < 1 then -- on and aligning
+        if Timer2 < TimerFinal2 then
+            Timer2 = Timer2 + 1 * get(DELTA_TIME)
+        else
+            Timer2 = 0
+            set(isAligned, 1)
+        end
 
         -- air data
         set(airData.altitude, get(copilot_altitude))
@@ -201,6 +249,7 @@ function ADIRS2()
         set(airData.tat, math.floor(get(copilot_tat) + 0.5))
         set(airData.sat, math.floor(get(copilot_sat) + 0.5))
     elseif get(isAligned) == 1 and get(mode) == 1 then -- on and aligned
+        Timer2 = 0
         -- inertial data
         set(InertialData.latitude, get(copilot_latitude))
         set(InertialData.longitude, get(copilot_longitude))
@@ -219,7 +268,23 @@ function ADIRS2()
         set(airData.tat, math.floor(get(copilot_tat) + 0.5))
         set(airData.sat, math.floor(get(copilot_sat) + 0.5))
 
+    elseif get(mode) == 2 then -- ATT mode
+        Timer2 = 0
+        -- inertial data
+        set(InertialData.pitch, get(copilot_pitch))
+        set(InertialData.roll, get(copilot_roll))
+
+        -- air data
+        set(airData.altitude, get(copilot_altitude))
+        set(airData.tas, get(copilot_tas))
+        set(airData.ias, get(copilot_ias))
+        set(airData.mach, get(copilot_mach))
+        set(airData.aoa, get(copilot_aoa))
+        set(airData.tat, math.floor(get(copilot_tat) + 0.5))
+        set(airData.sat, math.floor(get(copilot_sat) + 0.5))
+
     elseif get(mode) == 0 then -- off
+        Timer2 = 0
         set(isAligned, 0)
         -- inertial data
         set(InertialData.latitude, 0.0)
@@ -248,7 +313,13 @@ function ADIRS3()
     local airData = get(adirs.adirs_3.airdata)
     local InertialData = get(adirs.adirs_3.inertial)
 
-    if get(isAligned) == 0  and get(mode) > 0 then -- on and aligning
+    if get(isAligned) == 0  and get(mode) == 1 and get(onGround) == 1 and get(GS) < 1 then -- on and aligning
+        if Timer3 < TimerFinal3 then
+            Timer3 = Timer3 + 1 * get(DELTA_TIME)
+        else
+            Timer3 = 0
+            set(isAligned, 1)
+        end
 
         -- air data
         set(airData.altitude, get(copilot_altitude))
@@ -259,6 +330,8 @@ function ADIRS3()
         set(airData.tat, math.floor(get(copilot_tat) + 0.5))
         set(airData.sat, math.floor(get(copilot_sat) + 0.5))
     elseif get(isAligned) == 1 and get(mode) == 1 then -- on and aligned
+        Timer3 = 0
+
         -- inertial data
         set(InertialData.latitude, get(copilot_latitude))
         set(InertialData.longitude, get(copilot_longitude))
@@ -277,7 +350,24 @@ function ADIRS3()
         set(airData.tat, math.floor(get(copilot_tat) + 0.5))
         set(airData.sat, math.floor(get(copilot_sat) + 0.5))
 
+    elseif get(mode) == 2 then -- ATT mode
+        Timer2 = 0
+        -- inertial data
+        set(InertialData.pitch, get(copilot_pitch))
+        set(InertialData.roll, get(copilot_roll))
+
+        -- air data
+        set(airData.altitude, get(copilot_altitude))
+        set(airData.tas, get(copilot_tas))
+        set(airData.ias, get(copilot_ias))
+        set(airData.mach, get(copilot_mach))
+        set(airData.aoa, get(copilot_aoa))
+        set(airData.tat, math.floor(get(copilot_tat) + 0.5))
+        set(airData.sat, math.floor(get(copilot_sat) + 0.5))
+
     elseif get(mode) == 0 then -- off
+        Timer3 = 0
+
         set(isAligned, 0)
         -- inertial data
         set(InertialData.latitude, 0.0)
@@ -304,8 +394,19 @@ function update()
         plane_startup()
         startup_complete = true
     end
-
-    ADIRS1()
-    ADIRS2()
-    ADIRS3()
+    if get(AC_1) > 1 then
+        ADIRS3()
+    else
+        set(adirs.adirs_3.aligned, 0)
+    end
+    if get(AC_2) > 1 then
+        ADIRS2()
+    else
+        set(adirs.adirs_2.aligned, 0)
+    end
+    if get(AC_ESS) > 1 then
+        ADIRS1()
+    else
+        set(adirs.adirs_1.aligned, 0)
+    end
 end

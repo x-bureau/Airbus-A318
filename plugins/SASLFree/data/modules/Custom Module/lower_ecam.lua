@@ -4,7 +4,7 @@ size = {522, 522}
 require "common_declarations"
 
 --defining dataref variables
-local AC_BUS = globalProperty("A318/systems/ELEC/AC2_V")
+local BUS = globalProperty("A318/systems/ELEC/AC2_V")
 
 local current_ecam_page = createGlobalPropertyi("A318/cockpit/ecam/current_page", 4)--create variable that tells us current ecam page
 local current_flight_phase = createGlobalPropertyi("A318/cockpit/ecam/flight_phase", flight_phases.elec_pwr)
@@ -1050,7 +1050,7 @@ function update() -- perform updating logic as drawing should only draw!
 end
 
 function draw() --the function that actually draws on the panel
-    if get(AC_BUS) > 0 then
+    if get(BUS) > 0 then
         if get(current_ecam_page) == ecam_pages.eng then --if the curent ecam page is 1
             draw_eng_page()--draw the engine page
         elseif get(current_ecam_page) == ecam_pages.bleed then --if the curent ecam page is 2

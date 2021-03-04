@@ -2,8 +2,9 @@ position = {30, 50, 495, 500}
 size = {500, 500}
 
 -- get datarefs
-local AC_BUS = globalProperty("A318/systems/ELEC/ACESS_V")
+local BUS = globalProperty("A318/systems/ELEC/ACESS_V")
 
+local ADIRS_mode = globalProperty("A318/systems/ADIRS/1/mode")
 local ADIRS_aligned = globalProperty("A318/systems/ADIRS/1/aligned")
 local heading = globalPropertyf("A318/systems/ADIRS/1/inertial/heading")
 
@@ -331,27 +332,27 @@ end
 function draw()
     sasl.gl.setClipArea(0,0,500,500)
 
-    if get(AC_BUS) > 0 then
+    if get(BUS) > 0 then
         if get(CaptNdMode) == 0 then
-            if get(ADIRS_aligned) == 0 then
+            if get(ADIRS_aligned) == 0 or get(ADIRS_mode) == 2 then
                 draw_ils_unaligned()
             else
                 draw_ils()
             end
         elseif get(CaptNdMode) == 1 then
-            if get(ADIRS_aligned) == 0 then
+            if get(ADIRS_aligned) == 0 or get(ADIRS_mode) == 2 then
                 draw_vor_unaligned()
             else
                 draw_vor()
             end
         elseif get(CaptNdMode) == 2 then
-            if get(ADIRS_aligned) == 0 then
+            if get(ADIRS_aligned) == 0 or get(ADIRS_mode) == 2 then
                 draw_nav_unaligned()
             else
                 draw_nav()
             end
         elseif get(CaptNdMode) == 3 then
-            if get(ADIRS_aligned) == 0 then
+            if get(ADIRS_aligned) == 0 or get(ADIRS_mode) == 2 then
                 draw_arc_unaligned()
             else
                 draw_arc()

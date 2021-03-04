@@ -4,7 +4,7 @@ position = {605, 650, 512, 513}
 size = {1000, 1000}
 
 --get datarefs
-local AC_BUS = globalProperty("A318/systems/ELEC/AC2_V")
+local BUS = globalProperty("A318/systems/ELEC/AC2_V")
 
 local ADIRS_aligned = globalProperty("A318/systems/ADIRS/2/aligned")
 local ADIRS_mode = globalProperty("A318/systems/ADIRS/2/mode")
@@ -69,7 +69,7 @@ end
 
 function pfd()
   -- ARTIFICIAL HORIZON
-  if isAligned == 0 then
+  if isAligned == 0 and mode <= 1 then
     sasl.gl.drawText(AirbusFont, 440, 460, "ATT", 60, false, false, TEXT_ALIGN_CENTER, RED)
   else
     artificial_horizon()
@@ -300,8 +300,8 @@ end
 
 function draw()
   sasl.gl.setClipArea(0, 0, 1000, 1000)
-  if get(AC_BUS) > 0 then
-   pfd()
+  if get(BUS) > 0 then
+    pfd()
   else
     -- off
   end

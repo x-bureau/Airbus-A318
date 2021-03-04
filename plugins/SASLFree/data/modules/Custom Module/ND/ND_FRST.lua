@@ -2,7 +2,7 @@ position = {595, 47, 500, 500}
 size = {500, 500}
 
 -- get datarefs
-local AC_BUS = globalProperty("A318/systems/ELEC/AC2_V")
+local BUS = globalProperty("A318/systems/ELEC/AC2_V")
 
 local ADIRS_aligned = globalProperty("A318/systems/ADIRS/2/aligned")
 local heading = globalPropertyf("A318/systems/ADIRS/2/inertial/heading")
@@ -326,7 +326,7 @@ end
 function draw()
     sasl.gl.setClipArea(0,0,500,500)
 
-    if get(AC_BUS) > 0 then
+    if get(BUS) > 0 then
         if get(frstNdMode) == 0 then
             if get(ADIRS_aligned) == 0 then
                 draw_ils_unaligned()

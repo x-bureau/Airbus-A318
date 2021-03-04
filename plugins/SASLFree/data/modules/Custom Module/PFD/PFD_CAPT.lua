@@ -4,7 +4,7 @@ position = {43, 647, 512, 513}
 size = {1000, 1000}
 
 --get datarefs
-local AC_BUS = globalProperty("A318/systems/ELEC/ACESS_V")
+local BUS = globalProperty("A318/systems/ELEC/ACESS_V")
 
 ADIRS_aligned = globalProperty("A318/systems/ADIRS/1/aligned")
 ADIRS_mode = globalProperty("A318/systems/ADIRS/1/mode")
@@ -77,7 +77,7 @@ function pfd()
   --
 
   -- SPEED TAPE
-  if mode == 0 then 
+  if mode == 0 and mode <= 1 then 
     sasl.gl.drawRectangle(0, 217, 115, 540, GREY)
     sasl.gl.drawWideLine(0, 757, 146, 757, 4, RED)
     sasl.gl.drawWideLine(115, 757, 115, 217, 4, RED)
@@ -284,7 +284,6 @@ function altitude_tape()
 end
 
 function update()
-  
   isAligned = get(ADIRS_aligned)
   mode = get(ADIRS_mode)
 
@@ -301,7 +300,7 @@ end
 
 function draw()
   sasl.gl.setClipArea(0, 0, 1000, 1000)
-  if get(AC_BUS) > 0 then
+  if get(BUS) > 0 then
     pfd()
   else
     -- off
