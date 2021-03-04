@@ -129,6 +129,9 @@ data_L = {
     value = "0",
     isWriteable = "true",
     maxChar = 9,
+    inputType = 1,
+    startX = 100,
+    startY = 100,
   };
   [2] = {
     value = "0",
@@ -325,56 +328,59 @@ local function drawPage()
       sasl.gl.drawText(AIRBUS_FONT, 15, 235, "[][][][][][][][][]" , 29, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
 
       -- COST INDEX (TODO : MAKE IT PARSE SINGLE NUMBERS EXAMPLE : INPUT : 6 , SHOWS : 006)-- 
-      local distance = 15
-      local x_num = 0
-      sasl.gl.drawText(AIRBUS_FONT, distance, 145, "COST INDEX" , 24, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
-      for i in ipairs(CostIndex_Data) do
-        sasl.gl.drawText(AIRBUS_FONT, distance, 120, CostIndex_Data[i] , 29, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
-        distance = distance + 15
-        if i == 4 then 
-          distance = distance + 25
-        end
-     --CostIndex is equal to the ScratchPad Data
-       if get(BUTTON_5_L) == 1 and scratchPad_Data[1] == NUMS[i] then 
-        --Single Didget input
- 
-        if scratchPad_Data[1] ~= "[]" and scratchPad_Data[2] == "[]" then 
-         CostIndex_Data[1] = "0"
-         CostIndex_Data[2] = "0"
-         CostIndex_Data[3] = scratchPad_Data[1]
-        -- elseif scratchPad_Data[1] ~= "[]" and scratchPad_Data[2] == "[]" then
-        --   CostIndex
-        elseif scratchPad_Data[1] ~= "[]" and scratchPad_Data[2] ~= "[]" and scratchPad_Data[3] == "[]" then
+        local distance = 15
+        local x_num = 0
+        sasl.gl.drawText(AIRBUS_FONT, distance, 145, "COST INDEX" , 24, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
+        for i in ipairs(CostIndex_Data) do
+          sasl.gl.drawText(AIRBUS_FONT, distance, 120, CostIndex_Data[i] , 29, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
+          distance = distance + 15
+          if i == 4 then 
+            distance = distance + 25
+          end
+      --CostIndex is equal to the ScratchPad Data
+        if get(BUTTON_5_L) == 1 and scratchPad_Data[1] == NUMS[i] then 
+          --Single Didget input
+  
+          if scratchPad_Data[1] ~= "[]" and scratchPad_Data[2] == "[]" then 
           CostIndex_Data[1] = "0"
-          CostIndex_Data[2] = scratchPad_Data[1]
-          CostIndex_Data[3] = scratchPad_Data[2]
-        elseif scratchPad_Data[1] ~= "[]" and scratchPad_Data[2] ~= "[]" and scratchPad_Data[3] ~= "[]" and scratchPad_Data[4] == "[]" then
-          CostIndex_Data[1] = scratchPad_Data[1]
-          CostIndex_Data[2] = scratchPad_Data[2]
-          CostIndex_Data[3] = scratchPad_Data[3]
+          CostIndex_Data[2] = "0"
+          CostIndex_Data[3] = scratchPad_Data[1]
+          -- elseif scratchPad_Data[1] ~= "[]" and scratchPad_Data[2] == "[]" then
+          --   CostIndex
+          elseif scratchPad_Data[1] ~= "[]" and scratchPad_Data[2] ~= "[]" and scratchPad_Data[3] == "[]" then
+            CostIndex_Data[1] = "0"
+            CostIndex_Data[2] = scratchPad_Data[1]
+            CostIndex_Data[3] = scratchPad_Data[2]
+          elseif scratchPad_Data[1] ~= "[]" and scratchPad_Data[2] ~= "[]" and scratchPad_Data[3] ~= "[]" and scratchPad_Data[4] == "[]" then
+            CostIndex_Data[1] = scratchPad_Data[1]
+            CostIndex_Data[2] = scratchPad_Data[2]
+            CostIndex_Data[3] = scratchPad_Data[3]
+          end 
+        elseif get(BUTTON_5_L) == 1 and tonumber(scratchPad_Data[1]) == nil then --If the button is pressed and scratchpad_data doesn't equal someting in nums
+          THROW_INVALID() 
         end 
-      elseif get(BUTTON_5_L) == 1 and tonumber(scratchPad_Data[1]) == nil then --If the button is pressed and scratchpad_data doesn't equal someting in nums
-        THROW_INVALID() 
-       end 
-      end
+        end
       -- 
       -- RIGHT SIDE 
 
       -- FROM TO -- 
       sasl.gl.drawText(AIRBUS_FONT, 325, 380, "FROM/TO", 24, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
       local x = 325 --We add the base X - Value so we space out the input fields.
-      for i in ipairs(FromTo_Data) do   
+      for i in ipairs(FromTo_Data) do  
+
         sasl.gl.drawText(AIRBUS_FONT, x, 350, FromTo_Data[i], 29, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
         x = x + 15
         if i == 4 then 
           x = x + 25
         end
-        if get(BUTTON_1_R) == 1 and FromTo_Data[1] ~= "[]" and scratchPad_Data[1] ~= "[]" and scratchPad_Data[5] == "/" then -- actually can execute code for flight planning in here
+        if get(BUTTON_1_R) == 1 and tonumber(scratchPad_Data[i]) ~= nil then 
+          THROW_INVALID() -- lemme try other things first 
+            
+        elseif get(BUTTON_1_R) == 1 and FromTo_Data[1] ~= "[]" and scratchPad_Data[1] ~= "[]" and scratchPad_Data[5] == "/" and tonumber(scratchPad_Data[i]) == nil then -- actually can execute code for flight planning in here
           CLEAR_SCRATCHPAD()
           MCDU_CURRENT_PAGE = 100
         end
-      end
-
+        end
       -- 
       sasl.gl.drawText(AIRBUS_FONT, 390, 350, "/", 29, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE) --Draw the slash separately from the dataset
       sasl.gl.drawText(AIRBUS_FONT, 423, 320, "INIT", 24, false, false, TEXT_ALIGN_LEFT, MCDU_ORANGE)
@@ -429,7 +435,6 @@ local function drawPage()
     end  
   end
   
---You realize that's gonna last for like a nanosecond? If you're at like 10fps that's gonna be like 1/2 a second
 function THROW_INVALID()
   scratchPad_Data[1] = "I"
   scratchPad_Data[2] = "N"
@@ -476,17 +481,19 @@ function Misc()
   CLEAR_ALL()
   -- Add text to FROM/TO
   if get(MCDU_CURRENT_PAGE) == 2 and get(BUTTON_1_R) == 1 then 
-    if scratchPad_Data[5] ~= "/" or scratchPad_Data[1] == "/" or scratchPad_Data[2] == "/" or scratchPad_Data[3] == "/" or scratchPad_Data[4] == "/" or scratchPad_Data[6] == "/" or scratchPad_Data[7] == "/" or scratchPad_Data[8] == "/" or scratchPad_Data[9] == "/" or  scratchPad_Data[1] == "[]" or scratchPad_Data[2] == "[]" or scratchPad_Data[3] == "[]" or scratchPad_Data[4] == "[]" or scratchPad_Data[5] == "[]" or scratchPad_Data[6] == "[]" or scratchPad_Data[7] == "[]" or scratchPad_Data[8] == "[]" or scratchPad_Data[9] == "[]" then 
-        THROW_INVALID()
-    else --What are you trying to do here? also, we need to throw an error if it's greater than macChar or we can just leave it as is where it takes the first 8 letters
-      FromTo_Data[1] =  scratchPad_Data[1]
-      FromTo_Data[2] =  scratchPad_Data[2]
-      FromTo_Data[3] =  scratchPad_Data[3]
-      FromTo_Data[4] =  scratchPad_Data[4]
-      FromTo_Data[5] =  scratchPad_Data[6]
-      FromTo_Data[6] =  scratchPad_Data[7]
-      FromTo_Data[7] =  scratchPad_Data[8]
-      FromTo_Data[8] =  scratchPad_Data[9]
+    for i in ipairs(scratchPad_Data) do
+      if tonumber(scratchPad_Data[i]) ~= nil or scratchPad_Data[5] ~= "/" or scratchPad_Data[1] == "/" or scratchPad_Data[2] == "/" or scratchPad_Data[3] == "/" or scratchPad_Data[4] == "/" or scratchPad_Data[6] == "/" or scratchPad_Data[7] == "/" or scratchPad_Data[8] == "/" or scratchPad_Data[9] == "/" or  scratchPad_Data[1] == "[]" or scratchPad_Data[2] == "[]" or scratchPad_Data[3] == "[]" or scratchPad_Data[4] == "[]" or scratchPad_Data[5] == "[]" or scratchPad_Data[6] == "[]" or scratchPad_Data[7] == "[]" or scratchPad_Data[8] == "[]" or scratchPad_Data[9] == "[]" then 
+          THROW_INVALID()
+      else 
+        FromTo_Data[1] =  scratchPad_Data[1]
+        FromTo_Data[2] =  scratchPad_Data[2]
+        FromTo_Data[3] =  scratchPad_Data[3]
+        FromTo_Data[4] =  scratchPad_Data[4]
+        FromTo_Data[5] =  scratchPad_Data[6]
+        FromTo_Data[6] =  scratchPad_Data[7]
+        FromTo_Data[7] =  scratchPad_Data[8]
+        FromTo_Data[8] =  scratchPad_Data[9]
+      end
     end
   end 
 end
