@@ -18,7 +18,10 @@ components = {
   elec {};
   hydraulics {};
   ADIRS {};
-  MCDU {};
+  MCDU {
+    fbo = true ,
+    fpsLimit = 29
+  };
   PFD_CAPT {
     fbo = true ,
     fpsLimit = 29
@@ -35,10 +38,15 @@ components = {
     fbo = true ,
     fpsLimit = 29
   };
-
   -- ATSAW {};
-  ecam {};
-  lower_ecam {};
+  ecam {
+    fbo = true ,
+    fpsLimit = 29
+  };
+  lower_ecam {
+    fbo = true ,
+    fpsLimit = 29
+  };
   menu {};
 }
 
