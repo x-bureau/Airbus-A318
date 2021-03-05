@@ -56,6 +56,10 @@ function handleFuelLoadKey(char)
     end
 end
 
+function test()
+    print("Hello, world!")
+end
+
 -- SECONDARY DRAW FUNCTIONS
 
 function drawFuelAndLoad()

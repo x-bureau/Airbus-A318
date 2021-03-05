@@ -1,9 +1,0 @@
-{
-    "Lua.diagnostics.globals": [
-        "setWidgetsInactive"
-    ],
-    "Lua.diagnostics.disable": [
-        "undefined-field",
-        "lowercase-global"
-    ]
-}

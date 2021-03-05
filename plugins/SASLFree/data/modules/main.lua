@@ -2,7 +2,6 @@ sasl.options.setAircraftPanelRendering(true)
 sasl.options.set3DRendering(true)
 sasl.options.setInteractivity(true)
 addSearchPath(moduleDirectory.."/images/")
---addSearchPath(moduleDirectory.."/efb/pages/")
 
 size = {2048, 2048}
 

@@ -100,19 +100,3 @@ function get_vsi()
     vs["blink"] = blink
     return vs
 end
-
-
--- EFB Global Functions
-
-function getMETAR(ICAO)
-    local path = getXPlanePath()
-    local file = io.open(path.."METAR.rwx", "r+")
-    local METAR = ""
-    for line in file:lines() do
-        if string.match(line, ICAO) then
-            METAR = line
-            break
-        end
-    end
-    return METAR
-end
