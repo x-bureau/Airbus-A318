@@ -48,6 +48,7 @@ components = {
     fpsLimit = 29
   };
   menu {};
+  efb{};
 }
 
 function onModuleDone()
