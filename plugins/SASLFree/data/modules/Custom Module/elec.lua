@@ -388,11 +388,11 @@ function update()
             set(dc_bat_bus.voltage, get(bat_2.voltage))
             set(dc_bat_bus.amps, get(bat_2.amps))
         end
-    elseif get(contacts.DCT1) == 1 then
+    elseif get(contacts.DCT1) == 1 and get(contacts.TR1) == 1 then
         -- powered by DC BUS 1
         set(dc_bat_bus.voltage, get(dc_bus_1.voltage))
         set(dc_bat_bus.amps, get(dc_bus_1.amps))
-    elseif get(contacts.DCT2) == 1 then
+    elseif get(contacts.DCT2) == 1 and get(contacts.TR2) == 1 then
         -- powered by DC BUS 2
         set(dc_bat_bus.voltage, get(dc_bus_2.voltage))
         set(dc_bat_bus.amps, get(dc_bus_2.amps))
@@ -405,15 +405,25 @@ function update()
     if get(dc_bus_1.voltage) > 0 and get(contacts.TR1) == 1 then
         set(contacts.DCT1, 1)
         set(contacts.DCT2, 0)
-    else
-        set(contacts.DCT1, 0)
-    end
-        
-    if get(dc_bus_2.voltage) > 0 and get(contacts.TR2) == 1 then
+    elseif get(dc_bus_1.voltage) > 0 and get(contacts.TR1) == 0 then
+        set(contacts.DCT1, 1)
+        set(contacts.DCT2, 1)
+    elseif get(dc_bus_2.voltage) > 0 and get(contacts.TR2) == 1 then
         set(contacts.DCT1, 0)
         set(contacts.DCT2, 1)
+    elseif get(dc_bus_2.voltage) > 0 and get(contacts.TR2) == 0 then
+        set(contacts.DCT1, 1)
+        set(contacts.DCT2, 1)
     else
+        set(contacts.DCT1, 0)
         set(contacts.DCT2, 0)
+    end
+
+    -- DC ESS BUS
+    if get(dc_bat_bus.voltage) > 0 then
+        set(contacts.DCE, 1)
+    else
+        set(contacts.DCE, 0)
     end
 end
 
