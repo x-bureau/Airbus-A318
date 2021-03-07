@@ -20,17 +20,20 @@ activePage = globalPropertyf("A318/efb/config/activePage")
 
 PAGE_DRAW_CALLS = {
     drawFlightSummary,
-    drawFuelLoadPage
+    drawFuelLoadPage,
+    drawPerfCalc
 }
 
 PAGE_HANDLE_CLICK = {
     handle_flight_summary_click,
-    handleFuelLoadClick
+    handleFuelLoadClick,
+    handlePerfCalcClick
 }
 
 PAGE_HANDLE_KEY = {
     handle_flight_summary_key,
-    handleFuelLoadKey
+    handleFuelLoadKey,
+    handlePerfCalcKey
 }
 
 SYSTEM_COLORS = {
@@ -58,12 +61,16 @@ SYSTEM_ICONS = {
 function onMouseDown(component, x, y, button, parentX, parentY)
     if button == MB_LEFT then
         checkMenuClick(x, y)
-        PAGE_HANDLE_CLICK[get(activePage)](x, y)
+        if get(activePage) ~= 4 then
+            PAGE_HANDLE_CLICK[get(activePage)](x, y)
+        end
     end
 end
 
 function onKeyDown ( component , char , key , shDown , ctrlDown , altOptDown )
-    PAGE_HANDLE_KEY[get(activePage)](char)
+    if get(activePage) ~= 4 then
+        PAGE_HANDLE_KEY[get(activePage)](char)
+    end
     return true
 end
 
@@ -87,5 +94,10 @@ end
 function draw()
     sasl.gl.drawRectangle(0, 0, WIDTH, HEIGHT, SYSTEM_COLORS.BG_BLUE)
     drawMenuBar()
-    PAGE_DRAW_CALLS[get(activePage)]()
+    if get(activePage) ~= 4 then
+        PAGE_DRAW_CALLS[get(activePage)]()
+    else
+        local bgColor = {64/255, 64/255, 64/255, 1.0}
+        sasl.gl.drawRectangle(0, 0, WIDTH, HEIGHT - 71, bgColor)
+    end
 end
