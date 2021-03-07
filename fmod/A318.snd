@@ -2,109 +2,232 @@ A
 1000
 ACF_SOUNDS
 
+######################################################################################
+#     F M O D   S o u n d P a c k                                                    #
+#                                                                                    #
+#     A i r b u s  A 3 1 8                                                           #
+#                                                                                    #
+#     V e r s i o n : v0.1b                                                          #
+#                                                                                    #
+#     B y :  M a t t 7 2 6                                                           #
+#                                                                                    #
+#     For X-Bureau A318                                                              #
+#                                                                                    #
+#     E M A I L : mfahrenheit135@gmail.com                                           #
+#                                                                                    #
+#     Y O U T U B E : https://youtube.com/c/Matt726                                  #
+######################################################################################
+
+REQUIRES_BANK Cockpit.bank
+REQUIRES_BANK EngineCFM.bank
+REQUIRES_BANK Master Bank.bank
+
 DISABLE_LEGACY_ALERT_SOUNDS
+
+###########################
+#SNAPSHOTS
+###########################
+
+BEGIN_SOUND_ATTACHMENT
+	SNAPSHOT_NAME /in_mute
+	EVENT_ALWAYS 
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	SNAPSHOT_NAME /init
+	EVENT_START_COND sim/time/total_flight_time_sec > 0
+	EVENT_END_COND sim/time/total_flight_time_sec > 5
+END_SOUND_ATTACHMENT
 
 #########################
 #ENGINE
 #########################
+
 BEGIN_SOUND_ATTACHMENT
-	EVENT_NAME /engine/engineIn
-	VEH_PART engine 0
-	PARAM_DREF_IDX 0
+	EVENT_NAME /Engines/CFM56/engine1
+	VEH_XYZ -5.5 -1.2 -5.5
 	EVENT_ALLOWED_FOR_AI
-	EVENT_START_COND sim/cockpit2/engine/indicators/N1_percent[0] > 1
-	# EVENT_END_COND sim/cockpit2/engine/indicators/N1_percent[0] < 1
+	EVENT_START_COND sim/cockpit2/engine/indicators/N1_percent[0] > 0
+	EVENT_END_COND sim/cockpit2/engine/indicators/N1_percent[0] < 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-	EVENT_NAME /engine/engineIn
-	VEH_PART engine 1
-	PARAM_DREF_IDX 1
+	EVENT_NAME /Engines/CFM56/engine2
+	VEH_XYZ 5.5 -1.2 -5.5
 	EVENT_ALLOWED_FOR_AI
-	EVENT_START_COND sim/cockpit2/engine/indicators/N1_percent[1] > 1
-	# EVENT_END_COND sim/cockpit2/engine/indicators/N1_percent[1] < 1
+	EVENT_START_COND sim/cockpit2/engine/indicators/N1_percent[1] > 0
+	EVENT_END_COND sim/cockpit2/engine/indicators/N1_percent[1] < 0
 END_SOUND_ATTACHMENT
 
-##########################
-#FLAPS
-##########################
-BEGIN_SOUND_ATTACHMENT
-	EVENT_NAME /flaps/flapsIn
-	VEH_XYZ 0 49.5 -1
-	PARAM_DREF_IDX 0
-	EVENT_ALLOWED_FOR_AI
-	EVENT_START_COND A318/controls/flaps/position > 0
-END_SOUND_ATTACHMENT
+#######################
+#Switches
+#######################
 
 BEGIN_SOUND_ATTACHMENT
-	EVENT_NAME /flaps/flapsIn
-	VEH_XYZ 0 49.5 -1
-	PARAM_DREF_IDX 1
-	EVENT_ALLOWED_FOR_AI
-	EVENT_START_COND A318/controls/flaps/position > 10
+	EVENT_NAME /Cockpit/Switches/button1
+	VEH_XYZ 0 2.2 -12.5
+	EVENT_START_COND A318/systems/ELEC/bat1/pb == 1
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-	EVENT_NAME /flaps/flapsIn
-	VEH_XYZ 0 49.5 -1
-	PARAM_DREF_IDX 2
-	EVENT_ALLOWED_FOR_AI
-	EVENT_START_COND A318/controls/flaps/position > 15
+	EVENT_NAME /Cockpit/Switches/button2
+	VEH_XYZ 0 2.2 -12.5
+	EVENT_START_COND A318/systems/ELEC/bat1/pb == 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-	EVENT_NAME /flaps/flapsIn
-	VEH_XYZ 0 49.5 -1
-	PARAM_DREF_IDX 3
-	EVENT_ALLOWED_FOR_AI
-	EVENT_START_COND A318/controls/flaps/position > 20
+	EVENT_NAME /Cockpit/Switches/button1
+	VEH_XYZ 0 2.2 -12.5
+	EVENT_START_COND A318/systems/ELEC/bat2/pb == 1
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-	EVENT_NAME /flaps/flapsOut
-	VEH_XYZ 0 49.5 -1
-	PARAM_DREF_IDX 0
-	EVENT_ALLOWED_FOR_AI
-	EVENT_START_COND A318/controls/flaps/position < 40
+	EVENT_NAME /Cockpit/Switches/button2
+	VEH_XYZ 0 2.2 -12.5
+	EVENT_START_COND A318/systems/ELEC/bat2/pb == 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-	EVENT_NAME /flaps/flapsOut
-	VEH_XYZ 0 49.5 -1
-	PARAM_DREF_IDX 1
-	EVENT_ALLOWED_FOR_AI
-	EVENT_START_COND A318/controls/flaps/position < 20
+	EVENT_NAME /Cockpit/Switches/button1
+	VEH_XYZ 0 2.2 -12.5
+	EVENT_START_COND A318/systems/ELEC/contacts/EPC == 1
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-	EVENT_NAME /flaps/flapsOut
-	VEH_XYZ 0 49.5 -1
-	PARAM_DREF_IDX 2
-	EVENT_ALLOWED_FOR_AI
-	EVENT_START_COND A318/controls/flaps/position < 15
+	EVENT_NAME /Cockpit/Switches/button2
+	VEH_XYZ 0 2.2 -12.5
+	EVENT_START_COND A318/systems/ELEC/contacts/EPC == 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-	EVENT_NAME /flaps/flapsOut
-	VEH_XYZ 0 49.5 -1
-	PARAM_DREF_IDX 3
-	EVENT_ALLOWED_FOR_AI
-	EVENT_START_COND A318/controls/flaps/position < 10
-END_SOUND_ATTACHMENT
-
-##########################
-#LANDING GEAR
-##########################
-BEGIN_SOUND_ATTACHMENT
-	EVENT_NAME /gear/GearDeploy
-	VEH_XYZ 0 16 -4.5
-	EVENT_START_COND sim/cockpit/switches/gear_handle_status == 1
+	EVENT_NAME /Cockpit/Switches/button1
+	VEH_XYZ 0 2.2 -12.5
+	EVENT_START_COND A318/systems/ELEC/busTieSwtch == 1
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-	EVENT_NAME /gear/GearRetract
-	VEH_XYZ 0 16 -4.5
-	EVENT_START_COND sim/cockpit/switches/gear_handle_status == 0
+	EVENT_NAME /Cockpit/Switches/button2
+	VEH_XYZ 0 2.2 -12.5
+	EVENT_START_COND A318/systems/ELEC/busTieSwtch == 0
 END_SOUND_ATTACHMENT
 
-##########################
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/button1
+	VEH_XYZ 0 2.2 -12.5
+	EVENT_START_COND A318/systems/ELEC/ESSFeedSwtch == 1
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/button2
+	VEH_XYZ 0 2.2 -12.5
+	EVENT_START_COND A318/systems/ELEC/ESSFeedSwtch == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/button1
+	VEH_XYZ 0 2.2 -12.5
+	EVENT_START_COND A318/systems/ELEC/contacts/GLC1 == 1
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/button2
+	VEH_XYZ 0 2.2 -12.5
+	EVENT_START_COND A318/systems/ELEC/contacts/GLC1 == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/button1
+	VEH_XYZ 0 2.2 -12.5
+	EVENT_START_COND A318/systems/ELEC/contacts/GLC2 == 1
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/button2
+	VEH_XYZ 0 2.2 -12.5
+	EVENT_START_COND A318/systems/ELEC/contacts/GLC2 == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/button1
+	VEH_XYZ 0 2.2 -12.5
+	EVENT_START_COND A318/systems/ELEC/contacts/AGC == 1
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/button2
+	VEH_XYZ 0 2.2 -12.5
+	EVENT_START_COND A318/systems/ELEC/contacts/AGC == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/button1
+	VEH_XYZ 0 2.2 -12.5
+	EVENT_START_COND A318/systems/hyd/green/pumps/engine/pb == 1
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/button2
+	VEH_XYZ 0 2.2 -12.5
+	EVENT_START_COND A318/systems/hyd/green/pumps/engine/pb == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/button1
+	VEH_XYZ 0 2.2 -12.5
+	EVENT_START_COND A318/systems/hyd/yellow/pumps/electric/pb == 1
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/button2
+	VEH_XYZ 0 2.2 -12.5
+	EVENT_START_COND A318/systems/hyd/yellow/pumps/electric/pb == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/button1
+	VEH_XYZ 0 2.2 -12.5
+	EVENT_START_COND A318/systems/hyd/yellow/pumps/engine/pb == 1
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/button2
+	VEH_XYZ 0 2.2 -12.5
+	EVENT_START_COND A318/systems/hyd/yellow/pumps/engine/pb == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/button1
+	VEH_XYZ 0 2.2 -12.5
+	EVENT_START_COND A318/systems/hyd/yellow/pumps/electric/pb == 1
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/button2
+	VEH_XYZ 0 2.2 -12.5
+	EVENT_START_COND A318/systems/hyd/yellow/pumps/electric/pb == 0
+END_SOUND_ATTACHMENT
+
+########################
+#Avionics
+########################
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Avionics/battery_relay3
+	VEH_XYZ 0 2.4 -11.8
+	EVENT_START_COND A318/systems/ELEC/bat1/pb == 1
+	EVENT_START_COND A318/systems/ELEC/bat2/pb == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Avionics/battery_relay3
+	VEH_XYZ 0 2.4 -11.8
+	EVENT_START_COND A318/systems/ELEC/bat1/pb == 0
+	EVENT_START_COND A318/systems/ELEC/bat2/pb == 1
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Avionics/battery_relay3
+	VEH_XYZ 0 2.4 -11.8
+	EVENT_START_COND A318/systems/ELEC/bat1/pb == 0
+	EVENT_START_COND A318/systems/ELEC/bat2/pb == 0
+END_SOUND_ATTACHMENT
