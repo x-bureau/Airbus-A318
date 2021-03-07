@@ -156,7 +156,7 @@ P _gear/0/_lonE 6.0
 P _gear/0/_lonN 6.0
 P _gear/0/_lonR 100.0
 P _gear/0/_scon 31250.011718750
-P _gear/0/_stat_def 0.139737040
+P _gear/0/_stat_def 0.139737025
 P _gear/0/_steerdeg_hispeed 5.0
 P _gear/0/_steerdeg_lospeed 75.0
 P _gear/0/_strut_comp 0.899999976
@@ -190,7 +190,7 @@ P _gear/1/_lonE -6.0
 P _gear/1/_lonN -6.0
 P _gear/1/_lonR 0.0
 P _gear/1/_scon 50000.019531250
-P _gear/1/_stat_def 1.456367493
+P _gear/1/_stat_def 1.456367731
 P _gear/1/_steerdeg_hispeed 0.0
 P _gear/1/_steerdeg_lospeed 0.0
 P _gear/1/_strut_comp 0.400000006
@@ -224,7 +224,7 @@ P _gear/2/_lonE -6.0
 P _gear/2/_lonN -6.0
 P _gear/2/_lonR 0.0
 P _gear/2/_scon 50000.019531250
-P _gear/2/_stat_def 1.456367493
+P _gear/2/_stat_def 1.456367731
 P _gear/2/_steerdeg_hispeed 0.0
 P _gear/2/_steerdeg_lospeed 0.0
 P _gear/2/_strut_comp 0.400000006
@@ -36535,7 +36535,7 @@ P acf/_new_plot_XP3D_cock/0 0
 P acf/_new_plot_XP3D_cock/1 1
 P acf/_new_plot_XP3D_cock/2 0
 P acf/_new_plot_XP3D_cock/3 0
-P acf/_new_plot_XP3D_cock/4 0
+P acf/_new_plot_XP3D_cock/4 1
 P acf/_new_plot_XP3D_cock/count 5
 P acf/_new_plot_outer_acf/0 0
 P acf/_new_plot_outer_acf/1 1
@@ -36886,21 +36886,21 @@ P acf/_spoi2_with_grnd_pitch 0.0
 P acf/_spoi2_with_grnd_sbrk 0.0
 P acf/_spool_time_compressor_jet 10.0
 P acf/_spool_time_compressor_prop 10.0
-P acf/_spot1_3d_rgb/0 0.0
-P acf/_spot1_3d_rgb/1 0.0
-P acf/_spot1_3d_rgb/2 0.0
+P acf/_spot1_3d_rgb/0 1.0
+P acf/_spot1_3d_rgb/1 1.0
+P acf/_spot1_3d_rgb/2 0.800000012
 P acf/_spot1_3d_rgb/count 3
-P acf/_spot1_3d_xyz/0 0.0
-P acf/_spot1_3d_xyz/1 0.0
-P acf/_spot1_3d_xyz/2 0.0
+P acf/_spot1_3d_xyz/0 2.0
+P acf/_spot1_3d_xyz/1 2.299999952
+P acf/_spot1_3d_xyz/2 6.300000191
 P acf/_spot1_3d_xyz/count 3
-P acf/_spot2_3d_rgb/0 0.0
-P acf/_spot2_3d_rgb/1 0.0
-P acf/_spot2_3d_rgb/2 0.0
+P acf/_spot2_3d_rgb/0 1.0
+P acf/_spot2_3d_rgb/1 1.0
+P acf/_spot2_3d_rgb/2 0.800000012
 P acf/_spot2_3d_rgb/count 3
-P acf/_spot2_3d_xyz/0 0.0
-P acf/_spot2_3d_xyz/1 0.0
-P acf/_spot2_3d_xyz/2 0.0
+P acf/_spot2_3d_xyz/0 -2.0
+P acf/_spot2_3d_xyz/1 2.299999952
+P acf/_spot2_3d_xyz/2 6.300000191
 P acf/_spot2_3d_xyz/count 3
 P acf/_spot3_3d_rgb/0 0.0
 P acf/_spot3_3d_rgb/1 0.0
@@ -36910,24 +36910,24 @@ P acf/_spot3_3d_xyz/0 0.0
 P acf/_spot3_3d_xyz/1 0.0
 P acf/_spot3_3d_xyz/2 0.0
 P acf/_spot3_3d_xyz/count 3
-P acf/_spot_angle/0 0.0
-P acf/_spot_angle/1 0.0
+P acf/_spot_angle/0 12.0
+P acf/_spot_angle/1 12.0
 P acf/_spot_angle/2 0.0
 P acf/_spot_angle/count 3
 P acf/_spot_name_3d/0 sim/cockpit2/electrical/instrument_brightness_ratio[0]
 P acf/_spot_name_3d/1 sim/cockpit2/electrical/instrument_brightness_ratio[0]
 P acf/_spot_name_3d/2 sim/cockpit2/electrical/panel_brightness_ratio[0]
 P acf/_spot_name_3d/count 3
-P acf/_spot_psi/0 0.0
-P acf/_spot_psi/1 0.0
+P acf/_spot_psi/0 180.0
+P acf/_spot_psi/1 180.0
 P acf/_spot_psi/2 0.0
 P acf/_spot_psi/count 3
-P acf/_spot_size/0 0.010000000
-P acf/_spot_size/1 0.010000000
+P acf/_spot_size/0 1.799999952
+P acf/_spot_size/1 1.799999952
 P acf/_spot_size/2 0.010000000
 P acf/_spot_size/count 3
-P acf/_spot_the/0 0.0
-P acf/_spot_the/1 0.0
+P acf/_spot_the/0 -80.0
+P acf/_spot_the/1 -80.0
 P acf/_spot_the/2 0.0
 P acf/_spot_the/count 3
 P acf/_sster_def_time 0.0
@@ -37105,6 +37105,7 @@ P acf/_vect_power_for 1.0
 P acf/_vect_rate 15.0
 P acf/_vectarmY 0.0
 P acf/_vectarmZ 0.0
+P acf/_version 0.3.0
 P acf/_vvi_but_adjusts_pitch 0
 P acf/_warn_airliner 1
 P acf/_warn_alt_app_100 0
@@ -37238,40 +37239,4 @@ PROPERTIES_END
 PANEL_2D_BEGIN
 PANEL_2D_END
 PANEL_3D_BEGIN
-EFIS_spd_disp EFIS_disp_SPD.png
-  POS 108.000000 1728.000000
-  DATAREF 
-  SIZE 5.000000
-  LIGHT_MODE MECHANICAL
-  LIGHT_RHEOSTAT 0
-  KEY_FRAME 0.000000 0.000000 1.000000
-  KEY_FRAME 1.000000 1.000000
-
-EFIS_hdg_disp EFIS_disp_HDG.png
-  POS 300.000000 1728.000000
-  DATAREF 
-  SIZE 5.000000
-  LIGHT_MODE MECHANICAL
-  LIGHT_RHEOSTAT 0
-  KEY_FRAME 0.000000 0.000000 1.000000
-  KEY_FRAME 1.000000 1.000000
-
-EFIS_alt_disp EFIS_disp_ALT.png
-  POS 116.000000 1620.000000
-  DATAREF 
-  SIZE 5.000000
-  LIGHT_MODE MECHANICAL
-  LIGHT_RHEOSTAT 0
-  KEY_FRAME 0.000000 0.000000 1.000000
-  KEY_FRAME 1.000000 1.000000
-
-EFIS_vvi_disp EFIS_disp_VVI.png
-  POS 307.000000 1621.000000
-  DATAREF 
-  SIZE 5.000000
-  LIGHT_MODE MECHANICAL
-  LIGHT_RHEOSTAT 0
-  KEY_FRAME 0.000000 0.000000 1.000000
-  KEY_FRAME 1.000000 1.000000
-
 PANEL_3D_END
