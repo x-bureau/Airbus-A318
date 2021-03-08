@@ -1,8 +1,11 @@
-{d8a4de19-5e36-46bf-8cbb-c4512f7ef4e7} event:/gear/GearRetract
-{bac6d28a-12e3-45e7-8195-1d489a2ade4d} event:/gear/GearDeploy
-{58b729ac-809c-4df7-b0d3-00e585aa5e08} event:/engine/engineIn
-{9961e64a-e614-4cd9-80b9-d506a101e301} event:/flaps/flapsIn
-{1c264ec3-57d3-43ae-9871-bf28382d8b07} event:/flaps/flapsOut
+{fb3b703f-462c-444a-a873-cc1d3cd80fce} event:/Cockpit/Switches/button1
+{f5af3e9a-8d48-456d-a518-12a2d0bf5f86} event:/Cockpit/Switches/button2
+{51b75302-3808-4ecd-bd50-fa3a68c7bbff} event:/Cockpit/Avionics/battery_relay1
+{af26b813-2c68-4c98-8046-56219f4ff30a} event:/Cockpit/Avionics/battery_relay2
+{75bbd6a9-202e-47f4-8e15-88498b532ad8} event:/Cockpit/Avionics/battery_relay3
+{2b0da504-a8d5-4f10-aaac-f6195894b944} event:/Cockpit/Avionics/bus
+{e93de871-fc48-4665-b1cb-afb347119ac0} event:/Engines/CFM56/engine1
+{72c96b51-d8ea-4aa5-b195-134f307fb8bb} event:/Engines/CFM56/engine2
 {9f08114d-36ec-44cc-b8bf-b2babda09f9e} bus:/
 {7f7c05a4-e05a-4d44-94fe-d4691147a9b7} bus:/Master
 {e3492bec-f854-4fbb-b2bc-23586269032e} bus:/Master/Copilot
@@ -13,4 +16,8 @@
 {751f5066-4651-4afb-a410-4cb9db0894c9} bus:/Master/Interior
 {d8526059-b27c-4eae-9b14-a1ee1cb3dfa1} bus:/Master/Radios
 {77575f3b-b9cd-4bff-9056-637cff744a14} bus:/Master/UI
-{917c55ca-cd3a-4b8c-b751-66ab7d3a1291} bank:/Master Bank
+{39fe18c8-9d7a-4a07-9224-21dba899b03c} snapshot:/in_mute
+{5a9d3159-8e75-4300-ad79-1ca127f6cc50} snapshot:/init
+{8d80933a-93af-4d0c-ab7d-935445c5cf74} bank:/Master Bank
+{0276c23d-c401-4ddd-a53c-a527fe681af9} bank:/Cockpit
+{d99384cd-e093-45b8-a707-f5471724efa0} bank:/EngineCFM
