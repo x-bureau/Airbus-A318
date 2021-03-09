@@ -41,6 +41,13 @@ function Textfield:addLetter(character)
     end
 end
 
+-- function Textfield:addChar(char)
+--     if char == 8 then
+--         removeLetter()
+--         elseif char == 13 then
+--     end
+-- end
+
 function Textfield:removeLetter()
     self.text = self.text:sub(1, -2)
 end

@@ -48,7 +48,16 @@ components = {
     fpsLimit = 29
   };
   menu {};
-  efb{};
+  efb{
+    cursor = {
+      x = -8 ,
+      y = -8 ,
+      width = 30 ,
+      height = 30 ,
+      shape = sasl.gl.loadImage ("efb/icons/cursor.png") ,
+      hideOSCursor = true
+      }
+  };
 }
 
 function onModuleDone()
