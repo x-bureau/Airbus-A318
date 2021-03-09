@@ -74,6 +74,11 @@ function onKeyDown ( component , char , key , shDown , ctrlDown , altOptDown )
     return true
 end
 
+-- function onMouseMove(component, x, y, button, parentX, parentY)
+--     efb_cursor.x = x
+--     efb_cursor.y = y
+-- end
+
 function drawMenuBar()
     sasl.gl.drawWideLine(0, MENU_POSITION.y, WIDTH, MENU_POSITION.y, 3, SYSTEM_COLORS.FRONT_GREEN)
     sasl.gl.drawText(SYSTEM_FONTS.ROBOTO_BOLD, 125, MENU_POSITION.y + 22, "A318 EFB", 36, false, false, TEXT_ALIGN_LEFT, SYSTEM_COLORS.FRONT_GREEN)

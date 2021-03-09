@@ -65,3 +65,7 @@ function getMETAR(icao)
     end
     return metar
 end
+
+function draw_efb_cursor(x, y)
+    sasl.gl.drawRectangle(x, y, 10, 10, SYSTEM_COLORS.FRONT_GREEN)
+end
