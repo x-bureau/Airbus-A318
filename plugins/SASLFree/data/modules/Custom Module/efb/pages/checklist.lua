@@ -5,7 +5,14 @@ local activeChecklist = 0
 local checklist_titles = {
     "PRE-START",
     "STARTUP",
-    "BEFORE TAXI"
+    "BEFORE TAXI",
+    "BEFORE TAKEOFF",
+    "CLIMB-OUT",
+    "CRUISE",
+    "APPROACH",
+    "LANDING",
+    "AFTER LANDING",
+    "SHUTDOWN"
 }
 local checklistStartX = 340
 local checklistStartY = 445
@@ -38,6 +45,9 @@ function handleChecklistClick(x, y)
         local cb = checkboxes[i]
         if isInRect({cb.x, cb.y, cb.size, cb.size}, x, y) then
             cb:click()
+            if table.getn(getChecklistPart(activeChecklist)[i]) > 2 then
+                tick(activeChecklist, i)
+            end
         end
     end
 end
@@ -68,14 +78,19 @@ local function drawActiveChecklist()
     local cX = checklistStartX
     for i = 1, table.getn(checklist), 1 do
         if cY > 40 then
-            if table.getn(checklist[i]) < 2 then
+            if table.getn(checklist[i]) < 3 then
                 --print(checklist[i][1])
                 sasl.gl.drawText(SYSTEM_FONTS.ROBOTO_REGULAR, 580, cY, checklist[i][1], 20, false, false, TEXT_ALIGN_CENTER, SYSTEM_COLORS.FRONT_GREEN)
             else
                 sasl.gl.drawText(SYSTEM_FONTS.ROBOTO_BOLD, cX, cY, checklist[i][1], 20, false, false, TEXT_ALIGN_LEFT, SYSTEM_COLORS.FRONT_GREEN)
                 sasl.gl.drawText(SYSTEM_FONTS.ROBOTO_BOLD, 852, cY, checklist[i][2], 20, false, false, TEXT_ALIGN_RIGHT, SYSTEM_COLORS.FRONT_GREEN)
                 drawDots(checklist[i][1], checklist[i][2], cX, cY)
-                local cb = Checkbox:new(cX - 28, cY - 1, 18, false)
+                local cb = nil
+                if checklist[i][3] == 0 then
+                    cb = Checkbox:new(cX - 28, cY - 1, 18, false)
+                else
+                    cb = Checkbox:new(cX - 28, cY - 1, 18, true)
+                end
                 if checkBoxLocsCalculated == false then
                     table.insert(checkboxes, cb)
                 end
@@ -89,24 +104,25 @@ end
 
 local function drawChecklistMenu()
     sasl.gl.drawText(SYSTEM_FONTS.ROBOTO_BOLD, 50, 492, "CHECKLISTS", 25, false, false, TEXT_ALIGN_LEFT, SYSTEM_COLORS.FRONT_GREEN)
-    local y = 430
+    local y = 427
+    local width = 43
     for i = 1, table.getn(checklist_titles), 1 do
         if i == activeChecklist then
-            sasl.gl.drawRectangle(40, y, 218, 50, SYSTEM_COLORS.BUTTON_SELECTED)
+            sasl.gl.drawRectangle(40, y, 218, width, SYSTEM_COLORS.BUTTON_SELECTED)
         else
-            sasl.gl.drawRectangle(40, y, 218, 50, SYSTEM_COLORS.FRONT_GREEN)
+            sasl.gl.drawRectangle(40, y, 218, width, SYSTEM_COLORS.FRONT_GREEN)
         end
         sasl.gl.drawText(SYSTEM_FONTS.ROBOTO_BOLD, 50, y + 15, checklist_titles[i], 20, false, false, TEXT_ALIGN_LEFT, SYSTEM_COLORS.BG_BLUE)
         if menuLocsCalculated == false then
-            table.insert(menuLocs, {40, y, 218, 50})
+            table.insert(menuLocs, {40, y, 218, width})
         end
-        y = y - 50
+        y = y - width
     end
     menuLocsCalculated = true
-    y = 430
+    y = 427
     for i = 1, table.getn(checklist_titles) - 1, 1 do
         sasl.gl.drawLine (65, y, 258 , y, SYSTEM_COLORS.BG_BLUE)
-        y = y - 50
+        y = y - width
     end
 end
 
