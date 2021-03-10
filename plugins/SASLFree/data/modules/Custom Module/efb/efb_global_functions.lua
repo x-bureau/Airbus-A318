@@ -23,7 +23,7 @@ function checkMenuClick(x, y)
         set(avitab_powered, 1)
         set(avitab_enabled, 1)
     elseif isInRect({762, buttonY, buttonHeight, buttonHeight}, x, y) then
-        set(activePage, 1)
+        set(activePage, 5)
         set(avitab_enabled, 0)
     elseif isInRect({832, buttonY, buttonHeight, buttonHeight}, x, y) then
         set(activePage, 1)
@@ -37,6 +37,18 @@ function drawCheckBox(box)
         local inset = 3
         local newSize = box.size - (2 * inset)
         sasl.gl.drawRectangle(box.x + inset, box.y + inset, newSize - 1, newSize - 1, SYSTEM_COLORS.FRONT_GREEN)
+    end
+end
+
+function drawCheckBoxes(boxes)
+    for i = 1, table.getn(boxes), 1 do
+        local box = boxes[i]
+        sasl.gl.drawFrame(box.x, box.y, box.size, box.size, SYSTEM_COLORS.FRONT_GREEN)
+        if box.isEnabled == true then
+            local inset = 3
+            local newSize = box.size - (2 * inset)
+            sasl.gl.drawRectangle(box.x + inset, box.y + inset, newSize - 1, newSize - 1, SYSTEM_COLORS.FRONT_GREEN)
+        end
     end
 end
 

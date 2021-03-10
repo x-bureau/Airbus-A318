@@ -1,6 +1,7 @@
 include("efb/pages/fuel_and_load.lua")
 include("efb/pages/perf_calc.lua")
 include("efb/pages/flight_summary.lua")
+include("efb/pages/checklist.lua")
 include("efb/efb_global_functions.lua")
 
 WIDTH = 902
@@ -21,19 +22,25 @@ activePage = globalPropertyf("A318/efb/config/activePage")
 PAGE_DRAW_CALLS = {
     drawFlightSummary,
     drawFuelLoadPage,
-    drawPerfCalc
+    drawPerfCalc,
+    drawFlightSummary,
+    drawChecklist
 }
 
 PAGE_HANDLE_CLICK = {
     handle_flight_summary_click,
     handleFuelLoadClick,
-    handlePerfCalcClick
+    handlePerfCalcClick,
+    handle_flight_summary_click,
+    handleChecklistClick,
 }
 
 PAGE_HANDLE_KEY = {
     handle_flight_summary_key,
     handleFuelLoadKey,
-    handlePerfCalcKey
+    handlePerfCalcKey,
+    handle_flight_summary_key,
+    handleChecklistKey
 }
 
 SYSTEM_COLORS = {

@@ -17,7 +17,7 @@ local pre_start_checklist = {
     {"FUEL QUANTITY", "CHECK"},
     {"FASTEN SEATBELTS", "ON"},
     {"NO SMOKING SIGNS", "ON"},
-    {"SEP   Check Weather(ATIS, Flight Services)"},
+    {"Check Weather(ATIS, Flight Services)"},
     {"TRANSPONDER", "SET, STANDBY"},
     {"BEACON LIGHTS", "ON"},
     {"FMC", "SETUP", "CHECK"},
@@ -29,7 +29,7 @@ local startup_checklist = {
     {"APU", "START"},
     {"APU BLEED", "RUN (WHEN AVAIL)"},
     {"APU GEN", "ON"},
-    {"SEP   Request Pushback - Initiate Pushback"},
+    {"Request Pushback - Initiate Pushback"},
     {"THRUST LEVERS", "IDLE"},
     {"ENGINE AREA", "CLEAR"},
     {"FUEL PUMPS", "ON"},
@@ -56,3 +56,20 @@ local before_taxi_checklist = {
     {"TRIM", "SET"},
     {"FLIGHT CONTROLS", "CHECK"}
 }
+
+
+local full_checklist = {
+    pre_start_checklist,
+    startup_checklist,
+    before_taxi_checklist
+}
+
+function getFullChecklist()
+    return full_checklist
+end
+
+function getChecklistPart(part)
+    if part <= table.getn(full_checklist) then
+        return full_checklist[part]
+    end
+end

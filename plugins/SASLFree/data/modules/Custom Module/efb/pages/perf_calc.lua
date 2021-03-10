@@ -29,7 +29,6 @@ function handlePerfCalcKey(char)
             activeField:removeLetter()
         elseif char == 13 then
             -- TODO: add text wrapping for long METAR string
-            -- TODO: add a loading feature when pulling metar data
             if fields[1].isActive then
                 sasl.startTimer(1)
                 loadingInProgress = true
