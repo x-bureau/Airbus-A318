@@ -34,11 +34,11 @@ end
 
 local function draw_avail(side)
     if side == 2 then 
-        sasl.gl.drawFrame ( 330, 419, 50, 17, ECAM_WHITE)
-        sasl.gl.drawText(AirbusFont,  355.5, 420, "AVAIL", 18, true, false, TEXT_ALIGN_CENTER, ECAM_GREEN)
+        sasl.gl.drawFrame ( 360, 419, 50, 17, ECAM_WHITE)
+        sasl.gl.drawText(AirbusFont, 385.5, 420, "AVAIL", 18, false, false, TEXT_ALIGN_CENTER, ECAM_GREEN)
     elseif side == 1 then 
         sasl.gl.drawFrame ( 160, 419, 50, 17, ECAM_WHITE)
-        sasl.gl.drawText(AirbusFont,  185, 420, "AVAIL", 18, true, false, TEXT_ALIGN_CENTER, ECAM_GREEN)
+        sasl.gl.drawText(AirbusFont,  185, 420, "AVAIL", 18, false, false, TEXT_ALIGN_CENTER, ECAM_GREEN)
     end
 end
 
@@ -53,15 +53,33 @@ local function draw_ENG_PAGE()
     sasl.gl.drawText(AirbusFont,  270, 320, "N2", 20, true, false, TEXT_ALIGN_CENTER, ECAM_WHITE)
     sasl.gl.drawText(AirbusFont,  270, 300, "%", 20, true, false, TEXT_ALIGN_CENTER, ECAM_BLUE)
 
-    --  N1
+    -- N1 arcs
+    sasl.gl.drawArc(175, 420, 48 , 50, 40, 155, ECAM_WHITE)
+    sasl.gl.drawArc(375, 420, 48 , 50, 40, 155, ECAM_WHITE)
+    sasl.gl.drawArc(175, 420, 48 , 50, 15, 30, ECAM_RED)
+    sasl.gl.drawArc(375, 420, 48 , 50, 15, 30, ECAM_RED)
+    sasl.gl.drawWidePolyLine({417,433, 425, 433}, 2, ECAM_RED)
+    sasl.gl.drawWidePolyLine({217,433, 225, 433}, 2, ECAM_RED)
+    sasl.gl.drawWidePolyLine({203,448, 215, 460}, 2, ECAM_ORANGE)
+    sasl.gl.drawWidePolyLine({403,448, 415, 460}, 2, ECAM_ORANGE)
+
+
+    -- Boxes and shit 
     sasl.gl.drawFrame ( 160, 400, 50, 17, ECAM_WHITE)
     sasl.gl.drawText(AirbusFont,  190, 402, round(get(npercent, 1), 1), 18, false, false, TEXT_ALIGN_CENTER, ECAM_GREEN)
-    sasl.gl.drawFrame ( 330, 400, 50, 17, ECAM_WHITE)
-    sasl.gl.drawText(AirbusFont,  360, 402, round(get(npercent, 1), 1), 18, false, false, TEXT_ALIGN_CENTER, ECAM_GREEN)
-    sasl.gl.drawCircle(110, 400, 3, false, ECAM_BLUE)
-    -- EGT 
-    sasl.gl.drawFrame ( 350, 350, 50, 17, ECAM_WHITE)
-    sasl.gl.drawText(AirbusFont,  375, 352, math.floor(get(EGT, 1)), 18, false, false, TEXT_ALIGN_CENTER, ECAM_GREEN)
+    sasl.gl.drawFrame ( 360, 400, 50, 17, ECAM_WHITE)
+    sasl.gl.drawText(AirbusFont,  390, 402, round(get(npercent, 1), 1), 18, false, false, TEXT_ALIGN_CENTER, ECAM_GREEN)
+
+  
+    -- little circle things (math needs to be implemented to orbit the arc)
+    sasl.gl.drawCircle(115, 410, 3, false, ECAM_BLUE)
+    sasl.gl.drawCircle(315, 410, 3, false, ECAM_BLUE)
+    -- EGT ARCS 
+    -- sasl.gl.drawArc(165, 344, 48 , 50, 15, 155, ECAM_WHITE)
+    -- sasl.gl.drawArc(405, 344, 48 , 50, 15, 155, ECAM_WHITE)
+    -- EGT
+    sasl.gl.drawFrame ( 380, 350, 50, 17, ECAM_WHITE)
+    sasl.gl.drawText(AirbusFont,  405, 352, math.floor(get(EGT, 1)), 18, false, false, TEXT_ALIGN_CENTER, ECAM_GREEN)
     sasl.gl.drawFrame ( 140, 350, 50, 17, ECAM_WHITE)
     sasl.gl.drawText(AirbusFont,  165, 352, math.floor(get(EGT, 2)), 18, false, false, TEXT_ALIGN_CENTER, ECAM_GREEN)
 
@@ -83,24 +101,32 @@ function draw_message(message, line, type)
         sasl.gl.drawText(AirbusFont, 28, 175, message, 21, true, false, TEXT_ALIGN_LEFT, ECAM_ORANGE)
     elseif line == 1 and type == 3 then 
         sasl.gl.drawText(AirbusFont, 28, 175, message, 21, true, false, TEXT_ALIGN_LEFT, ECAM_RED)
+    elseif line == 1 and type == 4 then 
+        sasl.gl.drawText(AirbusFont, 28, 175, message, 21, true, false, TEXT_ALIGN_LEFT, ECAM_BLUE)
     elseif line == 2 and type == 1 then 
         sasl.gl.drawText(AirbusFont, 28, 155, message, 21, true, false, TEXT_ALIGN_LEFT, ECAM_GREEN )
     elseif line == 2 and type == 2 then 
         sasl.gl.drawText(AirbusFont, 28, 155, message, 21, true, false, TEXT_ALIGN_LEFT, ECAM_ORANGE )
     elseif line == 2 and type == 3 then 
         sasl.gl.drawText(AirbusFont, 28, 155, message, 21, true, false, TEXT_ALIGN_LEFT, ECAM_RED )
+    elseif line == 2 and type == 4 then 
+        sasl.gl.drawText(AirbusFont, 28, 155, message, 21, true, false, TEXT_ALIGN_LEFT, ECAM_BLUE )
     elseif line == 3 and type == 1 then 
         sasl.gl.drawText(AirbusFont, 28, 135, message, 21, true, false, TEXT_ALIGN_LEFT, ECAM_GREEN )
     elseif line == 3 and type == 2 then 
         sasl.gl.drawText(AirbusFont, 28, 135, message, 21, true, false, TEXT_ALIGN_LEFT, ECAM_ORANGE )
     elseif line == 3 and type == 3 then 
         sasl.gl.drawText(AirbusFont, 28, 135, message, 21, true, false, TEXT_ALIGN_LEFT, ECAM_RED )
+    elseif line == 3 and type == 4 then 
+        sasl.gl.drawText(AirbusFont, 28, 135, message, 21, true, false, TEXT_ALIGN_LEFT, ECAM_BLUE )
     elseif line == 4 and type == 1 then 
         sasl.gl.drawText(AirbusFont, 28, 115, message, 21, true, false, TEXT_ALIGN_LEFT, ECAM_GREEN )
     elseif line == 4 and type == 2 then 
         sasl.gl.drawText(AirbusFont, 28, 115, message, 21, true, false, TEXT_ALIGN_LEFT, ECAM_ORANGE )
     elseif line == 4 and type == 3 then 
         sasl.gl.drawText(AirbusFont, 28, 115, message, 21, true, false, TEXT_ALIGN_LEFT, ECAM_RED )
+    elseif line == 4 and type == 4 then 
+        sasl.gl.drawText(AirbusFont, 28, 115, message, 21, true, false, TEXT_ALIGN_LEFT, ECAM_BLUE )
     end
     
 end
@@ -114,6 +140,8 @@ function draw()
         draw_ENG_PAGE()
         draw_message("SEATBELTS", 1, 1)
         draw_message("NO SMOKING", 2, 1)
+        draw_message("X-BUREAU IS SWAG", 3, 4)
+        --draw_avail(2)
     else
         -- off
     end
