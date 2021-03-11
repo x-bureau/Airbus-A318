@@ -15,10 +15,10 @@ local fields = {pax_field, cargo_field, block_fuel_field}
 local widgets_set = false
 local activeField = nil
 
-local gpuCheckBox = Checkbox:new(PAGE_WIDTH - 505, 416, 25, false)
-local fuelTruckCheckBox = Checkbox:new(PAGE_WIDTH - 505, 366, 25, false)
-local chocksCheckBox = Checkbox:new(PAGE_WIDTH - 505, 316, 25, false)
-local paxBusCheckBox = Checkbox:new(PAGE_WIDTH - 505, 266, 25, false)
+local gpuCheckBox = Checkbox:new(PAGE_WIDTH - 505, 416, 25, false, false)
+local fuelTruckCheckBox = Checkbox:new(PAGE_WIDTH - 505, 366, 25, false, false)
+local chocksCheckBox = Checkbox:new(PAGE_WIDTH - 505, 316, 25, false, false)
+local paxBusCheckBox = Checkbox:new(PAGE_WIDTH - 505, 266, 25, false, false)
 local checkboxes = {gpuCheckBox, fuelTruckCheckBox, chocksCheckBox, paxBusCheckBox}
 
 -- CLICK HANDLING

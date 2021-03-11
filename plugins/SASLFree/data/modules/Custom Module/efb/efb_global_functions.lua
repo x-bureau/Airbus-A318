@@ -32,23 +32,26 @@ function checkMenuClick(x, y)
 end
 
 function drawCheckBox(box)
-    sasl.gl.drawFrame(box.x, box.y, box.size, box.size, SYSTEM_COLORS.FRONT_GREEN)
-    if box.isEnabled == true then
-        local inset = 3
-        local newSize = box.size - (2 * inset)
-        sasl.gl.drawRectangle(box.x + inset, box.y + inset, newSize - 1, newSize - 1, SYSTEM_COLORS.FRONT_GREEN)
-    end
-end
-
-function drawCheckBoxes(boxes)
-    for i = 1, table.getn(boxes), 1 do
-        local box = boxes[i]
+    if box.isHidden == false then
         sasl.gl.drawFrame(box.x, box.y, box.size, box.size, SYSTEM_COLORS.FRONT_GREEN)
         if box.isEnabled == true then
             local inset = 3
             local newSize = box.size - (2 * inset)
             sasl.gl.drawRectangle(box.x + inset, box.y + inset, newSize - 1, newSize - 1, SYSTEM_COLORS.FRONT_GREEN)
         end
+    end
+end
+
+function drawCheckBoxes(boxes)
+    for i = 1, table.getn(boxes), 1 do
+        local box = boxes[i]
+        -- sasl.gl.drawFrame(box.x, box.y, box.size, box.size, SYSTEM_COLORS.FRONT_GREEN)
+        -- if box.isEnabled == true then
+        --     local inset = 3
+        --     local newSize = box.size - (2 * inset)
+        --     sasl.gl.drawRectangle(box.x + inset, box.y + inset, newSize - 1, newSize - 1, SYSTEM_COLORS.FRONT_GREEN)
+        -- end
+        drawCheckBox(box)
     end
 end
 

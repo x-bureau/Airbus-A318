@@ -202,7 +202,12 @@ function getChecklistPart(part)
     end
 end
 
+function getChecklistItem(checklist, index)
+    return full_checklist[checklist][index]
+end
+
 function tick(checklist, item)
+    print("changing value for ", full_checklist[checklist][item][1])
     if full_checklist[checklist][item][3] == 0 then
         full_checklist[checklist][item][3] = 1
     else
