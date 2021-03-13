@@ -287,6 +287,13 @@ local function draw_elec_page()
             sasl.gl.drawWideLine(192, 218, 320, 218, 2, ECAM_COLOURS.GREEN)
         end
     end
+    if get(DCE) == 1 then
+        if get(DCT1) == 1 then
+            sasl.gl.drawWideLine(234, 398, 234, 417, 2, ECAM_COLOURS.GREEN)
+        else
+            sasl.gl.drawWideLine(288, 398, 288, 417, 2, ECAM_COLOURS.GREEN)
+        end
+    end
 
     -- BAT 1
     sasl.gl.drawWidePolyLine({103, 477, 103, 518, 185, 518, 185, 436, 103, 436, 103, 477}, 2, ECAM_COLOURS.WHITE)
