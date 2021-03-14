@@ -7,7 +7,7 @@ ACF_SOUNDS
 #                                                                                    #
 #     A i r b u s  A 3 1 8                                                           #
 #                                                                                    #
-#     V e r s i o n : v0.1b                                                          #
+#     V e r s i o n : v0.2b                                                          #
 #                                                                                    #
 #     B y :  M a t t 7 2 6                                                           #
 #                                                                                    #
@@ -18,6 +18,7 @@ ACF_SOUNDS
 #     Y O U T U B E : https://youtube.com/c/Matt726                                  #
 ######################################################################################
 
+REQUIRES_BANK ambience.bank
 REQUIRES_BANK Cockpit.bank
 REQUIRES_BANK EngineCFM.bank
 REQUIRES_BANK Master Bank.bank
@@ -230,4 +231,27 @@ BEGIN_SOUND_ATTACHMENT
 	VEH_XYZ 0 2.4 -11.8
 	EVENT_START_COND A318/systems/ELEC/bat1/pb == 0
 	EVENT_START_COND A318/systems/ELEC/bat2/pb == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Avionics/battery
+	VEH_XYZ 0 2.4 -11.8
+	EVENT_ALWAYS
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Avionics/fans2
+	VEH_XYZ 0 1.6 -13.2
+	EVENT_ALWAYS
+END_SOUND_ATTACHMENT
+
+###########
+#GROUND
+###########
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Ambience/Ground/roll
+	VEH_XYZ 0 1 2
+	EVENT_START_COND sim/flightmodel/position/true_airspeed > 0
+	EVENT_END_COND sim/flightmodel/position/true_airspeed < 1
 END_SOUND_ATTACHMENT

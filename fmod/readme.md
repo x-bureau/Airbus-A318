@@ -3,7 +3,7 @@ by Matt726
 
 Available for: X-Bureau Airbus A318
 
-Version: v0.1b
+Version: v0.2b
 
 Email: mfahrenheit135@gmail.com
 
@@ -15,6 +15,12 @@ Discord ID: Matt726#7182
 
 ---
 ## CHANGELOG:
+
+### v0.2b:
+
+- fan sounds (always played no matter what due to lack of datarefs)
+- updated engines
+- ground roll
 
 ### v0.1b:
 

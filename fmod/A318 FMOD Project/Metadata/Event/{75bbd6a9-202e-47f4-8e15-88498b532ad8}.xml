@@ -28,6 +28,9 @@
         <relationship name="timeline">
             <destination>{389b7c42-adbf-4b32-a5b9-ce1a2bfc1558}</destination>
         </relationship>
+        <relationship name="parameters">
+            <destination>{c19d60e2-a6aa-42dd-aed2-ce0dd2af5449}</destination>
+        </relationship>
         <relationship name="banks">
             <destination>{0276c23d-c401-4ddd-a53c-a527fe681af9}</destination>
         </relationship>
@@ -59,6 +62,9 @@
     <object class="EventAutomatableProperties" id="{ab154c8c-e920-40a2-be24-6466b00a843b}"/>
     <object class="MarkerTrack" id="{75e7d56a-3108-4a01-914d-0ee19c1a5390}"/>
     <object class="GroupTrack" id="{6435ddb0-6127-41dd-9d9f-759e56a55bea}">
+        <relationship name="automationTracks">
+            <destination>{3bdaba87-c673-4ad0-aeef-4be0ca8187d5}</destination>
+        </relationship>
         <relationship name="modules">
             <destination>{ee9ac5b9-6d23-4e55-890c-b8abce20abd1}</destination>
         </relationship>
@@ -69,6 +75,14 @@
     <object class="Timeline" id="{389b7c42-adbf-4b32-a5b9-ce1a2bfc1558}">
         <relationship name="modules">
             <destination>{ee9ac5b9-6d23-4e55-890c-b8abce20abd1}</destination>
+        </relationship>
+    </object>
+    <object class="DistanceParameter" id="{c19d60e2-a6aa-42dd-aed2-ce0dd2af5449}">
+        <property name="maximum">
+            <value>20</value>
+        </property>
+        <relationship name="automationCurves">
+            <destination>{b8aec72f-3db0-4f7d-96c3-adcb81db4079}</destination>
         </relationship>
     </object>
     <object class="EventMixerMaster" id="{6f78c891-3d7b-448c-b0cd-e62f1fc65cce}">
@@ -88,6 +102,17 @@
         </relationship>
     </object>
     <object class="MixerBusPanner" id="{d9e2b9a2-9cf9-4f1a-a3de-d52ec94a63d5}"/>
+    <object class="AutomationTrack" id="{3bdaba87-c673-4ad0-aeef-4be0ca8187d5}">
+        <property name="nameOfPropertyBeingAutomated">
+            <value>volume</value>
+        </property>
+        <relationship name="automationCurves">
+            <destination>{b8aec72f-3db0-4f7d-96c3-adcb81db4079}</destination>
+        </relationship>
+        <relationship name="objectBeingAutomated">
+            <destination>{c90c6194-3ce1-4edf-a641-9596313ccd0f}</destination>
+        </relationship>
+    </object>
     <object class="SingleSound" id="{ee9ac5b9-6d23-4e55-890c-b8abce20abd1}">
         <property name="start">
             <value>0.52000000000000002</value>
@@ -113,6 +138,12 @@
             <destination>{6f78c891-3d7b-448c-b0cd-e62f1fc65cce}</destination>
         </relationship>
     </object>
+    <object class="AutomationCurve" id="{b8aec72f-3db0-4f7d-96c3-adcb81db4079}">
+        <relationship name="automationPoints">
+            <destination>{a6a02362-d121-4b4a-b271-9d1097c49200}</destination>
+            <destination>{cddc6583-8805-42a1-a1c8-296415966a42}</destination>
+        </relationship>
+    </object>
     <object class="MixerBusEffectChain" id="{9dbb8416-e74b-412d-b38f-9e52cc4777e6}">
         <relationship name="effects">
             <destination>{c1fb5e5a-4755-46ce-a072-df2e54baa304}</destination>
@@ -127,6 +158,22 @@
         </relationship>
     </object>
     <object class="MixerBusPanner" id="{d836035e-b772-4afd-8162-d88748a712d4}"/>
+    <object class="AutomationPoint" id="{a6a02362-d121-4b4a-b271-9d1097c49200}">
+        <property name="position">
+            <value>0</value>
+        </property>
+        <property name="value">
+            <value>0</value>
+        </property>
+    </object>
+    <object class="AutomationPoint" id="{cddc6583-8805-42a1-a1c8-296415966a42}">
+        <property name="position">
+            <value>20</value>
+        </property>
+        <property name="value">
+            <value>-80</value>
+        </property>
+    </object>
     <object class="MixerBusFader" id="{c1fb5e5a-4755-46ce-a072-df2e54baa304}"/>
     <object class="SpatialiserEffect" id="{6d323b96-2617-4601-9316-5001db9f43d8}"/>
     <object class="MixerBusFader" id="{d294167a-4b32-4fec-9e83-fbca8dc4fb61}"/>
