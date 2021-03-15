@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.08.00">
+    <object class="Event" id="{b018efae-a86d-4596-a7d1-6520c84e1d21}">
+        <relationship name="selectables">
+            <destination>{4693b0f5-b5a3-4afb-b8b8-ad16b471a0af}</destination>
+        </relationship>
+        <relationship name="uiLastParameterSelection">
+            <destination>{d7a4676f-3719-4224-a2b7-e029d999abbb}</destination>
+        </relationship>
+    </object>
+    <object class="MasterTrack" id="{1161688b-150c-4ae7-811a-87095fa39dba}"/>
+    <object class="MixerInput" id="{54423be4-b34e-42c5-8043-1352e312382b}"/>
+    <object class="EventAutomatableProperties" id="{784e1312-15d0-437f-96bb-7ae06050c0b4}"/>
+    <object class="MarkerTrack" id="{8983339b-d15f-474c-a829-5cdca63e2e4c}"/>
+    <object class="GroupTrack" id="{b6d53c7c-b7eb-412c-8945-3d04887da0ed}">
+        <property name="uiAutomationTracksVisible">
+            <value>true</value>
+        </property>
+    </object>
+    <object class="Timeline" id="{1a937f7c-1e71-4c7c-98d7-243456e54021}">
+        <property name="uiLastRulerScaleRatio">
+            <value>0.016129032258064516</value>
+        </property>
+    </object>
+    <object class="GameParameter" id="{8d636250-08d1-478e-8e08-2b76fa699e56}">
+        <property name="cursorPosition">
+            <value>33.889187735341579</value>
+        </property>
+        <property name="uiLastRulerScaleRatio">
+            <value>0.16137708445400753</value>
+        </property>
+    </object>
+    <object class="GameParameter" id="{d7a4676f-3719-4224-a2b7-e029d999abbb}">
+        <property name="cursorPosition">
+            <value>0</value>
+        </property>
+        <property name="uiLastRulerScaleRatio">
+            <value>0.053792361484669177</value>
+        </property>
+    </object>
+    <object class="DistanceParameter" id="{f3574406-4d20-4907-a574-bf5444487d6b}">
+        <property name="cursorPosition">
+            <value>0</value>
+        </property>
+        <property name="uiLastRulerScaleRatio">
+            <value>0.053792361484669177</value>
+        </property>
+    </object>
+    <object class="GameParameter" id="{109513bb-d797-4734-bf77-9edb27b49654}">
+        <property name="cursorPosition">
+            <value>1</value>
+        </property>
+        <property name="uiLastRulerScaleRatio">
+            <value>0.00053792361484669173</value>
+        </property>
+    </object>
+    <object class="EventMixerMaster" id="{bc519b60-e2e5-4e0e-9ed0-4d7ffd4e278c}">
+        <relationship name="input">
+            <destination>{dd79508c-487d-44fd-9d3f-5e67eb300ecf}</destination>
+        </relationship>
+    </object>
+    <object class="MixerBusEffectChain" id="{42029497-2cca-4279-af4c-3eec814d2c0e}"/>
+    <object class="MixerBusPanner" id="{44cd7747-7f7a-4360-b3a7-75252fa25822}"/>
+    <object class="AutomationTrack" id="{e482a8ad-6f66-4ea5-8f11-7c971264a5d2}"/>
+    <object class="SingleSound" id="{badcbda4-a7a7-4924-9058-ef4eb08182b2}"/>
+    <object class="EventMixerGroup" id="{dd79508c-487d-44fd-9d3f-5e67eb300ecf}"/>
+    <object class="MixerBusEffectChain" id="{bcbc2cb6-9882-4a35-9ae4-9c347a0bb696}"/>
+    <object class="MixerBusPanner" id="{86202a2f-4ea0-497a-a87c-09f012b4082e}"/>
+    <object class="MixerBusFader" id="{44e44bf4-e7e1-49af-8cd6-8e5e4c2ef81c}"/>
+    <object class="MixerBusEffectChain" id="{ecb5d69b-c58d-4efc-85e9-9cd5b9a9245f}"/>
+    <object class="MixerBusPanner" id="{f4f3b97c-c763-499d-8e8f-85d7f4d41177}"/>
+    <object class="MixerBusFader" id="{5618ce9e-f14b-41d9-a225-97212d937d39}"/>
+    <object class="SpatialiserEffect" id="{ae1e3ad2-c148-47f4-b043-625bc8a87943}"/>
+    <object class="MixerBusFader" id="{ef6a5d32-6971-4869-b0f8-210fff415e34}"/>
+</objects>
