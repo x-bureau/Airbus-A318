@@ -6,7 +6,7 @@ addSearchPath(moduleDirectory .. "/Custom Module/ATSAW/")
 addSearchPath(moduleDirectory .. "/Custom Module/ND/")
 addSearchPath(moduleDirectory .. "/Custom Module/ADIRS/")
 addSearchPath(moduleDirectory .. "/Custom Module/PFD/")
-addSearchPath(moduleDirectory .. "/Custom Module/systems/")
+addSearchPath(moduleDirectory .. "/Custom Module/efb/")
 
 size = {2048, 2048}
 
