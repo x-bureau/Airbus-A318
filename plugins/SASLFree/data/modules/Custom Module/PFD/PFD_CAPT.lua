@@ -205,7 +205,7 @@ function artificial_horizon()
   if radioAlt < 2500 then
     sasl.gl.saveGraphicsContext()
     sasl.gl.setTranslateTransform(440, 481)
-    sasl.gl.setRotateTransform(r)
+    sasl.gl.setRotateTransform(-r)
     if radioAlt <= 400 then
       if radioAlt > 50 then
         sasl.gl.drawText(AirbusFont, 0, -251, math.floor(radioAlt / 10 + 0.5) * 10, 50, false, false, TEXT_ALIGN_CENTER, ORANGE)
