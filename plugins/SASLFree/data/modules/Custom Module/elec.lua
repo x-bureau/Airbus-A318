@@ -12,6 +12,8 @@ local colour = {0.96, 0.73, 0.28, 1.0}
 local onGround = globalProperty("sim/flightmodel/failures/onground_any")
 local GS = globalProperty("sim/flightmodel/position/groundspeed")
 
+local apuMode = globalProperty("sim/cockpit2/electrical/APU_starter_switch")
+
 local eng1N1 = globalProperty("sim/flightmodel/engine/ENGN_N1_[0]")
 local eng2N1 = globalProperty("sim/flightmodel/engine/ENGN_N1_[1]")
 local apuN1 = globalProperty("sim/cockpit2/electrical/APU_N1_percent")
@@ -223,6 +225,19 @@ function update()
     else
         set(gen_2.voltage, 0)
         set(gen_2.hertz, 0)
+    end
+
+    -- APU 
+    if get(apuMstr) == 1 then
+        set(apuMode, 1)
+    else
+        set(apuMode, 0)
+    end
+
+    if get(apuStart) == 1 then
+        if get(apuMode) == 1 then
+            set(apuMode, 2)
+        end
     end
 
     -- APU GENERATOR
