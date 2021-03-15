@@ -231,6 +231,8 @@ function update()
     if get(apuMstr) == 1 then
         if get(dc_bus_ess.voltage) > 0 then
             set(apuMode, 1)
+        else
+            set(apuMode, 0)
         end
     else
         set(apuMode, 0)
