@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.08.00">
+    <object class="Bank" id="{d99384cd-e093-45b8-a707-f5471724efa0}">
+        <property name="name">
+            <value>EngineCFM</value>
+        </property>
+        <relationship name="folder">
+            <destination>{b7ac943f-fb9a-41a0-8831-ef635adb2796}</destination>
+        </relationship>
+    </object>
+</objects>

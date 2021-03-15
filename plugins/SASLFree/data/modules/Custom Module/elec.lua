@@ -85,6 +85,8 @@ dc_bus_ess = {
 
 bus_tie = createGlobalPropertyi("A318/systems/ELEC/busTieSwtch", 0)
 ac_ess_feed = createGlobalPropertyi("A318/systems/ELEC/ESSFeedSwtch", 0)
+apu_gen = createGlobalPropertyi("A318/systems/ELEC/APUGENSwtch", 1)
+ext_pow = createGlobalPropertyi("A318/systems/ELEC/EXTPWRSwtch", 0)
 
 contacts = {
     -- Batteries
@@ -220,7 +222,17 @@ function update()
         set(bat_2.amps, 0)
     end
 
-
+    -- AUXILIARY POWER BUTTON
+    if (get(apu_gen) == 1 and get(ext_pow) == 1) or (get(apu_gen) == 0 and get(ext_pow) == 1) then
+        set(contacts.AGC, 0)
+        set(contacts.EPC, 1)
+    elseif get(apu_gen) == 1 then
+        set(contacts.AGC, 1)
+        set(contacts.EPC, 0)
+    else
+        set(contacts.AGC, 0)
+        set(contacts.EPC, 0)
+    end
     -- BUS TIE LOGIC
     if get(bus_tie) == 0 then
         if get(contacts.GLC1) == 1 and get(gen_1.voltage) > 0 and get(contacts.GLC2) == 1 and get(gen_1.voltage) > 0 then
@@ -388,11 +400,11 @@ function update()
             set(dc_bat_bus.voltage, get(bat_2.voltage))
             set(dc_bat_bus.amps, get(bat_2.amps))
         end
-    elseif get(contacts.DCT1) == 1 then
+    elseif get(contacts.DCT1) == 1 and get(contacts.TR1) == 1 then
         -- powered by DC BUS 1
         set(dc_bat_bus.voltage, get(dc_bus_1.voltage))
         set(dc_bat_bus.amps, get(dc_bus_1.amps))
-    elseif get(contacts.DCT2) == 1 then
+    elseif get(contacts.DCT2) == 1 and get(contacts.TR2) == 1 then
         -- powered by DC BUS 2
         set(dc_bat_bus.voltage, get(dc_bus_2.voltage))
         set(dc_bat_bus.amps, get(dc_bus_2.amps))
@@ -402,18 +414,28 @@ function update()
     end
 
     -- DC BUS TIE CONT LOGIC
-    if get(dc_bus_1.voltage) > 0 and get(contacts.TR1) == 1 then
+    if get(dc_bus_1.voltage) > 0 and get(contacts.TR1) == 1 and get(contacts.TR2) == 0 then
+        set(contacts.DCT1, 1)
+        set(contacts.DCT2, 1)
+    elseif get(dc_bus_2.voltage) > 0 and get(contacts.TR2) == 1 and get(contacts.TR1) == 0 then
+        set(contacts.DCT1, 1)
+        set(contacts.DCT2, 1)
+    elseif get(dc_bus_1.voltage) > 0 and get(contacts.TR1) == 1 then
         set(contacts.DCT1, 1)
         set(contacts.DCT2, 0)
-    else
-        set(contacts.DCT1, 0)
-    end
-        
-    if get(dc_bus_2.voltage) > 0 and get(contacts.TR2) == 1 then
+    elseif get(dc_bus_2.voltage) > 0 and get(contacts.TR2) == 1 then
         set(contacts.DCT1, 0)
         set(contacts.DCT2, 1)
     else
+        set(contacts.DCT1, 0)
         set(contacts.DCT2, 0)
+    end
+
+    -- DC ESS BUS
+    if get(dc_bat_bus.voltage) > 0 then
+        set(contacts.DCE, 1)
+    else
+        set(contacts.DCE, 0)
     end
 end
 

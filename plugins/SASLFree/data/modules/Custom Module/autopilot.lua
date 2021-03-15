@@ -61,14 +61,7 @@ function update()
 
 
 
-    -- HEADING 
-
-    
-
-
-
-
-
+    -- HEADING
 end
 
 function draw()
