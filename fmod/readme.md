@@ -3,7 +3,7 @@ by Matt726
 
 Available for: X-Bureau Airbus A318
 
-Version: v0.2b
+Version: v0.3b
 
 Email: mfahrenheit135@gmail.com
 
@@ -15,6 +15,13 @@ Discord ID: Matt726#7182
 
 ---
 ## CHANGELOG:
+
+### v0.3b:
+
+- updated engines
+- added basic GPWS
+- updated cockpit fans
+- added knob sounds
 
 ### v0.2b:
 

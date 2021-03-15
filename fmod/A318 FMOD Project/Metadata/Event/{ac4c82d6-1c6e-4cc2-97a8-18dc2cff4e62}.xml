@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.01.08.00">
     <object class="Event" id="{ac4c82d6-1c6e-4cc2-97a8-18dc2cff4e62}">
         <property name="name">
-            <value>fan_stop</value>
+            <value>fans_stop</value>
         </property>
         <property name="outputFormat">
             <value>2</value>
@@ -200,7 +200,7 @@
             <value>0</value>
         </property>
         <property name="value">
-            <value>7.60347652</value>
+            <value>10</value>
         </property>
     </object>
     <object class="AutomationPoint" id="{3c91962d-5e7b-4f41-9555-9ce5d0c4c0a0}">

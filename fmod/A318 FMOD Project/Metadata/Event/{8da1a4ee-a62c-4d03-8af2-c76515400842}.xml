@@ -76,6 +76,9 @@
         <relationship name="modules">
             <destination>{24284102-6405-4e23-8c63-cad497fb24b6}</destination>
         </relationship>
+        <relationship name="automationCurves">
+            <destination>{9b8d8482-c476-4f68-9841-f055ccdc79f1}</destination>
+        </relationship>
         <relationship name="markers">
             <destination>{a6e6cd5f-a008-4c61-9ff0-ab91b02f7c6c}</destination>
         </relationship>
@@ -111,6 +114,7 @@
         </property>
         <relationship name="automationCurves">
             <destination>{54036294-b9f4-42cc-b200-12a3e8528c5b}</destination>
+            <destination>{9b8d8482-c476-4f68-9841-f055ccdc79f1}</destination>
         </relationship>
         <relationship name="objectBeingAutomated">
             <destination>{fe0e1bd6-92be-435d-9285-e6e3a8a1cae5}</destination>
@@ -121,7 +125,7 @@
             <value>0</value>
         </property>
         <property name="length">
-            <value>1.9262585034013606</value>
+            <value>3.8525170068027212</value>
         </property>
         <relationship name="audioFile">
             <destination>{fd50f8d8-6149-4d0d-842c-832b44c7545d}</destination>
@@ -144,9 +148,15 @@
             <destination>{c2fe1535-6857-4041-a9f7-78754d74ea8e}</destination>
         </relationship>
     </object>
+    <object class="AutomationCurve" id="{9b8d8482-c476-4f68-9841-f055ccdc79f1}">
+        <relationship name="automationPoints">
+            <destination>{aa636bf8-e493-4bf9-81e8-a297f3b2840f}</destination>
+            <destination>{4461b378-03ad-4978-b606-86e9600f0517}</destination>
+        </relationship>
+    </object>
     <object class="LoopRegion" id="{a6e6cd5f-a008-4c61-9ff0-ab91b02f7c6c}">
         <property name="position">
-            <value>0</value>
+            <value>1.9262585034013606</value>
         </property>
         <property name="length">
             <value>1.9262585034013606</value>
@@ -178,6 +188,22 @@
         </relationship>
     </object>
     <object class="MixerBusPanner" id="{ba554b46-7a5c-4df6-aba4-54e8bc6dfb5d}"/>
+    <object class="AutomationPoint" id="{aa636bf8-e493-4bf9-81e8-a297f3b2840f}">
+        <property name="position">
+            <value>0</value>
+        </property>
+        <property name="value">
+            <value>-80</value>
+        </property>
+    </object>
+    <object class="AutomationPoint" id="{4461b378-03ad-4978-b606-86e9600f0517}">
+        <property name="position">
+            <value>1.8416315369612071</value>
+        </property>
+        <property name="value">
+            <value>0</value>
+        </property>
+    </object>
     <object class="AutomationPoint" id="{86f42838-1169-4a0e-a687-3dd5f734acbe}">
         <property name="position">
             <value>0</value>
