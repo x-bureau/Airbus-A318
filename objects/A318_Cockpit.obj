@@ -6721,7 +6721,7 @@ IDX	6080
 	TRIS	810 90
 	ATTR_manip_push	button	1	0	A318/cockpit/mcdu/keys/period	MCDU KEY PERIOD
 	TRIS	900 90
-	ATTR_manip_toggle	button	1	0	A318/systems/ELEC/contacts/GLC1	Generator 1 ON/OFF
+	ATTR_manip_toggle	button	1	0	A318/systems/ELEC/GEN1Swtch	Generator 1 ON/OFF
 	TRIS	990 36
 	ATTR_manip_toggle	button	1	0	A318/systems/hyd/green/pumps/engine/pb	Engine 1 Pump
 	TRIS	1026 36
@@ -6733,7 +6733,7 @@ IDX	6080
 	TRIS	1134 36
 	ATTR_manip_toggle	button	1	0	A318/systems/hyd/yellow/pumps/electric/pb	Electric Pump
 	TRIS	1170 36
-	ATTR_manip_toggle	button	1	0	A318/systems/ELEC/contacts/GLC2	Generator 2 ON/OFF
+	ATTR_manip_toggle	button	1	0	A318/systems/ELEC/GEN2Swtch	Generator 2 ON/OFF
 	TRIS	1206 36
 	ATTR_manip_toggle	button	1	0	A318/systems/ELEC/bat1/pb	BAT 1 ON/OFF
 	TRIS	1389 36
