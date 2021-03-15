@@ -229,14 +229,18 @@ function update()
 
     -- APU 
     if get(apuMstr) == 1 then
-        set(apuMode, 1)
+        if get(dc_bus_ess.voltage) > 0 then
+            set(apuMode, 1)
+        end
     else
         set(apuMode, 0)
     end
 
     if get(apuStart) == 1 then
         if get(apuMode) == 1 then
-            set(apuMode, 2)
+            if get(dc_bus_ess.voltage) > 0 then
+                set(apuMode, 2)
+            end
         end
     end
 
