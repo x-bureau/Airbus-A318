@@ -37,7 +37,7 @@ local ldg_elev = globalPropertyi("A318/systems/aircond/ldg_elev")
 local ldg_elev_auto = globalPropertyi("A318/systems/aircond/ldg_elev_auto")
 local oil_qty = globalPropertyfa("sim/flightmodel/engine/ENGN_oil_quan", 8)--we define an oil quantity dataref
 local cabin_alt = globalPropertyf("sim/cockpit2/pressurization/indicators/cabin_altitude_ft")--we define the dataref for cabin altitude
-local speedbrake_status = globalPropertyfa("sim/flightmodel2/controls/speedbrake_ratio", 10)--we define the status of speedbrakes
+local speedbrake_status = globalPropertyf("sim/flightmodel2/controls/speedbrake_ratio", 10)--we define the status of speedbrakes
 local local_hour = globalPropertyi("sim/cockpit2/clock_timer/local_time_hours")
 local local_mins = globalPropertyi("sim/cockpit2/clock_timer/local_time_minutes")
 local zulu_hour = globalPropertyi("sim/cockpit2/clock_timer/zulu_time_hours")
@@ -82,7 +82,7 @@ local hyd = {
     },
     ptu = {
         enabled = globalPropertyi("A318/systems/hyd/ptu/enabled", enabled_states.disabled),
-        state = createGlobalPropertyi("A318/systems/hyd/ptu/state", active_states.inactive),
+        state = globalPropertyi("A318/systems/hyd/ptu/state", active_states.inactive),
         xfer = {from = globalPropertys("A318/systems/hyd/ptu/from", "yellow")}
     }
 }
@@ -362,7 +362,7 @@ local function draw_elec_page()
     -- GEN 2
     sasl.gl.drawText(AirbusFont, 466, 134, " V", 22, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.BLUE)
     sasl.gl.drawText(AirbusFont, 463, 111, " HZ", 22, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.BLUE)
-    if get(ac.gen_1.voltage) > 0 then
+    if get(ac.gen_2.voltage) > 0 then
         sasl.gl.drawText(AirbusFont, 460, 175, 'GEN 2', 22, true, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.WHITE)
         sasl.gl.drawText(AirbusFont, 467, 134, get(ac.gen_2.voltage), 22, false, false, TEXT_ALIGN_RIGHT, ECAM_COLOURS.GREEN)
         sasl.gl.drawText(AirbusFont, 467, 111, get(ac.gen_2.hertz), 22, false, false, TEXT_ALIGN_RIGHT, ECAM_COLOURS.GREEN)
