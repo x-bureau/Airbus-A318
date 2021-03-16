@@ -5,6 +5,11 @@ size = {1000, 1000}
 
 --get datarefs
 local BUS = globalProperty("A318/systems/ELEC/AC2_V")
+local selfTest = 0
+
+local DELTA_TIME = globalProperty("sim/operation/misc/frame_rate_period")
+local Timer = 0
+local TimerFinal = math.random(15, 35)
 
 local ADIRS_aligned = globalProperty("A318/systems/ADIRS/2/aligned")
 local ADIRS_mode = globalProperty("A318/systems/ADIRS/2/mode")
@@ -309,9 +314,21 @@ end
 function draw()
   sasl.gl.setClipArea(0, 0, 1000, 1000)
   if get(BUS) > 0 then
-    pfd()
+    if selfTest == 1 then
+      pfd()
+      Timer = 0
+    else
+      if Timer < TimerFinal then
+        Timer = Timer + 1 * get(DELTA_TIME)
+        sasl.gl.drawText(AirbusFont, 500, 500, "SELF TEST IN PROGESS", 55, false, false, TEXT_ALIGN_CENTER, GREEN)
+        sasl.gl.drawText(AirbusFont, 500, 440, "(MAX 40 SECONDS)", 55, false, false, TEXT_ALIGN_CENTER, GREEN)
+      else
+        selfTest = 1
+      end
+    end
   else
-    -- off
+    Timer = 0
+    selfTest = 0
   end
   sasl.gl.resetClipArea()
 end

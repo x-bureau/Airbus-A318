@@ -7,6 +7,11 @@ size = {522, 522}
 
 --defining dataref variables
 local BUS = globalProperty("A318/systems/ELEC/AC2_V")
+local selfTest = 0
+
+local DELTA_TIME = globalProperty("sim/operation/misc/frame_rate_period")
+local Timer = 0
+local TimerFinal = math.random(15, 35)
 
 local current_ecam_page = createGlobalPropertyi("A318/cockpit/ecam/current_page", 7)--create variable that tells us current ecam page
 local current_flight_phase = createGlobalPropertyi("A318/cockpit/ecam/flight_phase", flight_phases.elec_pwr)
@@ -745,56 +750,66 @@ end
 
 function draw() --the function that actually draws on the panel
     if get(BUS) > 0 then
-        if get(current_ecam_page) == ecam_pages.eng then --if the curent ecam page is 1
-            draw_eng_page()--draw the engine page
-        elseif get(current_ecam_page) == ecam_pages.bleed then --if the curent ecam page is 2
-            draw_bleed_page()--draw the bleed page
-        elseif get(current_ecam_page) == ecam_pages.press then --if the curent ecam page is 3
-            draw_press_page()--draw the pressure page
-        elseif get(current_ecam_page) == ecam_pages.elec then --if the curent ecam page is 4
-            draw_elec_page() --draw the electricity page
-        elseif get(current_ecam_page) == ecam_pages.hyd then --if the curent ecam page is 5
-            draw_hyd_page()--draw the hyd page
-        elseif get(current_ecam_page) == ecam_pages.fuel then --if the curent ecam page is 6
-            draw_fuel_page()--draw the fuel page
-        elseif get(current_ecam_page) == ecam_pages.apu then --if the curent ecam page is 7
-            draw_apu_page()--draw the apu page
-        elseif get(current_ecam_page) == ecam_pages.air_cond then --if the curent ecam page is 8
-            draw_air_cond_page()--draw the air conditioning page
-        elseif get(current_ecam_page) == ecam_pages.doors then --if the curent ecam page is 9
-            draw_doors_page()--draw the doors page
-        elseif get(current_ecam_page) == ecam_pages.wheel then --if the curent ecam page is 10
-            draw_wheel_page()--draw the wheel page
-        elseif get(current_ecam_page) == ecam_pages.fctl	then --if the curent ecam page is 11
-            draw_fctl_page()--draw the flight controls page
-        elseif get(current_ecam_page) == ecam_pages.sts then --if the curent ecam page is 12
-            draw_sts_page()--draw the systems page
-        elseif get(current_ecam_page) == ecam_pages.cruise then --if the curent ecam page is 13
-            draw_cruise_page()--draw the cruise page
-        end
+        if selfTest == 1 then
+            if get(current_ecam_page) == ecam_pages.eng then --if the curent ecam page is 1
+                draw_eng_page()--draw the engine page
+            elseif get(current_ecam_page) == ecam_pages.bleed then --if the curent ecam page is 2
+                draw_bleed_page()--draw the bleed page
+            elseif get(current_ecam_page) == ecam_pages.press then --if the curent ecam page is 3
+                draw_press_page()--draw the pressure page
+            elseif get(current_ecam_page) == ecam_pages.elec then --if the curent ecam page is 4
+                draw_elec_page() --draw the electricity page
+            elseif get(current_ecam_page) == ecam_pages.hyd then --if the curent ecam page is 5
+                draw_hyd_page()--draw the hyd page
+            elseif get(current_ecam_page) == ecam_pages.fuel then --if the curent ecam page is 6
+                draw_fuel_page()--draw the fuel page
+            elseif get(current_ecam_page) == ecam_pages.apu then --if the curent ecam page is 7
+                draw_apu_page()--draw the apu page
+            elseif get(current_ecam_page) == ecam_pages.air_cond then --if the curent ecam page is 8
+                draw_air_cond_page()--draw the air conditioning page
+            elseif get(current_ecam_page) == ecam_pages.doors then --if the curent ecam page is 9
+                draw_doors_page()--draw the doors page
+            elseif get(current_ecam_page) == ecam_pages.wheel then --if the curent ecam page is 10
+                draw_wheel_page()--draw the wheel page
+            elseif get(current_ecam_page) == ecam_pages.fctl	then --if the curent ecam page is 11
+                draw_fctl_page()--draw the flight controls page
+            elseif get(current_ecam_page) == ecam_pages.sts then --if the curent ecam page is 12
+                draw_sts_page()--draw the systems page
+            elseif get(current_ecam_page) == ecam_pages.cruise then --if the curent ecam page is 13
+                draw_cruise_page()--draw the cruise page
+            end
 
-        sasl.gl.drawTexture(lower_overlay, 0, 0, 522, 72, ECAM_COLOURS.WHITE)--we are drawing the overlay
+            sasl.gl.drawTexture(lower_overlay, 0, 0, 522, 72, ECAM_COLOURS.WHITE)--we are drawing the overlay
 
-        -- draw Temperatures
-        sasl.gl.drawText(AirbusFont, 90, 48, string.format("%+.1f", get_temp(get(temp_tat))), 20, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.GREEN)
-        sasl.gl.drawText(AirbusFont, 90, 27, string.format("%+.1f", get_temp(get(temp_sat))), 20, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.GREEN)
-        sasl.gl.drawText(AirbusFont, 140, 48, "° " .. (get(efb_units) == units.metric and "C" or "F"), 20, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.BLUE)
-        sasl.gl.drawText(AirbusFont, 140, 27, "° " .. (get(efb_units) == units.metric and "C" or "F"), 20, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.BLUE)
-        if get(is_isa_enabled) then
-            sasl.gl.drawText(AirbusFont, 90, 6, string.format("%+.1f", get_temp(get_isa())), 20, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.GREEN)
-            sasl.gl.drawText(AirbusFont, 140,  6, "° " .. (get(efb_units) == units.metric and "C" or "F"), 20, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.BLUE)
-        end
+            -- draw Temperatures
+            sasl.gl.drawText(AirbusFont, 90, 48, string.format("%+.1f", get_temp(get(temp_tat))), 20, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.GREEN)
+            sasl.gl.drawText(AirbusFont, 90, 27, string.format("%+.1f", get_temp(get(temp_sat))), 20, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.GREEN)
+            sasl.gl.drawText(AirbusFont, 140, 48, "° " .. (get(efb_units) == units.metric and "C" or "F"), 20, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.BLUE)
+            sasl.gl.drawText(AirbusFont, 140, 27, "° " .. (get(efb_units) == units.metric and "C" or "F"), 20, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.BLUE)
+            if get(is_isa_enabled) then
+                sasl.gl.drawText(AirbusFont, 90, 6, string.format("%+.1f", get_temp(get_isa())), 20, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.GREEN)
+                sasl.gl.drawText(AirbusFont, 140,  6, "° " .. (get(efb_units) == units.metric and "C" or "F"), 20, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.BLUE)
+            end
     
-        -- draw Clock
-        sasl.gl.drawText(AirbusFont, 251, 27, string.format("%02d", get(zulu_hour)), 20, false, false, TEXT_ALIGN_RIGHT, ECAM_COLOURS.GREEN)
-        sasl.gl.drawText(AirbusFont, 273, 27, string.format("%02d", get(zulu_mins)), 20, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.GREEN)
-        sasl.gl.drawText(AirbusFont, 268, 27, 'H', 20, false, false, TEXT_ALIGN_RIGHT, ECAM_COLOURS.BLUE)
+            -- draw Clock
+            sasl.gl.drawText(AirbusFont, 251, 27, string.format("%02d", get(zulu_hour)), 20, false, false, TEXT_ALIGN_RIGHT, ECAM_COLOURS.GREEN)
+            sasl.gl.drawText(AirbusFont, 273, 27, string.format("%02d", get(zulu_mins)), 20, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.GREEN)
+            sasl.gl.drawText(AirbusFont, 268, 27, 'H', 20, false, false, TEXT_ALIGN_RIGHT, ECAM_COLOURS.BLUE)
 
-        -- draw Gross Weight
-        local tot_weight = get(weight_empty) + get(weight_fuel)
-        sasl.gl.drawText(AirbusFont, 472, 46, string.format("%.0f", round(get_weight(get(tot_weight)), 10)), 20, false, false, TEXT_ALIGN_RIGHT, ECAM_COLOURS.GREEN)
-        sasl.gl.drawText(AirbusFont, 482, 46, (get(efb_units) == units.metric and "KG" or "LBS"), 20, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.BLUE)
-        ----------------------------------------------------------------------------------------------------------
+            -- draw Gross Weight
+            local tot_weight = get(weight_empty) + get(weight_fuel)
+            sasl.gl.drawText(AirbusFont, 472, 46, string.format("%.0f", round(get_weight(get(tot_weight)), 10)), 20, false, false, TEXT_ALIGN_RIGHT, ECAM_COLOURS.GREEN)
+            sasl.gl.drawText(AirbusFont, 482, 46, (get(efb_units) == units.metric and "KG" or "LBS"), 20, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.BLUE)
+            ----------------------------------------------------------------------------------------------------------
+        else
+            if Timer < TimerFinal then
+                Timer = Timer + 1 * get(DELTA_TIME)
+                sasl.gl.drawText(AirbusFont, 256, 256, "SELF TEST IN PROGESS", 28.5, false, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.GREEN)
+                sasl.gl.drawText(AirbusFont, 256, 225, "(MAX 40 SECONDS)", 28.5, false, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.GREEN)
+            else
+                selfTest = 1
+            end
+        end
     else
          -- off
     end
