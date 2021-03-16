@@ -19,7 +19,7 @@ local gs = globalPropertyf("A318/systems/ADIRS/1/inertial/gs")
 local winddirection = globalPropertyf("sim/weather/wind_direction_degt")
 local windspeed = globalPropertyf("sim/weather/wind_speed_kt")
 
-local CaptNdMode = createGlobalPropertyi("A318/systems/ND/capt_mode", 2)
+local CaptNdMode = createGlobalPropertyi("A318/systems/ND/capt_mode", 3)
 local rngeKnob = createGlobalPropertyi("A318/systems/ND/capt_rnge", 2)
 
 
