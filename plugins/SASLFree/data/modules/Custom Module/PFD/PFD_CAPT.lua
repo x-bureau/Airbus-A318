@@ -132,10 +132,18 @@ function pfd()
     sasl.gl.drawRectangle(845, 438, 50, 87, BLACK)
     sasl.gl.setClipArea(845, 438, 50, 87)
     sasl.gl.saveGraphicsContext()
-    sasl.gl.setTranslateTransform(0, 115 - (1.75 * string.sub(alt, string.len(math.floor(alt)) - 1,  string.len(math.floor(alt)) - 0)))
+    if get(alt) >= 0 then
+      sasl.gl.setTranslateTransform(0, 115 - (1.75 * string.sub(alt, string.len(math.floor(alt)) - 1,  string.len(math.floor(alt)) - 0)))
+    else
+      sasl.gl.setTranslateTransform(0, 115 + (1.75 * string.sub(alt, string.len(math.floor(alt)) - 1,  string.len(math.floor(alt)) - 0)))
+    end
     for t=1,3 do
      for i=0,4 do
+      if get(alt) > 0 then
         sasl.gl.drawText(AirbusFont, 850, (t * 175) + (i * 35), string.format("%02d",(i * 20)), 40, false, false, TEXT_ALIGN_LEFT, GREEN)
+      else
+        sasl.gl.drawText(AirbusFont, 850, (t * 175) + (i * -35), string.format("%02d",(i * 20)), 40, false, false, TEXT_ALIGN_LEFT, GREEN)
+      end
      end
     end
     sasl.gl.resetClipArea()
@@ -271,10 +279,10 @@ function altitude_tape()
   sasl.gl.saveGraphicsContext()
 
   sasl.gl.setTranslateTransform(0, 481 - (2.45 * alt))
-  for i=0,450 do
+  for i=-10,450 do
     sasl.gl.drawText(AirbusFont, 827, -18 + (245 * i), string.format("%03d", i), 50, false, false, TEXT_ALIGN_RIGHT, WHITE)
   end
-  for i=0,2250 do
+  for i=-50,2250 do
     sasl.gl.drawWideLine(830, 0 + (49 * i), 845, 0 + (49 * i), 4, WHITE)
   end
 
