@@ -13,12 +13,14 @@ local eng2N2 = globalProperty("sim/flightmodel/engine/ENGN_N2_[1]")
 local eng1EGT = globalProperty("sim/flightmodel/engine/ENGN_EGT_c[0]")
 local eng2EGT = globalProperty("sim/flightmodel/engine/ENGN_EGT_c[1]")
 
+local eng1Throttle = globalProperty("sim/cockpit2/engine/actuators/throttle_ratio[0]")
+local eng2Throttle = globalProperty("sim/cockpit2/engine/actuators/throttle_ratio[1]")
+
 --fonts
 local AirbusFont = sasl.gl.loadFont("fonts/PanelFont.ttf")
 
 --images
 local needle1 = sasl.gl.loadImage("images/Needle1.png", 0, 0, 89, 47)
-local Backround = sasl.gl.loadImage("images/EWD_Overlay.png", 0, 0, 522,522)
 
 --colors
 local ECAM_GREEN = {0.184, 0.733, 0.219, 1.0}
@@ -68,15 +70,46 @@ local function draw_ENG_PAGE()
 
 
     -- Boxes and shit
+    sasl.gl.saveGraphicsContext()
+    sasl.gl.setTranslateTransform(175,420)
+    if get(eng1N1) < 20 then
+        sasl.gl.setRotateTransform(-105)
+    else
+        sasl.gl.setRotateTransform(40 - (1.81 * (100 - get(eng1N1))))
+    end
+    sasl.gl.drawWideLine(0, 0, 0, 48, 3, ECAM_GREEN)
+    sasl.gl.restoreGraphicsContext()
+
+    sasl.gl.saveGraphicsContext()
+    sasl.gl.setTranslateTransform(375,420)
+    if get(eng1N1) < 20 then
+        sasl.gl.setRotateTransform(-105)
+    else
+        sasl.gl.setRotateTransform(40 - (1.81 * (100 - get(eng2N1))))
+    end
+    sasl.gl.drawWideLine(0, 0, 0, 48, 3, ECAM_GREEN)
+    sasl.gl.restoreGraphicsContext()
+
+    sasl.gl.drawRectangle(160, 400, 50, 17, ECAM_BLACK)
     sasl.gl.drawFrame ( 160, 400, 50, 17, ECAM_WHITE)
     sasl.gl.drawText(AirbusFont,  190, 402, string.format("%.1f", round(get(eng1N1), 1)), 18, false, false, TEXT_ALIGN_CENTER, ECAM_GREEN)
+    sasl.gl.drawRectangle(360, 400, 50, 17, ECAM_BLACK)
     sasl.gl.drawFrame ( 360, 400, 50, 17, ECAM_WHITE)
     sasl.gl.drawText(AirbusFont,  390, 402, string.format("%.1f", round(get(eng2N1), 1)), 18, false, false, TEXT_ALIGN_CENTER, ECAM_GREEN)
 
-  
-    -- little circle things (math needs to be implemented to orbit the arc)
-    sasl.gl.drawCircle(115, 410, 3, false, ECAM_BLUE)
-    sasl.gl.drawCircle(315, 410, 3, false, ECAM_BLUE)
+
+
+    sasl.gl.saveGraphicsContext()
+    sasl.gl.setTranslateTransform(175, 420)
+    sasl.gl.setRotateTransform(-105 + (145 * get(eng1Throttle)))
+    sasl.gl.drawCircle(0, 55, 3, false, ECAM_BLUE)
+    sasl.gl.restoreGraphicsContext()
+    sasl.gl.saveGraphicsContext()
+    sasl.gl.setTranslateTransform(375, 420)
+    sasl.gl.setRotateTransform(-105 + (145 * get(eng2Throttle)))
+    sasl.gl.drawCircle(0, 55, 3, false, ECAM_BLUE)
+    sasl.gl.restoreGraphicsContext()
+
     -- EGT ARCS 
     -- sasl.gl.drawArc(165, 344, 48 , 50, 15, 155, ECAM_WHITE)
     -- sasl.gl.drawArc(405, 344, 48 , 50, 15, 155, ECAM_WHITE)
