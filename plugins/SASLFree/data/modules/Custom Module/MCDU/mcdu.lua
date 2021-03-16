@@ -1,4 +1,6 @@
 include("MCDU/pages/mcdu_menu.lua")
+include("MCDU/pages/acf_info.lua")
+include("MCDU/mcdu_global_properties.lua")
 
 ------------------------------------------------------------------
 position = {28, 1212, 479, 400}
@@ -10,10 +12,11 @@ size = {479, 400}
 
 local MCDU_BLACK = {0 , 0 , 0 , 1.0}
 local AIRBUS_FONT = sasl.gl.loadFont("fonts/PanelFont.ttf")
-MCDU_FONT = sasl.gl.loadFont("fonts/courbd.ttf")
+MCDU_FONT = sasl.gl.loadFont("fonts/B612Mono-Regular.ttf")
 MCDU_CURRENT_PAGE = createGlobalPropertyi("A318/cockpit/mcdu/current_page", 1)
 local Airbus_VERSION = "A318-100"
-local ENG_TYPE = "CFM-56-B"
+ENG_TYPE = "CFM-56-B"
+SCRATCHPAD = ""
 
 --Buttons Datarefs 
 
@@ -31,8 +34,21 @@ local BUTTON_4_R = createGlobalPropertyi("A318/cockpit/mcdu/buttons/right/4", 0)
 local BUTTON_5_R = createGlobalPropertyi("A318/cockpit/mcdu/buttons/right/5", 0)
 local BUTTON_6_R = createGlobalPropertyi("A318/cockpit/mcdu/buttons/right/6", 0)
 
+local buttonInputs = {
+    BUTTON_1_L,
+    BUTTON_2_L,
+    BUTTON_3_L,
+    BUTTON_4_L,
+    BUTTON_5_L,
+    BUTTON_6_L,
+    BUTTON_1_R,
+    BUTTON_2_R,
+    BUTTON_3_R,
+    BUTTON_4_R,
+    BUTTON_5_R,
+    BUTTON_6_R,
 
-SCRATCHPAD = ""
+}
 
 -- Info Arrays 
 letters = {
@@ -123,30 +139,47 @@ keys = {
 -- POSITIONS AND SIZING
 title_location = {
     x = 239,
-    y = 355,
+    y = 360,
     font_size = 30
 }
 
-mdcu_positons = {
-    [1] = 309,
-    [2] = 260,
-    [3] = 207,
-    [4] = 174,
-    [5] = 99,
-    [6] = 47
+option_heading_font_size = 15
+option_heading_locations = {
+    [1] = 333,
+    [2] = 280,
+    [3] = 227,
+    [4] = 196,
+    [5] = 121,
+    [6] = 63
 }
 
-mcdu_option_size = 27
+mdcu_positons = {
+    [1] = 307,
+    [2] = 254,
+    [3] = 201,
+    [4] = 148,
+    [5] = 95,
+    [6] = 40
+}
+
+mcdu_option_size = 24
 
 mcdu_font_colors = {
     [1] = {1, 1, 1, 1},
-    [2] = {52/255, 207/255, 21/255, 1.0}
+    [2] = {52/255, 207/255, 21/255, 1.0},
+    [3] = {0, 227/255, 223/255, 1.0}
 }
 
 -- PAGES and DRAW CALLS
 
 local drawCalls = {
-    draw_mcdu_menu
+    draw_mcdu_menu,
+    draw_acf_info
+}
+
+local inputCalls = {
+    mcdu_menu_key_input,
+    acf_info_key_input
 }
 
 function clearScratchpad() 
@@ -174,8 +207,27 @@ local function checkInput()
     end
 end
 
+function checkKeyInput()
+    for i = 1, table.getn(buttonInputs), 1 do
+        if get(buttonInputs[i]) == 1 then
+            local side = ''
+            local key = 0
+            if i > 6 then
+                side = 'r'
+                key = i - 6
+            else
+                side = 'l'
+                key = i
+            end
+            inputCalls[get(MCDU_CURRENT_PAGE)](side, key)
+            set(buttonInputs[i], 0)
+        end
+    end
+end
+
 function update()
     checkInput()
+    checkKeyInput()
 end
 
 function draw()

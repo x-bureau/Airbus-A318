@@ -18,6 +18,15 @@ local options = {
     }
 }
 
+
+function mcdu_menu_key_input(side, key)
+    if side == 'l' then
+        if key == 1 then
+            set(MCDU_CURRENT_PAGE, 2)
+        end
+    end
+end
+
 function update_mcdu_menu()
 end
 
