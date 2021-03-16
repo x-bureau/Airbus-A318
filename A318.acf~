@@ -156,7 +156,7 @@ P _gear/0/_lonE 6.0
 P _gear/0/_lonN 6.0
 P _gear/0/_lonR 100.0
 P _gear/0/_scon 31250.011718750
-P _gear/0/_stat_def 0.139737025
+P _gear/0/_stat_def 0.139737040
 P _gear/0/_steerdeg_hispeed 5.0
 P _gear/0/_steerdeg_lospeed 75.0
 P _gear/0/_strut_comp 0.899999976
