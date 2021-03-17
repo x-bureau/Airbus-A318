@@ -33,8 +33,6 @@ ext_pwr = {
 }
 
 apu_pwr = {
-    bleed = createGlobalPropertyi("A318/systems/APU/bleedPress", 0),
-    valve = createGlobalPropertyi("A318/systems/APU/bleedValve", 0),
     voltage = createGlobalPropertyi("A318/systems/ELEC/apu_V", 0),
     hertz = createGlobalPropertyi("A318/systems/ELEC/apu_H", 0),
     avail = createGlobalPropertyi("A318/systems/ELEC/apu_Avail", 0),
@@ -247,11 +245,7 @@ function update()
         end
     end
 
-    if get(apuN1) > 99 then
-        set(apu_pwr.bleed, 35)
-    else
-        set(apu_pwr.bleed, 0)
-    end
+
 
 
     -- APU GENERATOR
