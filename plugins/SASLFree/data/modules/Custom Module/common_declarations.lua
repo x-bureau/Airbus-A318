@@ -8,8 +8,7 @@ ECAM_COLOURS = {
     YELLOW = {1.0, 1.0, 0, 1.0},
 }
 
-AirbusFont = sasl.gl.loadFont("fonts/BloggerSans.ttf")
-sasl.gl.setFontRenderMode(AirbusFont, TEXT_RENDER_FORCED_MONO, 0.52)
+AirbusFont = sasl.gl.loadFont("fonts/PanelFont.ttf")
 
 pump_states = {off = 0, on = 1, low = 2}
 pump_sources = {engine = 0, electric = 1, rat = 2}
