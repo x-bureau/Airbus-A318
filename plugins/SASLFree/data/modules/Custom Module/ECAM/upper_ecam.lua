@@ -268,7 +268,7 @@ end
 
 function draw()
     if get(AC_BUS) > 0 then
-        if selfTest == 0 then
+        if selfTest == 1 then
             draw_ENG_PAGE()
             if TimerEng1 < TimerFinalEng1 and eng1AVAIL == 0 and get(eng1N1) > 19.5 then
                 TimerEng1 = TimerEng1 + 1 * get(DELTA_TIME)
@@ -284,7 +284,6 @@ function draw()
                 eng2AVAIL = 1
                 TimerEng2 = 0
             end
-            --draw_avail(2)
             Timer = 0
         else
             if Timer < TimerFinal then
