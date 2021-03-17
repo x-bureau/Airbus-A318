@@ -190,7 +190,7 @@ P _gear/1/_lonE -6.0
 P _gear/1/_lonN -6.0
 P _gear/1/_lonR 0.0
 P _gear/1/_scon 50000.019531250
-P _gear/1/_stat_def 1.456367373
+P _gear/1/_stat_def 1.456367254
 P _gear/1/_steerdeg_hispeed 0.0
 P _gear/1/_steerdeg_lospeed 0.0
 P _gear/1/_strut_comp 0.400000006
@@ -224,7 +224,7 @@ P _gear/2/_lonE -6.0
 P _gear/2/_lonN -6.0
 P _gear/2/_lonR 0.0
 P _gear/2/_scon 50000.019531250
-P _gear/2/_stat_def 1.456367373
+P _gear/2/_stat_def 1.456367254
 P _gear/2/_steerdeg_hispeed 0.0
 P _gear/2/_steerdeg_lospeed 0.0
 P _gear/2/_strut_comp 0.400000006
@@ -466,6 +466,17 @@ P _obja/14/_v10_att_y_acf_prt_ref -0.490000010
 P _obja/14/_v10_att_z_acf_prt_ref 49.500000000
 P _obja/14/_v10_is_internal -426686032
 P _obja/14/_v10_steers_with_gear 0
+P _obja/15/_obj_flags 13
+P _obja/15/_v10_att_file_stl A318_Front_Pedestal_Panels.obj
+P _obja/15/_v10_att_part -1
+P _obja/15/_v10_att_phi_ref 0.0
+P _obja/15/_v10_att_psi_ref 0.0
+P _obja/15/_v10_att_the_ref 0.0
+P _obja/15/_v10_att_x_acf_prt_ref 0.0
+P _obja/15/_v10_att_y_acf_prt_ref -0.490000010
+P _obja/15/_v10_att_z_acf_prt_ref 49.500000000
+P _obja/15/_v10_is_internal -307381840
+P _obja/15/_v10_steers_with_gear 0
 P _obja/2/_obj_flags 28
 P _obja/2/_v10_att_file_stl A318_wing/wing.obj
 P _obja/2/_v10_att_part -1
@@ -521,7 +532,7 @@ P _obja/6/_v10_att_y_acf_prt_ref -0.490000010
 P _obja/6/_v10_att_z_acf_prt_ref 49.500000000
 P _obja/6/_v10_is_internal -725051872
 P _obja/6/_v10_steers_with_gear 0
-P _obja/7/_obj_flags 9
+P _obja/7/_obj_flags 1
 P _obja/7/_v10_att_file_stl A318_Cockpit_Bases_Cabinets.obj
 P _obja/7/_v10_att_part -1
 P _obja/7/_v10_att_phi_ref 0.0
@@ -554,7 +565,7 @@ P _obja/9/_v10_att_y_acf_prt_ref -0.490000010
 P _obja/9/_v10_att_z_acf_prt_ref 49.500000000
 P _obja/9/_v10_is_internal -511530576
 P _obja/9/_v10_steers_with_gear 0
-P _obja/count 15
+P _obja/count 16
 P _panel_inst_3d 0
 P _part/0/_bot_s1 0.0
 P _part/0/_bot_s2 0.0
