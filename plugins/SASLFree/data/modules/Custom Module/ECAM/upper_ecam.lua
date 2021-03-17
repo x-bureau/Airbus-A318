@@ -6,10 +6,17 @@ size = {512, 512}
 --get datarefs
 local AC_BUS = globalProperty("A318/systems/ELEC/ACESS_V")
 local selfTest = 0
+local eng1AVAIL = 0
+local eng2AVAIL = 0
 
 local DELTA_TIME = globalProperty("sim/operation/misc/frame_rate_period")
 local Timer = 0
 local TimerFinal = math.random(15, 35)
+
+local TimerEng1 = 0
+local TimerFinalEng1 = 10
+local TimerEng2 = 0
+local TimerFinalEng2 = 10
 
 local eng1N1 = globalProperty("sim/flightmodel/engine/ENGN_N1_[0]")
 local eng2N1 = globalProperty("sim/flightmodel/engine/ENGN_N1_[1]")
@@ -41,22 +48,30 @@ local ECAM_RED = {1.0, 0.0, 0.0, 1.0}
 
 function round(num, numDecimalPlaces)
     local mult = 10^(numDecimalPlaces or 0)
-    return math.floor(num * mult + 0.5) / mult
+    return string.format("%.1f", math.floor(num * mult + 0.5) / mult)
 end
 
 local function draw_avail(side)
-    if side == 2 then 
-        sasl.gl.drawFrame ( 360, 419, 50, 17, ECAM_WHITE)
-        sasl.gl.drawText(AirbusFont, 385.5, 420, "AVAIL", 18, false, false, TEXT_ALIGN_CENTER, ECAM_GREEN)
+    sasl.gl.saveInternalLineState()
+    sasl.gl.setInternalLineWidth(1)
+    if side == 2 then
+        sasl.gl.drawRectangle(345, 434, 61, 20, ECAM_BLACK)
+        sasl.gl.drawFrame(345, 434, 61, 20, ECAM_WHITE)
+        sasl.gl.drawText(AirbusFont, 375.5, 436.5, "AVAIL", 20, false, false, TEXT_ALIGN_CENTER, ECAM_GREEN)
     elseif side == 1 then 
-        sasl.gl.drawFrame ( 160, 419, 50, 17, ECAM_WHITE)
-        sasl.gl.drawText(AirbusFont,  185, 420, "AVAIL", 18, false, false, TEXT_ALIGN_CENTER, ECAM_GREEN)
+        sasl.gl.drawRectangle(146, 434, 61, 20, ECAM_BLACK)
+        sasl.gl.drawFrame(146, 434, 61, 20, ECAM_WHITE)
+        sasl.gl.drawText(AirbusFont, 176.5, 436.5, "AVAIL", 20, false, false, TEXT_ALIGN_CENTER, ECAM_GREEN)
     end
+    sasl.gl.restoreInternalLineState()
 end
-function getDec(num)  
-    return tostring(num):match("%.(%d+)")
+
+function getDec(num)
+    return string.sub(num, string.len(num), string.len(num))
 end
+
 local function draw_ENG_PAGE()
+    --sasl.gl.drawTexture(overlay, 0, 0, 512, 512)
     sasl.gl.saveInternalLineState()
     sasl.gl.setInternalLineWidth(2)
 
@@ -87,8 +102,8 @@ local function draw_ENG_PAGE()
     sasl.gl.restoreGraphicsContext()
     sasl.gl.drawRectangle(146, 413, 61, 20, ECAM_BLACK)
     sasl.gl.drawFrame(146, 413, 61, 20, ECAM_WHITE)
-    sasl.gl.drawText(AirbusFont, 190, 416, string.format("%.0f", round(get(eng1N1), 0))..".", 19, false, false, TEXT_ALIGN_RIGHT, ECAM_GREEN)
-    sasl.gl.drawText(AirbusFont, 201, 416,getDec(round(get(eng1N1), 1)), 16, false, false, TEXT_ALIGN_RIGHT, ECAM_GREEN)
+    sasl.gl.drawText(AirbusFont, 190, 416, math.floor(get(eng1N1))..".", 19, false, false, TEXT_ALIGN_RIGHT, ECAM_GREEN)
+    sasl.gl.drawText(AirbusFont, 201, 416, getDec(round(get(eng1N1), 1)), 16, false, false, TEXT_ALIGN_RIGHT, ECAM_GREEN)
 
     sasl.gl.drawText(AirbusFont, 256, 430, "N1", 20, true, false, TEXT_ALIGN_CENTER, ECAM_WHITE)
     sasl.gl.drawText(AirbusFont, 256, 414, "%", 19, true, false, TEXT_ALIGN_CENTER, ECAM_BLUE)
@@ -122,8 +137,8 @@ local function draw_ENG_PAGE()
 
     sasl.gl.drawRectangle(345, 413, 61, 20, ECAM_BLACK)
     sasl.gl.drawFrame(345, 413, 61, 20, ECAM_WHITE)
-    sasl.gl.drawText(AirbusFont, 390, 416, string.format("%.0f", round(get(eng2N1), 0))..".", 19, false, false, TEXT_ALIGN_RIGHT, ECAM_GREEN)
-    sasl.gl.drawText(AirbusFont, 400, 416,getDec(round(get(eng2N1), 1)), 16, false, false, TEXT_ALIGN_RIGHT, ECAM_GREEN)
+    sasl.gl.drawText(AirbusFont, 390, 416, math.floor(get(eng2N1))..".", 19, false, false, TEXT_ALIGN_RIGHT, ECAM_GREEN)
+    sasl.gl.drawText(AirbusFont, 400, 416, getDec(round(get(eng2N1), 1)), 16, false, false, TEXT_ALIGN_RIGHT, ECAM_GREEN)
 
     sasl.gl.saveGraphicsContext()
     sasl.gl.setTranslateTransform(156, 447)
@@ -138,30 +153,62 @@ local function draw_ENG_PAGE()
     sasl.gl.restoreGraphicsContext()
 
     -- EGT
+    sasl.gl.drawArcLine(156, 346, 40, 11, 169, ECAM_WHITE)
+    sasl.gl.drawLine(156, 386, 156, 381, ECAM_WHITE)
+    sasl.gl.drawLine(116, 346, 121, 346, ECAM_WHITE)
+    sasl.gl.drawArcLine(156, 346, 40, 0, 11, ECAM_RED)
+    sasl.gl.drawArcLine(156, 346, 35, 0, 9, ECAM_RED)
+    sasl.gl.drawLine(190, 346, 197, 346, ECAM_RED)
+    sasl.gl.drawLine(190, 352, 197, 353, ECAM_RED)
+
+    sasl.gl.saveGraphicsContext()
+    sasl.gl.setTranslateTransform(156,346)
+    sasl.gl.setRotateTransform(-90 + (0.18 * get(eng1EGT)))
+    sasl.gl.drawWideLine(0, 25, 0, 45, 3, ECAM_GREEN)
+    sasl.gl.restoreGraphicsContext()
+
     sasl.gl.drawRectangle(131, 338, 50, 20, ECAM_BLACK)
     sasl.gl.drawFrame(131, 338, 50, 20, ECAM_WHITE)
     sasl.gl.drawText(AirbusFont, 175, 341, math.floor(get(eng1EGT)), 19, false, false, TEXT_ALIGN_RIGHT, ECAM_GREEN)
+
     sasl.gl.drawText(AirbusFont, 256, 357, "EGT", 20, true, false, TEXT_ALIGN_CENTER, ECAM_WHITE)
     sasl.gl.drawText(AirbusFont, 253, 340, "°C", 18, true, false, TEXT_ALIGN_CENTER, ECAM_BLUE)
+
+    sasl.gl.drawArcLine(356, 346, 40, 11, 169, ECAM_WHITE)
+    sasl.gl.drawLine(316, 346, 321, 346, ECAM_WHITE)
+    sasl.gl.drawLine(356, 386, 356, 381, ECAM_WHITE)
+    sasl.gl.drawArcLine(356, 346, 40, 0, 11, ECAM_RED)
+    sasl.gl.drawArcLine(356, 346, 35, 0, 9, ECAM_RED)
+    sasl.gl.drawLine(390, 346, 397, 346, ECAM_RED)
+    sasl.gl.drawLine(390, 352, 397, 353, ECAM_RED)
+
+    sasl.gl.saveGraphicsContext()
+    sasl.gl.setTranslateTransform(356,346)
+    sasl.gl.setRotateTransform(-90 + (0.18 * get(eng2EGT)))
+    sasl.gl.drawWideLine(0, 25, 0, 45, 3, ECAM_GREEN)
+    sasl.gl.restoreGraphicsContext()
+
     sasl.gl.drawRectangle(331, 338, 50, 20, ECAM_BLACK)
     sasl.gl.drawFrame(331, 338, 50, 20, ECAM_WHITE)
     sasl.gl.drawText(AirbusFont, 375, 341, math.floor(get(eng2EGT)), 19, false, false, TEXT_ALIGN_RIGHT, ECAM_GREEN)
 
     -- N2
-    sasl.gl.drawText(AirbusFont, 177, 293, string.format("%.1f", round(get(eng1N2), 1)), 20, true, false, TEXT_ALIGN_RIGHT, ECAM_GREEN)
+    sasl.gl.drawText(AirbusFont, 167, 293, math.floor(get(eng1N2))..".", 19, true, false, TEXT_ALIGN_RIGHT, ECAM_GREEN)
+    sasl.gl.drawText(AirbusFont, 177, 293, getDec(round(get(eng1N2), 1)), 16, true, false, TEXT_ALIGN_RIGHT, ECAM_GREEN)
     sasl.gl.drawWideLine(209, 303, 231, 309, 2, ECAM_WHITE)
     sasl.gl.drawText(AirbusFont, 256, 307, "N2", 20, true, false, TEXT_ALIGN_CENTER, ECAM_WHITE)
     sasl.gl.drawText(AirbusFont, 256, 290, "%", 19, true, false, TEXT_ALIGN_CENTER, ECAM_BLUE)
     sasl.gl.drawWideLine(281, 309, 303, 303, 2, ECAM_WHITE)
-    sasl.gl.drawText(AirbusFont, 378, 293, string.format("%.1f", round(get(eng2N2), 1)), 20, true, false, TEXT_ALIGN_RIGHT, ECAM_GREEN)
+    sasl.gl.drawText(AirbusFont, 368, 293, math.floor(get(eng2N2))..".", 19, true, false, TEXT_ALIGN_RIGHT, ECAM_GREEN)
+    sasl.gl.drawText(AirbusFont, 378, 293, getDec(round(get(eng2N2), 1)), 16, true, false, TEXT_ALIGN_RIGHT, ECAM_GREEN)
 
     -- FF
-    sasl.gl.drawText(AirbusFont, 161, 259, math.floor((get(eng1FF) * 60 * 60) + 0.5), 20, true, false, TEXT_ALIGN_RIGHT, ECAM_GREEN)
+    sasl.gl.drawText(AirbusFont, 177, 259, (math.floor((get(eng1FF) * 60 * 60) / 20 + 0.5) * 20), 19, true, false, TEXT_ALIGN_RIGHT, ECAM_GREEN)
     sasl.gl.drawWideLine(209, 266, 231, 273, 2, ECAM_WHITE)
     sasl.gl.drawText(AirbusFont, 256, 266, "FF", 20, true, false, TEXT_ALIGN_CENTER, ECAM_WHITE)
     sasl.gl.drawText(AirbusFont, 256, 250, "KG/H", 17, true, false, TEXT_ALIGN_CENTER, ECAM_BLUE)
     sasl.gl.drawWideLine(303, 266, 281, 273, 2, ECAM_WHITE)
-    sasl.gl.drawText(AirbusFont, 362, 259, math.floor((get(eng2FF) * 60 * 60) + 0.5), 20, true, false, TEXT_ALIGN_RIGHT, ECAM_GREEN)
+    sasl.gl.drawText(AirbusFont, 378, 259, (math.floor((get(eng2FF) * 60 * 60) / 20 + 0.5) * 20), 20, true, false, TEXT_ALIGN_RIGHT, ECAM_GREEN)
 
     -- Bottom Group
     sasl.gl.drawText(AirbusFont, 38, 187, 'FOB :', 21, false, false, TEXT_ALIGN_CENTER, ECAM_WHITE)
@@ -210,13 +257,33 @@ function draw_message(message, line, type)
     end
 end
 
+function update()
+    if get(eng1N1) < 19.5 then
+        eng1AVAIL = 0
+    end
+    if get(eng2N1) < 19.5 then
+        eng2AVAIL = 0
+    end
+end
+
 function draw()
     if get(AC_BUS) > 0 then
         if selfTest == 0 then
             draw_ENG_PAGE()
-            --draw_message("SEATBELTS", 1, 1)
-            --draw_message("NO SMOKING", 2, 1)
-            --draw_message("X-BUREAU IS SWAG", 3, 4)
+            if TimerEng1 < TimerFinalEng1 and eng1AVAIL == 0 and get(eng1N1) > 19.5 then
+                TimerEng1 = TimerEng1 + 1 * get(DELTA_TIME)
+                draw_avail(1)
+            else
+                eng1AVAIL = 1
+                TimerEng1 = 0
+            end
+            if TimerEng2 < TimerFinalEng2 and eng2AVAIL == 0 and get(eng2N1) > 19.5 then
+                TimerEng2 = TimerEng2 + 1 * get(DELTA_TIME)
+                draw_avail(2)
+            else
+                eng2AVAIL = 1
+                TimerEng2 = 0
+            end
             --draw_avail(2)
             Timer = 0
         else

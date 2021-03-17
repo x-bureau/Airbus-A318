@@ -8,8 +8,8 @@ local flap = globalProperty("sim/cockpit2/electrical/APU_door")
 local N1 = globalProperty("sim/cockpit2/electrical/APU_N1_percent")
 local EGT = globalProperty("sim/cockpit2/electrical/APU_EGT_c")
 local apu_pwr = {
-    bleed = globalPropertyi("A318/systems/APU/bleedPress"),
-    valve = globalProperty("A318/systems/APU/bleedValve"),
+    bleed = globalPropertyi("A318/systems/bleed/APUPress"),
+    valve = globalProperty("A318/systems/bleed/APUValve"),
     voltage = globalPropertyi("A318/systems/ELEC/apu_V"),
     hertz = globalPropertyi("A318/systems/ELEC/apu_H"),
     avail = globalPropertyi("A318/systems/ELEC/apu_Avail"),
@@ -66,7 +66,7 @@ function draw_apu_page()
 
     sasl.gl.drawText(AirbusFont, 404, 367, 'BLEED', 22, true, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.WHITE)
     if get(apu_pwr.bleed) > 0 then
-        sasl.gl.drawText(AirbusFont, 396, 344, '35', 20, true, false, TEXT_ALIGN_RIGHT, ECAM_COLOURS.GREEN)
+        sasl.gl.drawText(AirbusFont, 396, 344, math.floor(get(apu_pwr.bleed) + 0.5), 20, true, false, TEXT_ALIGN_RIGHT, ECAM_COLOURS.GREEN)
     else
         sasl.gl.drawText(AirbusFont, 396, 344, 'XX', 20, true, false, TEXT_ALIGN_RIGHT, ECAM_COLOURS.ORANGE)
     end
