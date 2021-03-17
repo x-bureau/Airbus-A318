@@ -4,16 +4,76 @@ local options = {
     co_route = {"CO-ROUTE", "", 'l', 1},
     alt_route = {"ALT-ROUTE", "", 'l', 2},
     flt_nmbr = {"FLT NBR", "", 'l', 3},
-    lat = {"LAT", "", 'l', 4},
     cost_index = {"COST INDEX", "", 'l', 5},
     crz_flt_temp = {"CRZ FL/TEMP", "", 'l', 6},
-    from_to = {"FROM/TO", "", 'r', 1}
+    from_to = {"FROM/TO", "", 'r', 1},
+    tropo = {"TROPO", "INOP", 'r', 5},
+    gnd_temp = {"GND TEMP", "", 'r', 6}
 }
+
+local initialInfoFilled = false
+
+local function processFltNbr()
+    if string.len(SCRATCHPAD) == 0 then
+        displayError("INVALID FORMAT")
+    else
+        options.flt_nmbr[2] = SCRATCHPAD
+    end
+end
+
+local function processFromTo()
+    local entry = SCRATCHPAD
+    if string.find(entry, "/") then
+        -- process tokens
+    else
+        -- no dash, straight code entry
+        if string.len(entry) < 8 then
+            displayError("INVALID FORMAT")
+        else
+            local origin = entry:sub(1, 4)
+            local destination = entry:sub(5, 8)
+            if checkICAO(origin) == false or checkICAO(destination) == false then
+                displayError("AIRPORT NOT FOUND IN DATABASE")
+            else
+                set(mcdu_origin, origin)
+                set(mcdu_destination, destination)
+            end
+        end
+    end
+end
+
+local function processCostIndex()
+    if initialInfoFilled then
+        local indx = tonumber(SCRATCHPAD)
+        if indx == nil then
+            displayError("INVALID FORMAT")
+        else
+            if indx < 1 or indx > 999 then
+                displayError("INVALID COST INDEX")
+            else
+                set(cost_index, indx)
+            end
+        end 
+    end
+end
 
 function init_key_input(side, key)
     if side == 'l' then
+        if key == 1 then
+            displayError("INOP - COMING SOON")
+        end
         if key == 3 then
-            options.flt_nmbr[2] = SCRATCHPAD
+            processFltNbr()
+        end
+        if key == 5 then
+            processCostIndex()
+        end
+    else
+        if key == 1 then
+            processFromTo()
+        end
+        if key == 2 then
+            displayError("NO FLIGHTPLAN FOUND")
         end
     end
 end
@@ -26,33 +86,60 @@ local function drawStaticTitles()
             sasl.gl.drawText(MCDU_FONT_BOLD, 462, option_heading_locations[value[4]], value[1], option_heading_font_size, false, false, TEXT_ALIGN_RIGHT, mcdu_font_colors[1])
         end
     end
-    sasl.gl.drawText(MCDU_FONT, 469, mdcu_positons[3], "*IRS INIT>", mcdu_option_size, false, false, TEXT_ALIGN_RIGHT, mcdu_colors.box)
-    sasl.gl.drawText(MCDU_FONT, 469, mdcu_positons[5], "WIND>", mcdu_option_size, false, false, TEXT_ALIGN_RIGHT, mcdu_font_colors[1])
+    sasl.gl.drawText(MCDU_FONT_BOLD, 462, option_heading_locations[2], "INIT", option_heading_font_size, false, false, TEXT_ALIGN_RIGHT, mcdu_colors.box)
+    sasl.gl.drawText(MCDU_FONT, 469, mdcu_positons[2], "REQUEST*", mcdu_option_size, false, false, TEXT_ALIGN_RIGHT, mcdu_colors.box)
+    sasl.gl.drawText(MCDU_FONT, 469, mdcu_positons[3], "IRS INIT>", mcdu_option_size, false, false, TEXT_ALIGN_RIGHT, mcdu_font_colors[1])
+    sasl.gl.drawText(MCDU_FONT, 469, mdcu_positons[4], "WIND>", mcdu_option_size, false, false, TEXT_ALIGN_RIGHT, mcdu_font_colors[1])
 end
 
 local function drawFields()
     for key, value in pairs(options) do
         if value[2] ~= "" then
-            sasl.gl.drawText(MCDU_FONT, 10, mdcu_positons[value[4]], value[2], mcdu_option_size, false, false, TEXT_ALIGN_LEFT, mcdu_font_colors[3])
+            if value[3] == 'l' then
+                sasl.gl.drawText(MCDU_FONT, 10, mdcu_positons[value[4]], value[2], mcdu_option_size, false, false, TEXT_ALIGN_LEFT, mcdu_font_colors[3])
+            else
+                sasl.gl.drawText(MCDU_FONT, 469, mdcu_positons[value[4]], value[2], mcdu_option_size, false, false, TEXT_ALIGN_RIGHT, mcdu_font_colors[3])
+            end
         end
     end
     if isOptionEmpty(options.co_route) then
         drawBoxes('l', 1, 7)
     end
     if isOptionEmpty(options.alt_route) then
-        drawBlanks('l', 2, "----/----------")
+        drawBlanks('l', 2, "––––/––––––––––")
     end
     if isOptionEmpty(options.flt_nmbr) then
         drawBoxes('l', 3, 8)
     end
-    if isOptionEmpty(options.lat) then
-        drawBlanks('l', 4, "----.-")
-    end
     if isOptionEmpty(options.cost_index) then
-        drawBlanks('l', 5, "---")
+        if initialInfoFilled then
+            drawBoxes('l', 5, 3)
+        else
+            drawBlanks('l', 5, "–––")
+        end
     end
     if isOptionEmpty(options.crz_flt_temp) then
-        drawBlanks('l', 6, "----- /---°")
+        if initialInfoFilled then
+            drawBoxesWithSlash('l', 6, 10, 6)
+        else
+            drawBlanks('l', 6, "––––– /–––°")
+        end
+    end
+    if isOptionEmpty(options.from_to) then
+        drawBoxesWithSlash('r', 1, 9, 5)
+    end
+    if isOptionEmpty(options.gnd_temp) then
+        drawBlanks('r', 6, "–––°")
+    end
+end
+
+function update_init()
+    if get(mcdu_destination) ~= "" and get(mcdu_origin) ~= "" then
+        options.from_to[2] = get(mcdu_origin).."/"..get(mcdu_destination)
+        initialInfoFilled = true
+    end
+    if get(cost_index) ~= 0 then
+        options.cost_index[2] = ""..get(cost_index)
     end
 end
 

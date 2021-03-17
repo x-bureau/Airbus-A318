@@ -12,14 +12,17 @@ size = {479, 400}
 ------------------------------------------------------------------
 
 local MCDU_BLACK = {0 , 0 , 0 , 1.0}
-local AIRBUS_FONT = sasl.gl.loadFont("fonts/PanelFont.ttf")
+AIRBUS_FONT = sasl.gl.loadFont("fonts/PanelFont.ttf")
 MCDU_FONT = sasl.gl.loadFont("fonts/B612Mono-Regular.ttf")
 MCDU_FONT_BOLD = sasl.gl.loadFont("fonts/B612Mono-Bold.ttf")
 MCDU_CURRENT_PAGE = createGlobalPropertyi("A318/cockpit/mcdu/current_page", 1)
 local Airbus_VERSION = "A318-100"
 ENG_TYPE = "CFM-56-B"
 SCRATCHPAD = ""
-
+scratchpadBuffer = ""
+isDisplayingError = false
+local blinkTimer = sasl.createTimer()
+local isBlinking = false
 --Buttons Datarefs 
 
 local BUTTON_1_L = createGlobalPropertyi("A318/cockpit/mcdu/buttons/left/1", 0)
@@ -190,8 +193,20 @@ local inputCalls = {
     init_key_input
 }
 
+local updateCalls = {
+    update_mcdu_menu,
+    update_acf_info,
+    update_init
+}
+
 function clearScratchpad() 
     SCRATCHPAD = ""
+end
+
+function displayError(error)
+    scratchpadBuffer = SCRATCHPAD
+    SCRATCHPAD = error
+    isDisplayingError = true
 end
 
 local function checkInput()
@@ -204,12 +219,18 @@ local function checkInput()
         end
     end
     if get(CLR_KEY) == 1 then
-        if string.len(SCRATCHPAD) == 0 then
-            SCRATCHPAD = "CLR"
-        elseif SCRATCHPAD == "CLR" then
-            SCRATCHPAD = ""
+        if isDisplayingError then
+            SCRATCHPAD = scratchpadBuffer
+            scratchpadBuffer = ""
+            isDisplayingError = false
         else
-            SCRATCHPAD = SCRATCHPAD:sub(1, -2)
+            if string.len(SCRATCHPAD) == 0 then
+                SCRATCHPAD = "CLR"
+            elseif SCRATCHPAD == "CLR" then
+                SCRATCHPAD = ""
+            else
+                SCRATCHPAD = SCRATCHPAD:sub(1, -2)
+            end
         end
         set(CLR_KEY, 0)
     end
@@ -229,7 +250,11 @@ function checkKeyInput()
             end
             inputCalls[get(MCDU_CURRENT_PAGE)](side, key)
             set(buttonInputs[i], 0)
-            --clearScratchpad()
+            if isDisplayingError == false then
+                clearScratchpad()
+            end
+            sasl.startTimer(blinkTimer)
+            isBlinking = true
         end
     end
 end
@@ -237,10 +262,18 @@ end
 function update()
     checkInput()
     checkKeyInput()
+    updateCalls[get(MCDU_CURRENT_PAGE)]()
+    if sasl.getElapsedSeconds(blinkTimer) > 0.13 then
+        sasl.stopTimer(blinkTimer)
+        sasl.resetTimer(blinkTimer)
+        isBlinking = false
+    end
 end
 
 function draw()
-    sasl.gl.drawRectangle(0, 0, 479, 400, {0, 0, 0, 1.0})
-    sasl.gl.drawText(MCDU_FONT, 10, 10, SCRATCHPAD, mcdu_option_size, false, false, TEXT_ALIGN_LEFT, mcdu_font_colors[1])
-    drawCalls[get(MCDU_CURRENT_PAGE)]()
+    sasl.gl.drawRectangle(0, 0, 479, 400, {0, 15/255, 28/255, 1.0})
+    if not isBlinking then
+        sasl.gl.drawText(MCDU_FONT, 10, 10, SCRATCHPAD, mcdu_option_size, false, false, TEXT_ALIGN_LEFT, mcdu_font_colors[1])
+        drawCalls[get(MCDU_CURRENT_PAGE)]()
+    end
 end

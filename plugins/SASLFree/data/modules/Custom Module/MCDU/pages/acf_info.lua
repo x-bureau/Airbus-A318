@@ -14,6 +14,9 @@ local function drawStaticTitles()
     sasl.gl.drawText(MCDU_FONT, 10, mdcu_positons[2], "AIRAC CYCLE "..getAiracCycle(), mcdu_option_size, false, false, TEXT_ALIGN_LEFT, mcdu_font_colors[3])
     sasl.gl.drawText(MCDU_FONT, 10, mdcu_positons[3], "NONE", mcdu_option_size, false, false, TEXT_ALIGN_LEFT, mcdu_font_colors[3])
     sasl.gl.drawText(MCDU_FONT, 10, mdcu_positons[6], "+0.0/+0.0", mcdu_option_size, false, false, TEXT_ALIGN_LEFT, mcdu_font_colors[2])
+
+    -- TODO: REMOVE
+    sasl.gl.drawText(MCDU_FONT, 469, mdcu_positons[6], "(temp) INIT>", mcdu_option_size, false, false, TEXT_ALIGN_RIGHT, mcdu_font_colors[1])
 end
 
 local function drawInputs()
@@ -29,7 +32,7 @@ end
 function acf_info_key_input(side, key)
     if side == 'l' and key == 5 then
         if SCRATCHPAD ~= "ARM" then
-            SCRATCHPAD = "INVALID INPUT"
+            displayError("INVALID INPUT")
         else
             inputs.chg_code[1] = SCRATCHPAD
             clearScratchpad()
@@ -38,6 +41,9 @@ function acf_info_key_input(side, key)
     if side == 'r' and key == 6 then
         set(MCDU_CURRENT_PAGE, 3)
     end
+end
+
+function update_acf_info()
 end
 
 function draw_acf_info()
