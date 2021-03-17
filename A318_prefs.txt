@@ -133,7 +133,7 @@ _iql_circ_the_10 80.000000
 _iql_circ_dis_10 22.546085
 _iql_pscroll_x_pix_10 0.000000
 _iql_pscroll_y_pix_10 448.000000
-_livery_req 0
+_livery_req 2
 _track_up_0 0
 _data_fields_0 0
 _ils_cdi_auto_0 1

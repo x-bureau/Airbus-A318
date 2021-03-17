@@ -10,7 +10,7 @@ P _cgpt/0/_w_test 87100.023437500
 P _cgpt/0/_z_ref 49.869998932
 P _cgpt/1/_name fuel tank #1
 P _cgpt/1/_w_max 14287.0
-P _cgpt/1/_w_now 14287.000976563
+P _cgpt/1/_w_now 14287.000976562
 P _cgpt/1/_w_test 14287.0
 P _cgpt/1/_z_ref 46.0
 P _cgpt/10/_w_max 0.0
@@ -54,12 +54,12 @@ P _cgpt/19/_w_now 1.0
 P _cgpt/19/_w_test 0.0
 P _cgpt/19/_z_ref 0.0
 P _cgpt/2/_name fuel tank #2
-P _cgpt/2/_w_max 11974.700195313
+P _cgpt/2/_w_max 11974.700195312
 P _cgpt/2/_w_now 13172.167968750
 P _cgpt/2/_w_test 11975.0
 P _cgpt/2/_z_ref 42.849998474
 P _cgpt/3/_name fuel tank #3
-P _cgpt/3/_w_max 11974.700195313
+P _cgpt/3/_w_max 11974.700195312
 P _cgpt/3/_w_now 13172.167968750
 P _cgpt/3/_w_test 11975.0
 P _cgpt/3/_z_ref 42.849998474
@@ -156,7 +156,7 @@ P _gear/0/_lonE 6.0
 P _gear/0/_lonN 6.0
 P _gear/0/_lonR 100.0
 P _gear/0/_scon 31250.011718750
-P _gear/0/_stat_def 0.139736980
+P _gear/0/_stat_def 0.139737025
 P _gear/0/_steerdeg_hispeed 5.0
 P _gear/0/_steerdeg_lospeed 75.0
 P _gear/0/_strut_comp 0.899999976
@@ -190,7 +190,7 @@ P _gear/1/_lonE -6.0
 P _gear/1/_lonN -6.0
 P _gear/1/_lonR 0.0
 P _gear/1/_scon 50000.019531250
-P _gear/1/_stat_def 1.456367373
+P _gear/1/_stat_def 1.456367612
 P _gear/1/_steerdeg_hispeed 0.0
 P _gear/1/_steerdeg_lospeed 0.0
 P _gear/1/_strut_comp 0.400000006
@@ -224,7 +224,7 @@ P _gear/2/_lonE -6.0
 P _gear/2/_lonN -6.0
 P _gear/2/_lonR 0.0
 P _gear/2/_scon 50000.019531250
-P _gear/2/_stat_def 1.456367373
+P _gear/2/_stat_def 1.456367612
 P _gear/2/_steerdeg_hispeed 0.0
 P _gear/2/_steerdeg_lospeed 0.0
 P _gear/2/_strut_comp 0.400000006
@@ -389,7 +389,7 @@ P _lite/7/_width 0.0
 P _lite/count 8
 P _lite_equip/_land_lite_off_on_retract_EQ 0
 P _lite_equip/_taxi_lite_off_on_retract_EQ 1
-P _obja/0/_obj_flags 6149
+P _obja/0/_obj_flags 6157
 P _obja/0/_v10_att_file_stl A318_Cockpit.obj
 P _obja/0/_v10_att_part -1
 P _obja/0/_v10_att_phi_ref 0.0
@@ -400,7 +400,7 @@ P _obja/0/_v10_att_y_acf_prt_ref -0.490000010
 P _obja/0/_v10_att_z_acf_prt_ref 49.500000000
 P _obja/0/_v10_is_internal -725051872
 P _obja/0/_v10_steers_with_gear 0
-P _obja/1/_obj_flags 4
+P _obja/1/_obj_flags 28
 P _obja/1/_v10_att_file_stl A318_Fuselage.obj
 P _obja/1/_v10_att_part -1
 P _obja/1/_v10_att_phi_ref 0.0
@@ -411,7 +411,7 @@ P _obja/1/_v10_att_y_acf_prt_ref -0.490000010
 P _obja/1/_v10_att_z_acf_prt_ref 49.500000000
 P _obja/1/_v10_is_internal -417953360
 P _obja/1/_v10_steers_with_gear 0
-P _obja/10/_obj_flags 5
+P _obja/10/_obj_flags 13
 P _obja/10/_v10_att_file_stl A318_Front_Overhead.obj
 P _obja/10/_v10_att_part -1
 P _obja/10/_v10_att_phi_ref 0.0
@@ -422,7 +422,7 @@ P _obja/10/_v10_att_y_acf_prt_ref -0.490000010
 P _obja/10/_v10_att_z_acf_prt_ref 49.500000000
 P _obja/10/_v10_is_internal -407283280
 P _obja/10/_v10_steers_with_gear 0
-P _obja/11/_obj_flags 5
+P _obja/11/_obj_flags 13
 P _obja/11/_v10_att_file_stl A318_Center_Pedestal.obj
 P _obja/11/_v10_att_part -1
 P _obja/11/_v10_att_phi_ref 0.0
@@ -433,7 +433,7 @@ P _obja/11/_v10_att_y_acf_prt_ref -0.490000010
 P _obja/11/_v10_att_z_acf_prt_ref 49.500000000
 P _obja/11/_v10_is_internal -407283280
 P _obja/11/_v10_steers_with_gear 0
-P _obja/12/_obj_flags 5
+P _obja/12/_obj_flags 13
 P _obja/12/_v10_att_file_stl A318_Center_Pedestal_Panels.obj
 P _obja/12/_v10_att_part -1
 P _obja/12/_v10_att_phi_ref 0.0
@@ -444,7 +444,7 @@ P _obja/12/_v10_att_y_acf_prt_ref -0.490000010
 P _obja/12/_v10_att_z_acf_prt_ref 49.500000000
 P _obja/12/_v10_is_internal -428635808
 P _obja/12/_v10_steers_with_gear 0
-P _obja/13/_obj_flags 5
+P _obja/13/_obj_flags 13
 P _obja/13/_v10_att_file_stl A318_Front_Overhead_Panels.obj
 P _obja/13/_v10_att_part -1
 P _obja/13/_v10_att_phi_ref 0.0
@@ -455,7 +455,29 @@ P _obja/13/_v10_att_y_acf_prt_ref -0.490000010
 P _obja/13/_v10_att_z_acf_prt_ref 49.500000000
 P _obja/13/_v10_is_internal -344069712
 P _obja/13/_v10_steers_with_gear 0
-P _obja/2/_obj_flags 4
+P _obja/14/_obj_flags 13
+P _obja/14/_v10_att_file_stl A318_Throttle.obj
+P _obja/14/_v10_att_part -1
+P _obja/14/_v10_att_phi_ref 0.0
+P _obja/14/_v10_att_psi_ref 0.0
+P _obja/14/_v10_att_the_ref 0.0
+P _obja/14/_v10_att_x_acf_prt_ref 0.0
+P _obja/14/_v10_att_y_acf_prt_ref -0.490000010
+P _obja/14/_v10_att_z_acf_prt_ref 49.500000000
+P _obja/14/_v10_is_internal -426686032
+P _obja/14/_v10_steers_with_gear 0
+P _obja/15/_obj_flags 13
+P _obja/15/_v10_att_file_stl A318_Front_Pedestal_Panels.obj
+P _obja/15/_v10_att_part -1
+P _obja/15/_v10_att_phi_ref 0.0
+P _obja/15/_v10_att_psi_ref 0.0
+P _obja/15/_v10_att_the_ref 0.0
+P _obja/15/_v10_att_x_acf_prt_ref 0.0
+P _obja/15/_v10_att_y_acf_prt_ref -0.490000010
+P _obja/15/_v10_att_z_acf_prt_ref 49.500000000
+P _obja/15/_v10_is_internal -307381840
+P _obja/15/_v10_steers_with_gear 0
+P _obja/2/_obj_flags 28
 P _obja/2/_v10_att_file_stl A318_wing/wing.obj
 P _obja/2/_v10_att_part -1
 P _obja/2/_v10_att_phi_ref 0.0
@@ -466,8 +488,8 @@ P _obja/2/_v10_att_y_acf_prt_ref 1.0
 P _obja/2/_v10_att_z_acf_prt_ref 49.500000000
 P _obja/2/_v10_is_internal -725051872
 P _obja/2/_v10_steers_with_gear 0
-P _obja/3/_obj_flags 5
-P _obja/3/_v10_att_file_stl A318_FCU.obj
+P _obja/3/_obj_flags 13
+P _obja/3/_v10_att_file_stl A318_Panels_MIP_FCU.obj
 P _obja/3/_v10_att_part -1
 P _obja/3/_v10_att_phi_ref 0.0
 P _obja/3/_v10_att_psi_ref 0.0
@@ -477,8 +499,8 @@ P _obja/3/_v10_att_y_acf_prt_ref -0.490000010
 P _obja/3/_v10_att_z_acf_prt_ref 49.500000000
 P _obja/3/_v10_is_internal -725051872
 P _obja/3/_v10_steers_with_gear 0
-P _obja/4/_obj_flags 5
-P _obja/4/_v10_att_file_stl A318_MIP.obj
+P _obja/4/_obj_flags 13
+P _obja/4/_v10_att_file_stl A318_FCU.obj
 P _obja/4/_v10_att_part -1
 P _obja/4/_v10_att_phi_ref 0.0
 P _obja/4/_v10_att_psi_ref 0.0
@@ -486,9 +508,9 @@ P _obja/4/_v10_att_the_ref 0.0
 P _obja/4/_v10_att_x_acf_prt_ref 0.0
 P _obja/4/_v10_att_y_acf_prt_ref -0.490000010
 P _obja/4/_v10_att_z_acf_prt_ref 49.500000000
-P _obja/4/_v10_is_internal -725051872
+P _obja/4/_v10_is_internal -438150736
 P _obja/4/_v10_steers_with_gear 0
-P _obja/5/_obj_flags 4
+P _obja/5/_obj_flags 28
 P _obja/5/_v10_att_file_stl A318_Engines.obj
 P _obja/5/_v10_att_part -1
 P _obja/5/_v10_att_phi_ref 0.0
@@ -499,7 +521,7 @@ P _obja/5/_v10_att_y_acf_prt_ref 1.0
 P _obja/5/_v10_att_z_acf_prt_ref 49.500000000
 P _obja/5/_v10_is_internal -462580192
 P _obja/5/_v10_steers_with_gear 0
-P _obja/6/_obj_flags 5
+P _obja/6/_obj_flags 13
 P _obja/6/_v10_att_file_stl MIP_BUTTONS.obj
 P _obja/6/_v10_att_part -1
 P _obja/6/_v10_att_phi_ref 0.0
@@ -510,7 +532,7 @@ P _obja/6/_v10_att_y_acf_prt_ref -0.490000010
 P _obja/6/_v10_att_z_acf_prt_ref 49.500000000
 P _obja/6/_v10_is_internal -725051872
 P _obja/6/_v10_steers_with_gear 0
-P _obja/7/_obj_flags 1
+P _obja/7/_obj_flags 9
 P _obja/7/_v10_att_file_stl A318_Cockpit_Bases_Cabinets.obj
 P _obja/7/_v10_att_part -1
 P _obja/7/_v10_att_phi_ref 0.0
@@ -521,7 +543,7 @@ P _obja/7/_v10_att_y_acf_prt_ref -0.490000010
 P _obja/7/_v10_att_z_acf_prt_ref 49.500000000
 P _obja/7/_v10_is_internal -725051872
 P _obja/7/_v10_steers_with_gear 0
-P _obja/8/_obj_flags 5
+P _obja/8/_obj_flags 13
 P _obja/8/_v10_att_file_stl A318_Rear_Overhead.obj
 P _obja/8/_v10_att_part -1
 P _obja/8/_v10_att_phi_ref 0.0
@@ -532,7 +554,7 @@ P _obja/8/_v10_att_y_acf_prt_ref -0.490000010
 P _obja/8/_v10_att_z_acf_prt_ref 49.500000000
 P _obja/8/_v10_is_internal -462580192
 P _obja/8/_v10_steers_with_gear 0
-P _obja/9/_obj_flags 5
+P _obja/9/_obj_flags 13
 P _obja/9/_v10_att_file_stl A318_Cabin_Interior.obj
 P _obja/9/_v10_att_part -1
 P _obja/9/_v10_att_phi_ref 0.0
@@ -543,7 +565,7 @@ P _obja/9/_v10_att_y_acf_prt_ref -0.490000010
 P _obja/9/_v10_att_z_acf_prt_ref 49.500000000
 P _obja/9/_v10_is_internal -511530576
 P _obja/9/_v10_steers_with_gear 0
-P _obja/count 14
+P _obja/count 16
 P _panel_inst_3d 0
 P _part/0/_bot_s1 0.0
 P _part/0/_bot_s2 0.0
@@ -13233,7 +13255,7 @@ P _part/16/_geo_xyz/7,0,2 88.579627991
 P _part/16/_geo_xyz/7,1,0 -9.227745056
 P _part/16/_geo_xyz/7,1,1 4.030887127
 P _part/16/_geo_xyz/7,1,2 88.841041565
-P _part/16/_geo_xyz/7,10,0 -9.294648170
+P _part/16/_geo_xyz/7,10,0 -9.294649124
 P _part/16/_geo_xyz/7,10,1 3.486002922
 P _part/16/_geo_xyz/7,10,2 90.758102417
 P _part/16/_geo_xyz/7,11,0 -9.285091400
@@ -13260,10 +13282,10 @@ P _part/16/_geo_xyz/7,17,2 0.0
 P _part/16/_geo_xyz/7,2,0 -9.208629608
 P _part/16/_geo_xyz/7,2,1 4.186568260
 P _part/16/_geo_xyz/7,2,2 89.451019287
-P _part/16/_geo_xyz/7,3,0 -9.199072838
+P _part/16/_geo_xyz/7,3,0 -9.199071884
 P _part/16/_geo_xyz/7,3,1 4.264409065
 P _part/16/_geo_xyz/7,3,2 90.758102417
-P _part/16/_geo_xyz/7,4,0 -9.199072838
+P _part/16/_geo_xyz/7,4,0 -9.199071884
 P _part/16/_geo_xyz/7,4,1 4.264409065
 P _part/16/_geo_xyz/7,4,2 92.500885010
 P _part/16/_geo_xyz/7,5,0 -9.229482651
@@ -13278,7 +13300,7 @@ P _part/16/_geo_xyz/7,7,2 97.293533325
 P _part/16/_geo_xyz/7,8,0 -9.264238358
 P _part/16/_geo_xyz/7,8,1 3.733677626
 P _part/16/_geo_xyz/7,8,2 95.550750732
-P _part/16/_geo_xyz/7,9,0 -9.294648170
+P _part/16/_geo_xyz/7,9,0 -9.294649124
 P _part/16/_geo_xyz/7,9,1 3.486002922
 P _part/16/_geo_xyz/7,9,2 92.500885010
 P _part/16/_geo_xyz/8,0,0 -9.246860504
@@ -13287,7 +13309,7 @@ P _part/16/_geo_xyz/8,0,2 88.579627991
 P _part/16/_geo_xyz/8,1,0 -9.227745056
 P _part/16/_geo_xyz/8,1,1 4.030887127
 P _part/16/_geo_xyz/8,1,2 88.841041565
-P _part/16/_geo_xyz/8,10,0 -9.294648170
+P _part/16/_geo_xyz/8,10,0 -9.294649124
 P _part/16/_geo_xyz/8,10,1 3.486002922
 P _part/16/_geo_xyz/8,10,2 90.758102417
 P _part/16/_geo_xyz/8,11,0 -9.285091400
@@ -13314,10 +13336,10 @@ P _part/16/_geo_xyz/8,17,2 0.0
 P _part/16/_geo_xyz/8,2,0 -9.208629608
 P _part/16/_geo_xyz/8,2,1 4.186568260
 P _part/16/_geo_xyz/8,2,2 89.451019287
-P _part/16/_geo_xyz/8,3,0 -9.199072838
+P _part/16/_geo_xyz/8,3,0 -9.199071884
 P _part/16/_geo_xyz/8,3,1 4.264409065
 P _part/16/_geo_xyz/8,3,2 90.758102417
-P _part/16/_geo_xyz/8,4,0 -9.199072838
+P _part/16/_geo_xyz/8,4,0 -9.199071884
 P _part/16/_geo_xyz/8,4,1 4.264409065
 P _part/16/_geo_xyz/8,4,2 92.500885010
 P _part/16/_geo_xyz/8,5,0 -9.229482651
@@ -13332,7 +13354,7 @@ P _part/16/_geo_xyz/8,7,2 97.293533325
 P _part/16/_geo_xyz/8,8,0 -9.264238358
 P _part/16/_geo_xyz/8,8,1 3.733677626
 P _part/16/_geo_xyz/8,8,2 95.550750732
-P _part/16/_geo_xyz/8,9,0 -9.294648170
+P _part/16/_geo_xyz/8,9,0 -9.294649124
 P _part/16/_geo_xyz/8,9,1 3.486002922
 P _part/16/_geo_xyz/8,9,2 92.500885010
 P _part/16/_geo_xyz/9,0,0 -11.058246613
@@ -14703,7 +14725,7 @@ P _part/17/_geo_xyz/7,0,2 88.579627991
 P _part/17/_geo_xyz/7,1,0 9.227745056
 P _part/17/_geo_xyz/7,1,1 4.030887127
 P _part/17/_geo_xyz/7,1,2 88.841041565
-P _part/17/_geo_xyz/7,10,0 9.294648170
+P _part/17/_geo_xyz/7,10,0 9.294649124
 P _part/17/_geo_xyz/7,10,1 3.486002922
 P _part/17/_geo_xyz/7,10,2 90.758102417
 P _part/17/_geo_xyz/7,11,0 9.285091400
@@ -14730,10 +14752,10 @@ P _part/17/_geo_xyz/7,17,2 0.0
 P _part/17/_geo_xyz/7,2,0 9.208629608
 P _part/17/_geo_xyz/7,2,1 4.186568260
 P _part/17/_geo_xyz/7,2,2 89.451019287
-P _part/17/_geo_xyz/7,3,0 9.199072838
+P _part/17/_geo_xyz/7,3,0 9.199071884
 P _part/17/_geo_xyz/7,3,1 4.264409065
 P _part/17/_geo_xyz/7,3,2 90.758102417
-P _part/17/_geo_xyz/7,4,0 9.199072838
+P _part/17/_geo_xyz/7,4,0 9.199071884
 P _part/17/_geo_xyz/7,4,1 4.264409065
 P _part/17/_geo_xyz/7,4,2 92.500885010
 P _part/17/_geo_xyz/7,5,0 9.229482651
@@ -14748,7 +14770,7 @@ P _part/17/_geo_xyz/7,7,2 97.293533325
 P _part/17/_geo_xyz/7,8,0 9.264238358
 P _part/17/_geo_xyz/7,8,1 3.733677626
 P _part/17/_geo_xyz/7,8,2 95.550750732
-P _part/17/_geo_xyz/7,9,0 9.294648170
+P _part/17/_geo_xyz/7,9,0 9.294649124
 P _part/17/_geo_xyz/7,9,1 3.486002922
 P _part/17/_geo_xyz/7,9,2 92.500885010
 P _part/17/_geo_xyz/8,0,0 9.246860504
@@ -14757,7 +14779,7 @@ P _part/17/_geo_xyz/8,0,2 88.579627991
 P _part/17/_geo_xyz/8,1,0 9.227745056
 P _part/17/_geo_xyz/8,1,1 4.030887127
 P _part/17/_geo_xyz/8,1,2 88.841041565
-P _part/17/_geo_xyz/8,10,0 9.294648170
+P _part/17/_geo_xyz/8,10,0 9.294649124
 P _part/17/_geo_xyz/8,10,1 3.486002922
 P _part/17/_geo_xyz/8,10,2 90.758102417
 P _part/17/_geo_xyz/8,11,0 9.285091400
@@ -14784,10 +14806,10 @@ P _part/17/_geo_xyz/8,17,2 0.0
 P _part/17/_geo_xyz/8,2,0 9.208629608
 P _part/17/_geo_xyz/8,2,1 4.186568260
 P _part/17/_geo_xyz/8,2,2 89.451019287
-P _part/17/_geo_xyz/8,3,0 9.199072838
+P _part/17/_geo_xyz/8,3,0 9.199071884
 P _part/17/_geo_xyz/8,3,1 4.264409065
 P _part/17/_geo_xyz/8,3,2 90.758102417
-P _part/17/_geo_xyz/8,4,0 9.199072838
+P _part/17/_geo_xyz/8,4,0 9.199071884
 P _part/17/_geo_xyz/8,4,1 4.264409065
 P _part/17/_geo_xyz/8,4,2 92.500885010
 P _part/17/_geo_xyz/8,5,0 9.229482651
@@ -14802,7 +14824,7 @@ P _part/17/_geo_xyz/8,7,2 97.293533325
 P _part/17/_geo_xyz/8,8,0 9.264238358
 P _part/17/_geo_xyz/8,8,1 3.733677626
 P _part/17/_geo_xyz/8,8,2 95.550750732
-P _part/17/_geo_xyz/8,9,0 9.294648170
+P _part/17/_geo_xyz/8,9,0 9.294649124
 P _part/17/_geo_xyz/8,9,1 3.486002922
 P _part/17/_geo_xyz/8,9,2 92.500885010
 P _part/17/_geo_xyz/9,0,0 11.058246613
@@ -22597,7 +22619,7 @@ P _part/8/_top_t1 0.0
 P _part/8/_top_t2 0.383703709
 P _part/85/_bot_s1 0.632812500
 P _part/85/_bot_s2 0.753906250
-P _part/85/_bot_t1 0.254882813
+P _part/85/_bot_t1 0.254882812
 P _part/85/_bot_t2 0.295898438
 P _part/85/_geo_xyz/0,0,0 0.0
 P _part/85/_geo_xyz/0,0,1 2.0
@@ -24063,11 +24085,11 @@ P _part/85/_r_dim 10
 P _part/85/_s_dim 8
 P _part/85/_top_s1 0.632812500
 P _part/85/_top_s2 0.753906250
-P _part/85/_top_t1 0.254882813
+P _part/85/_top_t1 0.254882812
 P _part/85/_top_t2 0.295898438
 P _part/86/_bot_s1 0.632812500
 P _part/86/_bot_s2 0.753906250
-P _part/86/_bot_t1 0.254882813
+P _part/86/_bot_t1 0.254882812
 P _part/86/_bot_t2 0.295898438
 P _part/86/_geo_xyz/0,0,0 0.0
 P _part/86/_geo_xyz/0,0,1 2.0
@@ -25533,11 +25555,11 @@ P _part/86/_r_dim 10
 P _part/86/_s_dim 8
 P _part/86/_top_s1 0.632812500
 P _part/86/_top_s2 0.753906250
-P _part/86/_top_t1 0.254882813
+P _part/86/_top_t1 0.254882812
 P _part/86/_top_t2 0.295898438
 P _part/87/_bot_s1 0.632812500
 P _part/87/_bot_s2 0.753906250
-P _part/87/_bot_t1 0.254882813
+P _part/87/_bot_t1 0.254882812
 P _part/87/_bot_t2 0.295898438
 P _part/87/_geo_xyz/0,0,0 0.0
 P _part/87/_geo_xyz/0,0,1 2.0
@@ -27003,7 +27025,7 @@ P _part/87/_r_dim 10
 P _part/87/_s_dim 8
 P _part/87/_top_s1 0.632812500
 P _part/87/_top_s2 0.753906250
-P _part/87/_top_t1 0.254882813
+P _part/87/_top_t1 0.254882812
 P _part/87/_top_t2 0.295898438
 P _part/9/_bot_s1 0.755999982
 P _part/9/_bot_s2 1.0
@@ -36187,7 +36209,7 @@ P acf/_feather_prop_with_oilp 0
 P acf/_feathered_pitch 0.0
 P acf/_ff_rat_idle_JET 0.100000001
 P acf/_ff_rat_idle_PRP 0.100000001
-P acf/_file_writer_version 115200
+P acf/_file_writer_version 115103
 P acf/_flap1_cd 0.035000000
 P acf/_flap1_cl 1.085000038
 P acf/_flap1_cm -0.294999987

@@ -2,10 +2,11 @@ sasl.options.setAircraftPanelRendering(true)
 sasl.options.set3DRendering(false)
 sasl.options.setInteractivity(true)
 addSearchPath(moduleDirectory.."/images/")
-addSearchPath(moduleDirectory .. "/Custom Module/ATSAW/")
-addSearchPath(moduleDirectory .. "/Custom Module/ND/")
 addSearchPath(moduleDirectory .. "/Custom Module/ADIRS/")
 addSearchPath(moduleDirectory .. "/Custom Module/PFD/")
+addSearchPath(moduleDirectory .. "/Custom Module/ND/")
+addSearchPath(moduleDirectory .. "/Custom Module/ECAM/")
+addSearchPath(moduleDirectory .. "/Custom Module/ATSAW/")
 addSearchPath(moduleDirectory .. "/Custom Module/efb/")
 addSearchPath(moduleDirectory .. "/Custom Module/MCDU/")
 
@@ -18,6 +19,7 @@ components = {
   customdataref {};
   elec {};
   hydraulics {};
+  bleed {};
   ADIRS {};
   mcdu {
     fbo = true ,
@@ -40,7 +42,7 @@ components = {
     fpsLimit = 29
   };
   -- ATSAW {};
-  ecam {
+  upper_ecam {
     fbo = true ,
     fpsLimit = 29
   };
