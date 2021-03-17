@@ -18,6 +18,7 @@ components = {
   customdataref {};
   elec {};
   hydraulics {};
+  bleed {};
   ADIRS {};
   MCDU {
     fbo = true ,
