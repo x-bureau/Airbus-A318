@@ -5,6 +5,11 @@ size = {1000, 1000}
 
 --get datarefs
 local BUS = globalProperty("A318/systems/ELEC/AC2_V")
+local selfTest = 0
+
+local DELTA_TIME = globalProperty("sim/operation/misc/frame_rate_period")
+local Timer = 0
+local TimerFinal = math.random(15, 35)
 
 local ADIRS_aligned = globalProperty("A318/systems/ADIRS/2/aligned")
 local ADIRS_mode = globalProperty("A318/systems/ADIRS/2/mode")
@@ -132,10 +137,18 @@ function pfd()
     sasl.gl.drawRectangle(845, 438, 50, 87, BLACK)
     sasl.gl.setClipArea(845, 438, 50, 87)
     sasl.gl.saveGraphicsContext()
-    sasl.gl.setTranslateTransform(0, 115 - (1.75 * string.sub(alt, string.len(math.floor(alt)) - 1,  string.len(math.floor(alt)) - 0)))
+    if get(alt) >= 0 then
+      sasl.gl.setTranslateTransform(0, 115 - (1.75 * string.sub(alt, string.len(math.floor(alt)) - 1,  string.len(math.floor(alt)) - 0)))
+    else
+      sasl.gl.setTranslateTransform(0, 115 + (1.75 * string.sub(alt, string.len(math.floor(alt)) - 1,  string.len(math.floor(alt)) - 0)))
+    end
     for t=1,3 do
      for i=0,4 do
+      if get(alt) > 0 then
         sasl.gl.drawText(AirbusFont, 850, (t * 175) + (i * 35), string.format("%02d",(i * 20)), 40, false, false, TEXT_ALIGN_LEFT, GREEN)
+      else
+        sasl.gl.drawText(AirbusFont, 850, (t * 175) + (i * -35), string.format("%02d",(i * 20)), 40, false, false, TEXT_ALIGN_LEFT, GREEN)
+      end
      end
     end
     sasl.gl.resetClipArea()
@@ -205,7 +218,7 @@ function artificial_horizon()
   if radioAlt < 2500 then
     sasl.gl.saveGraphicsContext()
     sasl.gl.setTranslateTransform(440, 481)
-    sasl.gl.setRotateTransform(r)
+    sasl.gl.setRotateTransform(-r)
     if radioAlt <= 400 then
       if radioAlt > 50 then
         sasl.gl.drawText(AirbusFont, 0, -251, math.floor(radioAlt / 10 + 0.5) * 10, 50, false, false, TEXT_ALIGN_CENTER, ORANGE)
@@ -271,10 +284,10 @@ function altitude_tape()
   sasl.gl.saveGraphicsContext()
 
   sasl.gl.setTranslateTransform(0, 481 - (2.45 * alt))
-  for i=0,450 do
+  for i=-10,450 do
     sasl.gl.drawText(AirbusFont, 827, -18 + (245 * i), string.format("%03d", i), 50, false, false, TEXT_ALIGN_RIGHT, WHITE)
   end
-  for i=0,2250 do
+  for i=-50,2250 do
     sasl.gl.drawWideLine(830, 0 + (49 * i), 845, 0 + (49 * i), 4, WHITE)
   end
 
@@ -301,9 +314,21 @@ end
 function draw()
   sasl.gl.setClipArea(0, 0, 1000, 1000)
   if get(BUS) > 0 then
-    pfd()
+    if selfTest == 1 then
+      pfd()
+      Timer = 0
+    else
+      if Timer < TimerFinal then
+        Timer = Timer + 1 * get(DELTA_TIME)
+        sasl.gl.drawText(AirbusFont, 500, 500, "SELF TEST IN PROGESS", 55, false, false, TEXT_ALIGN_CENTER, GREEN)
+        sasl.gl.drawText(AirbusFont, 500, 440, "(MAX 40 SECONDS)", 55, false, false, TEXT_ALIGN_CENTER, GREEN)
+      else
+        selfTest = 1
+      end
+    end
   else
-    -- off
+    Timer = 0
+    selfTest = 0
   end
   sasl.gl.resetClipArea()
 end

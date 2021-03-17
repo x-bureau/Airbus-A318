@@ -4,7 +4,7 @@ OBJ
 
 GLOBAL_cockpit_lit
 TEXTURE	cockpit_3d/-PANELS-/panel.png
-POINT_COUNTS	6081	0	0	6081
+POINT_COUNTS	6153	0	0	6153
 
 VT	-0.27439249	0.42291993	-13.01095867	0.00010838	0.99355686	0.11333506	0	0
 VT	-0.27337417	0.42295474	-13.0112648	0.00010838	0.99355686	0.11333506	0	0
@@ -1575,6 +1575,78 @@ VT	0.01531958	1.53378546	-12.53715515	-1	0	0	0.81107897	0.57989353
 VT	0.01531958	1.52428913	-12.56457424	-1	0	-0	0.81107897	0.5451842
 VT	0.01531958	1.52631509	-12.56527615	-1	0	-0	0.81107897	0.5451842
 VT	0.01531958	1.53378546	-12.53715515	-1	0	-0	0.81107897	0.57989353
+VT	-0.00313612	1.43311524	-12.80006504	-0	-0.93514776	0.35425797	0.86265367	0.57989353
+VT	-0.00313612	1.42250311	-12.82807827	-0	-0.93514776	0.35425797	0.86265367	0.5451842
+VT	-0.03309165	1.42250311	-12.82807827	-0	-0.93514776	0.35425797	0.81107897	0.5451842
+VT	-0.03309165	1.43311524	-12.80006504	0	-0.93514776	0.35425797	0.81107897	0.57989353
+VT	-0.00313612	1.43311524	-12.80006504	0	-0.93514776	0.35425797	0.86265367	0.57989353
+VT	-0.03309165	1.42250311	-12.82807827	0	-0.93514776	0.35425797	0.81107897	0.5451842
+VT	-0.00313612	1.43518507	-12.80084991	0	0.93514377	-0.35426852	0.86265367	0.57989353
+VT	-0.03309165	1.43518507	-12.80084991	0	0.93514377	-0.35426852	0.81107897	0.57989353
+VT	-0.03309165	1.42457294	-12.82886219	0	0.93514377	-0.35426852	0.81107897	0.5451842
+VT	-0.00313612	1.42457294	-12.82886219	0	0.93514377	-0.35426852	0.86265367	0.5451842
+VT	-0.00313612	1.43518507	-12.80084991	0	0.93514377	-0.35426852	0.86265367	0.57989353
+VT	-0.03309165	1.42457294	-12.82886219	0	0.93514377	-0.35426852	0.81107897	0.5451842
+VT	-0.03309165	1.43518507	-12.80084991	0	0.35456169	0.93503255	0.81107897	0.57989353
+VT	-0.00313612	1.43518507	-12.80084991	0	0.35456169	0.93503255	0.86265367	0.57989353
+VT	-0.00313612	1.43311524	-12.80006504	0	0.35456169	0.93503255	0.86265367	0.57989353
+VT	-0.03309165	1.43311524	-12.80006504	0	0.35456169	0.93503255	0.81107897	0.57989353
+VT	-0.03309165	1.43518507	-12.80084991	0	0.35456169	0.93503255	0.81107897	0.57989353
+VT	-0.00313612	1.43311524	-12.80006504	0	0.35456169	0.93503255	0.86265367	0.57989353
+VT	-0.00313612	1.42457294	-12.82886219	0	-0.35418499	-0.93517542	0.86265367	0.5451842
+VT	-0.03309165	1.42457294	-12.82886219	0	-0.35418499	-0.93517542	0.81107897	0.5451842
+VT	-0.03309165	1.42250311	-12.82807827	0	-0.35418499	-0.93517542	0.81107897	0.5451842
+VT	-0.00313612	1.42250311	-12.82807827	0	-0.35418499	-0.93517542	0.86265367	0.5451842
+VT	-0.00313612	1.42457294	-12.82886219	0	-0.35418499	-0.93517542	0.86265367	0.5451842
+VT	-0.03309165	1.42250311	-12.82807827	0	-0.35418499	-0.93517542	0.81107897	0.5451842
+VT	-0.00313612	1.43518507	-12.80084991	1	0	-0	0.86265367	0.57989353
+VT	-0.00313612	1.42457294	-12.82886219	1	0	-0	0.86265367	0.5451842
+VT	-0.00313612	1.42250311	-12.82807827	1	0	-0	0.86265367	0.5451842
+VT	-0.00313612	1.43311524	-12.80006504	1	0	0	0.86265367	0.57989353
+VT	-0.00313612	1.43518507	-12.80084991	1	0	0	0.86265367	0.57989353
+VT	-0.00313612	1.42250311	-12.82807827	1	0	0	0.86265367	0.5451842
+VT	-0.03309165	1.42457294	-12.82886219	-1	0	0	0.81107897	0.5451842
+VT	-0.03309165	1.43518507	-12.80084991	-1	0	0	0.81107897	0.57989353
+VT	-0.03309165	1.43311524	-12.80006504	-1	0	0	0.81107897	0.57989353
+VT	-0.03309165	1.42250311	-12.82807827	-1	0	-0	0.81107897	0.5451842
+VT	-0.03309165	1.42457294	-12.82886219	-1	0	-0	0.81107897	0.5451842
+VT	-0.03309165	1.43311524	-12.80006504	-1	0	-0	0.81107897	0.57989353
+VT	-0.00313612	1.41819978	-12.83943653	-0	-0.93514776	0.35425797	0.86265367	0.57989353
+VT	-0.00313612	1.40758765	-12.86744976	-0	-0.93514776	0.35425797	0.86265367	0.5451842
+VT	-0.03309165	1.40758765	-12.86744976	-0	-0.93514776	0.35425797	0.81107897	0.5451842
+VT	-0.03309165	1.41819978	-12.83943653	0	-0.93514776	0.35425797	0.81107897	0.57989353
+VT	-0.00313612	1.41819978	-12.83943653	0	-0.93514776	0.35425797	0.86265367	0.57989353
+VT	-0.03309165	1.40758765	-12.86744976	0	-0.93514776	0.35425797	0.81107897	0.5451842
+VT	-0.00313612	1.42026961	-12.84022141	0	0.93514377	-0.35426852	0.86265367	0.57989353
+VT	-0.03309165	1.42026961	-12.84022141	0	0.93514377	-0.35426852	0.81107897	0.57989353
+VT	-0.03309165	1.40965748	-12.86823368	0	0.93514377	-0.35426852	0.81107897	0.5451842
+VT	-0.00313612	1.40965748	-12.86823368	0	0.93514377	-0.35426852	0.86265367	0.5451842
+VT	-0.00313612	1.42026961	-12.84022141	0	0.93514377	-0.35426852	0.86265367	0.57989353
+VT	-0.03309165	1.40965748	-12.86823368	0	0.93514377	-0.35426852	0.81107897	0.5451842
+VT	-0.03309165	1.42026961	-12.84022141	0	0.35456169	0.93503255	0.81107897	0.57989353
+VT	-0.00313612	1.42026961	-12.84022141	0	0.35456169	0.93503255	0.86265367	0.57989353
+VT	-0.00313612	1.41819978	-12.83943653	0	0.35456169	0.93503255	0.86265367	0.57989353
+VT	-0.03309165	1.41819978	-12.83943653	0	0.35456169	0.93503255	0.81107897	0.57989353
+VT	-0.03309165	1.42026961	-12.84022141	0	0.35456169	0.93503255	0.81107897	0.57989353
+VT	-0.00313612	1.41819978	-12.83943653	0	0.35456169	0.93503255	0.86265367	0.57989353
+VT	-0.00313612	1.40965748	-12.86823368	0	-0.35418499	-0.93517542	0.86265367	0.5451842
+VT	-0.03309165	1.40965748	-12.86823368	0	-0.35418499	-0.93517542	0.81107897	0.5451842
+VT	-0.03309165	1.40758765	-12.86744976	0	-0.35418499	-0.93517542	0.81107897	0.5451842
+VT	-0.00313612	1.40758765	-12.86744976	0	-0.35418499	-0.93517542	0.86265367	0.5451842
+VT	-0.00313612	1.40965748	-12.86823368	0	-0.35418499	-0.93517542	0.86265367	0.5451842
+VT	-0.03309165	1.40758765	-12.86744976	0	-0.35418499	-0.93517542	0.81107897	0.5451842
+VT	-0.00313612	1.42026961	-12.84022141	1	0	-0	0.86265367	0.57989353
+VT	-0.00313612	1.40965748	-12.86823368	1	0	-0	0.86265367	0.5451842
+VT	-0.00313612	1.40758765	-12.86744976	1	0	-0	0.86265367	0.5451842
+VT	-0.00313612	1.41819978	-12.83943653	1	0	0	0.86265367	0.57989353
+VT	-0.00313612	1.42026961	-12.84022141	1	0	0	0.86265367	0.57989353
+VT	-0.00313612	1.40758765	-12.86744976	1	0	0	0.86265367	0.5451842
+VT	-0.03309165	1.40965748	-12.86823368	-1	0	0	0.81107897	0.5451842
+VT	-0.03309165	1.42026961	-12.84022141	-1	0	0	0.81107897	0.57989353
+VT	-0.03309165	1.41819978	-12.83943653	-1	0	0	0.81107897	0.57989353
+VT	-0.03309165	1.40758765	-12.86744976	-1	0	-0	0.81107897	0.5451842
+VT	-0.03309165	1.40965748	-12.86823368	-1	0	-0	0.81107897	0.5451842
+VT	-0.03309165	1.41819978	-12.83943653	-1	0	-0	0.81107897	0.57989353
 VT	0.21006037	0.42554188	-13.08370495	0.01489974	0.99460286	0.10267958	0.50578332	0.59033573
 VT	0.15980446	0.42711294	-13.08347607	0.00000043	0.99471319	0.10269149	0.39286259	0.59074253
 VT	0.15980446	0.43525004	-13.17044926	0.00000042	0.99471325	0.10269149	0.3937588	0.78158665
@@ -6696,7 +6768,16 @@ IDX10	6040	6041	6042	6043	6044	6045	6046	6047	6048	6049
 IDX10	6050	6051	6052	6053	6054	6055	6056	6057	6058	6059
 IDX10	6060	6061	6062	6063	6064	6065	6066	6067	6068	6069
 IDX10	6070	6071	6072	6073	6074	6075	6076	6077	6078	6079
-IDX	6080
+IDX10	6080	6081	6082	6083	6084	6085	6086	6087	6088	6089
+IDX10	6090	6091	6092	6093	6094	6095	6096	6097	6098	6099
+IDX10	6100	6101	6102	6103	6104	6105	6106	6107	6108	6109
+IDX10	6110	6111	6112	6113	6114	6115	6116	6117	6118	6119
+IDX10	6120	6121	6122	6123	6124	6125	6126	6127	6128	6129
+IDX10	6130	6131	6132	6133	6134	6135	6136	6137	6138	6139
+IDX10	6140	6141	6142	6143	6144	6145	6146	6147	6148	6149
+IDX	6150
+IDX	6151
+IDX	6152
 
 	ATTR_draw_disable
 	ATTR_manip_push	button	1	0	A318/cockpit/mcdu/keys/1	MCDU KEY 1
@@ -6721,7 +6802,7 @@ IDX	6080
 	TRIS	810 90
 	ATTR_manip_push	button	1	0	A318/cockpit/mcdu/keys/period	MCDU KEY PERIOD
 	TRIS	900 90
-	ATTR_manip_toggle	button	1	0	A318/systems/ELEC/contacts/GLC1	Generator 1 ON/OFF
+	ATTR_manip_toggle	button	1	0	A318/systems/ELEC/GEN1Swtch	Generator 1 ON/OFF
 	TRIS	990 36
 	ATTR_manip_toggle	button	1	0	A318/systems/hyd/green/pumps/engine/pb	Engine 1 Pump
 	TRIS	1026 36
@@ -6733,7 +6814,7 @@ IDX	6080
 	TRIS	1134 36
 	ATTR_manip_toggle	button	1	0	A318/systems/hyd/yellow/pumps/electric/pb	Electric Pump
 	TRIS	1170 36
-	ATTR_manip_toggle	button	1	0	A318/systems/ELEC/contacts/GLC2	Generator 2 ON/OFF
+	ATTR_manip_toggle	button	1	0	A318/systems/ELEC/GEN2Swtch	Generator 2 ON/OFF
 	TRIS	1206 36
 	ATTR_manip_toggle	button	1	0	A318/systems/ELEC/bat1/pb	BAT 1 ON/OFF
 	TRIS	1389 36
@@ -6745,187 +6826,191 @@ IDX	6080
 	TRIS	1497 36
 	ATTR_manip_toggle	button	1	0	A318/systems/ELEC/EXTPWRSwtch	Eternal Power (GPU) ON/OFF
 	TRIS	1533 36
+	ATTR_manip_toggle	button	1	0	A318/systems/ELEC/APUMASTRSwtch	APU Master Button
+	TRIS	1569 36
+	ATTR_manip_push	button	1	0	A318/systems/ELEC/APUSTARTSwtch	APU Start
+	TRIS	1605 36
 	ATTR_manip_toggle	up_down	1	0	sim/cockpit/electrical/strobe_lights_on	Strobe Lights
-	TRIS	1689 372
+	TRIS	1761 372
 	ATTR_manip_toggle	up_down	1	0	sim/cockpit/electrical/beacon_lights_on	Beacon Lights
-	TRIS	2538 372
+	TRIS	2610 372
 	ATTR_manip_toggle	up_down	1	0	sim/cockpit/electrical/nav_lights_on	Nav and Taxi Lights
-	TRIS	2910 372
+	TRIS	2982 372
 	ATTR_manip_toggle	up_down	1	0	sim/cockpit/electrical/strobe_lights_on	Wing Lights
-	TRIS	3282 372
+	TRIS	3354 372
 	ATTR_manip_toggle	up_down	1	0	sim/cockpit/electrical/landing_lights_on	Right Landing Light
-	TRIS	3654 372
+	TRIS	3726 372
 	ATTR_manip_toggle	up_down	1	0	sim/cockpit/electrical/landing_lights_on	Left Landing Light
-	TRIS	4026 372
+	TRIS	4098 372
 	ATTR_manip_axis_switch_left_right	left_right	0	4	1	0	A318/systems/ND/capt_mode	ND MODE
-	TRIS	4398 84
+	TRIS	4470 84
 	ATTR_manip_axis_switch_left_right	left_right	0	5	1	0	A318/systems/ND/capt_rnge	ND RANGE
-	TRIS	4482 84
+	TRIS	4554 84
 	ATTR_manip_axis_switch_left_right	left_right	0	5	1	0	A318/systems/ND/frst_rnge	F/O ND RANGE
-	TRIS	4566 84
+	TRIS	4638 84
 	ATTR_manip_axis_switch_left_right	left_right	0	4	1	0	A318/systems/ND/frst_mode	F/O ND MODE
-	TRIS	4650 84
+	TRIS	4722 84
 	ATTR_manip_axis_switch_left_right	left_right	0	2	1	0	A318/systems/ADIRS/2/mode	ADIRS 2 MODE
-	TRIS	4734 84
+	TRIS	4806 84
 	ATTR_manip_axis_switch_left_right	left_right	0	2	1	0	A318/systems/ADIRS/3/mode	ADIRS 3 MODE
-	TRIS	4818 84
+	TRIS	4890 84
 	ATTR_manip_axis_switch_left_right	left_right	0	2	1	0	A318/systems/ADIRS/1/mode	ADIRS 1 MODE
-	TRIS	4902 84
+	TRIS	4974 84
 	ATTR_manip_toggle	up_down	1	0	sim/cockpit/electrical/strobe_lights_on	Wing Lights
-	TRIS	4986 372
+	TRIS	5058 372
 	ATTR_manip_push	button	1	0	A318/cockpit/mcdu/buttons/left/1	MCDU Left Button 1
-	TRIS	5358 6
+	TRIS	5430 6
 	ATTR_manip_push	button	1	0	A318/cockpit/mcdu/buttons/left/2	MCDU Left Button 2
-	TRIS	5364 6
+	TRIS	5436 6
 	ATTR_manip_push	button	1	0	A318/cockpit/mcdu/buttons/left/3	MCDU Left Button 3
-	TRIS	5370 6
+	TRIS	5442 6
 	ATTR_manip_push	button	1	0	A318/cockpit/mcdu/buttons/left/4	MCDU Left Button 4
-	TRIS	5376 6
+	TRIS	5448 6
 	ATTR_manip_push	button	1	0	A318/cockpit/mcdu/buttons/left/5	MCDU Left Button 5
-	TRIS	5382 6
+	TRIS	5454 6
 	ATTR_manip_push	button	1	0	A318/cockpit/mcdu/buttons/left/6	MCDU Left Button 6
-	TRIS	5388 6
+	TRIS	5460 6
 	ATTR_manip_push	button	1	0	A318/cockpit/mcdu/buttons/right/1	MCDU Right Button 1
-	TRIS	5394 6
+	TRIS	5466 6
 	ATTR_manip_push	button	1	0	A318/cockpit/mcdu/buttons/right/2	MCDU Right Button 2
-	TRIS	5400 6
+	TRIS	5472 6
 	ATTR_manip_push	button	1	0	A318/cockpit/mcdu/buttons/right/3	MCDU Right Button 3
-	TRIS	5406 6
+	TRIS	5478 6
 	ATTR_manip_push	button	1	0	A318/cockpit/mcdu/buttons/right/4	MCDU Right Button 4
-	TRIS	5412 6
+	TRIS	5484 6
 	ATTR_manip_push	button	1	0	A318/cockpit/mcdu/buttons/right/5	MCDU Right Button 5
-	TRIS	5418 6
+	TRIS	5490 6
 	ATTR_manip_push	button	1	0	A318/cockpit/mcdu/buttons/right/6	MCDU Right Button 6
-	TRIS	5664 6
+	TRIS	5736 6
 	ATTR_manip_push	button	1	0	A318/cockpit/mcdu/keys/a	MCDU KEY A
-	TRIS	5670 6
+	TRIS	5742 6
 	ATTR_manip_push	button	1	0	A318/cockpit/mcdu/keys/b	MCDU KEY B
-	TRIS	5676 6
+	TRIS	5748 6
 	ATTR_manip_push	button	1	0	A318/cockpit/mcdu/keys/c	MCDU KEY C
-	TRIS	5682 6
+	TRIS	5754 6
 	ATTR_manip_push	button	1	0	A318/cockpit/mcdu/keys/d	MCDU KEY D
-	TRIS	5688 6
+	TRIS	5760 6
 	ATTR_manip_push	button	1	0	A318/cockpit/mcdu/keys/e	MCDU KEY E
-	TRIS	5793 6
-	ATTR_manip_push	button	1	0	A318/cockpit/mcdu/keys/f	MCDU KEY F
-	TRIS	5799 6
-	ATTR_manip_push	button	1	0	A318/cockpit/mcdu/keys/g	MCDU KEY G
-	TRIS	5805 6
-	ATTR_manip_push	button	1	0	A318/cockpit/mcdu/keys/h	MCDU KEY H
-	TRIS	5811 6
-	ATTR_manip_push	button	1	0	A318/cockpit/mcdu/keys/i	MCDU KEY I
-	TRIS	5817 6
-	ATTR_manip_push	button	1	0	A318/cockpit/mcdu/keys/j	MCDU KEY J
-	TRIS	5823 6
-	ATTR_manip_push	button	1	0	A318/cockpit/mcdu/keys/k	MCDU KEY K
-	TRIS	5829 6
-	ATTR_manip_push	button	1	0	A318/cockpit/mcdu/keys/l	MCDU KEY L
-	TRIS	5835 6
-	ATTR_manip_push	button	1	0	A318/cockpit/mcdu/keys/m	MCDU KEY M
-	TRIS	5841 6
-	ATTR_manip_push	button	1	0	A318/cockpit/mcdu/keys/n	MCDU KEY N
-	TRIS	5847 6
-	ATTR_manip_push	button	1	0	A318/cockpit/mcdu/keys/o	MCDU KEY O
-	TRIS	5853 6
-	ATTR_manip_push	button	1	0	A318/cockpit/mcdu/keys/u	MCDU KEY U
-	TRIS	5859 6
-	ATTR_manip_push	button	1	0	A318/cockpit/mcdu/keys/q	MCDU KEY Q
 	TRIS	5865 6
-	ATTR_manip_push	button	1	0	A318/cockpit/mcdu/keys/r	MCDU KEY R
+	ATTR_manip_push	button	1	0	A318/cockpit/mcdu/keys/f	MCDU KEY F
 	TRIS	5871 6
-	ATTR_manip_push	button	1	0	A318/cockpit/mcdu/keys/s	MCDU KEY S
+	ATTR_manip_push	button	1	0	A318/cockpit/mcdu/keys/g	MCDU KEY G
 	TRIS	5877 6
-	ATTR_manip_push	button	1	0	A318/cockpit/mcdu/keys/t	MCDU KEY T
+	ATTR_manip_push	button	1	0	A318/cockpit/mcdu/keys/h	MCDU KEY H
 	TRIS	5883 6
-	ATTR_manip_push	button	1	0	A318/cockpit/mcdu/keys/p	MCDU KEY P
+	ATTR_manip_push	button	1	0	A318/cockpit/mcdu/keys/i	MCDU KEY I
 	TRIS	5889 6
-	ATTR_manip_push	button	1	0	A318/cockpit/mcdu/keys/v	MCDU KEY V
+	ATTR_manip_push	button	1	0	A318/cockpit/mcdu/keys/j	MCDU KEY J
 	TRIS	5895 6
-	ATTR_manip_push	button	1	0	A318/cockpit/mcdu/keys/w	MCDU KEY W
+	ATTR_manip_push	button	1	0	A318/cockpit/mcdu/keys/k	MCDU KEY K
 	TRIS	5901 6
-	ATTR_manip_push	button	1	0	A318/cockpit/mcdu/keys/x	MCDU KEY X
+	ATTR_manip_push	button	1	0	A318/cockpit/mcdu/keys/l	MCDU KEY L
 	TRIS	5907 6
-	ATTR_manip_push	button	1	0	A318/cockpit/mcdu/keys/y	MCDU KEY Y
+	ATTR_manip_push	button	1	0	A318/cockpit/mcdu/keys/m	MCDU KEY M
 	TRIS	5913 6
-	ATTR_manip_push	button	1	0	A318/cockpit/mcdu/keys/z	MCDU KEY SLASH
+	ATTR_manip_push	button	1	0	A318/cockpit/mcdu/keys/n	MCDU KEY N
 	TRIS	5919 6
-	ATTR_manip_push	button	1	0	A318/cockpit/mcdu/keys/clr	MCDU KEY CLEAR
+	ATTR_manip_push	button	1	0	A318/cockpit/mcdu/keys/o	MCDU KEY O
 	TRIS	5925 6
-	ATTR_manip_push	button	1	0	A318/cockpit/mcdu/keys/slash	MCDU KEY Z
+	ATTR_manip_push	button	1	0	A318/cockpit/mcdu/keys/u	MCDU KEY U
 	TRIS	5931 6
-	ATTR_manip_toggle	button	1	0	A318/systems/ND/capt_cstr	ND CSTR
+	ATTR_manip_push	button	1	0	A318/cockpit/mcdu/keys/q	MCDU KEY Q
 	TRIS	5937 6
-	ATTR_manip_toggle	button	1	0	A318/systems/ND/capt_wpt	ND WPT
+	ATTR_manip_push	button	1	0	A318/cockpit/mcdu/keys/r	MCDU KEY R
 	TRIS	5943 6
-	ATTR_manip_toggle	button	1	0	A318/systems/ND/capt_vord	ND VOR.D
+	ATTR_manip_push	button	1	0	A318/cockpit/mcdu/keys/s	MCDU KEY S
 	TRIS	5949 6
-	ATTR_manip_toggle	button	1	0	A318/systems/ND/capt_ndb	ND NDB
+	ATTR_manip_push	button	1	0	A318/cockpit/mcdu/keys/t	MCDU KEY T
 	TRIS	5955 6
-	ATTR_manip_toggle	button	1	0	A318/systems/ND/capt_arpt	ND ARPT
+	ATTR_manip_push	button	1	0	A318/cockpit/mcdu/keys/p	MCDU KEY P
 	TRIS	5961 6
-	ATTR_manip_toggle	button	1	0	A318/systems/ND/frst_arpt	F/O ND ARPT
+	ATTR_manip_push	button	1	0	A318/cockpit/mcdu/keys/v	MCDU KEY V
 	TRIS	5967 6
-	ATTR_manip_toggle	button	1	0	A318/systems/ND/frst_ndb	F/O ND NDB
+	ATTR_manip_push	button	1	0	A318/cockpit/mcdu/keys/w	MCDU KEY W
 	TRIS	5973 6
-	ATTR_manip_toggle	button	1	0	A318/systems/ND/frst_vord	F/O ND VOR.D
+	ATTR_manip_push	button	1	0	A318/cockpit/mcdu/keys/x	MCDU KEY X
 	TRIS	5979 6
-	ATTR_manip_toggle	button	1	0	A318/systems/ND/frst_wpt	F/O ND WPT
+	ATTR_manip_push	button	1	0	A318/cockpit/mcdu/keys/y	MCDU KEY Y
 	TRIS	5985 6
-	ATTR_manip_toggle	button	1	0	A318/systems/ND/frst_cstr	F/O ND CSTR
+	ATTR_manip_push	button	1	0	A318/cockpit/mcdu/keys/z	MCDU KEY SLASH
 	TRIS	5991 6
-	ATTR_manip_push	button	1	0	A318/systems/ND/frst_terr	F/O ND TERR
+	ATTR_manip_push	button	1	0	A318/cockpit/mcdu/keys/clr	MCDU KEY CLEAR
 	TRIS	5997 6
-	ATTR_manip_push	button	1	0	A318/systems/ND/capt_terr	ND TERR
+	ATTR_manip_push	button	1	0	A318/cockpit/mcdu/keys/slash	MCDU KEY Z
 	TRIS	6003 6
-	ATTR_manip_push	button	1	1	A318/cockpit/mcdu/current_page	MCDU DIR Page
+	ATTR_manip_toggle	button	1	0	A318/systems/ND/capt_cstr	ND CSTR
 	TRIS	6009 6
-	ATTR_manip_push	button	3	3	A318/cockpit/mcdu/current_page	MCDU PROG Page
+	ATTR_manip_toggle	button	1	0	A318/systems/ND/capt_wpt	ND WPT
 	TRIS	6015 6
-	ATTR_manip_push	button	4	4	A318/cockpit/mcdu/current_page	MCDU PERF Page
+	ATTR_manip_toggle	button	1	0	A318/systems/ND/capt_vord	ND VOR.D
 	TRIS	6021 6
-	ATTR_manip_push	button	2	2	A318/cockpit/mcdu/current_page	MCDU INIT Page
+	ATTR_manip_toggle	button	1	0	A318/systems/ND/capt_ndb	ND NDB
 	TRIS	6027 6
-	ATTR_manip_push	button	5	5	A318/cockpit/mcdu/current_page	MCDU DATA Page
+	ATTR_manip_toggle	button	1	0	A318/systems/ND/capt_arpt	ND ARPT
 	TRIS	6033 6
-	ATTR_manip_push	button	6	6	A318/cockpit/mcdu/current_page	MCDU F-PLN Page
+	ATTR_manip_toggle	button	1	0	A318/systems/ND/frst_arpt	F/O ND ARPT
 	TRIS	6039 6
-	ATTR_manip_push	button	7	7	A318/cockpit/mcdu/current_page	MCDU RAD NAV Page
+	ATTR_manip_toggle	button	1	0	A318/systems/ND/frst_ndb	F/O ND NDB
 	TRIS	6045 6
-	ATTR_manip_push	button	8	8	A318/cockpit/mcdu/current_page	MCDU FUEL PRED Page
+	ATTR_manip_toggle	button	1	0	A318/systems/ND/frst_vord	F/O ND VOR.D
 	TRIS	6051 6
-	ATTR_manip_push	button	9	9	A318/cockpit/mcdu/current_page	MCDU SEC F-PLN Page
+	ATTR_manip_toggle	button	1	0	A318/systems/ND/frst_wpt	F/O ND WPT
 	TRIS	6057 6
-	ATTR_manip_push	button	10	10	A318/cockpit/mcdu/current_page	MCDU ATC COMM Page
+	ATTR_manip_toggle	button	1	0	A318/systems/ND/frst_cstr	F/O ND CSTR
 	TRIS	6063 6
-	ATTR_manip_push	button	11	11	A318/cockpit/mcdu/current_page	MCDU MENU Page
+	ATTR_manip_push	button	1	0	A318/systems/ND/frst_terr	F/O ND TERR
 	TRIS	6069 6
-	ATTR_manip_push	button	12	12	A318/cockpit/mcdu/current_page	MCDU AIR PORT Page
+	ATTR_manip_push	button	1	0	A318/systems/ND/capt_terr	ND TERR
 	TRIS	6075 6
+	ATTR_manip_push	button	1	1	A318/cockpit/mcdu/current_page	MCDU DIR Page
+	TRIS	6081 6
+	ATTR_manip_push	button	3	3	A318/cockpit/mcdu/current_page	MCDU PROG Page
+	TRIS	6087 6
+	ATTR_manip_push	button	4	4	A318/cockpit/mcdu/current_page	MCDU PERF Page
+	TRIS	6093 6
+	ATTR_manip_push	button	2	2	A318/cockpit/mcdu/current_page	MCDU INIT Page
+	TRIS	6099 6
+	ATTR_manip_push	button	5	5	A318/cockpit/mcdu/current_page	MCDU DATA Page
+	TRIS	6105 6
+	ATTR_manip_push	button	6	6	A318/cockpit/mcdu/current_page	MCDU F-PLN Page
+	TRIS	6111 6
+	ATTR_manip_push	button	7	7	A318/cockpit/mcdu/current_page	MCDU RAD NAV Page
+	TRIS	6117 6
+	ATTR_manip_push	button	8	8	A318/cockpit/mcdu/current_page	MCDU FUEL PRED Page
+	TRIS	6123 6
+	ATTR_manip_push	button	9	9	A318/cockpit/mcdu/current_page	MCDU SEC F-PLN Page
+	TRIS	6129 6
+	ATTR_manip_push	button	10	10	A318/cockpit/mcdu/current_page	MCDU ATC COMM Page
+	TRIS	6135 6
+	ATTR_manip_push	button	11	11	A318/cockpit/mcdu/current_page	MCDU MENU Page
+	TRIS	6141 6
+	ATTR_manip_push	button	12	12	A318/cockpit/mcdu/current_page	MCDU AIR PORT Page
+	TRIS	6147 6
 	ATTR_manip_none
 	ATTR_shiny_rat	0.5
 	ATTR_draw_enable
-	TRIS	2061 333
-	TRIS	2394 144
+	TRIS	2133 333
+	TRIS	2466 144
 	ATTR_cockpit
 	TRIS	1242 147
-	TRIS	1569 60
-	TRIS	1629 60
-	TRIS	5424 6
-	TRIS	5430 36
-	TRIS	5466 24
-	TRIS	5490 27
-	TRIS	5517 15
-	TRIS	5532 36
-	TRIS	5568 24
-	TRIS	5592 24
-	TRIS	5616 24
-	TRIS	5640 6
-	TRIS	5646 6
-	TRIS	5652 6
-	TRIS	5658 6
-	TRIS	5694 42
-	TRIS	5736 6
-	TRIS	5742 9
-	TRIS	5751 42
+	TRIS	1641 60
+	TRIS	1701 60
+	TRIS	5496 6
+	TRIS	5502 36
+	TRIS	5538 24
+	TRIS	5562 27
+	TRIS	5589 15
+	TRIS	5604 36
+	TRIS	5640 24
+	TRIS	5664 24
+	TRIS	5688 24
+	TRIS	5712 6
+	TRIS	5718 6
+	TRIS	5724 6
+	TRIS	5730 6
+	TRIS	5766 42
+	TRIS	5808 6
+	TRIS	5814 9
+	TRIS	5823 42
 
 # Build with Blender 2.82 (sub 7) (build b'375c7dc4caf4'). Exported with XPlane2Blender 4.0.0-beta.1+75.20200310161256

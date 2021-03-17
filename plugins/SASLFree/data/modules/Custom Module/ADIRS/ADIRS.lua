@@ -124,7 +124,6 @@ adirs = {
 function plane_startup()
     if get(eng1N1) > 1 then
         -- engines running
-        print("Starting with engines running")
         set(adirs.adirs_1.mode, 1)
         set(adirs.adirs_1.aligned, 1)
         set(adirs.adirs_2.mode, 1)
@@ -133,7 +132,6 @@ function plane_startup()
         set(adirs.adirs_3.aligned, 1)
     else
         -- cold and dark
-        print("Starting cold and dark")
         set(adirs.adirs_1.mode, 0)
         set(adirs.adirs_1.aligned, 0)
         set(adirs.adirs_2.mode, 0)

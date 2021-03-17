@@ -3,6 +3,11 @@ size = {500, 500}
 
 -- get datarefs
 local BUS = globalProperty("A318/systems/ELEC/AC2_V")
+local selfTest = 0
+
+local DELTA_TIME = globalProperty("sim/operation/misc/frame_rate_period")
+local Timer = 0
+local TimerFinal = math.random(15, 35)
 
 local ADIRS_aligned = globalProperty("A318/systems/ADIRS/2/aligned")
 local heading = globalPropertyf("A318/systems/ADIRS/2/inertial/heading")
@@ -18,8 +23,8 @@ local gs = globalPropertyf("A318/systems/ADIRS/2/inertial/gs")
 local winddirection = globalPropertyf("sim/weather/wind_direction_degt")
 local windspeed = globalPropertyf("sim/weather/wind_speed_kt")
 
-local frstNdMode = createGlobalPropertyi("A318/systems/ND/frst_mode", 2)
-local rngeKnob = createGlobalPropertyi("A318/systems/ND/frst_rnge", 2)
+local frstNdMode = createGlobalPropertyi("A318/systems/ND/frst_mode", 3)
+local rngeKnob = createGlobalPropertyi("A318/systems/ND/frst_rnge", 1)
 
 local frstNdCSTR = createGlobalPropertyi("A318/systems/ND/frst_cstr", 0)
 local frstNdWPT = createGlobalPropertyi("A318/systems/ND/frst_wpt", 0)
@@ -327,6 +332,7 @@ function draw()
     sasl.gl.setClipArea(0,0,500,500)
 
     if get(BUS) > 0 then
+        if selfTest == 1 then
         if get(frstNdMode) == 0 then
             if get(ADIRS_aligned) == 0 then
                 draw_ils_unaligned()
@@ -359,8 +365,19 @@ function draw()
             end
         end
         draw_overlay_text()
+        Timer = 0
     else
-        -- off
+        if Timer < TimerFinal then
+            Timer = Timer + 1 * get(DELTA_TIME)
+            sasl.gl.drawText(ndFont, 250, 250, "SELF TEST IN PROGESS", 28.1, false, false, TEXT_ALIGN_CENTER, PFD_GREEN)
+            sasl.gl.drawText(ndFont, 250, 220, "(MAX 40 SECONDS)", 28.1, false, false, TEXT_ALIGN_CENTER, PFD_GREEN)
+          else
+            selfTest = 1
+          end  
+    end
+    else
+        Timer = 0
+        selfTest = 0
     end
 
     sasl.gl.resetClipArea()

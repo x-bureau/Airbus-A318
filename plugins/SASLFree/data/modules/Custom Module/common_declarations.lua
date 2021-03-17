@@ -42,6 +42,13 @@ function get_weight(kg)
     return kg * 2.20462262185
 end
 
+function get_weight_label()
+    if get(efb_units) == units.metric then
+        return "kg"
+    end
+    return "lbs"
+end
+
 function get_temp(celsius)
     if get(efb_units) == units.metric then
         return celsius

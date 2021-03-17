@@ -2,11 +2,13 @@ sasl.options.setAircraftPanelRendering(true)
 sasl.options.set3DRendering(false)
 sasl.options.setInteractivity(true)
 addSearchPath(moduleDirectory.."/images/")
-addSearchPath(moduleDirectory .. "/Custom Module/ATSAW/")
-addSearchPath(moduleDirectory .. "/Custom Module/ND/")
 addSearchPath(moduleDirectory .. "/Custom Module/ADIRS/")
 addSearchPath(moduleDirectory .. "/Custom Module/PFD/")
-addSearchPath(moduleDirectory .. "/Custom Module/systems/")
+addSearchPath(moduleDirectory .. "/Custom Module/ND/")
+addSearchPath(moduleDirectory .. "/Custom Module/ECAM/")
+addSearchPath(moduleDirectory .. "/Custom Module/ATSAW/")
+addSearchPath(moduleDirectory .. "/Custom Module/efb/")
+addSearchPath(moduleDirectory .. "/Custom Module/MCDU/")
 
 size = {2048, 2048}
 
@@ -17,8 +19,9 @@ components = {
   customdataref {};
   elec {};
   hydraulics {};
+  bleed {};
   ADIRS {};
-  MCDU {
+  mcdu {
     fbo = true ,
     fpsLimit = 29
   };
@@ -39,7 +42,7 @@ components = {
     fpsLimit = 29
   };
   -- ATSAW {};
-  ecam {
+  upper_ecam {
     fbo = true ,
     fpsLimit = 29
   };
@@ -48,6 +51,16 @@ components = {
     fpsLimit = 29
   };
   menu {};
+  efb{
+    cursor = {
+      x = -8 ,
+      y = -8 ,
+      width = 30 ,
+      height = 30 ,
+      shape = sasl.gl.loadImage ("efb/icons/cursor.png") ,
+      hideOSCursor = true
+      }
+  };
 }
 
 function onModuleDone()

@@ -7,7 +7,7 @@ ACF_SOUNDS
 #                                                                                    #
 #     A i r b u s  A 3 1 8                                                           #
 #                                                                                    #
-#     V e r s i o n : v0.1b                                                          #
+#     V e r s i o n : v0.3b                                                          #
 #                                                                                    #
 #     B y :  M a t t 7 2 6                                                           #
 #                                                                                    #
@@ -18,9 +18,11 @@ ACF_SOUNDS
 #     Y O U T U B E : https://youtube.com/c/Matt726                                  #
 ######################################################################################
 
+REQUIRES_BANK ambience.bank
 REQUIRES_BANK Cockpit.bank
 REQUIRES_BANK EngineCFM.bank
 REQUIRES_BANK Master Bank.bank
+REQUIRES_BANK Warnings.bank
 
 DISABLE_LEGACY_ALERT_SOUNDS
 
@@ -90,13 +92,13 @@ END_SOUND_ATTACHMENT
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/button1
 	VEH_XYZ 0 2.2 -12.5
-	EVENT_START_COND A318/systems/ELEC/contacts/EPC == 1
+	EVENT_START_COND A318/systems/ELEC/EXTPWRSwtch == 1
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/button2
 	VEH_XYZ 0 2.2 -12.5
-	EVENT_START_COND A318/systems/ELEC/contacts/EPC == 0
+	EVENT_START_COND A318/systems/ELEC/EXTPWRSwtch == 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
@@ -126,37 +128,61 @@ END_SOUND_ATTACHMENT
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/button1
 	VEH_XYZ 0 2.2 -12.5
-	EVENT_START_COND A318/systems/ELEC/contacts/GLC1 == 1
+	EVENT_START_COND A318/systems/ELEC/GEN1Swtch == 1
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/button2
 	VEH_XYZ 0 2.2 -12.5
-	EVENT_START_COND A318/systems/ELEC/contacts/GLC1 == 0
+	EVENT_START_COND A318/systems/ELEC/GEN1Swtch == 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/button1
 	VEH_XYZ 0 2.2 -12.5
-	EVENT_START_COND A318/systems/ELEC/contacts/GLC2 == 1
+	EVENT_START_COND A318/systems/ELEC/GEN2Swtch == 1
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/button2
 	VEH_XYZ 0 2.2 -12.5
-	EVENT_START_COND A318/systems/ELEC/contacts/GLC2 == 0
+	EVENT_START_COND A318/systems/ELEC/GEN2Swtch == 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/button1
 	VEH_XYZ 0 2.2 -12.5
-	EVENT_START_COND A318/systems/ELEC/contacts/AGC == 1
+	EVENT_START_COND A318/systems/ELEC/APUGENSwtch == 1
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/button2
 	VEH_XYZ 0 2.2 -12.5
-	EVENT_START_COND A318/systems/ELEC/contacts/AGC == 0
+	EVENT_START_COND A318/systems/ELEC/APUGENSwtch == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/button1
+	VEH_XYZ 0 2.2 -12.5
+	EVENT_START_COND A318/systems/ELEC/APUMASTRSwtch == 1
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/button2
+	VEH_XYZ 0 2.2 -12.5
+	EVENT_START_COND A318/systems/ELEC/APUMASTRSwtch == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/button1
+	VEH_XYZ 0 2.2 -12.5
+	EVENT_START_COND A318/systems/ELEC/APUSTARTSwtch == 1
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/button2
+	VEH_XYZ 0 2.2 -12.5
+	EVENT_START_COND A318/systems/ELEC/APUSTARTSwtch == 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
@@ -207,6 +233,144 @@ BEGIN_SOUND_ATTACHMENT
 	EVENT_START_COND A318/systems/hyd/yellow/pumps/electric/pb == 0
 END_SOUND_ATTACHMENT
 
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/knob1
+	VEH_XYZ 0 2.2 -12.5
+	EVENT_START_COND A318/systems/ADIRS/1/mode == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/knob1
+	VEH_XYZ 0 2.2 -12.5
+	EVENT_START_COND A318/systems/ADIRS/1/mode == 1
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/knob1
+	VEH_XYZ 0 2.2 -12.5
+	EVENT_START_COND A318/systems/ADIRS/1/mode == 2
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/knob1
+	VEH_XYZ 0 2.2 -12.5
+	EVENT_START_COND A318/systems/ADIRS/2/mode == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/knob1
+	VEH_XYZ 0 2.2 -12.5
+	EVENT_START_COND A318/systems/ADIRS/2/mode == 1
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/knob1
+	VEH_XYZ 0 2.2 -12.5
+	EVENT_START_COND A318/systems/ADIRS/2/mode == 2
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/knob1
+	VEH_XYZ 0 2.2 -12.5
+	EVENT_START_COND A318/systems/ADIRS/3/mode == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/knob1
+	VEH_XYZ 0 2.2 -12.5
+	EVENT_START_COND A318/systems/ADIRS/3/mode == 1
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/knob1
+	VEH_XYZ 0 2.2 -12.5
+	EVENT_START_COND A318/systems/ADIRS/3/mode == 2
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/knob2
+	VEH_XYZ -0.25 1.8 -13
+	EVENT_START_COND ABS_DELTA=A318/systems/ND/capt_mode
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/knob2
+	VEH_XYZ -0.25 1.8 -13
+	EVENT_START_COND ABS_DELTA=A318/systems/ND/capt_rnge
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/button3
+	VEH_XYZ -0.25 1.8 -13
+	EVENT_START_COND ABS_DELTA=A318/systems/ND/capt_cstr
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/button3
+	VEH_XYZ -0.25 1.8 -13
+	EVENT_START_COND ABS_DELTA=A318/systems/ND/capt_wpt
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/button3
+	VEH_XYZ -0.25 1.8 -13
+	EVENT_START_COND ABS_DELTA=A318/systems/ND/capt_vord
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/button3
+	VEH_XYZ -0.25 1.8 -13
+	EVENT_START_COND ABS_DELTA=A318/systems/ND/capt_ndb
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/button3
+	VEH_XYZ -0.25 1.8 -13
+	EVENT_START_COND ABS_DELTA=A318/systems/ND/capt_arpt
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/knob2
+	VEH_XYZ 0.25 1.8 -13
+	EVENT_START_COND ABS_DELTA=A318/systems/ND/frst_mode
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/knob2
+	VEH_XYZ 0.25 1.8 -13
+	EVENT_START_COND ABS_DELTA=A318/systems/ND/frst_rnge
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/button3
+	VEH_XYZ 0.25 1.8 -13
+	EVENT_START_COND ABS_DELTA=A318/systems/ND/frst_cstr
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/button3
+	VEH_XYZ 0.25 1.8 -13
+	EVENT_START_COND ABS_DELTA=A318/systems/ND/frst_wpt
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/button3
+	VEH_XYZ 0.25 1.8 -13
+	EVENT_START_COND ABS_DELTA=A318/systems/ND/frst_vord
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/button3
+	VEH_XYZ 0.25 1.8 -13
+	EVENT_START_COND ABS_DELTA=A318/systems/ND/frst_ndb
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/button3
+	VEH_XYZ 0.25 1.8 -13
+	EVENT_START_COND ABS_DELTA=A318/systems/ND/frst_arpt
+END_SOUND_ATTACHMENT
+
 ########################
 #Avionics
 ########################
@@ -214,20 +378,205 @@ END_SOUND_ATTACHMENT
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Avionics/battery_relay3
 	VEH_XYZ 0 2.4 -11.8
-	EVENT_START_COND A318/systems/ELEC/bat1/pb == 1
-	EVENT_START_COND A318/systems/ELEC/bat2/pb == 0
+	EVENT_START_COND A318/systems/ELEC/contacts/BC1 == 1
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Avionics/battery_relay3
 	VEH_XYZ 0 2.4 -11.8
-	EVENT_START_COND A318/systems/ELEC/bat1/pb == 0
-	EVENT_START_COND A318/systems/ELEC/bat2/pb == 1
+	EVENT_START_COND A318/systems/ELEC/contacts/BC2 == 1
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-	EVENT_NAME /Cockpit/Avionics/battery_relay3
+	EVENT_NAME /Cockpit/Avionics/battery_relay2
 	VEH_XYZ 0 2.4 -11.8
+	EVENT_START_COND A318/systems/ELEC/contacts/AGC == 1
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Avionics/battery_relay2
+	VEH_XYZ 0 2.4 -11.8
+	EVENT_START_COND A318/systems/ELEC/contacts/EPC == 1
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Avionics/battery_relay2
+	VEH_XYZ 0 2.4 -11.8
+	EVENT_START_COND A318/systems/ELEC/contacts/GLC1 == 1
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Avionics/battery_relay2
+	VEH_XYZ 0 2.4 -11.8
+	EVENT_START_COND A318/systems/ELEC/contacts/GLC2 == 1
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Avionics/battery
+	VEH_XYZ 0 1.6 -13.2
+	EVENT_START_COND A318/systems/ELEC/DCBAT_V > 14
+	EVENT_END_COND A318/systems/ELEC/DCBAT_V == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Avionics/battery_stop
+	VEH_XYZ 0 1.6 -13.2
 	EVENT_START_COND A318/systems/ELEC/bat1/pb == 0
 	EVENT_START_COND A318/systems/ELEC/bat2/pb == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Avionics/fans
+	VEH_XYZ 0 1.6 -13.2
+	EVENT_START_COND A318/systems/ELEC/AC1_V > 0
+	EVENT_END_COND A318/systems/ELEC/AC1_V == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Avionics/fans2
+	VEH_XYZ 0 1.6 -13.2
+	EVENT_START_COND A318/systems/ELEC/AC2_V > 0
+	EVENT_END_COND A318/systems/ELEC/AC2_V == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Avionics/fans2_stop
+	VEH_XYZ 0 1.6 -13.2
+	EVENT_START_COND A318/systems/ELEC/AC1_V == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Avionics/bus
+	VEH_XYZ 0 2.4 -11.8
+	EVENT_START_COND sim/cockpit2/switches/avionics_power_on == 1
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Avionics/bus_off
+	VEH_XYZ 0 2.4 -11.8
+	EVENT_START_COND sim/cockpit2/switches/avionics_power_on == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Avionics/beep
+	VEH_XYZ 0 1.3 -13.3
+	EVENT_START_COND sim/cockpit2/switches/avionics_power_on == 1
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Warnings/start_chime
+	VEH_XYZ 0 1.6 -13.2
+	EVENT_START_COND sim/cockpit2/switches/avionics_power_on == 1
+	EVENT_END_COND sim/cockpit2/switches/avionics_power_on == 0
+END_SOUND_ATTACHMENT
+
+###########
+#GROUND
+###########
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Ambience/Ground/roll
+	VEH_XYZ 0 1 2
+	EVENT_START_COND sim/flightmodel/position/true_airspeed > 0
+	EVENT_END_COND sim/flightmodel/position/true_airspeed < 1
+END_SOUND_ATTACHMENT
+
+###############
+#GPWS
+###############
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Warnings/GPWS/2500
+	VEH_XYZ 0 1.3 -13.3
+	EVENT_START_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot <= 2510
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Warnings/GPWS/2000
+	VEH_XYZ 0 1.3 -13.3
+	EVENT_START_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot <= 2010
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Warnings/GPWS/1000
+	VEH_XYZ 0 1.3 -13.3
+	EVENT_START_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot <= 1010
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Warnings/GPWS/500
+	VEH_XYZ 0 1.3 -13.3
+	EVENT_START_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot <= 510
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Warnings/GPWS/400
+	VEH_XYZ 0 1.3 -13.3
+	EVENT_START_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot <= 410
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Warnings/GPWS/300
+	VEH_XYZ 0 1.3 -13.3
+	EVENT_START_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot <= 310
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Warnings/GPWS/200
+	VEH_XYZ 0 1.3 -13.3
+	EVENT_START_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot <= 210
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Warnings/GPWS/100
+	VEH_XYZ 0 1.3 -13.3
+	EVENT_START_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot <= 110
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Warnings/GPWS/70
+	VEH_XYZ 0 1.3 -13.3
+	EVENT_START_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot <= 71
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Warnings/GPWS/60
+	VEH_XYZ 0 1.3 -13.3
+	EVENT_START_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot <= 61
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Warnings/GPWS/50
+	VEH_XYZ 0 1.3 -13.3
+	EVENT_START_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot <= 55
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Warnings/GPWS/40
+	VEH_XYZ 0 1.3 -13.3
+	EVENT_START_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot <= 41
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Warnings/GPWS/30
+	VEH_XYZ 0 1.3 -13.3
+	EVENT_START_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot <= 31
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Warnings/GPWS/20
+	VEH_XYZ 0 1.3 -13.3
+	EVENT_START_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot <= 21
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Warnings/GPWS/10
+	VEH_XYZ 0 1.3 -13.3
+	EVENT_START_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot <= 11
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Warnings/GPWS/5
+	VEH_XYZ 0 1.3 -13.3
+	EVENT_START_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot <= 6
 END_SOUND_ATTACHMENT
