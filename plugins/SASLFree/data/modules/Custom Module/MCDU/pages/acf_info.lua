@@ -5,11 +5,11 @@ local inputs = {
 }
 
 local function drawStaticTitles()
-    sasl.gl.drawText(MCDU_FONT, 17, option_heading_locations[1], "ENG", option_heading_font_size, false, false, TEXT_ALIGN_LEFT, mcdu_font_colors[1])
-    sasl.gl.drawText(MCDU_FONT, 17, option_heading_locations[2], "ACTIVE DATA BASE", option_heading_font_size, false, false, TEXT_ALIGN_LEFT, mcdu_font_colors[1])
-    sasl.gl.drawText(MCDU_FONT, 17, option_heading_locations[3], "SECOND DATA BASE", option_heading_font_size, false, false, TEXT_ALIGN_LEFT, mcdu_font_colors[1])
-    sasl.gl.drawText(MCDU_FONT, 17, option_heading_locations[5], "CHG CODE", option_heading_font_size, false, false, TEXT_ALIGN_LEFT, mcdu_font_colors[1])
-    sasl.gl.drawText(MCDU_FONT, 17, option_heading_locations[6], "IDLE/PERF", option_heading_font_size, false, false, TEXT_ALIGN_LEFT, mcdu_font_colors[1])
+    sasl.gl.drawText(MCDU_FONT_BOLD, 17, option_heading_locations[1], "ENG", option_heading_font_size, false, false, TEXT_ALIGN_LEFT, mcdu_font_colors[1])
+    sasl.gl.drawText(MCDU_FONT_BOLD, 17, option_heading_locations[2], "ACTIVE DATA BASE", option_heading_font_size, false, false, TEXT_ALIGN_LEFT, mcdu_font_colors[1])
+    sasl.gl.drawText(MCDU_FONT_BOLD, 17, option_heading_locations[3], "SECOND DATA BASE", option_heading_font_size, false, false, TEXT_ALIGN_LEFT, mcdu_font_colors[1])
+    sasl.gl.drawText(MCDU_FONT_BOLD, 17, option_heading_locations[5], "CHG CODE", option_heading_font_size, false, false, TEXT_ALIGN_LEFT, mcdu_font_colors[1])
+    sasl.gl.drawText(MCDU_FONT_BOLD, 17, option_heading_locations[6], "IDLE/PERF", option_heading_font_size, false, false, TEXT_ALIGN_LEFT, mcdu_font_colors[1])
     sasl.gl.drawText(MCDU_FONT, 10, mdcu_positons[1], ENG_TYPE, mcdu_option_size, false, false, TEXT_ALIGN_LEFT, mcdu_font_colors[2])
     sasl.gl.drawText(MCDU_FONT, 10, mdcu_positons[2], "AIRAC CYCLE "..getAiracCycle(), mcdu_option_size, false, false, TEXT_ALIGN_LEFT, mcdu_font_colors[3])
     sasl.gl.drawText(MCDU_FONT, 10, mdcu_positons[3], "NONE", mcdu_option_size, false, false, TEXT_ALIGN_LEFT, mcdu_font_colors[3])
@@ -34,6 +34,9 @@ function acf_info_key_input(side, key)
             inputs.chg_code[1] = SCRATCHPAD
             clearScratchpad()
         end
+    end
+    if side == 'r' and key == 6 then
+        set(MCDU_CURRENT_PAGE, 3)
     end
 end
 

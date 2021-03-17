@@ -1,5 +1,6 @@
 include("MCDU/pages/mcdu_menu.lua")
 include("MCDU/pages/acf_info.lua")
+include("MCDU/pages/init.lua")
 include("MCDU/mcdu_global_properties.lua")
 
 ------------------------------------------------------------------
@@ -13,6 +14,7 @@ size = {479, 400}
 local MCDU_BLACK = {0 , 0 , 0 , 1.0}
 local AIRBUS_FONT = sasl.gl.loadFont("fonts/PanelFont.ttf")
 MCDU_FONT = sasl.gl.loadFont("fonts/B612Mono-Regular.ttf")
+MCDU_FONT_BOLD = sasl.gl.loadFont("fonts/B612Mono-Bold.ttf")
 MCDU_CURRENT_PAGE = createGlobalPropertyi("A318/cockpit/mcdu/current_page", 1)
 local Airbus_VERSION = "A318-100"
 ENG_TYPE = "CFM-56-B"
@@ -148,7 +150,7 @@ option_heading_locations = {
     [1] = 333,
     [2] = 280,
     [3] = 227,
-    [4] = 196,
+    [4] = 174,
     [5] = 121,
     [6] = 63
 }
@@ -170,16 +172,22 @@ mcdu_font_colors = {
     [3] = {0, 227/255, 223/255, 1.0}
 }
 
+mcdu_colors = {
+    box = {1, 153/255, 0, 1}
+}
+
 -- PAGES and DRAW CALLS
 
 local drawCalls = {
     draw_mcdu_menu,
-    draw_acf_info
+    draw_acf_info,
+    draw_init
 }
 
 local inputCalls = {
     mcdu_menu_key_input,
-    acf_info_key_input
+    acf_info_key_input,
+    init_key_input
 }
 
 function clearScratchpad() 
@@ -221,6 +229,7 @@ function checkKeyInput()
             end
             inputCalls[get(MCDU_CURRENT_PAGE)](side, key)
             set(buttonInputs[i], 0)
+            --clearScratchpad()
         end
     end
 end
