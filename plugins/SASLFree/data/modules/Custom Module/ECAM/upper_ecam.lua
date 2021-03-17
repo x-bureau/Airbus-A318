@@ -53,7 +53,9 @@ local function draw_avail(side)
         sasl.gl.drawText(AirbusFont,  185, 420, "AVAIL", 18, false, false, TEXT_ALIGN_CENTER, ECAM_GREEN)
     end
 end
-
+function getDec(num)  
+    return tostring(num):match("%.(%d+)")
+end
 local function draw_ENG_PAGE()
     sasl.gl.saveInternalLineState()
     sasl.gl.setInternalLineWidth(2)
@@ -85,7 +87,8 @@ local function draw_ENG_PAGE()
     sasl.gl.restoreGraphicsContext()
     sasl.gl.drawRectangle(146, 413, 61, 20, ECAM_BLACK)
     sasl.gl.drawFrame(146, 413, 61, 20, ECAM_WHITE)
-    sasl.gl.drawText(AirbusFont, 201, 416, string.format("%.1f", round(get(eng1N1), 1)), 19, false, false, TEXT_ALIGN_RIGHT, ECAM_GREEN)
+    sasl.gl.drawText(AirbusFont, 190, 416, string.format("%.0f", round(get(eng1N1), 0))..".", 19, false, false, TEXT_ALIGN_RIGHT, ECAM_GREEN)
+    sasl.gl.drawText(AirbusFont, 201, 416,getDec(round(get(eng1N1), 1)), 16, false, false, TEXT_ALIGN_RIGHT, ECAM_GREEN)
 
     sasl.gl.drawText(AirbusFont, 256, 430, "N1", 20, true, false, TEXT_ALIGN_CENTER, ECAM_WHITE)
     sasl.gl.drawText(AirbusFont, 256, 414, "%", 19, true, false, TEXT_ALIGN_CENTER, ECAM_BLUE)
@@ -119,7 +122,8 @@ local function draw_ENG_PAGE()
 
     sasl.gl.drawRectangle(345, 413, 61, 20, ECAM_BLACK)
     sasl.gl.drawFrame(345, 413, 61, 20, ECAM_WHITE)
-    sasl.gl.drawText(AirbusFont, 400, 416, string.format("%.1f", round(get(eng2N1), 1)), 19, false, false, TEXT_ALIGN_RIGHT, ECAM_GREEN)
+    sasl.gl.drawText(AirbusFont, 390, 416, string.format("%.0f", round(get(eng2N1), 0))..".", 19, false, false, TEXT_ALIGN_RIGHT, ECAM_GREEN)
+    sasl.gl.drawText(AirbusFont, 400, 416,getDec(round(get(eng2N1), 1)), 16, false, false, TEXT_ALIGN_RIGHT, ECAM_GREEN)
 
     sasl.gl.saveGraphicsContext()
     sasl.gl.setTranslateTransform(156, 447)
@@ -208,7 +212,7 @@ end
 
 function draw()
     if get(AC_BUS) > 0 then
-        if selfTest == 1 then
+        if selfTest == 0 then
             draw_ENG_PAGE()
             --draw_message("SEATBELTS", 1, 1)
             --draw_message("NO SMOKING", 2, 1)
