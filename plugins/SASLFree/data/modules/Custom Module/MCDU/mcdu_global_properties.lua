@@ -111,8 +111,12 @@ end
 function checkICAO(icao)
     local path = getXPlanePath() --gets the xplane path
     local file = io.open(path.."/Custom Data/CIFP/"..icao..".dat", "r")
-    if file == nil then
-        return false
+    if file ~= nil then
+        return true
     end
-    return true
+    file = io.open(path.."/Resources/default data/CIFP/"..icao..".dat", "r")
+    if file ~= nil then
+        return true
+    end
+    return false
 end
