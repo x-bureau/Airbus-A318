@@ -8,6 +8,7 @@ addSearchPath(moduleDirectory .. "/Custom Module/ND/")
 addSearchPath(moduleDirectory .. "/Custom Module/ECAM/")
 addSearchPath(moduleDirectory .. "/Custom Module/ATSAW/")
 addSearchPath(moduleDirectory .. "/Custom Module/efb/")
+addSearchPath(moduleDirectory .. "/Custom Module/MCDU/")
 
 size = {2048, 2048}
 
@@ -20,7 +21,7 @@ components = {
   hydraulics {};
   bleed {};
   ADIRS {};
-  MCDU {
+  mcdu {
     fbo = true ,
     fpsLimit = 29
   };
