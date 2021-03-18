@@ -21,17 +21,35 @@ local function processFltNbr()
     end
 end
 
+
 local function processFromTo()
     local entry = SCRATCHPAD
-    if string.find(entry, "/") then
-        -- process tokens
+    if string.len(entry) == 5 then
+        if entry:sub(5, 5) == "/" then
+            local origin = createTokens(entry, "/")[1]
+            print(origin)
+            if checkICAO(origin) then 
+                set(mcdu_origin, origin) 
+            end
+        elseif entry:sub(1, 1) == "/" then
+            local dest = createTokens(entry, "/")[1]
+            if checkICAO(dest) then 
+                set(mcdu_destination, dest) 
+            end
+        end
     else
-        -- no dash, straight code entry
         if string.len(entry) < 8 then
             displayError("INVALID FORMAT")
         else
+            print(string.len(entry))
             local origin = entry:sub(1, 4)
             local destination = entry:sub(5, 8)
+            if string.match(entry, "/") and string.len(entry) == 9 then
+                local tokens = createTokens(entry, "/")
+                origin = tokens[1]
+                print(tokens[1])
+                destination = tokens[2]
+            end
             if checkICAO(origin) == false or checkICAO(destination) == false then
                 displayError("AIRPORT NOT FOUND IN DATABASE")
             else
@@ -57,6 +75,23 @@ local function processCostIndex()
     end
 end
 
+local function processFlightLevel()
+    if initialInfoFilled then
+        local entry = SCRATCHPAD
+        if string.len(entry) == 3 then
+            -- just flight level
+            set(cruise_fl, tonumber(entry))
+        end
+    end
+end
+
+local function process_gnd_temp()
+    if initialInfoFilled then
+        options.gnd_temp[2] = ""..math.floor(get(gnd_temp)).."°"
+    end
+end
+
+
 function init_key_input(side, key)
     if side == 'l' then
         if key == 1 then
@@ -68,12 +103,18 @@ function init_key_input(side, key)
         if key == 5 then
             processCostIndex()
         end
+        if key == 6 then
+            processFlightLevel()
+        end
     else
         if key == 1 then
             processFromTo()
         end
         if key == 2 then
             displayError("NO FLIGHTPLAN FOUND")
+        end
+        if key == 6 then
+            process_gnd_temp()
         end
     end
 end
@@ -134,12 +175,15 @@ local function drawFields()
 end
 
 function update_init()
-    if get(mcdu_destination) ~= "" and get(mcdu_origin) ~= "" then
+    if get(mcdu_destination) ~= "" or get(mcdu_origin) ~= "" then
         options.from_to[2] = get(mcdu_origin).."/"..get(mcdu_destination)
         initialInfoFilled = true
     end
     if get(cost_index) ~= 0 then
         options.cost_index[2] = ""..get(cost_index)
+    end
+    if get(cruise_fl) ~= 0 then
+        options.crz_flt_temp[2] = "FL"..get(cruise_fl).."/"..math.floor(get(tropo_temp)).."°"
     end
 end
 

@@ -1,11 +1,16 @@
 
 -------------------------------------------------------
--- DATAREFS
+-- GLOBAL PROPERTIES
 
 mcdu_origin = createGlobalPropertys("A318/flightInfo/origin_airport", "")
 mcdu_destination = createGlobalPropertys("A318/flightInfo/destination_airport", "")
 cost_index = createGlobalPropertyi("A318/cockpit/mcdu/data/cost_index", 0)
+cruise_fl = createGlobalPropertyi("A318/cockpit/mcdu/data/cruise_fl", 0)
 
+-------------------------------------------------------
+-- SIM DATAREFS
+tropo_temp = globalPropertyf("sim/weather/temperature_tropo_c")
+gnd_temp = globalPropertyf("sim/weather/temperature_sealevel_c")
 -------------------------------------------------------
 local AIRAC_CYCLE = ""
 
@@ -133,9 +138,22 @@ function checkICAO(icao)
     if file ~= nil then
         return true
     end
+    print("not found in og directory")
     file = io.open(path.."/Resources/default data/CIFP/"..icao..".dat", "r")
     if file ~= nil then
         return true
     end
     return false
 end
+
+function createTokens(str, separator)
+    local tokens = {}
+    for token in string.gmatch(str, "[^%"..separator.."]+") do
+        table.insert(tokens, token)
+    end
+    return tokens
+end
+
+
+
+
