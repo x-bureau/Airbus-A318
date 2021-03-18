@@ -80,7 +80,28 @@ local function processFlightLevel()
         local entry = SCRATCHPAD
         if string.len(entry) == 3 then
             -- just flight level
-            set(cruise_fl, tonumber(entry))
+            local fl = tonumber(entry)
+            if fl ~= nil then
+                set(cruise_fl, fl)
+            else
+                displayError("INVALID FORMAT")
+            end
+        elseif string.len(entry) == 5 then
+            local fl = tonumber(entry)
+            print(fl)
+            if fl ~= nil then
+                set(cruise_fl, math.floor(fl / 1000))
+            elseif string.match(entry, "FL") then
+                local newFL = tonumber(entry:sub(3, 5))
+                print(newFL)
+                if newFL ~= nil then
+                    set(cruise_fl, newFL)
+                else
+                    displayError("INVALID FORMAT")
+                end
+            end
+        else
+            displayError("INVALID ENTRY")
         end
     end
 end

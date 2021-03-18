@@ -1,6 +1,7 @@
 include("MCDU/pages/mcdu_menu.lua")
 include("MCDU/pages/acf_info.lua")
 include("MCDU/pages/init.lua")
+include("MCDU/pages/data_index.lua")
 include("MCDU/mcdu_global_properties.lua")
 
 ------------------------------------------------------------------
@@ -184,19 +185,22 @@ mcdu_colors = {
 local drawCalls = {
     draw_mcdu_menu,
     draw_acf_info,
-    draw_init
+    draw_init,
+    draw_data_index
 }
 
 local inputCalls = {
     mcdu_menu_key_input,
     acf_info_key_input,
-    init_key_input
+    init_key_input,
+    data_index_input
 }
 
 local updateCalls = {
     update_mcdu_menu,
     update_acf_info,
-    update_init
+    update_init,
+    update_data_index
 }
 
 function clearScratchpad() 

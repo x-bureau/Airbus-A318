@@ -24,6 +24,10 @@ function mcdu_menu_key_input(side, key)
         if key == 1 then
             set(MCDU_CURRENT_PAGE, 2)
         end
+    else
+        if key == 6 then
+            set(MCDU_CURRENT_PAGE, 4)
+        end
     end
 end
 
