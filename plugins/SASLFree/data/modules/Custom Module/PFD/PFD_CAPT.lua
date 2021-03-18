@@ -74,6 +74,7 @@ end
 
 function pfd()
   -- ARTIFICIAL HORIZON
+
   if isAligned == 0 then
     sasl.gl.drawText(AirbusFont, 440, 460, "ATT", 60, false, false, TEXT_ALIGN_CENTER, RED)
   else
@@ -92,6 +93,7 @@ function pfd()
     sasl.gl.drawRectangle(0, 217, 115, 540, GREY)
     sasl.gl.drawWideLine(0, 757, 146, 757, 4, WHITE)
     sasl.gl.drawWideLine(115, 757, 115, 217, 4, WHITE)
+
     sasl.gl.drawWideLine(0, 217, 146, 217, 4, WHITE)
     speed_tape()
     sasl.gl.drawTriangle(115, 481, 146, 493, 146, 468, YELLOW)
@@ -167,6 +169,7 @@ function pfd()
     sasl.gl.drawText(AirbusFont, 950, 515, "V", 60, false, false, TEXT_ALIGN_CENTER, RED)
     sasl.gl.drawText(AirbusFont, 950, 460, "/", 60, false, false, TEXT_ALIGN_CENTER, RED)
     sasl.gl.drawText(AirbusFont, 950, 405, "S", 60, false, false, TEXT_ALIGN_CENTER, RED)
+
   else
     sasl.gl.drawRectangle(925, 170, 25, 620, GREY)
     sasl.gl.drawRectangle(925, 270, 50, 420, GREY)
@@ -175,7 +178,6 @@ function pfd()
     sasl.gl.drawWideLine(925, 481, 950, 481, 5, YELLOW)
   end
   --
-
   -- QNH
   if mode == 0 then
 
@@ -188,6 +190,21 @@ function pfd()
     end
   end
   --
+
+  if get(ias) < 140 then 
+    sasl.gl.drawWidePolyLine({265, 350, 265, 300, 335, 300}, 4, WHITE)
+    sasl.gl.drawWidePolyLine({615, 350, 615, 300, 545, 300}, 4, WHITE)
+
+    sasl.gl.drawWidePolyLine({265, 670, 265, 615}, 4, WHITE)
+    sasl.gl.drawWidePolyLine({615, 670, 615, 615}, 4, WHITE)
+    
+    sasl.gl.drawWidePolyLine({263, 670, 320, 670}, 4, WHITE)
+    sasl.gl.drawWidePolyLine({556, 670, 617.1, 670}, 4, WHITE)
+
+
+    -- sasl.gl.drawWidePolyLine({430, 500, 430, 530}, 4, WHITE)
+    -- sasl.gl.drawWidePolyLine({445, 500, 445, 530}, 4, WHITE)
+  end
 
   fma()
 end
