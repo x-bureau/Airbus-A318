@@ -327,7 +327,7 @@ end
 function draw()
   sasl.gl.setClipArea(0, 0, 1000, 1000)
   if get(BUS) > 0 then
-    if selfTest == 0 then
+    if selfTest == 1 then
       pfd()
       Timer = 0
     else
