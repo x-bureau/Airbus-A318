@@ -188,7 +188,20 @@ function pfd()
     end
   end
   --
+  if get(ias) < 140 then 
+    sasl.gl.drawWidePolyLine({265, 350, 265, 300, 335, 300}, 4, WHITE)
+    sasl.gl.drawWidePolyLine({615, 350, 615, 300, 545, 300}, 4, WHITE)
 
+    sasl.gl.drawWidePolyLine({265, 670, 265, 615}, 4, WHITE)
+    sasl.gl.drawWidePolyLine({615, 670, 615, 615}, 4, WHITE)
+    
+    sasl.gl.drawWidePolyLine({263, 670, 320, 670}, 4, WHITE)
+    sasl.gl.drawWidePolyLine({556, 670, 617.1, 670}, 4, WHITE)
+
+
+    -- sasl.gl.drawWidePolyLine({430, 500, 430, 530}, 4, WHITE)
+    -- sasl.gl.drawWidePolyLine({445, 500, 445, 530}, 4, WHITE)
+  end
   fma()
 end
 
@@ -314,7 +327,7 @@ end
 function draw()
   sasl.gl.setClipArea(0, 0, 1000, 1000)
   if get(BUS) > 0 then
-    if selfTest == 1 then
+    if selfTest == 0 then
       pfd()
       Timer = 0
     else
