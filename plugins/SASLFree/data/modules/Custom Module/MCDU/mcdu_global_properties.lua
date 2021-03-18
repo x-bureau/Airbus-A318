@@ -13,21 +13,40 @@ local AIRAC_CYCLE = ""
 function getAiracCycle()
     -- don't loop through file if value already exists
     if AIRAC_CYCLE == "" then
-        print("reading AIRAC cycle")
         local path = getXPlanePath() --gets the xplane path
-        local file = io.open(path.."/Custom Data/cycle_info.txt", "rb")
+        local file = io.open(path.."/Custom Data/cycle_info.txt", "r")
         local result = ""
-        for line in file:lines() do
-            if string.match(line, "AIRAC") then
-                for token in string.gmatch(line, "[^%s]+") do
-                    result = token
+        if file ~= nil  then
+            for line in file:lines() do
+                if string.match(line, "AIRAC") then
+                    for token in string.gmatch(line, "[^%s]+") do
+                        result = token
+                    end
+                    break
                 end
-                break;
+            end
+            if result ~= nil then
+                AIRAC_CYCLE = result
+                return AIRAC_CYCLE
             end
         end
-        AIRAC_CYCLE = result
-        print("Found AIRAC Cycle: ", result)
-        return result
+        file = io.open(path.."/Resources/default data/earth_nav.dat", "r")
+        isFound = false
+        for line in file:lines() do
+            if string.match(line, "cycle") then
+                for token in string.gmatch(line, "[^%s]+") do
+                    result = token
+                    if isFound then
+                        break
+                    end
+                    if result == "cycle" then
+                        isFound = true
+                    end
+                end
+            end
+        end
+        AIRAC_CYCLE = result:sub(1, 4)
+        return AIRAC_CYCLE
     else
         -- if we have found the airac cycle before then don't look it up again
         return AIRAC_CYCLE
