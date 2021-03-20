@@ -1,7 +1,7 @@
 -- PAGE KEY: 2
 
 local inputs = {
-    chg_code = {"", 'l', 5, 3}
+    chg_code = {"", 'l', 5, 1}
 }
 
 local function drawStaticTitles()
@@ -39,7 +39,7 @@ function acf_info_key_input(side, key)
         end
     end
     if side == 'r' and key == 6 then
-        set(MCDU_CURRENT_PAGE, 3)
+        set(MCDU_CURRENT_PAGE, 11)
     end
 end
 

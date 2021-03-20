@@ -112,11 +112,20 @@ local function process_gnd_temp()
     end
 end
 
+local function processInitRequest()
+    if parseFMS(options.co_route[2], 0) ~= false then
+        parseFMS(options.co_route[2], 1)
+    else
+        displayError("FLIGHTPLAN NOT FOUND")
+    end
+end
+
 
 function init_key_input(side, key)
     if side == 'l' then
         if key == 1 then
-            displayError("INOP - COMING SOON")
+            --displayError("INOP - COMING SOON")
+            options.co_route[2] = SCRATCHPAD
         end
         if key == 3 then
             processFltNbr()
@@ -132,7 +141,7 @@ function init_key_input(side, key)
             processFromTo()
         end
         if key == 2 then
-            displayError("NO FLIGHTPLAN FOUND")
+            processInitRequest()
         end
         if key == 6 then
             process_gnd_temp()

@@ -14,6 +14,16 @@ gnd_temp = globalPropertyf("sim/weather/temperature_sealevel_c")
 -------------------------------------------------------
 local AIRAC_CYCLE = ""
 
+-------------------------------------------------------
+-- PAGE CALLS
+
+PAGE_CALLS = {
+    [0] = {draw_mcdu_menu, update_mcdu_menu, mcdu_menu_key_input},
+    [10] = {draw_acf_info, update_acf_info, acf_info_key_input},
+    [11] = {draw_init, update_init, init_key_input},
+    [2] = {draw_data_index, update_data_index, data_index_input}
+}
+-------------------------------------------------------
 
 function getAiracCycle()
     -- don't loop through file if value already exists

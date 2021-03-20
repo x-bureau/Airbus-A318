@@ -3,6 +3,7 @@ include("MCDU/pages/acf_info.lua")
 include("MCDU/pages/init.lua")
 include("MCDU/pages/data_index.lua")
 include("MCDU/mcdu_global_properties.lua")
+include("MCDU/fms_parser.lua")
 
 ------------------------------------------------------------------
 position = {28, 1212, 479, 400}
@@ -14,9 +15,10 @@ size = {479, 400}
 
 local MCDU_BLACK = {0 , 0 , 0 , 1.0}
 AIRBUS_FONT = sasl.gl.loadFont("fonts/PanelFont.ttf")
-MCDU_FONT = sasl.gl.loadFont("fonts/B612Mono-Regular.ttf")
+--MCDU_FONT = sasl.gl.loadFont("fonts/B612Mono-Regular.ttf")
+MCDU_FONT = sasl.gl.loadFont("fonts/HW_MCDU.ttf")
 MCDU_FONT_BOLD = sasl.gl.loadFont("fonts/B612Mono-Bold.ttf")
-MCDU_CURRENT_PAGE = createGlobalPropertyi("A318/cockpit/mcdu/current_page", 1)
+MCDU_CURRENT_PAGE = createGlobalPropertyi("A318/cockpit/mcdu/current_page", 0)
 local Airbus_VERSION = "A318-100"
 ENG_TYPE = "CFM-56-B"
 SCRATCHPAD = ""
@@ -39,6 +41,8 @@ local BUTTON_3_R = createGlobalPropertyi("A318/cockpit/mcdu/buttons/right/3", 0)
 local BUTTON_4_R = createGlobalPropertyi("A318/cockpit/mcdu/buttons/right/4", 0)
 local BUTTON_5_R = createGlobalPropertyi("A318/cockpit/mcdu/buttons/right/5", 0)
 local BUTTON_6_R = createGlobalPropertyi("A318/cockpit/mcdu/buttons/right/6", 0)
+
+local BUS = globalProperty("A318/systems/ELEC/AC2_V")
 
 local buttonInputs = {
     BUTTON_1_L,
@@ -182,27 +186,6 @@ mcdu_colors = {
 
 -- PAGES and DRAW CALLS
 
-local drawCalls = {
-    draw_mcdu_menu,
-    draw_acf_info,
-    draw_init,
-    draw_data_index
-}
-
-local inputCalls = {
-    mcdu_menu_key_input,
-    acf_info_key_input,
-    init_key_input,
-    data_index_input
-}
-
-local updateCalls = {
-    update_mcdu_menu,
-    update_acf_info,
-    update_init,
-    update_data_index
-}
-
 function clearScratchpad() 
     SCRATCHPAD = ""
 end
@@ -252,7 +235,7 @@ function checkKeyInput()
                 side = 'l'
                 key = i
             end
-            inputCalls[get(MCDU_CURRENT_PAGE)](side, key)
+            PAGE_CALLS[get(MCDU_CURRENT_PAGE)][3](side, key)
             set(buttonInputs[i], 0)
             if isDisplayingError == false then
                 clearScratchpad()
@@ -266,7 +249,7 @@ end
 function update()
     checkInput()
     checkKeyInput()
-    updateCalls[get(MCDU_CURRENT_PAGE)]()
+    PAGE_CALLS[get(MCDU_CURRENT_PAGE)][2]()
     if sasl.getElapsedSeconds(blinkTimer) > 0.13 then
         sasl.stopTimer(blinkTimer)
         sasl.resetTimer(blinkTimer)
@@ -275,9 +258,12 @@ function update()
 end
 
 function draw()
-    sasl.gl.drawRectangle(0, 0, 479, 400, {0, 15/255, 28/255, 1.0})
-    if not isBlinking then
+    if get(BUS) > 0 then
+      sasl.gl.drawRectangle(0, 0, 479, 400, {0, 15/255, 28/255, 1.0})
+      if not isBlinking then
         sasl.gl.drawText(MCDU_FONT, 10, 10, SCRATCHPAD, mcdu_option_size, false, false, TEXT_ALIGN_LEFT, mcdu_font_colors[1])
-        drawCalls[get(MCDU_CURRENT_PAGE)]()
+        --drawCalls[get(MCDU_CURRENT_PAGE)]()
+        PAGE_CALLS[get(MCDU_CURRENT_PAGE)][1]()
+      end
     end
 end

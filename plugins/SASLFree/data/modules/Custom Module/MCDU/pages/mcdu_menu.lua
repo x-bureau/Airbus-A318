@@ -22,11 +22,12 @@ local options = {
 function mcdu_menu_key_input(side, key)
     if side == 'l' then
         if key == 1 then
-            set(MCDU_CURRENT_PAGE, 2)
+            set(MCDU_CURRENT_PAGE, 10)
+            print(get(MCDU_CURRENT_PAGE))
         end
     else
         if key == 6 then
-            set(MCDU_CURRENT_PAGE, 4)
+            set(MCDU_CURRENT_PAGE, 2)
         end
     end
 end
