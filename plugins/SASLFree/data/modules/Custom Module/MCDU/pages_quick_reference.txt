@@ -5,4 +5,5 @@ MCDU MENU -> 0
 	FMGS (1)
 		ACF_INFO -> 10
 		INIT_A -> 11
+		INIT_B -> 112
 	DATA_INDEX -> 2

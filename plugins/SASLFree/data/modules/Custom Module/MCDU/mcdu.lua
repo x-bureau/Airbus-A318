@@ -1,6 +1,7 @@
 include("MCDU/pages/mcdu_menu.lua")
 include("MCDU/pages/acf_info.lua")
 include("MCDU/pages/init.lua")
+include("MCDU/pages/init_b.lua")
 include("MCDU/pages/data_index.lua")
 include("MCDU/mcdu_global_properties.lua")
 include("MCDU/fms_parser.lua")

@@ -130,6 +130,9 @@ function init_key_input(side, key)
         if key == 3 then
             processFltNbr()
         end
+        if key == 4 then
+            set(MCDU_CURRENT_PAGE, 112)
+        end
         if key == 5 then
             processCostIndex()
         end
@@ -191,13 +194,13 @@ local function drawFields()
     end
     if isOptionEmpty(options.crz_flt_temp) then
         if initialInfoFilled then
-            drawBoxesWithSlash('l', 6, 10, 6)
+            drawBoxesWithSlash('l', 6, 10, 6, 0)
         else
             drawBlanks('l', 6, "––––– /–––°")
         end
     end
     if isOptionEmpty(options.from_to) then
-        drawBoxesWithSlash('r', 1, 9, 5)
+        drawBoxesWithSlash('r', 1, 9, 5, 0)
     end
     if isOptionEmpty(options.gnd_temp) then
         drawBlanks('r', 6, "–––°")
