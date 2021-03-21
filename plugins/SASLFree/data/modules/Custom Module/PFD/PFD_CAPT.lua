@@ -20,6 +20,8 @@ pitch = globalProperty("A318/systems/ADIRS/1/inertial/pitch")
 roll = globalProperty("A318/systems/ADIRS/1/inertial/roll")
 radAlt = globalProperty("sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot")
 radioMins = globalProperty("sim/cockpit/misc/radio_altimeter_minimum")
+pitch_ratio = globalProperty("sim/cockpit2/controls/total_pitch_ratio")
+roll_ratio = globalProperty("sim/cockpit2/controls/total_roll_ratio")
 
 baroSetting = globalProperty("sim/cockpit2/gauges/actuators/barometer_setting_in_hg_pilot")
 units = createGlobalPropertyi("A318/systems/PFD/QNH_unit_CAPT", 1)
@@ -191,7 +193,7 @@ function pfd()
   end
   --
 
-  if get(ias) < 140 then 
+  if get(ias) < 140 and mode ~= 0 and isAligned ~= 0 then 
     sasl.gl.drawWidePolyLine({265, 350, 265, 300, 335, 300}, 4, WHITE)
     sasl.gl.drawWidePolyLine({615, 350, 615, 300, 545, 300}, 4, WHITE)
 
@@ -201,6 +203,18 @@ function pfd()
     sasl.gl.drawWidePolyLine({263, 670, 320, 670}, 4, WHITE)
     sasl.gl.drawWidePolyLine({556, 670, 617.1, 670}, 4, WHITE)
 
+
+    sasl.gl.drawWidePolyLine({435 + get(roll_ratio) * 160, 490 + get(pitch_ratio) * 140, 435 + get(roll_ratio) * 160, 510 + get(pitch_ratio) * 140}, 4, WHITE)
+    sasl.gl.drawWidePolyLine({444 + get(roll_ratio) * 160, 490 + get(pitch_ratio) * 140, 444 + get(roll_ratio) * 160, 510 + get(pitch_ratio) * 140}, 4, WHITE)
+
+    sasl.gl.drawWidePolyLine({435 + get(roll_ratio) * 160, 452 + get(pitch_ratio) * 140, 435 + get(roll_ratio) * 160, 474 + get(pitch_ratio) * 140}, 4, WHITE)
+    sasl.gl.drawWidePolyLine({444 + get(roll_ratio) * 160, 452 + get(pitch_ratio) * 140, 444 + get(roll_ratio) * 160, 474 + get(pitch_ratio) * 140}, 4, WHITE)
+
+    sasl.gl.drawWidePolyLine({410 + get(roll_ratio) * 160, 474 + get(pitch_ratio) * 140, 437 + get(roll_ratio) * 160, 474 + get(pitch_ratio) * 140}, 4, WHITE)
+    sasl.gl.drawWidePolyLine({442 + get(roll_ratio) * 160, 474 + get(pitch_ratio) * 140, 468 + get(roll_ratio) * 160, 474 + get(pitch_ratio) * 140}, 4, WHITE)
+
+    sasl.gl.drawWidePolyLine({410 + get(roll_ratio) * 160, 490 + get(pitch_ratio) * 140, 437 + get(roll_ratio) * 160, 490 + get(pitch_ratio) * 140}, 4, WHITE)
+    sasl.gl.drawWidePolyLine({442 + get(roll_ratio) * 160, 490 + get(pitch_ratio) * 140, 468 + get(roll_ratio) * 160, 490 + get(pitch_ratio) * 140}, 4, WHITE)
 
     -- sasl.gl.drawWidePolyLine({430, 500, 430, 530}, 4, WHITE)
     -- sasl.gl.drawWidePolyLine({445, 500, 445, 530}, 4, WHITE)
