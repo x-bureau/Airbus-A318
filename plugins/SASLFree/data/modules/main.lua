@@ -55,8 +55,8 @@ components = {
     cursor = {
       x = -8 ,
       y = -8 ,
-      width = 30 ,
-      height = 30 ,
+      width = 0 ,
+      height = 0 ,
       shape = sasl.gl.loadImage ("efb/icons/cursor.png") ,
       hideOSCursor = true
       }

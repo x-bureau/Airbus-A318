@@ -5,6 +5,7 @@ local default_field_color = {42/255, 58/255, 80/255, 1.0}
 
 local avitab_enabled = globalProperty("avitab/panel_enabled")
 local avitab_powered = globalProperty("avitab/panel_powered")
+local cursor_texture = sasl.gl.loadImage("efb/icons/cursor.png")
 
 function checkMenuClick(x, y)
     if isInRect({482, buttonY, buttonHeight, buttonHeight}, x, y) then
@@ -82,5 +83,6 @@ function getMETAR(icao)
 end
 
 function draw_efb_cursor(x, y)
-    sasl.gl.drawRectangle(x, y, 10, 10, SYSTEM_COLORS.FRONT_GREEN)
+    --sasl.gl.drawRectangle(x, y, 10, 10, SYSTEM_COLORS.FRONT_GREEN)
+    sasl.gl.drawTexture(cursor_texture, x - 16, y - 13, 35, 35)
 end
