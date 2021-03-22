@@ -64,22 +64,22 @@ local function drawData()
         end
     end
     if isOptionEmpty(data.taxi) then
-        drawBlanks('l', 1, "––.–")
+        drawBlanks('l', 1, "——.—")
     end
     if isOptionEmpty(data.trip_time) then
-        drawBlanks('l', 2, "–––.–/––––")
+        drawBlanks('l', 2, "———.—/————")
     end
     if isOptionEmpty(data.rte_rsv) then
-        drawBlanks('l', 3, "–––.–/–.–")
+        drawBlanks('l', 3, "———.—/—.—")
     end
     if isOptionEmpty(data.altn_time) then
-        drawBlanks('l', 4, "–––.–/––––")
+        drawBlanks('l', 4, "———.—/————")
     end
     if isOptionEmpty(data.final_time) then
-        drawBlanks('l', 5, "–––.–/––––")
+        drawBlanks('l', 5, "———.—/————")
     end
     if isOptionEmpty(data.min_dest_fob) then
-        drawBlanks('l', 6, "–––––")
+        drawBlanks('l', 6, "—————")
     end
     -- if isOptionEmpty(data.zfw_zfwcg) then
     --     drawZFW()
@@ -92,13 +92,13 @@ local function drawData()
         drawBoxesWithSlash('r', 2, 4, 3, 1)
     end
     if isOptionEmpty(data.tow_lw) then
-        drawBlanks('r', 4, "–––.–/––––")
+        drawBlanks('r', 4, "———.—/————")
     end
     if isOptionEmpty(data.trip_wind) then
-        drawBlanks('r', 5, "–––––")
+        drawBlanks('r', 5, "—————")
     end
     if isOptionEmpty(data.tow_lw) then
-        drawBlanks('r', 6, "–––.–/––––")
+        drawBlanks('r', 6, "———.—/————")
     end
 end
 

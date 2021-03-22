@@ -124,7 +124,6 @@ end
 function init_key_input(side, key)
     if side == 'l' then
         if key == 1 then
-            --displayError("INOP - COMING SOON")
             options.co_route[2] = SCRATCHPAD
         end
         if key == 3 then
@@ -192,7 +191,7 @@ local function drawFields()
         drawBoxes('l', 1, 7)
     end
     if isOptionEmpty(options.alt_route) then
-        drawBlanks('l', 2, "––––/––––––––––")
+        drawBlanks('l', 2, "————/——————————")
     end
     if isOptionEmpty(options.flt_nmbr) then
         drawBoxes('l', 3, 8)
@@ -201,21 +200,21 @@ local function drawFields()
         if initialInfoFilled then
             drawBoxes('l', 5, 3)
         else
-            drawBlanks('l', 5, "–––")
+            drawBlanks('l', 5, "———")
         end
     end
     if isOptionEmpty(options.crz_flt_temp) then
         if initialInfoFilled then
             drawBoxesWithSlash('l', 6, 10, 6, 0)
         else
-            drawBlanks('l', 6, "––––– /–––°")
+            drawBlanks('l', 6, "————— /———°")
         end
     end
     if isOptionEmpty(options.from_to) then
         drawBoxesWithSlash('r', 1, 9, 5, 0)
     end
     if isOptionEmpty(options.gnd_temp) then
-        drawBlanks('r', 6, "–––°")
+        drawBlanks('r', 6, "———°")
     end
 end
 

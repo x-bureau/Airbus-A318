@@ -141,11 +141,11 @@ end
 
 function drawBlanks(side, key, blanks)
     if side == 'l' then
-        sasl.gl.drawText(MCDU_FONT_BOLD, 10, mdcu_positons[key], blanks, mcdu_option_size - 5, false, false, TEXT_ALIGN_LEFT, mcdu_font_colors[1])
+        sasl.gl.drawText(BLANK_FONT, 10, mdcu_positons[key], blanks, mcdu_option_size - 5, false, false, TEXT_ALIGN_LEFT, mcdu_font_colors[1])
     elseif side == 'r' then
-        sasl.gl.drawText(MCDU_FONT_BOLD, 469, mdcu_positons[key], blanks, mcdu_option_size - 5, false, false, TEXT_ALIGN_RIGHT, mcdu_font_colors[1])
+        sasl.gl.drawText(BLANK_FONT, 469, mdcu_positons[key], blanks, mcdu_option_size - 5, false, false, TEXT_ALIGN_RIGHT, mcdu_font_colors[1])
     else
-        sasl.gl.drawText(MCDU_FONT_BOLD, 239, mdcu_positons[key], blanks, mcdu_option_size - 5, false, false, TEXT_ALIGN_CENTER, mcdu_font_colors[1])
+        sasl.gl.drawText(BLANK_FONT, 239, mdcu_positons[key], blanks, mcdu_option_size - 5, false, false, TEXT_ALIGN_CENTER, mcdu_font_colors[1])
     end
 end
 

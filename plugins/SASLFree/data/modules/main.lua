@@ -53,13 +53,14 @@ components = {
   menu {};
   efb{
     cursor = {
-      x = -8 ,
-      y = -8 ,
-      width = 0 ,
-      height = 0 ,
+      x = -15 ,
+      y = -15 ,
+      width = 30 ,
+      height = 30 ,
       shape = sasl.gl.loadImage ("efb/icons/cursor.png") ,
       hideOSCursor = true
-      }
+      },
+      fbo = true
   };
 }
 

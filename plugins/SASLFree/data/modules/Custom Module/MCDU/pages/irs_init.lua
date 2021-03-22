@@ -28,13 +28,13 @@ local function drawData()
         end
     end
     if isOptionEmpty(data.irs_1) then
-        drawBlanks('c', 3, "––°  ––.–/–––° ––.– –")
+        drawBlanks('c', 3, "——°  ——.—/———° ——.— —")
     end
     if isOptionEmpty(data.irs_2) then
-        drawBlanks('c', 4, "––°  ––.–/–––° ––.– –")
+        drawBlanks('c', 4, "——°  ——.—/———° ——.— —")
     end
     if isOptionEmpty(data.irs_3) then
-        drawBlanks('c', 5, "––°  ––.–/–––° ––.– –")
+        drawBlanks('c', 5, "——°  ——.—/———° ——.— —")
     end
 end
 

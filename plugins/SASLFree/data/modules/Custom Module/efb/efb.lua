@@ -117,5 +117,5 @@ function draw()
         local bgColor = {64/255, 64/255, 64/255, 1.0}
         sasl.gl.drawRectangle(0, 0, WIDTH, HEIGHT - 71, bgColor)
     end
-    draw_efb_cursor(efb_cursor.x, efb_cursor.y)
+    --draw_efb_cursor(efb_cursor.x, efb_cursor.y)
 end

@@ -19,6 +19,7 @@ local MCDU_BLACK = {0 , 0 , 0 , 1.0}
 AIRBUS_FONT = sasl.gl.loadFont("fonts/PanelFont.ttf")
 --MCDU_FONT = sasl.gl.loadFont("fonts/B612Mono-Regular.ttf")
 MCDU_FONT = sasl.gl.loadFont("fonts/courbd.ttf")
+BLANK_FONT = sasl.gl.loadFont("fonts/courbd.ttf")
 MCDU_FONT_BOLD = sasl.gl.loadFont("fonts/courbd.ttf")
 MCDU_CURRENT_PAGE = createGlobalPropertyi("A318/cockpit/mcdu/current_page", 0)
 local Airbus_VERSION = "A318-100"
@@ -29,6 +30,8 @@ isDisplayingError = false
 local blinkTimer = sasl.createTimer()
 local isBlinking = false
 --Buttons Datarefs 
+
+sasl.gl.setFontGlyphSpacingFactor (BLANK_FONT, 1.5)
 
 local BUTTON_1_L = createGlobalPropertyi("A318/cockpit/mcdu/buttons/left/1", 0)
 local BUTTON_2_L = createGlobalPropertyi("A318/cockpit/mcdu/buttons/left/2", 0)
@@ -155,7 +158,7 @@ title_location = {
     font_size = 30
 }
 
-option_heading_font_size = 18
+option_heading_font_size = 21
 option_heading_locations = {
     [1] = 333,
     [2] = 280,
