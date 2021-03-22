@@ -7,7 +7,7 @@ local options = {
     cost_index = {"COST INDEX", "", 'l', 5},
     crz_flt_temp = {"CRZ FL/TEMP", "", 'l', 6},
     from_to = {"FROM/TO", "", 'r', 1},
-    tropo = {"TROPO", "INOP", 'r', 5},
+    tropo = {"TROPO", "36090", 'r', 5},
     gnd_temp = {"GND TEMP", "", 'r', 6}
 }
 
@@ -146,6 +146,13 @@ function init_key_input(side, key)
         if key == 2 then
             processInitRequest()
         end
+        if key == 3 then
+            if initialInfoFilled then
+                set(MCDU_CURRENT_PAGE, 113)
+            end
+            
+            set(MCDU_CURRENT_PAGE, 113) -- TODO: Remove after testing
+        end
         if key == 6 then
             process_gnd_temp()
         end
@@ -160,9 +167,14 @@ local function drawStaticTitles()
             sasl.gl.drawText(MCDU_FONT_BOLD, 462, option_heading_locations[value[4]], value[1], option_heading_font_size, false, false, TEXT_ALIGN_RIGHT, mcdu_font_colors[1])
         end
     end
-    sasl.gl.drawText(MCDU_FONT_BOLD, 462, option_heading_locations[2], "INIT", option_heading_font_size, false, false, TEXT_ALIGN_RIGHT, mcdu_colors.box)
-    sasl.gl.drawText(MCDU_FONT, 469, mdcu_positons[2], "REQUEST*", mcdu_option_size, false, false, TEXT_ALIGN_RIGHT, mcdu_colors.box)
-    sasl.gl.drawText(MCDU_FONT, 469, mdcu_positons[3], "IRS INIT>", mcdu_option_size, false, false, TEXT_ALIGN_RIGHT, mcdu_font_colors[1])
+    if initialInfoFilled then
+        sasl.gl.drawText(MCDU_FONT, 469, mdcu_positons[3], "IRS INIT>", mcdu_option_size, false, false, TEXT_ALIGN_RIGHT, mcdu_font_colors[1])
+    end
+    if not isOptionEmpty(options.co_route) then
+        sasl.gl.drawText(MCDU_FONT_BOLD, 462, option_heading_locations[2], "INIT", option_heading_font_size, false, false, TEXT_ALIGN_RIGHT, mcdu_colors.box)
+        sasl.gl.drawText(MCDU_FONT, 469, mdcu_positons[2], "REQUEST*", mcdu_option_size, false, false, TEXT_ALIGN_RIGHT, mcdu_colors.box)
+    end
+    
     sasl.gl.drawText(MCDU_FONT, 469, mdcu_positons[4], "WIND>", mcdu_option_size, false, false, TEXT_ALIGN_RIGHT, mcdu_font_colors[1])
 end
 

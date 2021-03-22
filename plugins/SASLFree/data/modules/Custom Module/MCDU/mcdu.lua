@@ -3,6 +3,7 @@ include("MCDU/pages/acf_info.lua")
 include("MCDU/pages/init.lua")
 include("MCDU/pages/init_b.lua")
 include("MCDU/pages/data_index.lua")
+include("MCDU/pages/irs_init.lua")
 include("MCDU/mcdu_global_properties.lua")
 include("MCDU/fms_parser.lua")
 
@@ -17,8 +18,8 @@ size = {479, 400}
 local MCDU_BLACK = {0 , 0 , 0 , 1.0}
 AIRBUS_FONT = sasl.gl.loadFont("fonts/PanelFont.ttf")
 --MCDU_FONT = sasl.gl.loadFont("fonts/B612Mono-Regular.ttf")
-MCDU_FONT = sasl.gl.loadFont("fonts/HW_MCDU.ttf")
-MCDU_FONT_BOLD = sasl.gl.loadFont("fonts/B612Mono-Bold.ttf")
+MCDU_FONT = sasl.gl.loadFont("fonts/courbd.ttf")
+MCDU_FONT_BOLD = sasl.gl.loadFont("fonts/courbd.ttf")
 MCDU_CURRENT_PAGE = createGlobalPropertyi("A318/cockpit/mcdu/current_page", 0)
 local Airbus_VERSION = "A318-100"
 ENG_TYPE = "CFM-56-B"
@@ -154,7 +155,7 @@ title_location = {
     font_size = 30
 }
 
-option_heading_font_size = 15
+option_heading_font_size = 18
 option_heading_locations = {
     [1] = 333,
     [2] = 280,
@@ -178,7 +179,8 @@ mcdu_option_size = 24
 mcdu_font_colors = {
     [1] = {1, 1, 1, 1},
     [2] = {52/255, 207/255, 21/255, 1.0},
-    [3] = {0, 227/255, 223/255, 1.0}
+    [3] = {0, 227/255, 223/255, 1.0},
+    [4] = {1, 153/255, 0, 1}
 }
 
 mcdu_colors = {

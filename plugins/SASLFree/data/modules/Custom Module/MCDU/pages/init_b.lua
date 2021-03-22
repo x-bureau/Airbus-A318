@@ -19,18 +19,14 @@ local function drawZFW()
     local x = 469 - length
     local y = mdcu_positons[1] - 2
     local height = 20
-    if zfw_filled == false then
-        sasl.gl.drawFrame(x, y, 48, height, mcdu_colors.box)
-        sasl.gl.drawLine(x + 16, y, x + 16, y + height, mcdu_colors.box)
-        sasl.gl.drawLine(x + 32, y, x + 32, y + height, mcdu_colors.box)
-        x = x + 48
-        sasl.gl.drawText(MCDU_FONT_BOLD, x + 3, mdcu_positons[1] - 1, ".", mcdu_option_size - 3, false, false, TEXT_ALIGN_LEFT, mcdu_colors.box)
-        x = x + 16
-        sasl.gl.drawFrame(x, y, 16, height, mcdu_colors.box)
-        x = x + 32
-    else
-        x = x + 96
-    end
+    sasl.gl.drawFrame(x, y, 48, height, mcdu_colors.box)
+    sasl.gl.drawLine(x + 16, y, x + 16, y + height, mcdu_colors.box)
+    sasl.gl.drawLine(x + 32, y, x + 32, y + height, mcdu_colors.box)
+    x = x + 48
+    sasl.gl.drawText(MCDU_FONT_BOLD, x + 3, mdcu_positons[1] - 1, ".", mcdu_option_size - 3, false, false, TEXT_ALIGN_LEFT, mcdu_colors.box)
+    x = x + 16
+    sasl.gl.drawFrame(x, y, 16, height, mcdu_colors.box)
+    x = x + 32
     sasl.gl.drawText(MCDU_FONT, x + 3 - 16, mdcu_positons[1] - 1, "/", mcdu_option_size - 3, false, false, TEXT_ALIGN_LEFT, mcdu_colors.box)
     sasl.gl.drawFrame(x, y, 32, height, mcdu_colors.box)
     sasl.gl.drawLine(x + 16, y, x + 16, y + height, mcdu_colors.box)
@@ -60,7 +56,7 @@ local function drawData()
                 sasl.gl.drawText(MCDU_FONT, 10, mdcu_positons[value[4]], value[2], mcdu_option_size, false, false, TEXT_ALIGN_LEFT, mcdu_font_colors[3])
             else
                 if value[3] == 'r' and value[4] == 1 then
-                    sasl.gl.drawText(MCDU_FONT, 469 - 80, mdcu_positons[value[4]], value[2], mcdu_option_size, false, false, TEXT_ALIGN_RIGHT, mcdu_font_colors[3])
+                    sasl.gl.drawText(MCDU_FONT, 469, mdcu_positons[value[4]], value[2], mcdu_option_size, false, false, TEXT_ALIGN_RIGHT, mcdu_font_colors[3])
                 else
                     sasl.gl.drawText(MCDU_FONT, 469, mdcu_positons[value[4]], value[2], mcdu_option_size, false, false, TEXT_ALIGN_RIGHT, mcdu_font_colors[3])
                 end
@@ -88,7 +84,10 @@ local function drawData()
     -- if isOptionEmpty(data.zfw_zfwcg) then
     --     drawZFW()
     -- end
-    drawZFW()
+    if not zfw_filled then
+        drawZFW()
+    end
+   
     if isOptionEmpty(data.block) then
         drawBoxesWithSlash('r', 2, 4, 3, 1)
     end
@@ -105,7 +104,7 @@ end
 
 function update_init_b()
     if get(zfw) ~= 0  then
-        data.zfw_zfwcg[2] = ""..round(get(zfw), 1)
+        data.zfw_zfwcg[2] = ""..round(get(zfw), 1).."/"..round(math.abs(get(center_g)) * 100, 1)
     end
 end
 

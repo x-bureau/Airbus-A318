@@ -12,6 +12,11 @@ zfw = createGlobalPropertyf("A318/cockpit/mcdu/data/zfw", 0)
 -- SIM DATAREFS
 tropo_temp = globalPropertyf("sim/weather/temperature_tropo_c")
 gnd_temp = globalPropertyf("sim/weather/temperature_sealevel_c")
+gps_positon = {
+    latitude = globalPropertyf("sim/flightmodel/position/latitude"),
+    longitude = globalPropertyf("sim/flightmodel/position/longitude")
+}
+center_g = globalPropertyf("sim/cockpit2/gauges/indicators/CG_indicator")
 -------------------------------------------------------
 local AIRAC_CYCLE = ""
 
@@ -23,6 +28,7 @@ PAGE_CALLS = {
     [10] = {draw_acf_info, update_acf_info, acf_info_key_input},
     [11] = {draw_init, update_init, init_key_input},
     [112] = {draw_init_b, update_init_b, init_b_key_input},
+    [113] = {draw_irs_init, update_irs_init, irs_init_key_input},
     [2] = {draw_data_index, update_data_index, data_index_input}
 }
 -------------------------------------------------------
@@ -136,8 +142,10 @@ end
 function drawBlanks(side, key, blanks)
     if side == 'l' then
         sasl.gl.drawText(MCDU_FONT_BOLD, 10, mdcu_positons[key], blanks, mcdu_option_size - 5, false, false, TEXT_ALIGN_LEFT, mcdu_font_colors[1])
-    else
+    elseif side == 'r' then
         sasl.gl.drawText(MCDU_FONT_BOLD, 469, mdcu_positons[key], blanks, mcdu_option_size - 5, false, false, TEXT_ALIGN_RIGHT, mcdu_font_colors[1])
+    else
+        sasl.gl.drawText(MCDU_FONT_BOLD, 239, mdcu_positons[key], blanks, mcdu_option_size - 5, false, false, TEXT_ALIGN_CENTER, mcdu_font_colors[1])
     end
 end
 
@@ -187,10 +195,27 @@ function drawStaticTitlesKeyValue(data)
         local title = value
 		if title[3] == 'l' then
 			sasl.gl.drawText(MCDU_FONT_BOLD, 17, option_heading_locations[title[4]], title[1], option_heading_font_size, false, false, TEXT_ALIGN_LEFT, mcdu_font_colors[1])
-		else
+        elseif title[3] == 'r' then
 			sasl.gl.drawText(MCDU_FONT_BOLD, 462, option_heading_locations[title[4]], title[1], option_heading_font_size, false, false, TEXT_ALIGN_RIGHT, mcdu_font_colors[1])
-		end
+        else
+            sasl.gl.drawText(MCDU_FONT_BOLD, 239, option_heading_locations[title[4]], title[1], option_heading_font_size, false, false, TEXT_ALIGN_CENTER, mcdu_font_colors[1])
+        end
     end
+end
+
+function getBasicLatLong(icao)
+    local path = getXPlanePath()
+    local file = io.open(path.."Resources/default data/CIFP/"..icao..".dat", "r")
+    local str = ""
+    for line in file:lines() do
+        if string.match(line, "RWY") then
+            str = line
+            break
+        end
+    end
+    local firstTokenSet = createTokens(str, ";")[2]
+    local secondTokenSet = createTokens(firstTokenSet, ",")
+    return {secondTokenSet[1], secondTokenSet[2]}
 end
 
 
