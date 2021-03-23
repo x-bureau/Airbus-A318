@@ -1,3 +1,5 @@
+-- testing if download works
+
 include("MCDU/pages/mcdu_menu.lua")
 include("MCDU/pages/acf_info.lua")
 include("MCDU/pages/init.lua")
