@@ -1,4 +1,3 @@
-
 -------------------------------------------------------
 -- GLOBAL PROPERTIES
 
@@ -7,7 +6,8 @@ mcdu_destination = createGlobalPropertys("A318/flightInfo/destination_airport", 
 cost_index = createGlobalPropertyi("A318/cockpit/mcdu/data/cost_index", 0)
 cruise_fl = createGlobalPropertyi("A318/cockpit/mcdu/data/cruise_fl", 0)
 zfw = createGlobalPropertyf("A318/cockpit/mcdu/data/zfw", 0)
-CURRENT_VERSION = createGlobalPropertyi("A318/metadata/version", 1)
+CURRENT_VERSION = createGlobalPropertys("A318/metadata/version", "")
+update_available = createGlobalPropertyi("A318/metadata/update_available", 0)
 
 -------------------------------------------------------
 -- SIM DATAREFS
