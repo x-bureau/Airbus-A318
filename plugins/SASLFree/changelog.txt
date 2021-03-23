@@ -1,4 +1,33 @@
 ----------------------------------------------------------
+SASL 3.12.1 (XP11.25+ support)
+----------------------------------------------------------
+
+- Fixed possible broken XP menu layout after menu item deletion
+- Fixed a few bugs related to nested XP menus creation
+- Fixed artificial limit on how many XP menu items and Hot Keys may be created
+- Fixed "getElapsedMicroseconds" function behavior
+- Fixed a few possible crashes during Search usage in SASL Dev Widget
+- Fixed possible crash after fast reloading of project and 'startProcess' function usage
+- Fixed the crash in case of attempt to destroy currently active Render Target
+- Fixed possible issue with incorrect Context Windows keyboard focusing
+- Added 'hasFocus' method for Context Window object
+- Added cache usage for Lua scripts and modules loaded with 'include' and 'request' function
+- Added ability to force new instance of Lua module creation (for modules loaded with 'request')
+- Added ability to schedule full SASL project reboot as soon as possible (may be used to reload the project in reaction to specific event)
+- Added parameter for 'onAirportLoaded' callback indicating the number new flights started since SASL plugin enabling
+- Added ability to omit file extension when using 'include' or 'request'
+- Update default SASL Context Window decoration (drawing performance and title showing)
+
+----------------------------------------------------------
+SASL 3.11.0 (XP11.25+ support)
+----------------------------------------------------------
+
+- Fixed 'readConfig', 'writeConfig' functions (make them correctly save information about values types)
+- Fixed possible CTD in case of calling subprocess creation function on Mac OS
+- Fixed the bug with  broken graphics processing in case of calling SASL project command in 2D draw callback
+- Added function to save textures to files in common formats
+
+----------------------------------------------------------
 SASL 3.10.2 (XP11.25+ support)
 ----------------------------------------------------------
 
@@ -9,7 +38,7 @@ SASL 3.10.2 (XP11.25+ support)
 SASL 3.10.1 (XP11.25+ support)
 ----------------------------------------------------------
 
-- Fixed drawing components cursors in old-style <subpanel>  
+- Fixed drawing components cursors in old-style <subpanel>
 - Fixed possible crash in case of enabled telemetry in Dev Widget
 
 ----------------------------------------------------------
