@@ -149,7 +149,6 @@ function init_key_input(side, key)
             if initialInfoFilled then
                 set(MCDU_CURRENT_PAGE, 113)
             end
-            
             set(MCDU_CURRENT_PAGE, 113) -- TODO: Remove after testing
         end
         if key == 6 then

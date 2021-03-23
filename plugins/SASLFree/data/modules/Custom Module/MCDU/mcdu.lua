@@ -4,8 +4,10 @@ include("MCDU/pages/init.lua")
 include("MCDU/pages/init_b.lua")
 include("MCDU/pages/data_index.lua")
 include("MCDU/pages/irs_init.lua")
+include("MCDU/pages/acf_update.lua")
 include("MCDU/mcdu_global_properties.lua")
 include("MCDU/fms_parser.lua")
+include("MCDU/updater.lua")
 
 ------------------------------------------------------------------
 position = {28, 1212, 479, 400}
@@ -262,6 +264,7 @@ function update()
         isBlinking = false
     end
 end
+
 
 function draw()
     if get(BUS) > 0 then

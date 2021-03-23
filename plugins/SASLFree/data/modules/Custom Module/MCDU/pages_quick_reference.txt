@@ -8,3 +8,4 @@ MCDU MENU -> 0
 			INIT_B -> 112
 			IRS_INIT -> 113
 	DATA_INDEX -> 2
+	UPDATE PAGE -> 3

@@ -7,6 +7,7 @@ mcdu_destination = createGlobalPropertys("A318/flightInfo/destination_airport", 
 cost_index = createGlobalPropertyi("A318/cockpit/mcdu/data/cost_index", 0)
 cruise_fl = createGlobalPropertyi("A318/cockpit/mcdu/data/cruise_fl", 0)
 zfw = createGlobalPropertyf("A318/cockpit/mcdu/data/zfw", 0)
+CURRENT_VERSION = createGlobalPropertyi("A318/metadata/version", 1)
 
 -------------------------------------------------------
 -- SIM DATAREFS
@@ -29,7 +30,8 @@ PAGE_CALLS = {
     [11] = {draw_init, update_init, init_key_input},
     [112] = {draw_init_b, update_init_b, init_b_key_input},
     [113] = {draw_irs_init, update_irs_init, irs_init_key_input},
-    [2] = {draw_data_index, update_data_index, data_index_input}
+    [2] = {draw_data_index, update_data_index, data_index_input},
+    [3] = {draw_acf_update, update_acf_update, acf_update_key_info}
 }
 -------------------------------------------------------
 
@@ -219,4 +221,6 @@ function getBasicLatLong(icao)
 end
 
 
-
+function removeSpaces(str)
+   return str:gsub("%s+", "")
+end
