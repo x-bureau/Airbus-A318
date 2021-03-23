@@ -2,6 +2,9 @@
 local isUpdating = false
 local updateComplete = false
 
+local isUpdating = false
+local updateComplete = false
+
 function drawOptions()
     sasl.gl.drawText(MCDU_FONT, 10, mdcu_positons[6], "<RETURN", mcdu_option_size, false, false, TEXT_ALIGN_LEFT, mcdu_font_colors[1])
     if not isUpdating and not updateComplete then
