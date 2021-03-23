@@ -1,4 +1,3 @@
-UPDATE CYCLE: 1
 main.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/main.lua
 ADIRS.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/ADIRS/ADIRS.lua
 ATSAW.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/ATSAW/atsaw.lua
