@@ -1,46 +1,46 @@
 main.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/main.lua
-ADIRS.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/ADIRS/ADIRS.lua
-ATSAW.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/ATSAW/atsaw.lua
-AIRCOND.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/ECAM/pages/AIRCOND.lua
-APU.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/ECAM/pages/APU.lua
-BLEED.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/ECAM/pages/BLEED.lua
-CRUISE.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/ECAM/pages/CRUISE.lua
-DOORS.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/ECAM/pages/DOORS.lua
-ELEC.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/ECAM/pages/ELEC.lua
-ENG.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/ECAM/pages/ENG.lua
-FCTL.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/ECAM/pages/FCTL.lua
-FUEL.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/ECAM/pages/FUEL.lua
-HYD.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/ECAM/pages/HYD.lua
-PRESS.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/ECAM/pages/PRESS.lua
-STS.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/ECAM/pages/STS.lua
-WHEEL.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/ECAM/pages/WHEEL.lua
-lower_ecam.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/ECAM/lower_ecam.lua
-upper_ecam.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/ECAM/upper_ecam.lua
-acf_info.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/MCDU/pages/acf_info.lua
-data_index.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/MCDU/pages/data_index.lua
-init.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/MCDU/pages/init.lua
-init_b.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/MCDU/pages/init_b.lua
-irs_init.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/MCDU/pages/irs_init.lua
-mcdu_menu.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/MCDU/pages/mcdu_menu.lua
-fms_parser.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/MCDU/fms_parser.lua
-mcdu.lua, fms_parser.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/MCDU/mcdu.lua
-mcdu_global_functions.lua, fms_parser.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/MCDU/mcdu_global_functions.lua
-ND_CAPT.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/ND/ND_CAPT.lua
-ND_FRST.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/ND/ND_FRST.lua
-PFD_CAPT.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/PFD/PFD_CAPT.lua
-PFD_FRST.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/PFD/PFD_FRST.lua
-checklists_helper.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/efb/helpers/checklists_helper.lua
-checklist.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/efb/pages/checklist.lua
-flight_summary.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/efb/pages/flight_summary.lua
-fuel_and_load.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/efb/pages/fuel_and_load.lua
-perf_calc.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/efb/pages/perf_calc.lua
-BasicButton.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/efb/widgets/BasicButton.lua
-Checkbox.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/efb/widgets/Checkbox.lua
-Textfield.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/efb/widgets/Textfield.lua
-efb.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/efb/efb.lua
-efb_global_functions.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/efb/efb_global_functions.lua
-common_declarations_spec.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/spec/common_declarations_spec.lua
-lower_ecam_spec.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/spec/lower_ecam_spec.lua
+ADIRS.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/ADIRS/ADIRS.lua, ADIRS/
+ATSAW.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/ATSAW/atsaw.lua, ATSAW/
+AIRCOND.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/ECAM/pages/AIRCOND.lua, ECAM/pages/
+APU.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/ECAM/pages/APU.lua, ECAM/pages/
+BLEED.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/ECAM/pages/BLEED.lua, ECAM/pages/
+CRUISE.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/ECAM/pages/CRUISE.lua, ECAM/pages/
+DOORS.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/ECAM/pages/DOORS.lua, ECAM/pages/
+ELEC.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/ECAM/pages/ELEC.lua, ECAM/pages/
+ENG.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/ECAM/pages/ENG.lua, ECAM/pages/
+FCTL.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/ECAM/pages/FCTL.lua, ECAM/pages/
+FUEL.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/ECAM/pages/FUEL.lua, ECAM/pages/
+HYD.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/ECAM/pages/HYD.lua, ECAM/pages/
+PRESS.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/ECAM/pages/PRESS.lua, ECAM/pages/
+STS.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/ECAM/pages/STS.lua, ECAM/pages/
+WHEEL.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/ECAM/pages/WHEEL.lua, ECAM/pages/
+lower_ecam.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/ECAM/lower_ecam.lua, ECAM/
+upper_ecam.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/ECAM/upper_ecam.lua, ECAM/
+acf_info.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/MCDU/pages/acf_info.lua, MCDU/pages/
+data_index.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/MCDU/pages/data_index.lua, MCDU/pages/
+init.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/MCDU/pages/init.lua, MCDU/pages/
+init_b.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/MCDU/pages/init_b.lua, MCDU/pages/
+irs_init.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/MCDU/pages/irs_init.lua, MCDU/pages/
+mcdu_menu.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/MCDU/pages/mcdu_menu.lua, MCDU/pages/
+fms_parser.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/MCDU/fms_parser.lua, MCDU/
+mcdu.lua, fms_parser.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/MCDU/mcdu.lua, MCDU/
+mcdu_global_functions.lua, fms_parser.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/MCDU/mcdu_global_functions.lua, MCDU/
+ND_CAPT.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/ND/ND_CAPT.lua, ND/
+ND_FRST.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/ND/ND_FRST.lua, ND/
+PFD_CAPT.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/PFD/PFD_CAPT.lua, PFD/
+PFD_FRST.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/PFD/PFD_FRST.lua, PFD/
+checklists_helper.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/efb/helpers/checklists_helper.lua, efb/helpers/
+checklist.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/efb/pages/checklist.lua, efb/pages/
+flight_summary.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/efb/pages/flight_summary.lua, efb/pages/
+fuel_and_load.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/efb/pages/fuel_and_load.lua, efb/pages/
+perf_calc.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/efb/pages/perf_calc.lua, efb/pages/
+BasicButton.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/efb/widgets/BasicButton.lua, efb/widgets/
+Checkbox.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/efb/widgets/Checkbox.lua, efb/widgets/
+Textfield.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/efb/widgets/Textfield.lua, efb/widgets/
+efb.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/efb/efb.lua, efb/
+efb_global_functions.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/efb/efb_global_functions.lua, efb/
+common_declarations_spec.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/spec/common_declarations_spec.lua, spec/
+lower_ecam_spec.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/spec/lower_ecam_spec.lua, spec/
 aircond.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/aircond.lua
 autopilot.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/autopilot.lua
 batteries.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/batteries.lua
