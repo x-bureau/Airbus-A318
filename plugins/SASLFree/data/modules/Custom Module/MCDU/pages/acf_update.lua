@@ -15,7 +15,8 @@ function drawOptions()
         elseif phase == 2 then
             sasl.gl.drawText(MCDU_FONT, 469, mdcu_positons[6], "DOWNLOADING UPDATE...", mcdu_option_size, false, false, TEXT_ALIGN_RIGHT, mcdu_font_colors[4])
         elseif phase == 3 then
-            sasl.gl.drawText(MCDU_FONT, 469, mdcu_positons[6], "UPDATE COMPLETE", mcdu_option_size, false, false, TEXT_ALIGN_RIGHT, mcdu_font_colors[1])
+            sasl.gl.drawText(MCDU_FONT_BOLD, 462, option_heading_locations[6], "INSTALL UPDATE", option_heading_font_size, false, false, TEXT_ALIGN_RIGHT, mcdu_colors.box)
+            sasl.gl.drawText(MCDU_FONT, 469, mdcu_positons[6], "REBOOT SYSTEM>", mcdu_option_size, false, false, TEXT_ALIGN_RIGHT, mcdu_colors.box)
         end
     end
     sasl.gl.drawText(MCDU_FONT, 10, mdcu_positons[1], "FIXES:", mcdu_option_size, false, false, TEXT_ALIGN_LEFT, mcdu_font_colors[1])
@@ -46,11 +47,10 @@ function acf_update_key_info(side, key)
             elseif phase == 1 then
                 phase = 2 -- confirm download start
                 sasl.startTimer(downloadTimer)
+            elseif phase == 3 then
+                sasl.scheduleProjectReboot()
             end
         end
-        -- if key == 5 then
-        --     sasl.commandOnce(sasl.findCommand("sasl/reload/xbureausa318"))
-        -- end
     end
 end
 
@@ -63,15 +63,15 @@ function update_acf_update()
         print("finished download")
         phase = 3
         -- sasl.scheduleProjectReboot()
-        displayError("PLEASE RELOAD AIRCRAFT")
+        --displayError("PLEASE RELOAD AIRCRAFT")
     end
 end
 
 function draw_acf_update()
     if get(updatePageType) == 0 then
-        sasl.gl.drawText(MCDU_FONT, title_location.x, title_location.y, "X-BUREAU UPDATE: "..UPDATE_METADATA.version, title_location.font_size, false, false, TEXT_ALIGN_CENTER, {1, 1, 1, 1})
+        sasl.gl.drawText(MCDU_FONT, title_location.x, title_location.y, "UPDATE: "..UPDATE_METADATA.version, title_location.font_size, false, false, TEXT_ALIGN_CENTER, {1, 1, 1, 1})
     else
-        sasl.gl.drawText(MCDU_FONT, title_location.x, title_location.y, "SOFTWARE VERSION: "..VERSION_METADATA.version, title_location.font_size, false, false, TEXT_ALIGN_CENTER, {1, 1, 1, 1})
+        sasl.gl.drawText(MCDU_FONT, title_location.x, title_location.y, "VERSION: "..VERSION_METADATA.version, title_location.font_size, false, false, TEXT_ALIGN_CENTER, {1, 1, 1, 1})
     end
     drawOptions()
 end
