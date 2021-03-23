@@ -17,7 +17,7 @@ WHEEL.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins
 lower_ecam.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/ECAM/lower_ecam.lua, ECAM/
 upper_ecam.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/ECAM/upper_ecam.lua, ECAM/
 acf_info.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/MCDU/pages/acf_info.lua, MCDU/pages/
-acf_update.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/MCDU/pages/update.lua, MCDU/pages/
+acf_update.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/MCDU/pages/acf_update.lua, MCDU/pages/
 data_index.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/MCDU/pages/data_index.lua, MCDU/pages/
 init.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/MCDU/pages/init.lua, MCDU/pages/
 init_b.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/MCDU/pages/init_b.lua, MCDU/pages/
