@@ -21,17 +21,24 @@ function updateLuaFiles()
         local path = getMyPluginPath():sub(1, -3).."data/modules/Custom Module/"
         local tokens = createTokens(line, ",")
         local filename = tokens[1]
+        if filename == "mcdu.lua" then
+            print(line)
+        end
         local url = tokens[2]
         url = url:sub(2)
         if counter == 1 then
             path = getMyPluginPath():sub(1, -3).."data/modules/"
-            print(path)
-            --downloadResult , error = sasl.net.downloadFileSync (url , path..filename)
+            --print(path..filename)
+            downloadResult , error = sasl.net.downloadFileSync (url , path..filename)
         else
             if table.getn(tokens) == 3 then
                 local pathEnd = tokens[3]
                 pathEnd = pathEnd:sub(2)
-                
+                --print(path..pathEnd..filename)
+                downloadResult , error = sasl.net.downloadFileSync (url , path..pathEnd..filename)
+            else
+                --print(url , path..filename)
+                downloadResult , error = sasl.net.downloadFileSync (url , path..filename)
             end
         end
         counter = counter + 1
