@@ -4,6 +4,12 @@ UPDATE_METADATA = {
     fixes = {}
 }
 
+VERSION_METADATA = {
+    author = "",
+    version = "",
+    fixes = ""
+}
+
 function isUpdateAvailable()
     if get(update_available) == 1 then
         return true
@@ -14,10 +20,41 @@ end
 local updateDataURL = "https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/updateData.txt"
 local files = {}
 
+function checkCurrentVersion()
+    local newData = io.open(getMyPluginPath():sub(1, -3).."data/modules/updateData.txt")
+        local version = ""
+        for line in newData:lines() do
+            if string.match(line, "Version") then
+                local tokens = createTokens(line, ":")
+                local v = tokens[2]
+                version = v:sub(2)
+            end
+            if not string.match(line, ".lua") then
+                if string.match(line, "Author") then
+                    local at = createTokens(line, ":")
+                    local author = at[2]
+                    VERSION_METADATA.author = author:sub(2)
+                end
+                if string.match(line, "Version") then
+                    local vt = createTokens(line, ":")
+                    local version = vt[2]
+                    VERSION_METADATA.version = version:sub(2)
+                end
+                if string.match(line, "Fixes") then
+                    local fx = createTokens(line, ":")
+                    local fixes = fx[2]
+                    VERSION_METADATA.fixes = createTokens(fixes, ",")
+                    print(VERSION_METADATA.fixes[1])
+                end
+            end
+        end
+end
+
 function setUpdateStatus(inUrl , inFilePath , inIsOk , inError )
     if inIsOk then
         local newData = io.open(getMyPluginPath():sub(1, -3).."data/modules/temp.txt")
         local version = ""
+        local cycle = 0
         for line in newData:lines() do
             if string.match(line, "Version") then
                 local tokens = createTokens(line, ":")

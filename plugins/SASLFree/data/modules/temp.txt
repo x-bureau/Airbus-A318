@@ -1,7 +1,7 @@
 ---------------
-Version: 0.3.0
-Author: FBI914
-Fixes (max of 4 by separated by comma): general update, bug fixes, other stuff
+Version: 0.3.1
+Author: yumyumcurryman
+Fixes (max of 4 by separated by comma): update system added, mcdu updates, bug fixes
 ---------------
 main.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/main.lua
 ADIRS.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/ADIRS/ADIRS.lua, ADIRS/

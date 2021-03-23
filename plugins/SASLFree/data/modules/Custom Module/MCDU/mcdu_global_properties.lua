@@ -8,6 +8,7 @@ cruise_fl = createGlobalPropertyi("A318/cockpit/mcdu/data/cruise_fl", 0)
 zfw = createGlobalPropertyf("A318/cockpit/mcdu/data/zfw", 0)
 CURRENT_VERSION = createGlobalPropertys("A318/metadata/version", "")
 update_available = createGlobalPropertyi("A318/metadata/update_available", 0)
+updatePageType = createGlobalPropertyi("A318/metadata/update_page_type", 0)
 
 -------------------------------------------------------
 -- SIM DATAREFS

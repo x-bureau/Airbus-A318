@@ -27,6 +27,12 @@ function mcdu_menu_key_input(side, key)
         end
     else
         if key == 5 then
+            checkCurrentVersion()
+            set(updatePageType, 1)
+            set(MCDU_CURRENT_PAGE, 3)
+        end
+        if key == 4 then
+            set(updatePageType, 0)
             set(MCDU_CURRENT_PAGE, 3)
         end
         if key == 6 then
@@ -59,6 +65,7 @@ function draw_mcdu_menu()
         hasCheckedUpdate = true
     end
     if isUpdateAvailable() then
-        sasl.gl.drawText(MCDU_FONT, 469, mdcu_positons[5], "UPDATE AVAILABLE*>", mcdu_option_size, false, false, TEXT_ALIGN_RIGHT, mcdu_font_colors[4])
+        sasl.gl.drawText(MCDU_FONT, 469, mdcu_positons[4], "UPDATE AVAILABLE*>", mcdu_option_size, false, false, TEXT_ALIGN_RIGHT, mcdu_font_colors[4])
     end
+    sasl.gl.drawText(MCDU_FONT, 469, mdcu_positons[5], "SOFTWARE VERSION>", mcdu_option_size, false, false, TEXT_ALIGN_RIGHT, mcdu_font_colors[1])
 end
