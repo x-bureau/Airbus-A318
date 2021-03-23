@@ -149,6 +149,7 @@ function init_key_input(side, key)
             if initialInfoFilled then
                 set(MCDU_CURRENT_PAGE, 113)
             end
+            print("going to temp init_b page")
             set(MCDU_CURRENT_PAGE, 113) -- TODO: Remove after testing
         end
         if key == 6 then

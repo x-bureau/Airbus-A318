@@ -32,8 +32,10 @@ function mcdu_menu_key_input(side, key)
             set(MCDU_CURRENT_PAGE, 3)
         end
         if key == 4 then
-            set(updatePageType, 0)
-            set(MCDU_CURRENT_PAGE, 3)
+            if isUpdateAvailable() then
+                set(updatePageType, 0)
+                set(MCDU_CURRENT_PAGE, 3)
+            end
         end
         if key == 6 then
             set(MCDU_CURRENT_PAGE, 2)
