@@ -26,7 +26,7 @@ mcdu_menu.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plu
 fms_parser.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/MCDU/fms_parser.lua, MCDU/
 mcdu.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/MCDU/mcdu.lua, MCDU/
 updater.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/MCDU/updater.lua, MCDU/
-mcdu_global_functions.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/MCDU/mcdu_global_functions.lua, MCDU/
+mcdu_global_properties.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/MCDU/mcdu_global_properties.lua, MCDU/
 ND_CAPT.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/ND/ND_CAPT.lua, ND/
 ND_FRST.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/ND/ND_FRST.lua, ND/
 PFD_CAPT.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/PFD/PFD_CAPT.lua, PFD/
