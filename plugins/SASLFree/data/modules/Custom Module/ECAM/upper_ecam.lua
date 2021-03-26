@@ -4,7 +4,7 @@ size = {512, 512}
 
 --get datarefs
 local BUS = globalProperty("A318/systems/ELEC/ACESS_V")
-local selfTest = 1
+local selfTest = 0
 local eng1AVAIL = 0
 local eng2AVAIL = 0
 
