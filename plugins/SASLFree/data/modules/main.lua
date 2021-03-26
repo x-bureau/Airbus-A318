@@ -23,7 +23,7 @@ components = {
   ADIRS {};
   mcdu {
     fbo = true ,
-    fpsLimit = 29
+    fpsLimit = 20
   };
   PFD_CAPT {
     fbo = true ,
@@ -41,14 +41,13 @@ components = {
     fbo = true ,
     fpsLimit = 29
   };
-  -- ATSAW {};
   upper_ecam {
     fbo = true ,
-    fpsLimit = 29
+    fpsLimit = 20
   };
   lower_ecam {
     fbo = true ,
-    fpsLimit = 29
+    fpsLimit = 20
   };
   menu {};
   efb{
@@ -60,7 +59,8 @@ components = {
       shape = sasl.gl.loadImage ("efb/icons/cursor.png") ,
       hideOSCursor = true
       },
-      fbo = true
+      fbo = true,
+      fpsLimit = 20
   };
 }
 
