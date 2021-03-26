@@ -393,7 +393,7 @@ function draw()
     end
   else
     Timer = 0
-    selfTest = 1
+    selfTest = 0
   end
   sasl.gl.resetClipArea()
 end
