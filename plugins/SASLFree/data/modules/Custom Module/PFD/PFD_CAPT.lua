@@ -4,7 +4,7 @@ size = {500, 500}
 
 --get datarefs
 local BUS = globalProperty("A318/systems/ELEC/ACESS_V")
-local selfTest = 0
+local selfTest = 1
 
 local DELTA_TIME = globalProperty("sim/operation/misc/frame_rate_period")
 local Timer = 0
@@ -39,12 +39,12 @@ local baro = 0
 local baroUnits = 0
 
 --get images
-local overlay = sasl.gl.loadImage("overlay.png", 0, 0, 503, 504)
-local PitchBackground = sasl.gl.loadImage("background.png", 0, 0, 508, 1050)
+local overlay = sasl.gl.loadImage("overlay.png")
+local PitchBackground = sasl.gl.loadImage("horizon.png")
 local pitchMarks = sasl.gl.loadImage("pitchMarks.png")
 local bank = sasl.gl.loadImage("PFD_Alignment.png", 0, 0, 184, 287)
 local ground = sasl.gl.loadImage("ground.png", 0, 0, 390, 500)
-local plane = sasl.gl.loadImage("PFD_Other.png", 0, 0, 226, 48)
+local plane = sasl.gl.loadImage("PFD/plane.png", 0, 0, 226, 48)
 
 function round(num, numDecimalPlaces)
   local mult = 10^(numDecimalPlaces or 0)
