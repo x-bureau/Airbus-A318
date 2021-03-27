@@ -369,8 +369,8 @@ function draw()
     else
         if Timer < TimerFinal then
             Timer = Timer + 1 * get(DELTA_TIME)
-            sasl.gl.drawText(ndFont, 250, 250, "SELF TEST IN PROGESS", 28.1, false, false, TEXT_ALIGN_CENTER, PFD_GREEN)
-            sasl.gl.drawText(ndFont, 250, 220, "(MAX 40 SECONDS)", 28.1, false, false, TEXT_ALIGN_CENTER, PFD_GREEN)
+            sasl.gl.drawText(AirbusFont, 250, 255, "SELF TEST IN PROGESS", 22, true, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.GREEN)
+            sasl.gl.drawText(AirbusFont, 250, 230, "MAX 40 SECONDS", 21, true, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.GREEN)
           else
             selfTest = 1
           end  
