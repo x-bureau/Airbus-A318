@@ -2050,6 +2050,14 @@ sasl.gl.getRawTextureData = getRawTextureData;
 function setRawTextureData(textID, storageID) end;
 sasl.gl.setRawTextureData = setRawTextureData;
 
+--- Saves texture, specified by numeric handle texID, in file filename.
+--- @param filename string
+--- @param textID number
+--- @see reference
+--- : https://1-sim.com/files/SASL3Manual.pdf#imageFromTexture
+function imageFromTexture(filename, textID) end;
+sasl.gl.imageFromTexture = imageFromTexture;
+
 --- @class TextAlignment
 
 TEXT_ALIGN_LEFT = nil

@@ -1,3 +1,5 @@
+-- TODO: add support for custom checklists that the user wants
+
 local pre_start_checklist = {
     {"PARKING BRAKE", "SET", 0},
     {"CHOCKS", "REMOVE", 0},

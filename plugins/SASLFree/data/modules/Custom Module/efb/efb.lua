@@ -54,6 +54,11 @@ SYSTEM_FONTS = {
     ROBOTO_BOLD = sasl.gl.loadFont("fonts/Roboto-Bold.ttf")
 }
 
+efb_cursor = {
+    x = 0,
+    y = 0
+}
+
 local logo = sasl.gl.loadImage("efb/icons/xb_logo.png")
 local BUTTON_LENGTH = 70
 SYSTEM_ICONS = {
@@ -81,10 +86,10 @@ function onKeyDown ( component , char , key , shDown , ctrlDown , altOptDown )
     return true
 end
 
--- function onMouseMove(component, x, y, button, parentX, parentY)
---     efb_cursor.x = x
---     efb_cursor.y = y
--- end
+function onMouseMove(component, x, y, button, parentX, parentY)
+    efb_cursor.x = x
+    efb_cursor.y = y
+end
 
 function drawMenuBar()
     sasl.gl.drawWideLine(0, MENU_POSITION.y, WIDTH, MENU_POSITION.y, 3, SYSTEM_COLORS.FRONT_GREEN)
@@ -112,4 +117,5 @@ function draw()
         local bgColor = {64/255, 64/255, 64/255, 1.0}
         sasl.gl.drawRectangle(0, 0, WIDTH, HEIGHT - 71, bgColor)
     end
+    --draw_efb_cursor(efb_cursor.x, efb_cursor.y)
 end

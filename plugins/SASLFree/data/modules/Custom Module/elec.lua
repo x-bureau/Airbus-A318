@@ -1,19 +1,29 @@
--- A318 Created by X-Bureau --
+-- A318 by X-Bureau --
 
 position = {296, 1630, 143, 180}
 size = {40, 250}
 
 local startup_complete = false
 
-DELTA_TIME = globalProperty("sim/operation/misc/frame_rate_period")
+local DELTA_TIME = globalProperty("sim/operation/misc/frame_rate_period")
 local font = sasl.gl.loadFont("fonts/digital.ttf")
 local colour = {0.96, 0.73, 0.28, 1.0}
 
 local onGround = globalProperty("sim/flightmodel/failures/onground_any")
 local GS = globalProperty("sim/flightmodel/position/groundspeed")
 
+local apuMode = globalProperty("sim/cockpit2/electrical/APU_starter_switch")
+
 local eng1N1 = globalProperty("sim/flightmodel/engine/ENGN_N1_[0]")
 local eng2N1 = globalProperty("sim/flightmodel/engine/ENGN_N1_[1]")
+local apuN1 = globalProperty("sim/cockpit2/electrical/APU_N1_percent")
+local simBattery1 = globalProperty("sim/cockpit2/electrical/battery_on[0]")
+local simBattery2 = globalProperty("sim/cockpit2/electrical/battery_on[1]")
+local simAvionics = globalProperty("sim/cockpit2/switches/avionics_power_on")
+local simGPU = globalProperty("sim/cockpit/electrical/gpu_on")
+local simAPU = globalProperty("sim/cockpit2/electrical/APU_generator_on")
+local simGEN1 = globalProperty("sim/cockpit2/electrical/generator_on[0]")
+local simGEN2 = globalProperty("sim/cockpit2/electrical/generator_on[1]")
 
 -- AC SYSTEM
 ext_pwr = {
@@ -51,7 +61,6 @@ ac_bus_ess = {
     hertz = createGlobalPropertyi("A318/systems/ELEC/ACESS_H", 0)
 }
 
-
 -- DC SYSTEM
 bat_1 = {
     voltage = createGlobalPropertyf("A318/systems/ELEC/BAT1_V", 28),
@@ -85,8 +94,13 @@ dc_bus_ess = {
 
 bus_tie = createGlobalPropertyi("A318/systems/ELEC/busTieSwtch", 0)
 ac_ess_feed = createGlobalPropertyi("A318/systems/ELEC/ESSFeedSwtch", 0)
+gen1 = createGlobalPropertyi("A318/systems/ELEC/GEN1Swtch", 1)
+gen2 = createGlobalPropertyi("A318/systems/ELEC/GEN2Swtch", 1)
 apu_gen = createGlobalPropertyi("A318/systems/ELEC/APUGENSwtch", 1)
 ext_pow = createGlobalPropertyi("A318/systems/ELEC/EXTPWRSwtch", 0)
+
+apuMstr = createGlobalPropertyi("A318/systems/ELEC/APUMASTRSwtch", 0)
+apuStart = createGlobalPropertyi("A318/systems/ELEC/APUSTARTSwtch", 0)
 
 contacts = {
     -- Batteries
@@ -122,12 +136,10 @@ contacts = {
 function startup()
     if get(eng1N1) > 1 then
         -- engines running
-        print("Starting with engines running")
         set(bat_1.pb, 1)
         set(bat_2.pb, 1)
     else
         -- cold and dark
-        print("Starting cold and dark")
         set(bat_1.pb, 0)
         set(bat_2.pb, 0)
     end
@@ -137,6 +149,43 @@ function update()
     if not startup_complete then
         startup()
         startup_complete = true
+    end
+
+    -- SIM DATAREF COMPAT.
+    if get(bat_1.pb) == 1 then
+        set(simBattery1, 1)
+    else
+        set(simBattery1, 0)
+    end
+    if get(bat_2.pb) == 1 then
+        set(simBattery2, 1)
+    else
+        set(simBattery2, 0)
+    end
+    if get(ac_bus_1.voltage) > 0 or get(ac_bus_2.voltage) > 0 then
+        set(simAvionics, 1)
+    else
+        set(simAvionics, 0)
+    end
+    if get(contacts.EPC) == 1 then
+        set(simGPU, 1)
+    else
+        set(simGPU, 0)
+    end
+    if get(contacts.AGC) == 1 then
+        set(simAPU, 1)
+    else
+        set(simAPU, 0)
+    end
+    if get(contacts.GLC1) == 1 then
+        set(simGEN1, 1)
+    else
+        set(simGEN1, 0)
+    end
+    if get(contacts.GLC2) == 1 then
+        set(simGEN2, 1)
+    else
+        set(simGEN2, 0)
     end
 
     -- BATTERY DISCHARGE
@@ -177,6 +226,38 @@ function update()
         set(gen_2.hertz, 0)
     end
 
+    -- APU
+    if get(apuMstr) == 1 then
+        if get(dc_bus_ess.voltage) > 0 then
+            set(apuMode, 1)
+        else
+            set(apuMode, 0)
+        end
+    else
+        set(apuMode, 0)
+    end
+
+    if get(apuStart) == 1 then
+        if get(apuMode) == 1 then
+            if get(dc_bus_ess.voltage) > 0 then
+                set(apuMode, 2)
+            end
+        end
+    end
+
+
+
+
+    -- APU GENERATOR
+    if get(apuN1) > 95 then
+        set(apu_pwr.voltage, 115)
+        set(apu_pwr.hertz, 400)
+        set(apu_pwr.avail, 1)
+    else
+        set(apu_pwr.voltage, 0)
+        set(apu_pwr.hertz, 0)
+        set(apu_pwr.avail, 0)
+    end
 
     -- GROUND POWER ON/OFF
     if get(onGround) == 1 and get(GS) < 1 then
@@ -222,40 +303,63 @@ function update()
         set(bat_2.amps, 0)
     end
 
-    -- AUXILIARY POWER BUTTON
+    -- AUXILIARY POWER BUTTONS
     if (get(apu_gen) == 1 and get(ext_pow) == 1) or (get(apu_gen) == 0 and get(ext_pow) == 1) then
-        set(contacts.AGC, 0)
-        set(contacts.EPC, 1)
-    elseif get(apu_gen) == 1 then
-        set(contacts.AGC, 1)
-        set(contacts.EPC, 0)
+        if get(contacts.GLC1) == 1 and get(contacts.GLC2) == 1 then
+            set(contacts.AGC, 0)
+            set(contacts.EPC, 0)
+        else
+            set(contacts.AGC, 0)
+            set(contacts.EPC, 1)
+        end
+    elseif get(apu_gen) == 1 and get(apu_pwr.avail) == 1 then
+        if get(contacts.GLC1) == 1 and get(contacts.GLC2) == 1 then
+            set(contacts.AGC, 0)
+            set(contacts.EPC, 0)
+        else
+            set(contacts.AGC, 1)
+            set(contacts.EPC, 0)
+        end
     else
         set(contacts.AGC, 0)
         set(contacts.EPC, 0)
     end
+
+    -- GENERATOR CONTROL UNIT
+    if get(gen1) == 1 and get(gen_1.voltage) > 0 then
+        set(contacts.GLC1, 1)
+    else
+        set(contacts.GLC1, 0)
+    end
+    if get(gen2) == 1 and get(gen_2.voltage) > 0 then
+        set(contacts.GLC2, 1)
+    else
+        set(contacts.GLC2, 0)
+    end
+
     -- BUS TIE LOGIC
     if get(bus_tie) == 0 then
-        if get(contacts.GLC1) == 1 and get(gen_1.voltage) > 0 and get(contacts.GLC2) == 1 and get(gen_1.voltage) > 0 then
+        if get(contacts.GLC1) == 1 and get(gen_1.voltage) > 0 and get(contacts.GLC2) == 1 and get(gen_2.voltage) > 0 then
             -- BTC1 and 2 off
             set(contacts.BTC1, 0)
             set(contacts.BTC2, 0)
-        elseif get(contacts.GLC1) == 0 and get(gen_1.voltage) > 0 and get(contacts.GLC2) == 1 and get(gen_1.voltage) > 0 and (get(contacts.AGC) == 1 or get(contacts.EPC) == 1) then
+        elseif get(contacts.GLC1) == 0 and get(contacts.GLC2) == 1 and (get(gen_1.voltage) > 0 or get(gen_2.voltage) > 0) and (get(contacts.AGC) == 1 or get(contacts.EPC) == 1) then
             -- BTC 1 on BTC 2 off
             set(contacts.BTC1, 1)
             set(contacts.BTC2, 0)
-        elseif get(contacts.GLC1) == 1 and get(gen_1.voltage) > 0 and get(contacts.GLC2) == 0 and get(gen_1.voltage) > 0 and (get(contacts.AGC) == 1 or get(contacts.EPC) == 1) then
+        elseif get(contacts.GLC1) == 1 and get(contacts.GLC2) == 0 and (get(gen_1.voltage) > 0 or get(gen_2.voltage) > 0) and (get(contacts.AGC) == 1 or get(contacts.EPC) == 1) then
             -- BTC 1 off BTC 2 on
             set(contacts.BTC1, 0)
             set(contacts.BTC2, 1)
-        elseif get(contacts.GLC1) == 0 and get(gen_1.voltage) > 0 and get(contacts.GLC2) == 1 and get(gen_1.voltage) > 0 and get(contacts.AGC) == 0 and get(contacts.EPC) == 0 then
+        elseif get(contacts.GLC1) == 0 and get(contacts.GLC2) == 1 and get(contacts.AGC) == 0 and get(contacts.EPC) == 0 then
             -- BTC 1 on BTC 2 off
             set(contacts.BTC1, 1)
             set(contacts.BTC2, 1)
-        elseif get(contacts.GLC1) == 1 and get(gen_1.voltage) > 0 and get(contacts.GLC2) == 0 and get(gen_1.voltage) > 0 and get(contacts.AGC) == 0 and get(contacts.EPC) == 0 then
+        elseif get(contacts.GLC1) == 1 and get(contacts.GLC2) == 0 and get(contacts.AGC) == 0 and get(contacts.EPC) == 0 then
             -- BTC 1 off BTC 2 on
             set(contacts.BTC1, 1)
             set(contacts.BTC2, 1)
-        elseif get(contacts.AGC) == 1 or get(contacts.EPC) == 1 then
+        elseif (get(contacts.AGC) == 1 or get(contacts.EPC) == 1) then
             set(contacts.BTC1, 1)
             set(contacts.BTC2, 1)
         end
@@ -442,7 +546,7 @@ end
 function round(num, numDecimalPlaces)
     local mult = 10^(numDecimalPlaces or 0)
     return math.floor(num * mult + 0.5) / mult
-  end
+end
 
 function draw()
     
@@ -457,4 +561,3 @@ function draw()
         -- Nothing
     end
 end
-
