@@ -4,7 +4,7 @@ size = {500, 500}
 
 --datarefs
 local BUS = globalProperty("A318/systems/ELEC/AC2_V")
-local selfTest = 1
+local selfTest = 0
 
 local DELTA_TIME = globalProperty("sim/operation/misc/frame_rate_period")
 local Timer = 0
