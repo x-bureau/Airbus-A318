@@ -30,6 +30,10 @@ local eng2Throttle = globalProperty("sim/cockpit2/engine/actuators/throttle_rati
 local eng1FF = globalProperty("sim/cockpit2/engine/indicators/fuel_flow_kg_sec[0]")
 local eng2FF = globalProperty("sim/cockpit2/engine/indicators/fuel_flow_kg_sec[1]")
 
+local flapLever = globalProperty("sim/cockpit2/controls/flap_ratio")
+local flap = globalProperty("sim/cockpit2/controls/flap_handle_deploy_ratio")
+local slat = globalProperty("sim/flightmodel/controls/slatrat")
+
 local fuel = globalProperty("sim/flightmodel/weight/m_fuel_total")
 
 function round(num, numDecimalPlaces)
@@ -194,6 +198,56 @@ local function draw_ENG_PAGE()
     sasl.gl.drawText(AirbusFont, 256, 250, "KG/H", 17, true, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.BLUE)
     sasl.gl.drawWideLine(303, 266, 281, 273, 2, ECAM_COLOURS.WHITE)
     sasl.gl.drawText(AirbusFont, 378, 259, (math.floor((get(eng2FF) * 60 * 60) / 20 + 0.5) * 20), 20, true, false, TEXT_ALIGN_RIGHT, ECAM_COLOURS.GREEN)
+
+    -- FLAPS
+    if get(flapLever) > 0 or get(flap) > 0 or get(slat) > 0 then
+        sasl.gl.drawText(AirbusFont, 290, 215, "S", 20, true, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.WHITE)
+        sasl.gl.drawText(AirbusFont, 425, 215, "F", 20, true, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.WHITE)
+        sasl.gl.drawWideLine(307, 205, 314, 207, 4, ECAM_COLOURS.WHITE)
+        sasl.gl.drawWideLine(284, 198, 291, 200, 4, ECAM_COLOURS.WHITE)
+        sasl.gl.drawWideLine(262, 191, 269, 193, 4, ECAM_COLOURS.WHITE)
+
+        sasl.gl.drawWideLine(395, 207, 401, 206, 4, ECAM_COLOURS.WHITE)
+        sasl.gl.drawWideLine(419, 202, 425, 201, 4, ECAM_COLOURS.WHITE)
+        sasl.gl.drawWideLine(444, 196, 450, 195, 4, ECAM_COLOURS.WHITE)
+        sasl.gl.drawWideLine(469, 190, 475, 189, 4, ECAM_COLOURS.WHITE)
+    end
+    if get(flapLever) == 0.25 then
+        sasl.gl.drawText(AirbusFont, 352, 180, "1", 20, true, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.BLUE)
+        sasl.gl.drawWideLine(307, 193, 314, 195, 4, ECAM_COLOURS.BLUE)
+        sasl.gl.drawWideLine(395, 195, 401, 194, 4, ECAM_COLOURS.BLUE)
+    elseif get(flapLever) == 0.5 then
+        sasl.gl.drawText(AirbusFont, 352, 180, "2", 20, true, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.BLUE)
+        sasl.gl.drawWideLine(419, 190, 425, 189, 4, ECAM_COLOURS.BLUE)
+        sasl.gl.drawWideLine(284, 186, 291, 188, 4, ECAM_COLOURS.BLUE)
+    elseif get(flapLever) == 0.75 then
+        sasl.gl.drawText(AirbusFont, 352, 180, "3", 20, true, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.BLUE)
+        sasl.gl.drawWideLine(444, 184, 450, 183, 4, ECAM_COLOURS.BLUE)
+        sasl.gl.drawWideLine(284, 186, 291, 188, 4, ECAM_COLOURS.BLUE)
+    elseif get(flapLever) == 1 then
+        sasl.gl.drawText(AirbusFont, 352, 180, "FULL", 20, true, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.BLUE)
+        sasl.gl.drawWideLine(470, 178, 476, 177, 4, ECAM_COLOURS.BLUE)
+        sasl.gl.drawWideLine(262, 179, 269, 181, 4, ECAM_COLOURS.BLUE)
+    end
+    if get(slat) == 0 then
+        sasl.gl.drawWidePolyLine({341, 211, 344, 222, 330, 215, 326, 206, 341, 211}, 2, ECAM_COLOURS.GREEN)
+    else
+        sasl.gl.drawWideLine(344 - (70 * get(slat)), 222 - (22 * get(slat)), 344, 222, 2, ECAM_COLOURS.GREEN)
+        sasl.gl.saveGraphicsContext()
+        sasl.gl.setTranslateTransform(-70 * get(slat),-22 * get(slat))
+        sasl.gl.drawWidePolyLine({341, 211, 344, 222, 330, 215, 326, 206, 341, 211}, 2, ECAM_COLOURS.GREEN)
+        sasl.gl.restoreGraphicsContext()
+    end
+    if get(flap) == 0 then
+        sasl.gl.drawWidePolyLine({358, 220, 361, 211, 373, 208, 373, 217, 358, 220}, 2, ECAM_COLOURS.GREEN)
+    else
+        sasl.gl.drawWideLine(358 + (105 * get(flap)), 220 - (24 * get(flap)), 358, 220, 2, ECAM_COLOURS.GREEN)
+        sasl.gl.saveGraphicsContext()
+        sasl.gl.setTranslateTransform(105 * get(flap), -24 * get(flap))
+        sasl.gl.drawWidePolyLine({358, 220, 361, 211, 373, 208, 373, 217, 358, 220}, 2, ECAM_COLOURS.GREEN)
+        sasl.gl.restoreGraphicsContext()
+    end
+    sasl.gl.drawWidePolyLine({351, 211, 341, 211, 344, 222, 358, 220, 361, 211, 351, 211}, 2, ECAM_COLOURS.WHITE)
 
     -- Bottom Group
     sasl.gl.drawText(AirbusFont, 38, 187, 'FOB :', 21, true, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.WHITE)
