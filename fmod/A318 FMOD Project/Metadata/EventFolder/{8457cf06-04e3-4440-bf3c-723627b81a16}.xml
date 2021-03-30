@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.08.00">
+    <object class="EventFolder" id="{8457cf06-04e3-4440-bf3c-723627b81a16}">
+        <property name="name">
+            <value>Throttle</value>
+        </property>
+        <relationship name="folder">
+            <destination>{e1c77f6d-b6ab-480d-94b8-3f4ffe48e434}</destination>
+        </relationship>
+    </object>
+</objects>
