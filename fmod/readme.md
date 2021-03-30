@@ -3,7 +3,7 @@ by Matt726
 
 Available for: X-Bureau Airbus A318
 
-Version: v0.3b
+Version: v0.4b
 
 Email: mfahrenheit135@gmail.com
 
