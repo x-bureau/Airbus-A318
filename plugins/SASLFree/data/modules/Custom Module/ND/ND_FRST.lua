@@ -2,12 +2,15 @@ position = {595, 47, 500, 500}
 size = {500, 500}
 
 -- get datarefs
+local startup_complete = false
+local eng1N1 = globalProperty("sim/flightmodel/engine/ENGN_N1_[0]")
+
 local BUS = globalProperty("A318/systems/ELEC/AC2_V")
 local selfTest = 0
 
 local DELTA_TIME = globalProperty("sim/operation/misc/frame_rate_period")
 local Timer = 0
-local TimerFinal = math.random(15, 35)
+local TimerFinal = math.random(25, 40)
 
 local ADIRS_aligned = globalProperty("A318/systems/ADIRS/2/aligned")
 local heading = globalPropertyf("A318/systems/ADIRS/2/inertial/heading")
@@ -53,6 +56,16 @@ local arcTape = sasl.gl.loadImage("arc.png", 0, 0, 2048, 2048)
 local arcTape_unaligned = sasl.gl.loadImage("arc_unaligned.png", 0, 0, 2048, 2048)
 
 --custom functions
+function plane_startup()
+    if get(eng1N1) > 1 then
+        -- engines running
+        selfTest = 1
+        Timer = 0
+    else
+        -- cold and dark
+        selfTest = 0
+    end
+end
 
 local function draw_overlay_text()
     sasl.gl.drawText(ndFont, 10, 475, "GS", 15, false, false, TEXT_ALIGN_LEFT, PFD_WHITE)
@@ -305,6 +318,11 @@ end
 
 function update()
 
+    if not startup_complete then
+        plane_startup()
+        startup_complete = true
+    end
+
     if get(rngeKnob) == 6 then
         set(rngeKnob, 5)
     end
@@ -325,6 +343,12 @@ function update()
         frstNdRnge = 160
     elseif get(rngeKnob) == 5 then
         frstNdRnge = 320
+    end
+
+    if Timer < TimerFinal and selfTest == 0 then
+        Timer = Timer + 1 * get(DELTA_TIME)
+    else
+        selfTest = 1
     end
 end
 
@@ -367,13 +391,8 @@ function draw()
         draw_overlay_text()
         Timer = 0
     else
-        if Timer < TimerFinal then
-            Timer = Timer + 1 * get(DELTA_TIME)
-            sasl.gl.drawText(AirbusFont, 250, 255, "SELF TEST IN PROGESS", 22, true, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.GREEN)
-            sasl.gl.drawText(AirbusFont, 250, 230, "MAX 40 SECONDS", 21, true, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.GREEN)
-          else
-            selfTest = 1
-          end  
+        sasl.gl.drawText(AirbusFont, 250, 255, "SELF TEST IN PROGESS", 22, true, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.GREEN)
+        sasl.gl.drawText(AirbusFont, 250, 230, "MAX 40 SECONDS", 21, true, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.GREEN)
     end
     else
         Timer = 0

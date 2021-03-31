@@ -1,4 +1,5 @@
 require "common_declarations"
+
 include("ECAM/pages/AIRCOND.lua")
 include("ECAM/pages/APU.lua")
 include("ECAM/pages/BLEED.lua")
@@ -17,17 +18,20 @@ position = {1153, 51, 544, 503}
 size = {522, 522}
 
 --defining dataref variables
+local startup_complete = false
+local eng1N1 = globalProperty("sim/flightmodel/engine/ENGN_N1_[0]")
+
 local BUS = globalProperty("A318/systems/ELEC/AC2_V")
 local selfTest = 0
 
 local DELTA_TIME = globalProperty("sim/operation/misc/frame_rate_period")
 local Timer = 0
-local TimerFinal = math.random(15, 35)
+local TimerFinal = math.random(25, 40)
 
 local current_ecam_page = createGlobalPropertyi("A318/cockpit/ecam/current_page", 7)--create variable that tells us current ecam page
 local current_flight_phase = createGlobalPropertyi("A318/cockpit/ecam/flight_phase", flight_phases.elec_pwr)
 local auto_change_page = false
-local fuel_flow = createGlobalPropertyf("A318/systems/fuel/fuel_flow")
+local fuel_flow = globalPropertyf("A318/systems/fuel/fuel_flow")
 
 local airspeed = globalPropertyf("sim/cockpit2/gauges/indicators/airspeed_kts_pilot")--we define an airspeed variable
 local npercent = globalPropertyfa("sim/cockpit2/engine/indicators/N1_percent", 7)--we define the N1 Percent dataref
@@ -86,7 +90,22 @@ function get_isa()
     return tonumber(string.format("%.1f", isa))
 end
 
+function plane_startup()
+    if get(eng1N1) > 1 then
+        -- engines running
+        selfTest = 1
+        Timer = 0
+    else
+        -- cold and dark
+        selfTest = 0
+    end
+end
+
 function update() -- perform updating logic as drawing should only draw!
+    if not startup_complete then
+        plane_startup()
+        startup_complete = true
+    end
     -- if get(fuel_current_quantity, 1) > 60 and get(centre_fuel_pump_mode) == 0 then -- fuel in centre tanks so centre pumps can be off and green
         -- set()
     -- set(fuel_used, 1) = (math.floor(get(fuel_init_quantity)) - (math.floor(get(fuel_current_quantity, 1) + math.floor(get(fuel_current_quantity, 2)))))--we determine the fuel used by engine 1
@@ -122,11 +141,17 @@ function update() -- perform updating logic as drawing should only draw!
         set(current_flight_phase, flight_phases.engine_shutdown)
         update_page(ecam_pages.door)
     end
+    if Timer < TimerFinal and selfTest == 0 then
+        Timer = Timer + 1 * get(DELTA_TIME)
+    else
+        selfTest = 1
+    end
 end
 
 function draw() --the function that actually draws on the panel
     if get(BUS) > 0 then
         if selfTest == 1 then
+            Timer = 0
             if get(current_ecam_page) == ecam_pages.eng then --if the curent ecam page is 1
                 draw_eng_page()--draw the engine page
             elseif get(current_ecam_page) == ecam_pages.bleed then --if the curent ecam page is 2
@@ -178,15 +203,11 @@ function draw() --the function that actually draws on the panel
             sasl.gl.drawText(AirbusFont, 482, 46, (get(efb_units) == units.metric and "KG" or "LBS"), 20, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.BLUE)
             ----------------------------------------------------------------------------------------------------------
         else
-            if Timer < TimerFinal then
-                Timer = Timer + 1 * get(DELTA_TIME)
-                sasl.gl.drawText(AirbusFont, 256, 256, "SELF TEST IN PROGESS", 28.5, false, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.GREEN)
-                sasl.gl.drawText(AirbusFont, 256, 225, "(MAX 40 SECONDS)", 28.5, false, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.GREEN)
-            else
-                selfTest = 1
-            end
+            sasl.gl.drawText(AirbusFont, 261, 266, "SELF TEST IN PROGESS", 22, true, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.GREEN)
+            sasl.gl.drawText(AirbusFont, 261, 239, "MAX 40 SECONDS", 22, true, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.GREEN)
         end
     else
+        Timer = 0
          -- off
     end
 end
