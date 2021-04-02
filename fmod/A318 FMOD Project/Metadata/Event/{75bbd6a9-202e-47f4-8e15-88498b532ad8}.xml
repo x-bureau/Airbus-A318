@@ -115,7 +115,7 @@
     </object>
     <object class="SingleSound" id="{ee9ac5b9-6d23-4e55-890c-b8abce20abd1}">
         <property name="start">
-            <value>0.52000000000000002</value>
+            <value>1</value>
         </property>
         <property name="length">
             <value>0.57045351473922901</value>

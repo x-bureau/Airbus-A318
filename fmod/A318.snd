@@ -7,7 +7,7 @@ ACF_SOUNDS
 #                                                                                    #
 #     A i r b u s  A 3 1 8                                                           #
 #                                                                                    #
-#     V e r s i o n : v0.3b                                                          #
+#     V e r s i o n : v0.4b                                                          #
 #                                                                                    #
 #     B y :  M a t t 7 2 6                                                           #
 #                                                                                    #
@@ -371,6 +371,46 @@ BEGIN_SOUND_ATTACHMENT
 	EVENT_START_COND ABS_DELTA=A318/systems/ND/frst_arpt
 END_SOUND_ATTACHMENT
 
+################
+#LEVERS
+################
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/Throttle/throttle1
+	VEH_XYZ 0 1.3 -13
+	EVENT_START_COND sim/cockpit2/engine/actuators/throttle_ratio_all == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/Throttle/throttle2
+	VEH_XYZ 0 1.3 -13
+	EVENT_START_COND sim/cockpit2/engine/actuators/throttle_ratio_all > 0.6
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/Throttle/throttle2
+	VEH_XYZ 0 1.3 -13
+	EVENT_START_COND sim/cockpit2/engine/actuators/throttle_ratio_all < 0.6
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/Throttle/throttle3
+	VEH_XYZ 0 1.3 -13
+	EVENT_START_COND sim/cockpit2/engine/actuators/throttle_ratio_all > 0.76
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/Throttle/throttle3
+	VEH_XYZ 0 1.3 -13
+	EVENT_START_COND sim/cockpit2/engine/actuators/throttle_ratio_all < 0.76
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/Throttle/throttle1
+	VEH_XYZ 0 1.3 -13
+	EVENT_START_COND sim/cockpit2/engine/actuators/throttle_ratio_all == 1
+END_SOUND_ATTACHMENT
+
 ########################
 #Avionics
 ########################
@@ -378,51 +418,20 @@ END_SOUND_ATTACHMENT
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Avionics/battery_relay3
 	VEH_XYZ 0 2.4 -11.8
-	EVENT_START_COND A318/systems/ELEC/contacts/BC1 == 1
+	EVENT_START_COND A318/systems/ELEC/DCBAT_V > 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Avionics/battery_relay3
 	VEH_XYZ 0 2.4 -11.8
-	EVENT_START_COND A318/systems/ELEC/contacts/BC2 == 1
-END_SOUND_ATTACHMENT
-
-BEGIN_SOUND_ATTACHMENT
-	EVENT_NAME /Cockpit/Avionics/battery_relay2
-	VEH_XYZ 0 2.4 -11.8
-	EVENT_START_COND A318/systems/ELEC/contacts/AGC == 1
-END_SOUND_ATTACHMENT
-
-BEGIN_SOUND_ATTACHMENT
-	EVENT_NAME /Cockpit/Avionics/battery_relay2
-	VEH_XYZ 0 2.4 -11.8
-	EVENT_START_COND A318/systems/ELEC/contacts/EPC == 1
-END_SOUND_ATTACHMENT
-
-BEGIN_SOUND_ATTACHMENT
-	EVENT_NAME /Cockpit/Avionics/battery_relay2
-	VEH_XYZ 0 2.4 -11.8
-	EVENT_START_COND A318/systems/ELEC/contacts/GLC1 == 1
-END_SOUND_ATTACHMENT
-
-BEGIN_SOUND_ATTACHMENT
-	EVENT_NAME /Cockpit/Avionics/battery_relay2
-	VEH_XYZ 0 2.4 -11.8
-	EVENT_START_COND A318/systems/ELEC/contacts/GLC2 == 1
+	EVENT_START_COND A318/systems/ELEC/DCBAT_V == 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Avionics/battery
 	VEH_XYZ 0 1.6 -13.2
-	EVENT_START_COND A318/systems/ELEC/DCBAT_V > 14
-	EVENT_END_COND A318/systems/ELEC/DCBAT_V == 0
-END_SOUND_ATTACHMENT
-
-BEGIN_SOUND_ATTACHMENT
-	EVENT_NAME /Cockpit/Avionics/battery_stop
-	VEH_XYZ 0 1.6 -13.2
-	EVENT_START_COND A318/systems/ELEC/bat1/pb == 0
-	EVENT_START_COND A318/systems/ELEC/bat2/pb == 0
+	EVENT_START_COND A318/systems/ELEC/AC1_V > 0
+	EVENT_END_COND A318/systems/ELEC/AC1_V == 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
@@ -457,6 +466,21 @@ BEGIN_SOUND_ATTACHMENT
 	EVENT_START_COND sim/cockpit2/switches/avionics_power_on == 0
 END_SOUND_ATTACHMENT
 
+###########
+#GROUND
+###########
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Ambience/Ground/roll
+	VEH_XYZ 0 1 2
+	EVENT_START_COND sim/flightmodel/position/true_airspeed > 0
+	EVENT_END_COND sim/flightmodel/position/true_airspeed < 1
+END_SOUND_ATTACHMENT
+
+###############
+#WARNINGS
+###############
+
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Avionics/beep
 	VEH_XYZ 0 1.3 -13.3
@@ -470,15 +494,10 @@ BEGIN_SOUND_ATTACHMENT
 	EVENT_END_COND sim/cockpit2/switches/avionics_power_on == 0
 END_SOUND_ATTACHMENT
 
-###########
-#GROUND
-###########
-
 BEGIN_SOUND_ATTACHMENT
-	EVENT_NAME /Ambience/Ground/roll
-	VEH_XYZ 0 1 2
-	EVENT_START_COND sim/flightmodel/position/true_airspeed > 0
-	EVENT_END_COND sim/flightmodel/position/true_airspeed < 1
+	EVENT_NAME /Warnings/cockpit_chime
+	VEH_XYZ 0 1.6 -13.2
+	EVENT_START_COND A318/metadata/update_available == 1
 END_SOUND_ATTACHMENT
 
 ###############

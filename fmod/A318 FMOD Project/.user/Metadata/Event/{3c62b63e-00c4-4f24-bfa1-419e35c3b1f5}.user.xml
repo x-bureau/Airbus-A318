@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.01.08.00">
-    <object class="Event" id="{3c62b63e-00c4-4f24-bfa1-419e35c3b1f5}">
-        <relationship name="uiLastParameterSelection">
-            <destination>{d488a909-4d1c-431b-b484-faf36b18339d}</destination>
-        </relationship>
-    </object>
+    <object class="Event" id="{3c62b63e-00c4-4f24-bfa1-419e35c3b1f5}"/>
     <object class="MasterTrack" id="{7a9a1eb5-0142-4977-ac53-87402c27dedf}">
         <property name="uiAutomationTracksVisible">
             <value>true</value>
@@ -40,7 +36,7 @@
     </object>
     <object class="GameParameter" id="{d488a909-4d1c-431b-b484-faf36b18339d}">
         <property name="cursorPosition">
-            <value>13.906926406926408</value>
+            <value>100</value>
         </property>
         <property name="uiLastRulerScaleRatio">
             <value>0.054112554112554112</value>
@@ -48,7 +44,7 @@
     </object>
     <object class="AngleParameter" id="{182ad398-95e3-4619-a492-ee921f15af85}">
         <property name="cursorPosition">
-            <value>0</value>
+            <value>5.0089556680177338e-06</value>
         </property>
         <property name="uiLastRulerScaleRatio">
             <value>0.097402597402597407</value>
@@ -64,7 +60,7 @@
     </object>
     <object class="DistanceParameter" id="{b5eab299-1b4a-43bb-bd9f-93aaff72b8a5}">
         <property name="cursorPosition">
-            <value>0</value>
+            <value>0.0099999997764825821</value>
         </property>
         <property name="uiLastRulerScaleRatio">
             <value>0.54112554112554112</value>
@@ -168,6 +164,7 @@
     <object class="MixerBusPanner" id="{3274b21d-e0d3-4008-9566-9951b9eeafae}"/>
     <object class="MixerBusEffectChain" id="{a5cced39-5545-49fd-9a13-83b412add204}"/>
     <object class="MixerBusPanner" id="{97adb738-d12d-4e0e-9420-7700828063c9}"/>
+    <object class="ChannelMixEffect" id="{2b9ff20f-10a7-4462-bb0e-f43349f9ac37}"/>
     <object class="MixerBusFader" id="{f98c260d-2668-4f4f-9119-3c05a1cccf1f}"/>
     <object class="SpatialiserEffect" id="{bb2a41c0-c214-4e3b-92e1-610eb7f42557}"/>
     <object class="ThreeEQEffect" id="{b0d5f2e2-f972-4320-9189-299d52fa1607}"/>
