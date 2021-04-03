@@ -23,7 +23,7 @@ components = {
   ADIRS {};
   mcdu {
     fbo = true ,
-    fpsLimit = 20
+    fpsLimit = 2
   };
   PFD_CAPT {
     fbo = true ,

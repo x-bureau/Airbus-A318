@@ -3,6 +3,9 @@ position = {1165, 663, 519, 496}
 size = {512, 512}
 
 --get datarefs
+local startup_complete = false
+local eng1N1 = globalProperty("sim/flightmodel/engine/ENGN_N1_[0]")
+
 local BUS = globalProperty("A318/systems/ELEC/ACESS_V")
 local selfTest = 0
 local eng1AVAIL = 0
@@ -10,7 +13,7 @@ local eng2AVAIL = 0
 
 local DELTA_TIME = globalProperty("sim/operation/misc/frame_rate_period")
 local Timer = 0
-local TimerFinal = math.random(15, 35)
+local TimerFinal = math.random(25, 40)
 
 local TimerEng1 = 0
 local TimerFinalEng1 = 10
@@ -296,12 +299,37 @@ function draw_message(message, line, type)
     end
 end
 
+function plane_startup()
+    if get(eng1N1) > 1 then
+        -- engines running
+        eng1AVAIL = 1
+        eng2AVAIL = 1
+        selfTest = 1
+        Timer = 0
+    else
+        -- cold and dark
+        eng1AVAIL = 0
+        eng2AVAIL = 0
+        selfTest = 0
+    end
+end
+
 function update()
+    if not startup_complete then
+        plane_startup()
+        startup_complete = true
+    end
+
     if get(eng1N1) < 19.5 then
         eng1AVAIL = 0
     end
     if get(eng2N1) < 19.5 then
         eng2AVAIL = 0
+    end
+    if Timer < TimerFinal and selfTest == 0 then
+        Timer = Timer + 1 * get(DELTA_TIME)
+    else
+        selfTest = 1
     end
 end
 
@@ -326,16 +354,12 @@ function draw()
             end
             Timer = 0
         else
-            if Timer < TimerFinal then
-                Timer = Timer + 1 * get(DELTA_TIME)
-                sasl.gl.drawText(AirbusFont, 256, 262, "SELF TEST IN PROGESS", 22, true, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.GREEN)
-                sasl.gl.drawText(AirbusFont, 256, 235, "MAX 40 SECONDS", 22, true, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.GREEN)
-            else
-                selfTest = 1
-            end
+            sasl.gl.drawText(AirbusFont, 256, 262, "SELF TEST IN PROGESS", 22, true, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.GREEN)
+            sasl.gl.drawText(AirbusFont, 256, 235, "MAX 40 SECONDS", 22, true, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.GREEN)
         end
     else
         -- off
+        Timer = 0
     end
     sasl.gl.resetClipArea()
 end

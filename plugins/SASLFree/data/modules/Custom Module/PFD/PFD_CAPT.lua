@@ -2,13 +2,12 @@
 position = {43, 647, 512, 513}
 size = {500, 500}
 
---get datarefs
 local BUS = globalProperty("A318/systems/ELEC/ACESS_V")
 local selfTest = 0
 
 local DELTA_TIME = globalProperty("sim/operation/misc/frame_rate_period")
 local Timer = 0
-local TimerFinal = math.random(15, 35)
+local TimerFinal = math.random(25, 40)
 
 local ADIRS_aligned = globalProperty("A318/systems/ADIRS/1/aligned")
 local ADIRS_mode = globalProperty("A318/systems/ADIRS/1/mode")
@@ -25,6 +24,9 @@ local baroSetting = globalProperty("sim/cockpit2/gauges/actuators/barometer_sett
 local units = createGlobalPropertyi("A318/systems/PFD/QNH_unit_CAPT", 1)
 
 --variables
+local startup_complete = false
+local eng1N1 = globalProperty("sim/flightmodel/engine/ENGN_N1_[0]")
+
 local isAligned = 0
 local mode = 0
 local airspeed = 0
@@ -45,6 +47,18 @@ local pitchMarks = sasl.gl.loadImage("pitchMarks.png")
 local bank = sasl.gl.loadImage("PFD_Alignment.png", 0, 0, 184, 287)
 local ground = sasl.gl.loadImage("ground.png", 0, 0, 390, 500)
 local plane = sasl.gl.loadImage("PFD/plane.png", 0, 0, 226, 48)
+
+function plane_startup()
+  if get(eng1N1) > 1 then
+      -- engines running
+      selfTest = 1
+      Timer = 0
+  else
+      -- cold and dark
+      selfTest = 0
+  end
+end
+
 
 function round(num, numDecimalPlaces)
   local mult = 10^(numDecimalPlaces or 0)
@@ -136,7 +150,7 @@ function pfd()
         sasl.gl.setFontGlyphSpacingFactor (AirbusFont, 1)
       else
         sasl.gl.setFontGlyphSpacingFactor (AirbusFont, 0.8)
-        sasl.gl.drawText(AirbusFont, 416, (t * 65) + (i * -13), string.format("%02d",(i * 20)), 27, true, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.GREEN)
+        sasl.gl.drawText(AirbusFont, 416, (t * 65) + (i * -13), string.format("%02d",(i * 20)), 17, true, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.GREEN)
         sasl.gl.setFontGlyphSpacingFactor (AirbusFont, 1)
       end
      end
@@ -361,6 +375,11 @@ function altitude_tape()
 end
 
 function update()
+  if not startup_complete then
+    plane_startup()
+    startup_complete = true
+  end
+  
   isAligned = get(ADIRS_aligned)
   mode = get(ADIRS_mode)
 
@@ -374,6 +393,12 @@ function update()
 
   baro = get(baroSetting)
   baroUnits = get(units)
+
+  if Timer < TimerFinal and selfTest == 0 then
+    Timer = Timer + 1 * get(DELTA_TIME)
+  else
+    selfTest = 1
+  end
 end
 
 function draw()
@@ -383,13 +408,8 @@ function draw()
       pfd()
       Timer = 0
     else
-      if Timer < TimerFinal then
-        Timer = Timer + 1 * get(DELTA_TIME)
-        sasl.gl.drawText(AirbusFont, 250, 255, "SELF TEST IN PROGESS", 22, true, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.GREEN)
-        sasl.gl.drawText(AirbusFont, 250, 230, "MAX 40 SECONDS", 21, true, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.GREEN)
-      else
-        selfTest = 1
-      end
+      sasl.gl.drawText(AirbusFont, 250, 255, "SELF TEST IN PROGESS", 22, true, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.GREEN)
+      sasl.gl.drawText(AirbusFont, 250, 230, "MAX 40 SECONDS", 21, true, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.GREEN)
     end
   else
     Timer = 0
