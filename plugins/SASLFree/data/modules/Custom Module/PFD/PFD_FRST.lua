@@ -23,6 +23,8 @@ local radioMins = globalProperty("sim/cockpit/misc/radio_altimeter_minimum")
 local baroSetting = globalProperty("sim/cockpit2/gauges/actuators/barometer_setting_in_hg_copilot")
 local units = createGlobalPropertyi("A318/systems/PFD/QNH_unit_FO", 1)
 
+local foPfdBright = createGlobalPropertyf("A318/cockpit/fo/pfdBright", 1)
+
 --variables
 local startup_complete = false
 local eng1N1 = globalProperty("sim/flightmodel/engine/ENGN_N1_[0]")
@@ -77,6 +79,7 @@ function pfd()
     sasl.gl.drawText(AirbusFont, 220, 232, "ATT", 31, true, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.RED)
   else
     artificial_horizon()
+    angleOfBank()
   end
   --
 
@@ -269,6 +272,16 @@ function pfd()
   fma()
 end
 
+function angleOfBank()
+  sasl.gl.saveGraphicsContext()
+  sasl.gl.setTranslateTransform(220,242)
+  sasl.gl.setRotateTransform(-r)
+
+  sasl.gl.drawWidePolyLine({0, 118, -12, 118, 0, 136, 12, 118, 0, 118}, 2, ECAM_COLOURS.YELLOW)
+
+  sasl.gl.restoreGraphicsContext()
+end
+
 function artificial_horizon()
   local horizon = 242 - (6.0625 * p)
   local gap = horizon - 145
@@ -414,5 +427,6 @@ function draw()
     Timer = 0
     selfTest = 0
   end
+  sasl.gl.drawRectangle(0, 0, 500, 500, {0.0, 0.0, 0.0, 1 - get(foPfdBright)})
   sasl.gl.resetClipArea()
 end
