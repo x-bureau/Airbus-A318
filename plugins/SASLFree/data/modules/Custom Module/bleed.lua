@@ -4,6 +4,8 @@ local delta_time = globalProperty("sim/operation/misc/frame_rate_period")
 
 local oat = globalProperty("sim/cockpit2/temperature/outside_air_temp_degc")
 
+local modeSel = globalProperty("A318/systems/FADEC/MODESEL")
+
 local eng1N1 = globalProperty("sim/flightmodel/engine/ENGN_N1_[0]")
 local eng2N1 = globalProperty("sim/flightmodel/engine/ENGN_N1_[1]")
 local apuN1 = globalProperty("sim/cockpit2/electrical/APU_N1_percent")
@@ -232,12 +234,20 @@ function update()
 
     -- PACK SWITCH LOGIC
     if get(switches.pack1) == 1 then
-        set(packs.one.valve, 1)
+        if (get(modeSel) == 2 and get(eng1N1) < 19.5) or (get(modeSel) == 2 and get(eng2N1) < 19.5) then
+            set(packs.one.valve, 0)
+        else
+            set(packs.one.valve, 1)
+        end
     else
         set(packs.one.valve, 0)
     end
     if get(switches.pack2) == 1 then
-        set(packs.two.valve, 1)
+        if (get(modeSel) == 2 and get(eng1N1) < 19.5) or (get(modeSel) == 2 and get(eng2N1) < 19.5) then
+            set(packs.two.valve, 0)
+        else
+            set(packs.two.valve, 1)
+        end
     else
         set(packs.two.valve, 0)
     end
