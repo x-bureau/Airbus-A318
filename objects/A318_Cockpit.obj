@@ -7489,9 +7489,9 @@ IDX	6761
 	TRIS	1242 36
 	ATTR_manip_toggle	button	1	0	A318/systems/bleed/PACK2	PACK 2 ON/OFF
 	TRIS	1278 36
-	ATTR_manip_toggle	hand	1	0	A318/systems/FADEC/ENG2MASTR	ENGINE 2 Master Switch
+	ATTR_manip_toggle	button	1	0	A318/systems/FADEC/ENG2MASTR	ENGINE 2 Master Switch
 	TRIS	1314 36
-	ATTR_manip_toggle	hand	1	0	A318/systems/FADEC/ENG1MASTR	ENGINE 1 Master Switch
+	ATTR_manip_toggle	button	1	0	A318/systems/FADEC/ENG1MASTR	ENGINE 1 Master Switch
 	TRIS	1350 36
 	ATTR_manip_toggle	button	1	0	A318/systems/ELEC/bat1/pb	BAT 1 ON/OFF
 	TRIS	1533 36
