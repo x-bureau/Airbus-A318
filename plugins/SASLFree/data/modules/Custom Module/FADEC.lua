@@ -2,7 +2,7 @@ local startup_complete = false
 
 local eng1MSTR = createGlobalPropertyi("A318/systems/FADEC/ENG1MASTR", 0)
 local eng2MSTR = createGlobalPropertyi("A318/systems/FADEC/ENG2MASTR", 0)
-local modeSel = createGlobalPropertyi("A318/systems/FADEC/MODESEL", 2)
+local modeSel = createGlobalPropertyi("A318/systems/FADEC/MODESEL", 1)
 
 local eng1IsRunning = 0
 local eng2IsRunning = 0
