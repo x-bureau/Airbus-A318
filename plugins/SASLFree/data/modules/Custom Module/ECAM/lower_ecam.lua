@@ -18,6 +18,7 @@ position = {1153, 51, 544, 503}
 size = {522, 522}
 
 --defining dataref variables
+local Bright = createGlobalPropertyf("A318/cockpit/ecam/lwBright", 1)
 local startup_complete = false
 local eng1N1 = globalProperty("sim/flightmodel/engine/ENGN_N1_[0]")
 
@@ -210,4 +211,5 @@ function draw() --the function that actually draws on the panel
         Timer = 0
          -- off
     end
+    sasl.gl.drawRectangle(0,0,522,522, {0.0, 0.0, 0.0, 1 - get(Bright)})
 end

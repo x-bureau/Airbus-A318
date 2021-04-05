@@ -38,7 +38,7 @@
     <object class="MixerBusEffectChain" id="{889355a4-f0d2-468e-a03a-687b0248657c}"/>
     <object class="MixerBusPanner" id="{f25bdb18-b5af-4b3f-9f6d-916ae30693f1}"/>
     <object class="AutomationTrack" id="{f484ef5f-59a1-4f20-8eda-962810fd57dd}"/>
-    <object class="SingleSound" id="{fba6217d-ea8a-4cb9-86d7-ccc64ea460d6}"/>
+    <object class="SingleSound" id="{a4a3586c-bc09-4e45-97ba-110dfa8815f6}"/>
     <object class="EventMixerGroup" id="{55ee0fdc-9e5e-43d9-b0c6-555fc3ed6be1}"/>
     <object class="MixerBusEffectChain" id="{58ca1383-5c54-4de8-a617-29b17c85274e}"/>
     <object class="MixerBusPanner" id="{1baaa33a-25db-4a01-81e0-c57cbbdad08a}"/>

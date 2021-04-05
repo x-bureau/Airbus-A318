@@ -24,8 +24,8 @@ local navvdev = globalProperty("sim/cockpit/radios/nav1_vdef_dot")
 
 local tas = globalPropertyf("A318/systems/ADIRS/1/air/tas")
 local gs = globalPropertyf("A318/systems/ADIRS/1/inertial/gs")
-local winddirection = globalPropertyf("sim/weather/wiECAM_COLOURS.direction_degt")
-local windspeed = globalPropertyf("sim/weather/wiECAM_COLOURS.speed_kt")
+local winddirection = globalPropertyf("sim/weather/wind_direction_degt")
+local windspeed = globalPropertyf("sim/weather/wind_speed_kt")
 
 local CaptNdMode = createGlobalPropertyi("A318/systems/ND/capt_mode", 3)
 local rngeKnob = createGlobalPropertyi("A318/systems/ND/capt_rnge", 2)
@@ -36,6 +36,7 @@ local CaptNdVORD = createGlobalPropertyi("A318/systems/ND/capt_vord", 0)
 local CaptNdNDB = createGlobalPropertyi("A318/systems/ND/capt_ndb", 0)
 local CaptNdARPT = createGlobalPropertyi("A318/systems/ND/capt_arpt", 1)
 local CaptNdTERR = createGlobalPropertyi("A318/systems/ND/capt_terr", 0)
+local captNdBright = createGlobalPropertyf("A318/cockpit/capt/ndBright", 1)
 
 --fonts
 local ndFont = sasl.gl.loadFont("fonts/PanelFont.ttf")
@@ -407,5 +408,6 @@ function draw()
         selfTest = 0
     end
 
+    sasl.gl.drawRectangle(0,0,500,500, {0.0, 0.0, 0.0, 1 - get(captNdBright)})
     sasl.gl.resetClipArea()
 end

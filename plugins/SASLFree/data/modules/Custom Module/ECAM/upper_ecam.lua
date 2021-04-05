@@ -3,6 +3,8 @@ position = {1165, 663, 519, 496}
 size = {512, 512}
 
 --get datarefs
+local Bright = createGlobalPropertyf("A318/cockpit/ecam/upBright", 1)
+
 local startup_complete = false
 local eng1N1 = globalProperty("sim/flightmodel/engine/ENGN_N1_[0]")
 
@@ -361,5 +363,6 @@ function draw()
         -- off
         Timer = 0
     end
+    sasl.gl.drawRectangle(0,0,512,512, {0.0, 0.0, 0.0, 1 - get(Bright)})
     sasl.gl.resetClipArea()
 end
