@@ -1,7 +1,7 @@
 -- PAGE KEY: 2
 
 local inputs = {
-    chg_code = {"", 'l', 5, 1}
+    chg_code = {"", 'l', 5, 5}
 }
 
 local function drawStaticTitles()
