@@ -108,6 +108,7 @@ IDX	77
 	ANIM_trans_key	1	-0.0694	1.53306997	-12.55303001
 	ANIM_trans_end
 	ATTR_shiny_rat	0.5
+	ATTR_light_level 0 1	A318/cockpit/lights/fault/apu
 	TRIS	0 6
 	ANIM_end
 	ANIM_begin
@@ -116,7 +117,7 @@ IDX	77
 	ANIM_trans_key	0.85000002	-0.0694	1.53334999	-12.5531702
 	ANIM_trans_key	1	-0.0694	1.53306997	-12.55303001
 	ANIM_trans_end
-	ATTR_light_level 1 0 	A318/systems/ELEC/APUGENSwtch
+	ATTR_light_level 0 1 	A318/cockpit/lights/apu
 	TRIS	6 6
 	ANIM_end
 	ANIM_begin
@@ -125,7 +126,7 @@ IDX	77
 	ANIM_trans_key	0.85000002	-0.13564	1.53363001	-12.55292988
 	ANIM_trans_key	1	-0.13564	1.53342998	-12.55274963
 	ANIM_trans_end
-	ATTR_light_level 1 0 	A318/systems/ELEC/GEN1Swtch
+	ATTR_light_level 0 1 	A318/cockpit/lights/gen1
 	TRIS	12 6
 	ANIM_end
 	ANIM_begin
@@ -134,6 +135,7 @@ IDX	77
 	ANIM_trans_key	0.85000002	-0.13564	1.53363001	-12.55292988
 	ANIM_trans_key	1	-0.13564	1.53342998	-12.55274963
 	ANIM_trans_end
+	ATTR_light_level 0 1	A318/cockpit/lights/fault/gen1
 	TRIS	18 6
 	ANIM_end
 	ANIM_begin
@@ -142,7 +144,7 @@ IDX	77
 	ANIM_trans_key	0.85000002	-0.01808	1.54094005	-12.53334999
 	ANIM_trans_key	1	-0.01808	1.54056001	-12.53314972
 	ANIM_trans_end
-	ATTR_light_level 1 0 	A318/systems/ELEC/busTieSwtch
+	ATTR_light_level 0 1 	A318/cockpit/lights/bustie
 	TRIS	24 6
 	ANIM_end
 	ANIM_begin
@@ -151,7 +153,7 @@ IDX	77
 	ANIM_trans_key	0.85000002	0.03043	1.53374004	-12.55346012
 	ANIM_trans_key	1	0.03043	1.53348005	-12.55321026
 	ANIM_trans_end
-	ATTR_light_level 0 1 	A318/systems/ELEC/gpu_Avail
+	ATTR_light_level 0 1 	A318/cockpit/lights/gpuAv
 	TRIS	30 6
 	ANIM_end
 	ANIM_begin
@@ -160,7 +162,7 @@ IDX	77
 	ANIM_trans_key	0.85000002	0.03043	1.53374004	-12.55346012
 	ANIM_trans_key	1	0.03043	1.53348005	-12.55321026
 	ANIM_trans_end
-	ATTR_light_level 0 1 	A318/systems/ELEC/EXTPWRSwtch
+	ATTR_light_level 0 1 	A318/cockpit/lights/gpu
 	TRIS	36 6
 	ANIM_end
 	ANIM_begin
@@ -169,6 +171,7 @@ IDX	77
 	ANIM_trans_key	0.85000002	0.09864	1.53364003	-12.55301952
 	ANIM_trans_key	1	0.09864	1.53364003	-12.55253983
 	ANIM_trans_end
+	ATTR_light_level 0 1	A318/cockpit/lights/fault/gen2
 	TRIS	42 6
 	ANIM_end
 	ANIM_begin
@@ -177,7 +180,7 @@ IDX	77
 	ANIM_trans_key	0.85000002	0.09864	1.53364003	-12.55301952
 	ANIM_trans_key	1	0.09864	1.53364003	-12.55253983
 	ANIM_trans_end
-	ATTR_light_level 1 0	A318/systems/ELEC/GEN2Swtch
+	ATTR_light_level 0 1	A318/cockpit/lights/gen2
 	TRIS	48 6
 	ANIM_end
 	ANIM_begin
@@ -186,6 +189,7 @@ IDX	77
 	ANIM_trans_key	0.85000002	-0.04349	1.56080997	-12.48120022
 	ANIM_trans_key	1	-0.04349	1.56057	-12.48097038
 	ANIM_trans_end
+	ATTR_light_level 0 1	A318/cockpit/lights/fault/bat1
 	TRIS	54 6
 	ANIM_end
 	ANIM_begin
@@ -194,7 +198,7 @@ IDX	77
 	ANIM_trans_key	0.85000002	-0.04349	1.56080997	-12.48120022
 	ANIM_trans_key	1	-0.04349	1.56057	-12.48097038
 	ANIM_trans_end
-	ATTR_light_level 1 0	A318/systems/ELEC/bat1/pb
+	ATTR_light_level 0 1	A318/cockpit/lights/bat1
 	TRIS	60 6
 	ANIM_end
 	ANIM_begin
@@ -203,6 +207,7 @@ IDX	77
 	ANIM_trans_key	0.85000002	-0.01807	1.56087995	-12.48112011
 	ANIM_trans_key	1	-0.01807	1.56070006	-12.48093987
 	ANIM_trans_end
+	ATTR_light_level 0 1	A318/cockpit/lights/fault/bat2
 	TRIS	66 6
 	ANIM_end
 	ANIM_begin
@@ -211,7 +216,7 @@ IDX	77
 	ANIM_trans_key	0.85000002	-0.01807	1.56087995	-12.48112011
 	ANIM_trans_key	1	-0.01807	1.56070006	-12.48093987
 	ANIM_trans_end
-	ATTR_light_level 1 0	A318/systems/ELEC/bat2/pb
+	ATTR_light_level 0 1	A318/cockpit/lights/bat2
 	TRIS	72 6
 	ANIM_end
 
