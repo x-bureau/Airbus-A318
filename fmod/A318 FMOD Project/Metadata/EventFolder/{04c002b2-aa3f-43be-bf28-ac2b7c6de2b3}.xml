@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.08.00">
+    <object class="EventFolder" id="{04c002b2-aa3f-43be-bf28-ac2b7c6de2b3}">
+        <property name="name">
+            <value>Flaps</value>
+        </property>
+        <relationship name="folder">
+            <destination>{85ad3419-daf2-4b1f-b094-0fb24697652d}</destination>
+        </relationship>
+    </object>
+</objects>
