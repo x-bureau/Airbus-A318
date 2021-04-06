@@ -21,10 +21,11 @@
 {876afc56-c59f-4209-9fe1-601e8eb0410e} event:/Cockpit/Switches/knob1
 {61383ed8-7c82-4549-9d0b-1377fbdd182f} event:/Cockpit/Switches/knob2
 {e2a82559-26b9-4d16-940e-39b4a780f9ba} event:/Cockpit/Switches/start_switch
-{1ab1b90b-5701-4795-b5b0-8b67cc970dcb} event:/Engines/CFM56/Start/start_hum
 {c055fdf4-e4a2-42a1-8e2f-31abfc652c13} event:/Engines/CFM56/Start/start1
 {4d3ed636-06f2-4cd2-9b3d-750991b55b81} event:/Engines/CFM56/engine1
 {e744c6f9-5aec-4655-85e0-2b66f59ca3f6} event:/Engines/CFM56/engine2
+{ae95c61c-2ae6-4c0d-a384-157f3779a40b} event:/Flight Controls/Flaps/flap
+{06fcbe4f-a4a3-4b9a-9b5d-584c1cb1dc94} event:/Flight Controls/Flaps/flapend
 {13fcb492-b4a3-4875-b846-0a44340eb633} event:/Hydraulics/PTU/ptu
 {e4d8e8b0-f53e-447c-b89a-276a5d9ab478} event:/Warnings/GPWS/10
 {97c0a5f5-77d6-4b4e-8ef3-bf0cf1a2e9df} event:/Warnings/GPWS/100
@@ -45,8 +46,6 @@
 {01061263-70c6-4558-9b56-ba49ccc2935e} event:/Warnings/autopilot_disconnect
 {4caf973c-c922-45af-b5f8-5bdd80ffcbc1} event:/Warnings/cockpit_chime
 {e9e1fd2e-c702-41b0-9067-a19bd94f0d9e} event:/Warnings/start_chime
-{ae95c61c-2ae6-4c0d-a384-157f3779a40b} event:/Flight Controls/Flaps/flap
-{06fcbe4f-a4a3-4b9a-9b5d-584c1cb1dc94} event:/Flight Controls/Flaps/flapend
 {9f08114d-36ec-44cc-b8bf-b2babda09f9e} bus:/
 {7f7c05a4-e05a-4d44-94fe-d4691147a9b7} bus:/Master
 {e3492bec-f854-4fbb-b2bc-23586269032e} bus:/Master/Copilot
@@ -63,7 +62,7 @@
 {c774a932-88c0-4af9-8cc5-3595f231daae} bank:/ambience
 {0276c23d-c401-4ddd-a53c-a527fe681af9} bank:/Cockpit
 {d99384cd-e093-45b8-a707-f5471724efa0} bank:/EngineCFM
+{cf0558c0-0759-40be-a3c8-2d5c69a2bbfa} bank:/flightcontrols
 {4e3b87a3-3c64-4841-8ce2-67c9603d84cc} bank:/hyd
 {46388ef5-f262-4f38-977b-03d081ed6880} bank:/Warnings
 {8d80933a-93af-4d0c-ab7d-935445c5cf74} bank:/Master Bank
-{cf0558c0-0759-40be-a3c8-2d5c69a2bbfa} bank:/flightcontrols
