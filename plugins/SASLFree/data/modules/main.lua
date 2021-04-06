@@ -21,12 +21,12 @@ components = {
   cockpit {};
   FADEC {};
   ADIRS {};
-  fuel {};
+  --fuel {};
   hydraulics {};
   bleed {};
   mcdu {
     fbo = true ,
-    fpsLimit = 29
+    fpsLimit = 2
   };
   PFD_CAPT {
     fbo = true ,
