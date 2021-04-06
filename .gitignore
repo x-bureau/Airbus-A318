@@ -1,4 +1,5 @@
 plugins/SASLFree/data/output
+A318_prefs.txt
 
 ### StarSquared99 ###
 cockpit_new.blend
@@ -21,6 +22,9 @@ Textures/*.psd
 !.vscode/launch.json
 !.vscode/extensions.json
 *.code-workspace
+
+### XFMC ###
+A318.cfg
 
 ### VisualStudioCode Patch ###
 # Ignore all local history of files

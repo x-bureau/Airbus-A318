@@ -32,7 +32,7 @@
     </object>
     <object class="GameParameter" id="{199022bf-e04f-4eff-929b-e69ffe5bc86e}">
         <property name="cursorPosition">
-            <value>0</value>
+            <value>1</value>
         </property>
         <property name="uiLastRulerScaleRatio">
             <value>0.00053792361484669173</value>
