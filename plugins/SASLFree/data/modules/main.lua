@@ -18,10 +18,9 @@ panelHeight3d = 2048
 components = {
   customdataref {};
   elec {};
-  cockpit {};
   FADEC {};
   ADIRS {};
-  --fuel {};
+  fuel {};
   hydraulics {};
   bleed {};
   mcdu {
@@ -65,6 +64,7 @@ components = {
       fbo = true,
       fpsLimit = 20
   };
+  cockpit {};
 }
 
 function onModuleDone()
