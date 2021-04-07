@@ -25,7 +25,7 @@ components = {
   bleed {};
   mcdu {
     fbo = true ,
-    fpsLimit = 2
+    fpsLimit = 29
   };
   PFD_CAPT {
     fbo = true ,

@@ -271,7 +271,7 @@ end
 
 function draw()
     if get(BUS) > 0 then
-      sasl.gl.drawRectangle(0, 0, 479, 400, {0, 15/255, 28/255, 1.0})
+      --sasl.gl.drawRectangle(0, 0, 479, 400, {0, 15/255, 28/255, 1.0})
       if not isBlinking then
         sasl.gl.drawText(MCDU_FONT, 10, 10, SCRATCHPAD, mcdu_option_size, false, false, TEXT_ALIGN_LEFT, mcdu_font_colors[1])
         --drawCalls[get(MCDU_CURRENT_PAGE)]()
