@@ -16,6 +16,11 @@ local twoAfterStart2 = 0
 
 local slatRat = globalProperty("sim/flightmodel/controls/slatrat")
 
+local AC1 = globalProperty("A318/systems/ELEC/AC1_V")
+local AC2 = globalProperty("A318/systems/ELEC/AC2_V")
+local DC1 = globalProperty("A318/systems/ELEC/DC1_V")
+local DC2 = globalProperty("A318/systems/ELEC/DC1_V")
+local DCBAT = globalProperty("A318/systems/ELEC/DC1_V")
 
 local eng1MSTR = globalProperty("A318/systems/FADEC/ENG1MASTR")
 local eng1N1 = globalProperty("sim/flightmodel/engine/ENGN_N1_[0]")
@@ -139,33 +144,33 @@ function update()
     end
 
     -- APU PUMP
-    if get(apuMstr) == 1 then
+    if get(apuMstr) == 1 and get(DCBAT) > 0 then
         set(apuPump, 1)
     else
         set(apuPump, 0)
     end
 
     -- LEFT PUMPS
-    if get(switches.lTk1) == 1 and get(fuelTanks, 3) > 750 then
+    if get(switches.lTk1) == 1 and get(fuelTanks, 3) > 750 and (get(AC1) > 0 or get(DC1) > 0) then
         set(ltr1, 1)
     else
         set(ltr1, 0)
     end
 
-    if get(switches.lTk2) == 1 and get(fuelTanks, 3) > 750 then
+    if get(switches.lTk2) == 1 and get(fuelTanks, 3) > 750 and (get(AC2) > 0 or get(DC2) > 0) then
         set(ltr2, 1)
     else
         set(ltr2, 0)
     end
 
     -- RIGHT PUMPS
-    if get(switches.rTk1) == 1 and get(fuelTanks, 2) > 750 then
+    if get(switches.rTk1) == 1 and get(fuelTanks, 2) > 750 and (get(AC1) > 0 or get(DC1) > 0) then
         set(rtr1, 1)
     else
         set(rtr1, 0)
     end
 
-    if get(switches.rTk2) == 1 and get(fuelTanks, 2) > 750 then
+    if get(switches.rTk2) == 1 and get(fuelTanks, 2) > 750 and (get(AC2) > 0 or get(DC2) > 0) then
         set(rtr2, 1)
     else
         set(rtr2, 0)
@@ -187,7 +192,7 @@ function update()
         end
     else
         -- AUTO MODE
-        if get(switches.ctr1) == 1 then
+        if get(switches.ctr1) == 1 and (get(AC1) > 0 or get(DC1) > 0) then
             if (get(fuelTanks, 1) > 5341 or get(slatRat) > 0) and (get(eng1N1) == 0 or twoAfterStart1 == 1) then
                 set(ctr1, 0)
             else
@@ -201,7 +206,7 @@ function update()
             set(ctr1, 0)
         end
 
-        if get(switches.ctr2) == 1 then
+        if get(switches.ctr2) == 1 and (get(AC2) > 0 or get(DC2) > 0) then
             if (get(fuelTanks, 2) > 5341 or get(slatRat) > 0) and (get(eng2N1) == 0 or twoAfterStart2 == 1) then
                 set(ctr2, 0)
             else
