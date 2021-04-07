@@ -2,11 +2,15 @@ require "common_declarations"
 local lower_fuel_overlay = sasl.gl.loadImage("ECAM_LOWER_FUEL_OVERLAY.png")
 local centre_fuel_pump_mode = globalPropertyi("A318/systems/fuel/pumps/centre_mode_sel")
 local fuel_tank_pumps = globalPropertyia("sim/cockpit2/fuel/fuel_tank_pump_on", 8)
-local eng_valve_state = globalPropertyia("A318/systems/fuel/eng_valves")
+local eng1LP = globalProperty("A318/systems/FUEL/ENG1LP")
+local eng2LP = globalProperty("A318/systems/FUEL/ENG2LP")
 local xfeed_state = globalPropertyi("A318/systems/fuel/pumps/xfeed_state")
 local fuel_current_quantity = globalPropertyfa("sim/cockpit2/fuel/fuel_quantity")
 local fuel_flow = createGlobalPropertyf("A318/systems/fuel/fuel_flow")
 local weight_fuel = globalPropertyf("sim/flightmodel/weight/m_fuel_total")
+
+local crossFeed = globalPropertyi("A318/systems/FUEL/XFEED")
+local apuPump = globalPropertyi("A318/systems/FUEL/APUPump")
 
 local function round(v, bracket)
     local function sign(v)
@@ -34,55 +38,43 @@ function draw_fuel_page()--draw the fuel page
         -- centre tank
         sasl.gl.drawText(AirbusFont, 262, 270, round(get_weight(get(fuel_current_quantity, 1)), 10), 20, false, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.GREEN)
         -- left inner tank
-        sasl.gl.drawText(AirbusFont, 130, 265, round(get_weight(get(fuel_current_quantity, 2)), 10), 20, false, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.GREEN)
+        sasl.gl.drawText(AirbusFont, 130, 265, round(get_weight(get(fuel_current_quantity, 3)), 10), 20, false, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.GREEN)
         -- right inner tank
-        sasl.gl.drawText(AirbusFont, 390, 265, round(get_weight(get(fuel_current_quantity, 3)), 10), 20, false, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.GREEN)
+        sasl.gl.drawText(AirbusFont, 390, 265, round(get_weight(get(fuel_current_quantity, 2)), 10), 20, false, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.GREEN)
         -- left outer tank
-        sasl.gl.drawText(AirbusFont, 35, 260, round(get_weight(get(fuel_current_quantity, 4)), 10), 20, false, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.GREEN)
+        sasl.gl.drawText(AirbusFont, 35, 260, round(get_weight(get(fuel_current_quantity, 5)), 10), 20, false, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.GREEN)
         -- right outer tank
-        sasl.gl.drawText(AirbusFont, 485, 260, round(get_weight(get(fuel_current_quantity, 5)), 10), 20, false, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.GREEN)
+        sasl.gl.drawText(AirbusFont, 485, 260, round(get_weight(get(fuel_current_quantity, 4)), 10), 20, false, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.GREEN)
     end
 
     local function drawValveStatuses()
         -- drawing the valve statuses
 
-        if get(eng_valve_state, 1) == valve_states.closed then
+        if get(eng1LP) == 0 then
             sasl.gl.drawCircle(136, 441, 13, true, ECAM_COLOURS.ORANGE)
             sasl.gl.drawCircle(136, 441, 11, true, {0, 0, 0})
             sasl.gl.drawWidePolyLine({123,441,  149,441}, 2, ECAM_COLOURS.ORANGE)
-        elseif get(eng_valve_state, 1) == valve_states.transit then
-            sasl.gl.drawCircle(136, 441, 13, true, ECAM_COLOURS.ORANGE)
-            sasl.gl.drawCircle(136, 441, 11, true, {0, 0, 0})
-            sasl.gl.drawWidePolyLine({126,431,  146,451}, 2, ECAM_COLOURS.ORANGE)
-        elseif get(eng_valve_state, 1) == valve_states.open then
+        elseif get(eng1LP) == 1 then
             sasl.gl.drawCircle(136, 441, 13, true, ECAM_COLOURS.GREEN)
             sasl.gl.drawCircle(136, 441, 11, true, {0, 0, 0})
             sasl.gl.drawWidePolyLine({136,428,  136,454}, 2, ECAM_COLOURS.GREEN)
         end
 
-        if get(eng_valve_state, 2) == valve_states.closed then
+        if get(eng2LP) == 0 then
             sasl.gl.drawCircle(387, 441, 13, true, ECAM_COLOURS.ORANGE)
             sasl.gl.drawCircle(387, 441, 11, true, {0, 0, 0})
             sasl.gl.drawWidePolyLine({374,441,  400,441}, 2, ECAM_COLOURS.ORANGE)
-        elseif get(eng_valve_state, 2) == valve_states.transit then
-            sasl.gl.drawCircle(387, 441, 13, true, ECAM_COLOURS.ORANGE)
-            sasl.gl.drawCircle(387, 441, 11, true, {0, 0, 0})
-            sasl.gl.drawWidePolyLine({378,432,  397,451}, 2, ECAM_COLOURS.ORANGE)
-        elseif get(eng_valve_state, 2) == valve_states.open then
+        elseif get(eng2LP) == 1 then
             sasl.gl.drawCircle(387, 441, 13, true, ECAM_COLOURS.GREEN)
             sasl.gl.drawCircle(387, 441, 11, true, {0, 0, 0})
             sasl.gl.drawWidePolyLine({387,428,  387,454}, 2, ECAM_COLOURS.GREEN)
         end
 
-        if get(xfeed_state) == valve_states.closed then
+        if get(crossFeed) == 0 then
             sasl.gl.drawCircle(262, 401, 13, true, ECAM_COLOURS.GREEN)
             sasl.gl.drawCircle(262, 401, 11, true, {0, 0, 0})
             sasl.gl.drawWidePolyLine({262,388,  262,414}, 2, ECAM_COLOURS.GREEN)
-        elseif get(xfeed_state) == valve_states.transit then
-            sasl.gl.drawCircle(262, 401, 13, true, ECAM_COLOURS.ORANGE)
-            sasl.gl.drawCircle(262, 401, 11, true, {0, 0, 0})
-            sasl.gl.drawWidePolyLine({262,388,  262,414}, 2, ECAM_COLOURS.ORANGE)
-        elseif get(xfeed_state) == valve_states.open then
+        elseif get(crossFeed) == 1 then
             sasl.gl.drawCircle(262, 401, 13, true, ECAM_COLOURS.GREEN)
             sasl.gl.drawCircle(262, 401, 11, true, {0, 0, 0})
             sasl.gl.drawWidePolyLine({235,401,  288,401}, 2, ECAM_COLOURS.GREEN)
@@ -92,7 +84,7 @@ function draw_fuel_page()--draw the fuel page
     local function drawApuStatus()
         sasl.gl.drawText(AirbusFont, 90, 396, "APU", 18, false, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.WHITE)
 
-        -- if get(apu_valve_state) == valve_states.closed and get(apu_master) == switch_states.on then
+        -- if get(apuPump) == valve_states.closed and get(apu_master) == switch_states.on then
         --     sasl.gl.drawCircle(182, 426, 13, false, ECAM_COLOURS.ORANGE)
         --     sasl.gl.drawPolyLine({169,426,  195,426}, ECAM_COLOURS.ORANGE)
         --     -- draw horizontal line
@@ -103,10 +95,12 @@ function draw_fuel_page()--draw the fuel page
         -- elseif get(apu_valve_state) == valve_states.transit then
         --     sasl.gl.drawCircle(182, 426, 13, false, ECAM_COLOURS.ORANGE)
         --     sasl.gl.drawPolyLine({172,416,  192,436}, ECAM_COLOURS.ORANGE)
-        -- elseif get(apu_valve_state) == valve_states.open then
-        --     sasl.gl.drawCircle(182, 426, 13, false, ECAM_COLOURS.GREEN)
-        --     sasl.gl.drawPolyLine({183,413,  183,439}, ECAM_COLOURS.GREEN)
-        -- end
+        if get(apuPump) == 1 then
+            sasl.gl.drawWidePolyLine({106, 402, 124, 410, 124, 394, 106, 402}, 1, ECAM_COLOURS.GREEN)
+            sasl.gl.drawWideLine(124, 402, 135, 402, 1, ECAM_COLOURS.GREEN)
+        else
+            sasl.gl.drawWidePolyLine({106, 402, 124, 410, 124, 394, 106, 402}, 1, ECAM_COLOURS.WHITE)
+        end
     end
 
     local function drawPumpStates()
