@@ -18,7 +18,7 @@ local eng2Starter = globalProperty("sim/cockpit2/engine/actuators/ignition_key[1
 local eng1Shutdown = sasl.findCommand("sim/starters/shut_down_1")
 local eng2Shutdown = sasl.findCommand("sim/starters/shut_down_2")
 
-function startup()
+local function startup()
     if get(eng1N1) > 1 or get(eng2N1) > 1 then
         set(eng1MSTR, 1)
         eng1IsRunning = 1

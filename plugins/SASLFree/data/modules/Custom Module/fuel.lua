@@ -26,10 +26,13 @@ local eng2N1 = globalProperty("sim/flightmodel/engine/ENGN_N1_[1]")
 local eng2FF = globalProperty("sim/flightmodel/engine/ENGN_FF_[1]")
 local eng2Burning = globalProperty("sim/flightmodel2/engines/engine_is_burning_fuel[1]")
 
+local fuelTotal = globalProperty("sim/flightmodel/weight/m_fuel_total")
 local fuelTanks = globalPropertyfa("sim/cockpit2/fuel/fuel_quantity")
 local centerTank = globalProperty("sim/flightmodel/weight/m_fuel[0]")
 local leftTank = globalProperty("sim/flightmodel/weight/m_fuel[2]")
+local outerTankL = globalProperty("sim/flightmodel/weight/m_fuel[4]")
 local rightTank = globalProperty("sim/flightmodel/weight/m_fuel[1]")
+local outerTankR = globalProperty("sim/flightmodel/weight/m_fuel[3]")
 
 local ltr1 = globalProperty("sim/cockpit2/fuel/fuel_tank_pump_on[0]")
 local ltr2 = globalProperty("sim/cockpit2/fuel/fuel_tank_pump_on[1]")
@@ -37,6 +40,13 @@ local ctr1 = globalProperty("sim/cockpit2/fuel/fuel_tank_pump_on[4]")
 local ctr2 = globalProperty("sim/cockpit2/fuel/fuel_tank_pump_on[5]")
 local rtr1 = globalProperty("sim/cockpit2/fuel/fuel_tank_pump_on[2]")
 local rtr2 = globalProperty("sim/cockpit2/fuel/fuel_tank_pump_on[3]")
+local crossFeed = createGlobalPropertyi("A318/systems/FUEL/XFEED", 0)
+local apuPump = createGlobalPropertyi("A318/systems/FUEL/APUPump", 0)
+local apuMstr = globalProperty("A318/systems/ELEC/APUMASTRSwtch")
+local apuN1 = globalProperty("sim/cockpit/engine/APU_N1")
+
+local eng1LP = createGlobalPropertyi("A318/systems/FUEL/ENG1LP", 0)
+local eng2LP = createGlobalPropertyi("A318/systems/FUEL/ENG2LP", 0)
 
 local switches = {
     lTk1 = createGlobalPropertyi("A318/systems/FUEL/LTKPUMP1Switch", 0),
@@ -75,15 +85,30 @@ function update()
         startup_complete = true
     end
 
+    if get(eng1MSTR) == 1 then
+        set(eng1LP, 1)
+    else
+        set(eng1LP, 0)
+    end
+    if get(eng2MSTR) == 1 then
+        set(eng2LP, 1)
+    else
+        set(eng2LP, 0)
+    end
+
     -- If any of left pumps are on, the left engine has fuel
-    if get(ctr1) == 1 or get(ltr1) == 1 or get(ltr2) == 1 and (get(centerTank) > 0 or get(leftTank) > 0) then
+    if get(eng1LP) == 1 and get(leftTank) > 0 then
+        set(fuelflowLeft, 1)
+    elseif get(ctr1) == 1 and get(centerTank) > 0 then
         set(fuelflowLeft, 1)
     else
         set(fuelflowLeft, 0)
     end
 
     -- If any of right pumps are on, the right engine has fuel
-    if get(ctr2) == 1 or get(rtr1) == 1 or get(rtr2) == 1 and (get(centerTank) > 0 or get(rightTank) > 0) then
+    if get(eng2LP) == 1 and get(rightTank) > 0 then
+        set(fuelflowRight, 1)
+    elseif get(ctr2) == 1 and get(centerTank) > 0 then
         set(fuelflowRight, 1)
     else
         set(fuelflowRight, 0)
@@ -111,6 +136,13 @@ function update()
     if get(eng2MSTR) == 0 then
         Timer2 = 0
         twoAfterStart2 = 0
+    end
+
+    -- APU PUMP
+    if get(apuMstr) == 1 then
+        set(apuPump, 1)
+    else
+        set(apuPump, 0)
     end
 
     -- LEFT PUMPS
@@ -189,7 +221,7 @@ function update()
         if get(ctr1) == 1 then
             set(centerTank, (get(centerTank) - (get(DELTA_TIME) * get(eng1FF))))
         end
-        if (get(ltr1) == 1 or get(ltr2) == 1) and get(ctr1) == 0 then
+        if get(ctr1) == 0 then
             set(leftTank, (get(leftTank) - (get(DELTA_TIME) * get(eng1FF))))
         end
     else
@@ -201,11 +233,37 @@ function update()
         if get(ctr2) == 1 then
             set(centerTank, (get(centerTank) - (get(DELTA_TIME) * get(eng2FF))))
         end
-        if (get(rtr1) == 1 or get(rtr2) == 1) and get(ctr2) == 0 then
+        if get(ctr2) == 0 then
             set(rightTank, (get(rightTank) - (get(DELTA_TIME) * get(eng2FF))))
         end
     else
         -- nothing
     end
 
+    -- APU FUEL BURN
+    if get(apuN1) > 15 then
+        if get(leftTank) > 0 then
+            set(leftTank, (get(leftTank) - (get(DELTA_TIME) * 0.035)))
+        elseif get(centerTank) > 0 then
+            set(centerTank, (get(centerTank) - (get(DELTA_TIME) * 0.035)))
+        end
+    else
+        -- No burn
+    end
+
+    -- LEFT OUTER TANK TRANSFER
+    if get(leftTank) < 750 then
+        if get(outerTankL) > 0 then
+            set(leftTank, (get(leftTank) + (get(DELTA_TIME) * 2)))
+            set(outerTankL, (get(outerTankL) - (get(DELTA_TIME) * 2)))
+        end
+    end
+
+    -- RIGHT OUTER TANK TRANSFER
+    if get(rightTank) < 750 then
+        if get(outerTankR) > 0 then
+            set(rightTank, (get(rightTank) + (get(DELTA_TIME) * 2)))
+            set(outerTankR, (get(outerTankR) - (get(DELTA_TIME) * 2)))
+        end
+    end
 end
