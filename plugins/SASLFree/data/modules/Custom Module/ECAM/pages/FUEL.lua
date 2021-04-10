@@ -84,17 +84,6 @@ function draw_fuel_page()--draw the fuel page
     local function drawApuStatus()
         sasl.gl.drawText(AirbusFont, 90, 396, "APU", 18, false, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.WHITE)
 
-        -- if get(apuPump) == valve_states.closed and get(apu_master) == switch_states.on then
-        --     sasl.gl.drawCircle(182, 426, 13, false, ECAM_COLOURS.ORANGE)
-        --     sasl.gl.drawPolyLine({169,426,  195,426}, ECAM_COLOURS.ORANGE)
-        --     -- draw horizontal line
-        -- elseif get(apu_valve_state) == valve_states.closed then
-        --     sasl.gl.drawCircle(182, 426, 13, false, ECAM_COLOURS.GREEN)
-        --     sasl.gl.drawPolyLine({169,426,  195,426}, ECAM_COLOURS.GREEN)
-        --     -- draw horizontal line
-        -- elseif get(apu_valve_state) == valve_states.transit then
-        --     sasl.gl.drawCircle(182, 426, 13, false, ECAM_COLOURS.ORANGE)
-        --     sasl.gl.drawPolyLine({172,416,  192,436}, ECAM_COLOURS.ORANGE)
         if get(apuPump) == 1 then
             sasl.gl.drawWidePolyLine({106, 402, 124, 410, 124, 394, 106, 402}, 1, ECAM_COLOURS.GREEN)
             sasl.gl.drawWideLine(124, 402, 135, 402, 1, ECAM_COLOURS.GREEN)
