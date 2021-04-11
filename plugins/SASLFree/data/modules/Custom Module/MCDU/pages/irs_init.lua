@@ -54,9 +54,7 @@ end
 function update_irs_init()
     data.reference[2] = get(mcdu_origin)
     local lat = ""..get(gps_positon.latitude)
-    print(lat)
     local long = ""..get(gps_positon.longitude)
-    print(long)
     data.lat[2] = lat:sub(1, 2).."°  "..lat:sub(3, 4).."."..lat:sub(5, 5).." "..lat:sub(1,1)
     data.long[2] = ""..get(gps_positon.longitude)
     if not referenceCoordsFound then

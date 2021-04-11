@@ -17,11 +17,14 @@ local altitude = globalProperty("A318/systems/ADIRS/1/air/altitude")
 local vertSpeed = globalProperty("sim/cockpit2/gauges/indicators/vvi_fpm_pilot")
 local pitch = globalProperty("A318/systems/ADIRS/1/inertial/pitch")
 local roll = globalProperty("A318/systems/ADIRS/1/inertial/roll")
+local sideSlip = globalProperty("sim/cockpit2/gauges/indicators/sideslip_degrees")
 local radAlt = globalProperty("sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot")
 local radioMins = globalProperty("sim/cockpit/misc/radio_altimeter_minimum")
 
 local baroSetting = globalProperty("sim/cockpit2/gauges/actuators/barometer_setting_in_hg_pilot")
 local units = createGlobalPropertyi("A318/systems/PFD/QNH_unit_CAPT", 1)
+
+local captPfdBright = createGlobalPropertyf("A318/cockpit/capt/pfdBright", 1)
 
 --variables
 local startup_complete = false
@@ -35,6 +38,7 @@ local alt = 0
 local vvi = 0
 local p = 0
 local r = 0
+local slip = 0
 local radioAlt = 0
 
 local baro = 0
@@ -78,6 +82,7 @@ function pfd()
     sasl.gl.drawText(AirbusFont, 220, 232, "ATT", 31, true, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.RED)
   else
     artificial_horizon()
+    angleOfBank()
   end
   --
 
@@ -270,6 +275,16 @@ function pfd()
   fma()
 end
 
+function angleOfBank()
+  sasl.gl.saveGraphicsContext()
+  sasl.gl.setTranslateTransform(220,242)
+  sasl.gl.setRotateTransform(-r)
+
+  sasl.gl.drawWidePolyLine({0, 118, -12, 118, 0, 136, 12, 118, 0, 118}, 2, ECAM_COLOURS.YELLOW)
+
+  sasl.gl.restoreGraphicsContext()
+end
+
 function artificial_horizon()
   local horizon = 242 - (6.0625 * p)
   local gap = horizon - 145
@@ -389,6 +404,7 @@ function update()
   vvi = get(vertSpeed)
   p = get(pitch)
   r = get(roll)
+  slip = get(sideSlip)
   radioAlt = get(radAlt)
 
   baro = get(baroSetting)
@@ -415,5 +431,6 @@ function draw()
     Timer = 0
     selfTest = 0
   end
+  sasl.gl.drawRectangle(0, 0, 500, 500, {0.0, 0.0, 0.0, 1 - get(captPfdBright)})
   sasl.gl.resetClipArea()
 end

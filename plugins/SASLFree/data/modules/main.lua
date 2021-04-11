@@ -20,11 +20,12 @@ components = {
   elec {};
   FADEC {};
   ADIRS {};
+  fuel {};
   hydraulics {};
   bleed {};
   mcdu {
     fbo = true ,
-    fpsLimit = 2
+    fpsLimit = 29
   };
   PFD_CAPT {
     fbo = true ,
@@ -63,6 +64,7 @@ components = {
       fbo = true,
       fpsLimit = 20
   };
+  cockpit {};
 }
 
 function onModuleDone()

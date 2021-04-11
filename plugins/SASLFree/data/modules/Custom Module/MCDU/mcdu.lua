@@ -22,9 +22,9 @@ size = {479, 400}
 local MCDU_BLACK = {0 , 0 , 0 , 1.0}
 AIRBUS_FONT = sasl.gl.loadFont("fonts/PanelFont.ttf")
 --MCDU_FONT = sasl.gl.loadFont("fonts/B612Mono-Regular.ttf")
-MCDU_FONT = sasl.gl.loadFont("fonts/courbd.ttf")
-BLANK_FONT = sasl.gl.loadFont("fonts/courbd.ttf")
-MCDU_FONT_BOLD = sasl.gl.loadFont("fonts/courbd.ttf")
+MCDU_FONT = sasl.gl.loadFont("fonts/mcduf.ttf")
+BLANK_FONT = sasl.gl.loadFont("fonts/BBStrata.ttf")
+MCDU_FONT_BOLD = sasl.gl.loadFont("fonts/mcduf.ttf")
 MCDU_CURRENT_PAGE = createGlobalPropertyi("A318/cockpit/mcdu/current_page", 0)
 local Airbus_VERSION = "A318-100"
 ENG_TYPE = "CFM-56-B"
@@ -35,7 +35,9 @@ local blinkTimer = sasl.createTimer()
 local isBlinking = false
 --Buttons Datarefs 
 
-sasl.gl.setFontGlyphSpacingFactor (BLANK_FONT, 1.5)
+sasl.gl.setFontGlyphSpacingFactor (BLANK_FONT, 1.2)
+sasl.gl.setFontGlyphSpacingFactor (MCDU_FONT, 1.1)
+sasl.gl.setFontGlyphSpacingFactor (MCDU_FONT_BOLD, 1.1)
 
 local BUTTON_1_L = createGlobalPropertyi("A318/cockpit/mcdu/buttons/left/1", 0)
 local BUTTON_2_L = createGlobalPropertyi("A318/cockpit/mcdu/buttons/left/2", 0)
@@ -162,7 +164,7 @@ title_location = {
     font_size = 30
 }
 
-option_heading_font_size = 21
+option_heading_font_size = 20
 option_heading_locations = {
     [1] = 333,
     [2] = 280,
@@ -181,7 +183,7 @@ mdcu_positons = {
     [6] = 40
 }
 
-mcdu_option_size = 24
+mcdu_option_size = 26
 
 mcdu_font_colors = {
     [1] = {1, 1, 1, 1},
@@ -212,7 +214,6 @@ local function checkInput()
         if get(keys[i]) == 1 then
             SCRATCHPAD = SCRATCHPAD..letters[i]
             set(keys[i], 0)
-            print(i)
         end
     end
     if get(CLR_KEY) == 1 then
@@ -270,7 +271,7 @@ end
 
 function draw()
     if get(BUS) > 0 then
-      sasl.gl.drawRectangle(0, 0, 479, 400, {0, 15/255, 28/255, 1.0})
+      --sasl.gl.drawRectangle(0, 0, 479, 400, {0, 15/255, 28/255, 1.0})
       if not isBlinking then
         sasl.gl.drawText(MCDU_FONT, 10, 10, SCRATCHPAD, mcdu_option_size, false, false, TEXT_ALIGN_LEFT, mcdu_font_colors[1])
         --drawCalls[get(MCDU_CURRENT_PAGE)]()

@@ -1,13 +1,13 @@
 -- A318 by X-Bureau --
 
-position = {296, 1630, 143, 180}
-size = {40, 250}
+position = {296, 1630, 141, 154}
+size = {141, 154}
 
 local startup_complete = false
 
 local DELTA_TIME = globalProperty("sim/operation/misc/frame_rate_period")
 local font = sasl.gl.loadFont("fonts/digital.ttf")
-local colour = {0.96, 0.73, 0.28, 1.0}
+local colour = {0.96, 0.73, 0.28, 0.6}
 
 local onGround = globalProperty("sim/flightmodel/failures/onground_any")
 local GS = globalProperty("sim/flightmodel/position/groundspeed")
@@ -543,21 +543,33 @@ function update()
     end
 end
 
-function round(num, numDecimalPlaces)
+local function round(num, numDecimalPlaces)
     local mult = 10^(numDecimalPlaces or 0)
-    return math.floor(num * mult + 0.5) / mult
+    return string.format("%.1f", math.floor(num * mult + 0.5) / mult)
+end
+
+local function getDec(num)
+    local result = string.sub(num, 4, 4)
+    if result == "" then
+        return "0"
+    else
+        return result
+    end
 end
 
 function draw()
     
     if get(bat_1.voltage) > 14 then
-        sasl.gl.saveGraphicsContext()
-        sasl.gl.setRotateTransform(90)
-        sasl.gl.setTranslateTransform(-250,0)
-        sasl.gl.drawText(font, 2.5, 2.5, string.format("%.1f", round(get(bat_1.voltage), 1)), 50, false, false, TEXT_ALIGN_LEFT, colour)
-        sasl.gl.drawText(font, 145.5, 2.5, string.format("%.1f", round(get(bat_2.voltage), 1)), 50, false, false, TEXT_ALIGN_LEFT, colour)
-        sasl.gl.restoreGraphicsContext()
-    else
-        -- Nothing
+        sasl.gl.setClipArea(-2, 0, 141, 160)
+        sasl.gl.drawText(font, -2, 119, math.floor(get(bat_1.voltage)), 62, false, false, TEXT_ALIGN_LEFT, colour)
+        sasl.gl.drawText(font, 62, 119, ".", 62, false, false, TEXT_ALIGN_CENTER, colour)
+        sasl.gl.drawText(font, 68, 119, getDec(get(bat_1.voltage)), 62, false, false, TEXT_ALIGN_LEFT, colour)
+        sasl.gl.drawText(font, 136, 141, "v", 62, false, false, TEXT_ALIGN_RIGHT, colour)
+        sasl.gl.drawText(font, 4, 15, math.floor(get(bat_2.voltage)), 62, false, false, TEXT_ALIGN_LEFT, colour)
+        sasl.gl.drawText(font, 68, 15, ".", 62, false, false, TEXT_ALIGN_CENTER, colour)
+        sasl.gl.drawText(font, 74, 15, getDec(get(bat_2.voltage)), 62, false, false, TEXT_ALIGN_LEFT, colour)
+        sasl.gl.drawText(font, 142, 37, "v", 62, false, false, TEXT_ALIGN_RIGHT, colour)
+        sasl.gl.drawRectangle(115, 57, 130, 5, {0,0,0,1})
+        sasl.gl.resetClipArea()
     end
 end

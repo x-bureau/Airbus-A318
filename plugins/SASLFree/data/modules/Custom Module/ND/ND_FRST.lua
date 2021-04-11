@@ -35,6 +35,7 @@ local frstNdVORD = createGlobalPropertyi("A318/systems/ND/frst_vord", 0)
 local frstNdNDB = createGlobalPropertyi("A318/systems/ND/frst_ndb", 0)
 local frstNdARPT = createGlobalPropertyi("A318/systems/ND/frst_arpt", 0)
 local frstNdTERR = createGlobalPropertyi("A318/systems/ND/frst_terr", 0)
+local foNdBright = createGlobalPropertyf("A318/cockpit/fo/ndBright", 1)
 
 --fonts
 local ndFont = sasl.gl.loadFont("fonts/PanelFont.ttf")
@@ -398,6 +399,6 @@ function draw()
         Timer = 0
         selfTest = 0
     end
-
+    sasl.gl.drawRectangle(0,0,500,500, {0.0, 0.0, 0.0, 1 - get(foNdBright)})
     sasl.gl.resetClipArea()
 end
