@@ -4,8 +4,7 @@ OBJ
 
 TEXTURE	../Textures/External_ALB.png
 TEXTURE_NORMAL	../Textures/External_NML.png
-ATTR_NORMAL_METALNESS	
-Global_specular	1
+NORMAL_METALNESS
 ATTR_no_cull
 POINT_COUNTS	13008	0	0	40560
 
@@ -17098,7 +17097,6 @@ IDX10	12810	13002	13007	12810	13006	12964	12916	12997	13006	12916
 			# 3 Mesh: AirBrakes Up right
 			# MESH: AirBrakes Up right	weight: 0
 			# MATERIAL: External_M
-			ATTR_shiny_rat	0.5
 			TRIS	0 114
 	ANIM_end
 	# 1 Armature: AirBrakesUPLeft
