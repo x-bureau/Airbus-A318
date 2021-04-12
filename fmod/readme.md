@@ -3,7 +3,7 @@ by Matt726
 
 Available for: X-Bureau Airbus A318
 
-Version: v0.5b
+Version: v0.6b
 
 Email: mfahrenheit135@gmail.com
 
@@ -15,6 +15,13 @@ Discord ID: Matt726#7182
 
 ---
 ## CHANGELOG:
+
+### v0.6b:
+
+- added wind sounds
+- stall and retard sounds
+- apu sounds
+- improved button sounds
 
 ### v0.5b:
 

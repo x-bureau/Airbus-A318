@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.01.08.00">
     <object class="Event" id="{c055fdf4-e4a2-42a1-8e2f-31abfc652c13}">
         <relationship name="uiLastParameterSelection">
-            <destination>{249b2a4c-694f-42e7-8d8b-bfed7fba1ade}</destination>
+            <destination>{17e8ad07-0b8d-4764-852b-2b0c5f78a149}</destination>
         </relationship>
     </object>
     <object class="MasterTrack" id="{5ba14757-21cb-4a9f-8871-a85383e0bd1c}">
@@ -25,7 +25,7 @@
     </object>
     <object class="Timeline" id="{249b2a4c-694f-42e7-8d8b-bfed7fba1ade}">
         <property name="cursorPosition">
-            <value>48.972431414739106</value>
+            <value>52.837520172135555</value>
         </property>
         <property name="uiLastRulerScaleRatio">
             <value>0.04392146315223238</value>

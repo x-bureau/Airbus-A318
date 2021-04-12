@@ -2,10 +2,10 @@
 <objects serializationModel="Studio.01.08.00">
     <object class="Event" id="{e4d8e8b0-f53e-447c-b89a-276a5d9ab478}">
         <relationship name="selectables">
-            <destination>{b31b99e0-71ef-48dc-82b6-bec9b925f4cd}</destination>
+            <destination>{ca98456c-3be1-4093-9b3c-9fa09e317bf1}</destination>
         </relationship>
         <relationship name="uiLastParameterSelection">
-            <destination>{3a1cf2a6-693d-45cd-8d41-15c21d533da0}</destination>
+            <destination>{ca98456c-3be1-4093-9b3c-9fa09e317bf1}</destination>
         </relationship>
     </object>
     <object class="MasterTrack" id="{ccce4ed5-b40a-43e0-b8a3-059fa8fd22ff}"/>
@@ -31,6 +31,14 @@
         </property>
         <property name="uiLastRulerScaleRatio">
             <value>0.010758472296933835</value>
+        </property>
+    </object>
+    <object class="GameParameter" id="{ca98456c-3be1-4093-9b3c-9fa09e317bf1}">
+        <property name="cursorPosition">
+            <value>0.0032400000000000003</value>
+        </property>
+        <property name="uiLastRulerScaleRatio">
+            <value>2.0000000000000002e-05</value>
         </property>
     </object>
     <object class="EventMixerMaster" id="{cef2d262-515c-4d1d-b445-15eb87f17f8e}">

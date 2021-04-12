@@ -43,6 +43,7 @@
             <destination>{535e39e5-e1f4-4808-aa81-f9860ce7ff1d}</destination>
             <destination>{f4001ff3-5a6f-4357-a1be-740f0cc76794}</destination>
             <destination>{57e14845-7dee-4b34-85e6-183b7e58045a}</destination>
+            <destination>{8853a004-baf8-49f4-a9ac-99c308110e44}</destination>
         </relationship>
         <relationship name="banks">
             <destination>{d99384cd-e093-45b8-a707-f5471724efa0}</destination>
@@ -340,6 +341,17 @@
             <destination>{edd58caa-897f-4d91-9116-e514ac1d8ae8}</destination>
         </relationship>
     </object>
+    <object class="GameParameter" id="{8853a004-baf8-49f4-a9ac-99c308110e44}">
+        <property name="name">
+            <value>sim/flightmodel/position/true_airspeed</value>
+        </property>
+        <property name="maximum">
+            <value>500</value>
+        </property>
+        <relationship name="automationCurves">
+            <destination>{e8726143-b49a-4646-a49a-b6adeca9f2a1}</destination>
+        </relationship>
+    </object>
     <object class="EventMixerMaster" id="{ac9035bb-6aeb-4f8a-939d-f35a8eb5fb1c}">
         <relationship name="effectChain">
             <destination>{f95c84ea-9374-46a0-84c4-89f8def24cd9}</destination>
@@ -379,6 +391,7 @@
         </property>
         <relationship name="automationCurves">
             <destination>{2182bf61-709f-43b1-83dc-96616ebd26fc}</destination>
+            <destination>{e8726143-b49a-4646-a49a-b6adeca9f2a1}</destination>
         </relationship>
         <relationship name="objectBeingAutomated">
             <destination>{ac9035bb-6aeb-4f8a-939d-f35a8eb5fb1c}</destination>
@@ -1529,6 +1542,13 @@
         <relationship name="automationPoints">
             <destination>{9dec47e0-97e4-46c1-9c27-a348dc50dd79}</destination>
             <destination>{89818084-54b3-4897-86e8-69c13e23ab24}</destination>
+        </relationship>
+    </object>
+    <object class="AutomationCurve" id="{e8726143-b49a-4646-a49a-b6adeca9f2a1}">
+        <relationship name="automationPoints">
+            <destination>{7892d26c-55b4-4140-9134-dd56d09f507b}</destination>
+            <destination>{a75930af-15fd-4144-9f75-512385622621}</destination>
+            <destination>{1525ebed-eb52-4500-b1eb-9f9afbcb064c}</destination>
         </relationship>
     </object>
     <object class="MixerBusEffectChain" id="{f95c84ea-9374-46a0-84c4-89f8def24cd9}">
@@ -2972,6 +2992,33 @@
         </property>
         <property name="value">
             <value>0</value>
+        </property>
+    </object>
+    <object class="AutomationPoint" id="{7892d26c-55b4-4140-9134-dd56d09f507b}">
+        <property name="position">
+            <value>0</value>
+        </property>
+        <property name="value">
+            <value>0</value>
+        </property>
+    </object>
+    <object class="AutomationPoint" id="{a75930af-15fd-4144-9f75-512385622621}">
+        <property name="position">
+            <value>500</value>
+        </property>
+        <property name="value">
+            <value>-18.6339149</value>
+        </property>
+    </object>
+    <object class="AutomationPoint" id="{1525ebed-eb52-4500-b1eb-9f9afbcb064c}">
+        <property name="position">
+            <value>139.33982683982683</value>
+        </property>
+        <property name="value">
+            <value>-1.85826111</value>
+        </property>
+        <property name="curveShape">
+            <value>-0.115099929</value>
         </property>
     </object>
     <object class="ChannelMixEffect" id="{8a588c36-3975-427e-a512-e1086fbf1db3}">
