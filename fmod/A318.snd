@@ -826,20 +826,19 @@ BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Warnings/GPWS/10
 	VEH_XYZ 0 1.3 -13.3
 	EVENT_START_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot <= 11
-	EVENT_START_COND sim/cockpit2/engine/actuators/throttle_ratio_all == 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Warnings/GPWS/5
 	VEH_XYZ 0 1.3 -13.3
 	EVENT_START_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot <= 6
-	EVENT_START_COND sim/cockpit2/engine/actuators/throttle_ratio_all == 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Warnings/GPWS/retard
 	VEH_XYZ 0 1.3 -13.3
 	EVENT_START_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot < 15
+	EVENT_START_COND sim/cockpit2/gauges/indicators/vvi_fpm_pilot < 0
 	EVENT_AUTO_END_FROM_START_COND
 END_SOUND_ATTACHMENT
 
