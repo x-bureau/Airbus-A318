@@ -4,7 +4,8 @@ OBJ
 
 TEXTURE	../Textures/Pylon_M_ALB.png
 TEXTURE_NORMAL	../Textures/Pylon_M_NRM.png
-ATTR_NORMAL_METALNESS	
+NORMAL_METALNESS
+GLOBAL_specular	1
 Global_specular	1
 POINT_COUNTS	886	0	0	3054
 
@@ -1209,7 +1210,6 @@ IDX	881
 	# 1 Mesh: Pylon
 	# MESH: Pylon	weight: 2
 	# MATERIAL: Pylon_M
-	ATTR_shiny_rat	0.5
 	TRIS	0 3054
 
 # Build with Blender 2.82 (sub 7) (build b'375c7dc4caf4'). Exported with XPlane2Blender 4.0.0-beta.1+75.20200310161256
