@@ -4,8 +4,8 @@ OBJ
 
 TEXTURE	../Textures/External_ALB.png
 TEXTURE_NORMAL	../Textures/External_NML.png
-ATTR_NORMAL_METALNESS	
-Global_specular	1
+NORMAL_METALNESS
+ATTR_no_cull
 POINT_COUNTS	13008	0	0	40560
 
 VT	-0.14896469	0.267667	-0.14716235	0.46374273	0.8683697	-0.17571822	0.45673853	0.3244645	# 0
@@ -17097,7 +17097,6 @@ IDX10	12810	13002	13007	12810	13006	12964	12916	12997	13006	12916
 			# 3 Mesh: AirBrakes Up right
 			# MESH: AirBrakes Up right	weight: 0
 			# MATERIAL: External_M
-			ATTR_shiny_rat	0.5
 			TRIS	0 114
 	ANIM_end
 	# 1 Armature: AirBrakesUPLeft
@@ -17157,12 +17156,12 @@ IDX10	12810	13002	13007	12810	13006	12964	12916	12997	13006	12916
 	# static translation
 	ANIM_trans	0	-0.01145	-0.14673001	0	-0.01145	-0.14673001
 	# rotation keyframes
-	ANIM_rotate_begin	0	1	0	sim/flightmodel2/engines/engine_rotation_angle_deg
+	ANIM_rotate_begin	0	1	0	sim/flightmodel2/engines/engine_rotation_angle_deg[1]
 	ANIM_rotate_key	0	-90.00020741
 	ANIM_rotate_key	90	-90.00020741
 		ANIM_keyframe_loop	360.0
 	ANIM_rotate_end
-	ANIM_rotate_begin	1	0	0	sim/flightmodel2/engines/engine_rotation_angle_deg
+	ANIM_rotate_begin	1	0	0	sim/flightmodel2/engines/engine_rotation_angle_deg[1]
 	ANIM_rotate_key	0	0
 	ANIM_rotate_key	90	-90.00020741
 		ANIM_keyframe_loop	360.0
