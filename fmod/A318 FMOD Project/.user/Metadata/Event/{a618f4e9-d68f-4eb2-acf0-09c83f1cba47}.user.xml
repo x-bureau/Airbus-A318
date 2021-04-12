@@ -5,7 +5,7 @@
             <destination>{ba339e53-c711-444d-bd33-b2e751bdbf80}</destination>
         </relationship>
         <relationship name="uiLastParameterSelection">
-            <destination>{b07c5102-78ad-46b7-ad36-1f43b14f1772}</destination>
+            <destination>{d3e52379-06ba-449e-a4e1-dc1f3599ca99}</destination>
         </relationship>
     </object>
     <object class="MasterTrack" id="{ba339e53-c711-444d-bd33-b2e751bdbf80}"/>
@@ -31,6 +31,11 @@
         </property>
         <property name="uiLastRulerScaleRatio">
             <value>0.010758472296933835</value>
+        </property>
+    </object>
+    <object class="GameParameter" id="{d3e52379-06ba-449e-a4e1-dc1f3599ca99}">
+        <property name="uiLastRulerScaleRatio">
+            <value>0.00053792361484669173</value>
         </property>
     </object>
     <object class="EventMixerMaster" id="{fdd633f7-051e-4f6f-b186-43cb2de90e50}">

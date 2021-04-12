@@ -5,7 +5,7 @@
             <destination>{82078d81-6f6f-4eba-9c31-b055f5cbec2d}</destination>
         </relationship>
         <relationship name="uiLastParameterSelection">
-            <destination>{7ca30180-cc46-4ae3-bf9b-dd7b293fdb80}</destination>
+            <destination>{2f586f7a-997d-4cee-84d3-b0f4c2c26665}</destination>
         </relationship>
     </object>
     <object class="MasterTrack" id="{82078d81-6f6f-4eba-9c31-b055f5cbec2d}">
@@ -28,7 +28,7 @@
     </object>
     <object class="Timeline" id="{2f586f7a-997d-4cee-84d3-b0f4c2c26665}">
         <property name="cursorPosition">
-            <value>3.1651093229115221</value>
+            <value>0</value>
         </property>
         <property name="uiLastRulerScaleRatio">
             <value>0.0064201000464736754</value>

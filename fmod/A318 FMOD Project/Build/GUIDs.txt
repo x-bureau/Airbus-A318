@@ -1,4 +1,8 @@
 {b018efae-a86d-4596-a7d1-6520c84e1d21} event:/Ambience/Ground/roll
+{4793e335-c4c7-4eaf-80dd-6a2434b07c7c} event:/Ambience/Wind/in_wind
+{f42ad213-4299-4640-9cfb-1d22ecad80b3} event:/APU/apu
+{ffcc6004-1819-4a7a-bb42-0f53be9e620d} event:/APU/apu_shutdown
+{fa202a2f-2dae-4e45-8248-8e880e72d5fe} event:/Cockpit/Avionics/apu_start_cockpit
 {8da1a4ee-a62c-4d03-8af2-c76515400842} event:/Cockpit/Avionics/battery
 {51b75302-3808-4ecd-bd50-fa3a68c7bbff} event:/Cockpit/Avionics/battery_relay1
 {af26b813-2c68-4c98-8046-56219f4ff30a} event:/Cockpit/Avionics/battery_relay2
@@ -21,9 +25,12 @@
 {876afc56-c59f-4209-9fe1-601e8eb0410e} event:/Cockpit/Switches/knob1
 {61383ed8-7c82-4549-9d0b-1377fbdd182f} event:/Cockpit/Switches/knob2
 {e2a82559-26b9-4d16-940e-39b4a780f9ba} event:/Cockpit/Switches/start_switch
+{a352ef44-b0e3-4ece-a8b5-c46cef34767b} event:/Cockpit/Switches/button1_hold
+{b55e8115-a6a6-4162-b34f-43dca2de4c4b} event:/Cockpit/Switches/button1_release
 {c055fdf4-e4a2-42a1-8e2f-31abfc652c13} event:/Engines/CFM56/Start/start1
 {4d3ed636-06f2-4cd2-9b3d-750991b55b81} event:/Engines/CFM56/engine1
-{e744c6f9-5aec-4655-85e0-2b66f59ca3f6} event:/Engines/CFM56/engine2
+{8f486d3c-57e7-498a-beee-c6905b16fc34} event:/Engines/CFM56/engine2
+{e2f2524c-e37c-4499-8fbe-77ce4483b33f} event:/Engines/CFM56/shutdown
 {ae95c61c-2ae6-4c0d-a384-157f3779a40b} event:/Flight Controls/Flaps/flap
 {06fcbe4f-a4a3-4b9a-9b5d-584c1cb1dc94} event:/Flight Controls/Flaps/flapend
 {13fcb492-b4a3-4875-b846-0a44340eb633} event:/Hydraulics/PTU/ptu
@@ -43,6 +50,8 @@
 {360075bb-9788-4e74-8a39-50891fb77c02} event:/Warnings/GPWS/500
 {f01e8474-011c-40bb-8049-ce1be825bcc7} event:/Warnings/GPWS/60
 {7fac190d-e485-4a50-aeb7-20c1835b3268} event:/Warnings/GPWS/70
+{0df6fb73-d402-4b51-8b4e-b0ea2384a4ec} event:/Warnings/GPWS/retard
+{a69bc2d5-07e1-45e8-9f07-6065be586912} event:/Warnings/GPWS/stall
 {01061263-70c6-4558-9b56-ba49ccc2935e} event:/Warnings/autopilot_disconnect
 {4caf973c-c922-45af-b5f8-5bdd80ffcbc1} event:/Warnings/cockpit_chime
 {e9e1fd2e-c702-41b0-9067-a19bd94f0d9e} event:/Warnings/start_chime
@@ -60,6 +69,7 @@
 {5a9d3159-8e75-4300-ad79-1ca127f6cc50} snapshot:/init
 {b3e2a382-b0ac-4b73-a99e-c51371118ffc} snapshot:/all
 {c774a932-88c0-4af9-8cc5-3595f231daae} bank:/ambience
+{df843f1b-1a8c-4e06-9bfa-7daa03d12c92} bank:/APU
 {0276c23d-c401-4ddd-a53c-a527fe681af9} bank:/Cockpit
 {d99384cd-e093-45b8-a707-f5471724efa0} bank:/EngineCFM
 {cf0558c0-0759-40be-a3c8-2d5c69a2bbfa} bank:/flightcontrols
