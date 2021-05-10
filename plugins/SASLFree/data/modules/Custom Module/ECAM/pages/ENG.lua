@@ -117,6 +117,7 @@ function draw_eng_page()--draw engine page
     sasl.gl.drawWideLine(313, 219, 287, 219, 2, ECAM_COLOURS.WHITE)
     sasl.gl.drawText(AirbusFont, 352, 214, "0.0", 21, true, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.GREEN)
 
+    -- IGN MODE
     if get(modeSel) == 2 then
         sasl.gl.drawText(AirbusFont, 261, 156, "IGN", 21, true, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.WHITE)
         sasl.gl.drawText(AirbusFont, 261, 91, "PSI", 19, true, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.BLUE)

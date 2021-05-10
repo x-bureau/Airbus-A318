@@ -18,6 +18,9 @@ local faultLights = {
         eng1 = createGlobalPropertyi("A318/cockpit/lights/fault/eng1", 0),
         eng2 = createGlobalPropertyi("A318/cockpit/lights/fault/eng2", 0),
         apu = createGlobalPropertyi("A318/cockpit/lights/fault/apubleed", 0),
+    },
+    fuel = {
+
     }
 }
 
@@ -39,6 +42,17 @@ local lights = {
         eng1 = createGlobalPropertyi("A318/cockpit/lights/eng1", 0),
         eng2 = createGlobalPropertyi("A318/cockpit/lights/eng2", 0),
         apu = createGlobalPropertyi("A318/cockpit/lights/apubleed", 0),
+    },
+    fuel = {
+        ltk1 = createGlobalPropertyi("A318/cockpit/lights/ltk1", 0),
+        ltk2 = createGlobalPropertyi("A318/cockpit/lights/ltk2", 0),
+        ctk1 = createGlobalPropertyi("A318/cockpit/lights/ctk1", 0),
+        ctkMode = createGlobalPropertyi("A318/cockpit/lights/ctkmode", 0),
+        xfeed = createGlobalPropertyi("A318/cockpit/lights/xfeed", 0),
+        xfeedOp = createGlobalPropertyi("A318/cockpit/lights/xfeedOp", 0),
+        ctk2 = createGlobalPropertyi("A318/cockpit/lights/ctk2", 0),
+        rtk1 = createGlobalPropertyi("A318/cockpit/lights/rtk1", 0),
+        rtk2 = createGlobalPropertyi("A318/cockpit/lights/rtk2", 0),
     }
 }
 
@@ -54,11 +68,21 @@ local switches = {
         gpu = globalProperty("A318/systems/ELEC/EXTPWRSwtch")
     },
     aircond = {
-        pack1 = createGlobalPropertyi("A318/systems/bleed/PACK1", 0),
-        pack2 = createGlobalPropertyi("A318/systems/bleed/PACK2", 0),
-        eng1 = createGlobalPropertyi("A318/systems/bleed/ENG1BLEED", 0),
-        eng2 = createGlobalPropertyi("A318/systems/bleed/ENG2BLEED", 0),
-        apu = createGlobalPropertyi("A318/systems/bleed/APUBLEED", 0),
+        pack1 = globalProperty("A318/systems/bleed/PACK1"),
+        pack2 = globalProperty("A318/systems/bleed/PACK2"),
+        eng1 = globalProperty("A318/systems/bleed/ENG1BLEED"),
+        eng2 = globalProperty("A318/systems/bleed/ENG2BLEED"),
+        apu = globalProperty("A318/systems/bleed/APUBLEED"),
+    },
+    fuel = {
+        lTk1 = globalProperty("A318/systems/FUEL/LTKPUMP1Switch"),
+        lTk2 = globalProperty("A318/systems/FUEL/LTKPUMP2Switch"),
+        ctr1 = globalProperty("A318/systems/FUEL/CTRPUMP1Switch"),
+        ctrMode = globalProperty("A318/systems/FUEL/CTRPUMPMODESwitch"),
+        xfeed = globalProperty("A318/systems/FUEL/XFEEDSwitch"),
+        ctr2 = globalProperty("A318/systems/FUEL/CTRPUMP2Switch"),
+        rTk1 = globalProperty("A318/systems/FUEL/RTKPUMP1Switch"),
+        rTk2 = globalProperty("A318/systems/FUEL/RTKPUMP2Switch")
     }
 }
 
@@ -155,6 +179,51 @@ function aircondLights()
     end
 end
 
+function fuelLights()
+    if get(switches.fuel.lTk1) == 1 then
+        set(lights.fuel.ltk1, 0)
+    else
+        set(lights.fuel.ltk1, 1)
+    end
+    if get(switches.fuel.lTk2) == 1 then
+        set(lights.fuel.ltk2, 0)
+    else
+        set(lights.fuel.ltk2, 1)
+    end
+    if get(switches.fuel.ctr1) == 1 then
+        set(lights.fuel.ctk1, 0)
+    else
+        set(lights.fuel.ctk1, 1)
+    end
+    if get(switches.fuel.ctr2) == 1 then
+        set(lights.fuel.ctk2, 0)
+    else
+        set(lights.fuel.ctk2, 1)
+    end
+    if get(switches.fuel.rTk1) == 1 then
+        set(lights.fuel.rtk1, 0)
+    else
+        set(lights.fuel.rtk1, 1)
+    end
+    if get(switches.fuel.rTk2) == 1 then
+        set(lights.fuel.rtk2, 0)
+    else
+        set(lights.fuel.rtk2, 1)
+    end
+
+    if get(switches.fuel.ctrMode) == 1 then
+        set(lights.fuel.ctkMode, 1)
+    else
+        set(lights.fuel.ctkMode, 0)
+    end
+
+    if get(switches.fuel.xfeed) == 1 then
+        set(lights.fuel.xfeed, 1)
+    else
+        set(lights.fuel.xfeed, 0)
+    end
+end
+
 function update()
     -- GPU AVAIL LIGHT
     if get(gpuAvail) == 1 then
@@ -166,6 +235,7 @@ function update()
     if get(AC1) > 0 or get(AC2) > 0 then
         elecLights()
         aircondLights()
+        fuelLights()
     else
         set(lights.elec.bat1, 0)
         set(lights.elec.bat2, 0)
@@ -180,5 +250,14 @@ function update()
         set(lights.aircond.eng1, 0)
         set(lights.aircond.eng2, 0)
         set(lights.aircond.apu, 0)
+        set(lights.fuel.ltk1, 0)
+        set(lights.fuel.ltk2, 0)
+        set(lights.fuel.ctk1, 0)
+        set(lights.fuel.ctk2, 0)
+        set(lights.fuel.rtk1, 0)
+        set(lights.fuel.rtk2, 0)
+        set(lights.fuel.ctkMode, 0)
+        set(lights.fuel.xfeed, 0)
+        set(lights.fuel.xfeedOp, 0)
     end
 end
