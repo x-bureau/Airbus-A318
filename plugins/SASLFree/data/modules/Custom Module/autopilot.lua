@@ -1,9 +1,9 @@
 --Airbus A318 By X-Bureau--
 -----------------------------------------------------------------------------------------------------
 -- Written by 
-
+-- FBI914 
 -- Evn
-
+--THIS IS A SPED UPDATE
 
 -- TODO : figure out some way to throttle up depeding on what speed they asked
 -----------------------------------------------------------------------------------------------------
