@@ -2,6 +2,8 @@ position = {30, 50, 495, 500}
 size = {500, 500}
 
 -- get datarefs
+local setupComplete = false
+enrouteWaypoints = {}
 local startup_complete = false
 local eng1N1 = globalProperty("sim/flightmodel/engine/ENGN_N1_[0]")
 
@@ -15,6 +17,11 @@ local TimerFinal = math.random(25, 40)
 local ADIRS_mode = globalProperty("A318/systems/ADIRS/1/mode")
 local ADIRS_aligned = globalProperty("A318/systems/ADIRS/1/aligned")
 local heading = globalPropertyf("A318/systems/ADIRS/1/inertial/heading")
+local currentLat = globalPropertyf("A318/systems/ADIRS/1/inertial/latitude")
+local currentLon = globalPropertyf("A318/systems/ADIRS/1/inertial/longitude")
+
+local latGroup = 0
+local lonGroup = 0
 
 local navid = globalProperty("sim/cockpit2/radios/indicators/nav1_nav_id")
 local navfreq = globalProperty("sim/cockpit/radios/nav1_freq_hz")
@@ -29,6 +36,7 @@ local windspeed = globalPropertyf("sim/weather/wind_speed_kt")
 
 local CaptNdMode = createGlobalPropertyi("A318/systems/ND/capt_mode", 3)
 local rngeKnob = createGlobalPropertyi("A318/systems/ND/capt_rnge", 2)
+local CaptNdRnge = 40
 
 local CaptNdCSTR = createGlobalPropertyi("A318/systems/ND/capt_cstr", 0)
 local CaptNdWPT = createGlobalPropertyi("A318/systems/ND/capt_wpt", 0)
@@ -262,6 +270,11 @@ local function draw_nav_unaligned()
 end
 
 local function draw_arc()
+    if get(CaptNdWPT) == 1 then
+        if get(CaptNdRnge) <= 80 then
+            draw_waypoints()
+        end
+    end
     sasl.gl.drawTexture(miniplane, 225, 50, 50, 50, ECAM_COLOURS.WHITE)
     sasl.gl.drawRotatedTexture(arcTape, -1 * get(heading), -123, -290, 746, 746, ECAM_COLOURS.WHITE)
     sasl.gl.drawWideLine(250, 398, 250, 425, 3, ECAM_COLOURS.YELLOW )
@@ -277,10 +290,6 @@ local function draw_arc()
     sasl.gl.drawText(ndFont, 35, 187, 3 * (get(CaptNdRnge) / 4), 15, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.BLUE)
     sasl.gl.drawText(ndFont, 390, 150, get(CaptNdRnge) / 2, 15, false, false, TEXT_ALIGN_RIGHT, ECAM_COLOURS.BLUE)
     sasl.gl.drawText(ndFont, 465, 187, 3 * (get(CaptNdRnge) / 4), 15, false, false, TEXT_ALIGN_RIGHT, ECAM_COLOURS.BLUE)
-
-    if get(CaptNdARPT) == 1 then
-        --draw_airports()
-    end
 end
 
 local function draw_arc_unaligned()
@@ -318,14 +327,142 @@ local function draw_plan()
     sasl.gl.drawWideLine(250, 417, 250, 433, 3, ECAM_COLOURS.YELLOW )
 end
 
-function draw_airports()
-    sasl.gl.drawTexturePart(symbols, 233, 200, 17, 17, 0, 100, 25, 25, ECAM_COLOURS.WHITE)
-    sasl.gl.setFontGlyphSpacingFactor (AirbusFont, 0.85)
-    sasl.gl.drawText(AirbusFont, 250, 198, "EGKK", 17, true, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.PURPLE)
-    sasl.gl.setFontGlyphSpacingFactor (AirbusFont, 1)
+function draw_waypoints()
+    for i, wpt in ipairs(enrouteWaypoints[latGroup][lonGroup]) do
+        local x, y = recomputePoint(get(wpt.lat), get(wpt.lon), get(currentLat), get(currentLon), get(CaptNdRnge), get(heading), 330)
+        sasl.gl.drawTexturePart(symbols, (242 + x), 75 + y, 16, 16, 25, 100, 25, 25, ECAM_COLOURS.WHITE)
+        sasl.gl.drawText(ndFont, (260 + x), 80 + y, get(wpt.fixId), 15, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.PURPLE)
+    end
+
+    for u=-1,1 do
+        for i, wpt in ipairs(enrouteWaypoints[latGroup + u][lonGroup - 2]) do
+            local x, y = recomputePoint(get(wpt.lat), get(wpt.lon), get(currentLat), get(currentLon), get(CaptNdRnge), get(heading), 330)
+            sasl.gl.drawTexturePart(symbols, (242 + x), 75 + y, 16, 16, 25, 100, 25, 25, ECAM_COLOURS.WHITE)
+            sasl.gl.drawText(ndFont, (260 + x), 80 + y, get(wpt.fixId), 15, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.PURPLE)
+        end
+        for i, wpt in ipairs(enrouteWaypoints[latGroup + u][lonGroup - 1]) do
+            local x, y = recomputePoint(get(wpt.lat), get(wpt.lon), get(currentLat), get(currentLon), get(CaptNdRnge), get(heading), 330)
+            sasl.gl.drawTexturePart(symbols, (242 + x), 75 + y, 16, 16, 25, 100, 25, 25, ECAM_COLOURS.WHITE)
+            sasl.gl.drawText(ndFont, (260 + x), 80 + y, get(wpt.fixId), 15, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.PURPLE)
+        end
+        for i, wpt in ipairs(enrouteWaypoints[latGroup + u][lonGroup + 1]) do
+            local x, y = recomputePoint(get(wpt.lat), get(wpt.lon), get(currentLat), get(currentLon), get(CaptNdRnge), get(heading), 330)
+            sasl.gl.drawTexturePart(symbols, (242 + x), 75 + y, 16, 16, 25, 100, 25, 25, ECAM_COLOURS.WHITE)
+            sasl.gl.drawText(ndFont, (260 + x), 80 + y, get(wpt.fixId), 15, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.PURPLE)
+        end
+        for i, wpt in ipairs(enrouteWaypoints[latGroup + u][lonGroup + 2]) do
+            local x, y = recomputePoint(get(wpt.lat), get(wpt.lon), get(currentLat), get(currentLon), get(CaptNdRnge), get(heading), 330)
+            sasl.gl.drawTexturePart(symbols, (242 + x), 75 + y, 16, 16, 25, 100, 25, 25, ECAM_COLOURS.WHITE)
+            sasl.gl.drawText(ndFont, (260 + x), 80 + y, get(wpt.fixId), 15, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.PURPLE)
+        end
+    end
+end
+
+function setup()
+    local path = getXPlanePath()
+    loadWaypoints(path .. "/Custom Data/earth_fix.dat")
+end
+function loadWaypoints(path)
+    if not isFileExists(path) then
+        print("Waypoints file does not exist")
+        return
+    end
+    readFileLines(path, addWaypoint)
+    print("Waypoints found and read.")
+end
+function readFileLines(path, lineFunction)
+    local file = io.open(path, "rb")
+    if not file then
+        return nil
+    end
+    local lineNumber = 0
+    for line in io.lines(path) do
+        lineNumber = lineNumber + 1
+        -- if lineNumber > 50 then
+        --     break
+        -- end
+        if lineNumber > 4 then
+            lineFunction(line)
+        end
+    end
+
+    file:close()
+end
+
+function addWaypoint(line)
+    local lat, lon, fixId, airportId, icaoRegion, waypointType = line:match("([%d%-%.]+)%s+([%d%-%.]+)%s+(%w+)%s+(%w+)%s+(%w+)%s+(%d+)")
+    if not lon then
+        return false
+    end
+    if airportId == "ENRT" then
+        return addEnrouteWaypoint(lat, lon, fixId, airportId, icaoRegion, waypointType)
+    end
+end
+
+function group(num)
+    return math.floor(num)
+end
+
+function addEnrouteWaypoint(lat, lon, fixId, airportId, icaoRegion, waypointType)
+    local latGroup = group(lat)
+    local lonGroup = group(lon)
+    if type(enrouteWaypoints[latGroup]) ~= "table" then
+        enrouteWaypoints[latGroup] = {}
+    end
+    if type(enrouteWaypoints[latGroup][lonGroup]) ~= "table" then
+        enrouteWaypoints[latGroup][lonGroup] = {}
+    end
+    table.insert(enrouteWaypoints[latGroup][lonGroup], {lat = lat, lon = lon, fixId = fixId, airportId = airportId, icaoRegion = icaoRegion, waypointType = waypointType})
+end
+
+local function gnome(lat, lon, clat, clon)
+    local sin = math.sin
+    local cos = math.cos
+    local cosc = sin(clat) * sin(lat) + cos(clat) * cos(lat) * cos(lon - clon)
+    local x = (cos(lat) * sin(lon - clon)) / cosc
+    local y = (cos(clat) * sin(lat) - sin(clat) * cos(lat) * cos(lon - clon)) / cosc
+    return x, y
+end
+
+
+local function haversine(lat1, lon1, lat2, lon2)
+    local sin = math.sin
+    local cos = math.cos
+    local dLat = (lat2 - lat1)
+    local dLon = (lon2 - lon1)
+    local h = sin(dLat / 2) * sin(dLat / 2) + sin(dLon / 2) * sin(dLon / 2) * cos(lat1) * cos(lat2)
+    local c = 2 * math.asin(h ^ .5) * 3440.1
+    return c
+end
+
+function recomputePoint(lat, lon, centerLat, centerLon, range, hdg, iscale)
+    lat = math.rad(lat)
+    lon = math.rad(lon)
+    centerLat = math.rad(centerLat)
+    centerLon = math.rad(centerLon)
+    local hd = haversine(centerLat, centerLon, lat, lon)
+    local force = (hd / range)
+    local gx, gy = gnome(lat, lon, centerLat, centerLon)
+    local d = math.sqrt(gx ^ 2 + gy ^ 2)
+    local nfx = -(gx / d) * force
+    local nfy = -(gy / d) * force
+    local fx = nfx
+    local fy = nfy
+    local x, y = -fx * iscale, -fy * iscale
+    local a = x * math.cos(math.rad(hdg)) - y * math.sin(math.rad(hdg))
+    local b = x * math.sin(math.rad(hdg)) + y * math.cos(math.rad(hdg))
+
+    return a, b
 end
 
 function update()
+    latGroup = group(get(currentLat))
+    lonGroup = group(get(currentLon))
+    
+    if not setupComplete then
+        setup()
+        setupComplete = true
+    end
 
     if not startup_complete then
         plane_startup()
@@ -364,7 +501,7 @@ end
 function draw()
     sasl.gl.setClipArea(0,0,500,500)
 
-    if get(BUS) > 0 then
+    if get(BUS) > 0 or get(BUS) == 0 then
         if selfTest == 1 then
             if get(CaptNdMode) == 0 then
                 if get(ADIRS_aligned) == 0 or get(ADIRS_mode) == 2 then

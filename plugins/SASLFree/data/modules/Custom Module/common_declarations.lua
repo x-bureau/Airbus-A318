@@ -6,7 +6,8 @@ ECAM_COLOURS = {
     BLUE = {0.004, 1.0, 1.0, 1.0},
     GREY = {0.25, 0.26, 0.26, 1.0},
     YELLOW = {1.0, 1.0, 0, 1.0},
-    BLACK = {0.0, 0.0, 0.0, 1.0}
+    BLACK = {0.0, 0.0, 0.0, 1.0},
+    PURPLE = {1, 0, 1, 1.0}
 }
 
 AirbusFont = sasl.gl.loadFont("fonts/Thales-PFDNDECAM-Large.ttf")
