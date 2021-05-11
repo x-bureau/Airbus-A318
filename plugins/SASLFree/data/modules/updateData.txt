@@ -1,5 +1,5 @@
 ---------------
-Version: 0.4.1 [rc2]
+Version: 0.4.3 [rc2]
 Author: yumyumcurryman
 Fixes (max of 4 by separated by comma): fixed i/c update bug, other minor changes
 ---------------
