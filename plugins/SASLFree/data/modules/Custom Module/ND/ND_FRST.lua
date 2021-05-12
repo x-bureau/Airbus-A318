@@ -54,6 +54,7 @@ local symbols = sasl.gl.loadImage("ND/symbols.png")
 local miniplane = sasl.gl.loadImage("plane.png", 0, 0, 160, 160)
 local rose = sasl.gl.loadImage("rose.png", 0, 0, 550, 550)
 local rose_unaligned = sasl.gl.loadImage("rose-unaligned.png", 0, 0, 550, 550)
+local arcMask = sasl.gl.loadImage("ND/arcMask.png")
 local arcTape = sasl.gl.loadImage("arc.png", 0, 0, 2048, 2048)
 local arcTape_unaligned = sasl.gl.loadImage("arc_unaligned.png", 0, 0, 2048, 2048)
 
@@ -276,6 +277,7 @@ local function draw_arc()
             draw_waypoints()
         end
     end
+    sasl.gl.drawTexture(arcMask, 0, 0, 500, 500, ECAM_COLOURS.WHITE)
     sasl.gl.drawTexture(miniplane, 225, 50, 50, 50, ECAM_COLOURS.WHITE)
     sasl.gl.drawRotatedTexture(arcTape, -1 * get(heading), -123, -290, 746, 746, ECAM_COLOURS.WHITE)
     sasl.gl.drawWideLine(250, 398, 250, 425, 3, ECAM_COLOURS.YELLOW )
@@ -355,16 +357,15 @@ end
 
 function setup()
     local path = getXPlanePath()
-    loadWaypoints(path .. "/Custom Data/earth_fix.dat")
-end
-function loadWaypoints(path)
+    local earthFix = path .. "/Custom Data/earth_fix.dat"
+    
     if not isFileExists(path) then
-        print("Waypoints file does not exist")
-        return
+        earthFix = path .. "/Resources/default data/earth_fix.dat"
     end
-    readFileLines(path, addWaypoint)
-    print("Waypoints found and read.")
+
+    readFileLines(earthFix, addWaypoint)
 end
+
 function readFileLines(path, lineFunction)
     local file = io.open(path, "rb")
     if not file then
@@ -373,9 +374,6 @@ function readFileLines(path, lineFunction)
     local lineNumber = 0
     for line in io.lines(path) do
         lineNumber = lineNumber + 1
-        -- if lineNumber > 50 then
-        --     break
-        -- end
         if lineNumber > 4 then
             lineFunction(line)
         end
