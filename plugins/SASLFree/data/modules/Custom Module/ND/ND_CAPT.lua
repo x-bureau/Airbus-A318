@@ -3,7 +3,8 @@ size = {500, 500}
 
 -- get datarefs
 local setupComplete = false
-enrouteWaypoints = {}
+local enrouteWaypoints = {}
+local enrouteNavaids = {}
 local startup_complete = false
 local eng1N1 = globalProperty("sim/flightmodel/engine/ENGN_N1_[0]")
 
@@ -276,6 +277,11 @@ local function draw_arc()
             draw_waypoints()
         end
     end
+    if get(CaptNdNDB) == 1 then
+        if get(CaptNdRnge) <= 80 then
+            draw_ndbs()
+        end
+    end
     sasl.gl.drawTexture(arcMask, 0, 0, 500, 500, ECAM_COLOURS.WHITE)
     sasl.gl.drawTexture(miniplane, 225, 50, 50, 50, ECAM_COLOURS.WHITE)
     sasl.gl.drawRotatedTexture(arcTape, -1 * get(heading), -123, -290, 746, 746, ECAM_COLOURS.WHITE)
@@ -360,15 +366,65 @@ function draw_waypoints()
     end
 end
 
+function draw_ndbs()
+    for i, ndb in ipairs(enrouteNavaids[latGroup][lonGroup]) do
+        if get(ndb.navType) == "2" then
+            print(get(ndb.navId))
+            local x, y = recomputePoint(get(ndb.lat), get(ndb.lon), get(currentLat), get(currentLon), get(CaptNdRnge), get(heading), 330)
+            sasl.gl.drawTexturePart(symbols, (242 + x), 75 + y, 16, 16, 100, 100, 25, 25, ECAM_COLOURS.WHITE)
+            sasl.gl.drawText(ndFont, (260 + x), 80 + y, get(ndb.navId), 15, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.PURPLE)
+        end
+    end
+
+    for u=-1,1 do
+        for i, ndb in ipairs(enrouteNavaids[latGroup + u][lonGroup - 2]) do
+            if get(ndb.navType) == "2" then
+                print(get(ndb.navId))
+                local x, y = recomputePoint(get(ndb.lat), get(ndb.lon), get(currentLat), get(currentLon), get(CaptNdRnge), get(heading), 330)
+                sasl.gl.drawTexturePart(symbols, (242 + x), 75 + y, 16, 16, 100, 100, 25, 25, ECAM_COLOURS.WHITE)
+                sasl.gl.drawText(ndFont, (260 + x), 80 + y, get(ndb.navId), 15, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.PURPLE)
+            end
+        end
+        for i, ndb in ipairs(enrouteNavaids[latGroup + u][lonGroup - 1]) do
+            if get(ndb.navType) == "2" then
+                print(get(ndb.navId))
+                local x, y = recomputePoint(get(ndb.lat), get(ndb.lon), get(currentLat), get(currentLon), get(CaptNdRnge), get(heading), 330)
+                sasl.gl.drawTexturePart(symbols, (242 + x), 75 + y, 16, 16, 100, 100, 25, 25, ECAM_COLOURS.WHITE)
+                sasl.gl.drawText(ndFont, (260 + x), 80 + y, get(ndb.navId), 15, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.PURPLE)
+            end
+        end
+        for i, ndb in ipairs(enrouteNavaids[latGroup + u][lonGroup + 1]) do
+            print(get(ndb.navId))
+            if get(ndb.navType) == "2" then
+                local x, y = recomputePoint(get(ndb.lat), get(ndb.lon), get(currentLat), get(currentLon), get(CaptNdRnge), get(heading), 330)
+                sasl.gl.drawTexturePart(symbols, (242 + x), 75 + y, 16, 16, 25, 100, 25, 25, ECAM_COLOURS.WHITE)
+                sasl.gl.drawText(ndFont, (260 + x), 80 + y, get(ndb.navId), 15, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.PURPLE)
+            end
+        end
+        for i, ndb in ipairs(enrouteNavaids[latGroup + u][lonGroup + 2]) do
+            if get(ndb.navType) == "2" then
+                local x, y = recomputePoint(get(ndb.lat), get(ndb.lon), get(currentLat), get(currentLon), get(CaptNdRnge), get(heading), 330)
+                sasl.gl.drawTexturePart(symbols, (242 + x), 75 + y, 16, 16, 25, 100, 25, 25, ECAM_COLOURS.WHITE)
+                sasl.gl.drawText(ndFont, (260 + x), 80 + y, get(ndb.navId), 15, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.PURPLE)
+            end
+        end
+    end
+end
+
 function setup()
     local path = getXPlanePath()
     local earthFix = path .. "/Custom Data/earth_fix.dat"
+    local earthNav = path .. "/Custom Data/earth_nav.dat"
     
-    if not isFileExists(path) then
+    if not isFileExists(earthFix) then
         earthFix = path .. "/Resources/default data/earth_fix.dat"
+    end
+    if not isFileExists(earthNav) then
+        earthNav = path .. "/Resources/default data/earth_nav.dat"
     end
 
     readFileLines(earthFix, addWaypoint)
+    readFileLines(earthNav, addNavaid)
 end
 
 function readFileLines(path, lineFunction)
@@ -397,6 +453,17 @@ function addWaypoint(line)
     end
 end
 
+function addNavaid(line)
+    local navType, lat, lon, elev, freq, class, slavedVar, navId, airportId, icaoRegion, navName = line:match("(%d+)%s+([%d%-%.]+)%s+([%d%-%.]+)%s+(%d+)%s+(%d+)%s+([%d%-%.]+)%s+([%d%-%.]+)%s+(%w+)%s+(%w+)%s+(%w+)%s+(%w+)")
+    if not lon then
+        return false
+    end
+    
+    if navType == "2" or navType == "3" then
+        return addEnrouteNavaid(navType, lat, lon, navId)
+    end
+end
+
 function group(num)
     return math.floor(num)
 end
@@ -411,6 +478,18 @@ function addEnrouteWaypoint(lat, lon, fixId, airportId, icaoRegion, waypointType
         enrouteWaypoints[latGroup][lonGroup] = {}
     end
     table.insert(enrouteWaypoints[latGroup][lonGroup], {lat = lat, lon = lon, fixId = fixId, airportId = airportId, icaoRegion = icaoRegion, waypointType = waypointType})
+end
+
+function addEnrouteNavaid(navType, lat, lon, navId)
+    local latGroup = group(lat)
+    local lonGroup = group(lon)
+    if type(enrouteNavaids[latGroup]) ~= "table" then
+        enrouteNavaids[latGroup] = {}
+    end
+    if type(enrouteNavaids[latGroup][lonGroup]) ~= "table" then
+        enrouteNavaids[latGroup][lonGroup] = {}
+    end
+    table.insert(enrouteNavaids[latGroup][lonGroup], {navType = navType, lat = lat, lon = lon, navId = navId})
 end
 
 local function gnome(lat, lon, clat, clon)
@@ -456,7 +535,7 @@ end
 function update()
     latGroup = group(get(currentLat))
     lonGroup = group(get(currentLon))
-    
+
     if not setupComplete then
         setup()
         setupComplete = true

@@ -3,7 +3,8 @@ size = {500, 500}
 
 -- get datarefs
 local setupComplete = false
-enrouteWaypoints = {}
+local enrouteWaypoints = {}
+local enrouteNavAids = {}
 local startup_complete = false
 local eng1N1 = globalProperty("sim/flightmodel/engine/ENGN_N1_[0]")
 
