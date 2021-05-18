@@ -1,10 +1,9 @@
 require "common_declarations"
 local lower_fuel_overlay = sasl.gl.loadImage("ECAM_LOWER_FUEL_OVERLAY.png")
-local centre_fuel_pump_mode = globalPropertyi("A318/systems/fuel/pumps/centre_mode_sel")
 local fuel_tank_pumps = globalPropertyia("sim/cockpit2/fuel/fuel_tank_pump_on", 8)
 local eng1LP = globalProperty("A318/systems/FUEL/ENG1LP")
 local eng2LP = globalProperty("A318/systems/FUEL/ENG2LP")
-local xfeed_state = globalPropertyi("A318/systems/fuel/pumps/xfeed_state")
+local xfeed_state = globalPropertyi("A318/systems/FUEL/XFEED")
 local fuel_current_quantity = globalPropertyfa("sim/cockpit2/fuel/fuel_quantity")
 local fuel_flow = createGlobalPropertyf("A318/systems/fuel/fuel_flow")
 local weight_fuel = globalPropertyf("sim/flightmodel/weight/m_fuel_total")
@@ -21,7 +20,7 @@ local function round(v, bracket)
 end
 
 function draw_fuel_page()--draw the fuel page
-    sasl.gl.drawTexture(lower_fuel_overlay, 0, 0, 522, 522)--we are drawing the overlay
+    sasl.gl.drawTexture(lower_fuel_overlay, 0, 0, 522, 522, ECAM_COLOURS.WHITE)--we are drawing the overlay
     -- F USED
     -- sasl.gl.drawText(AirbusFont, 175, 87, string.format("%.0f", round(get_weight(get(weight_fuel)), 10)), 20, false, false, TEXT_ALIGN_RIGHT, ECAM_COLOURS.GREEN)
     sasl.gl.drawText(AirbusFont, 262, 440, (get(efb_units) == units.metric and "KG" or "LBS"), 20, false, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.WHITE)
