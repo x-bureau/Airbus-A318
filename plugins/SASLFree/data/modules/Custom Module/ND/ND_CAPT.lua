@@ -345,7 +345,7 @@ function draw_waypoints()
         for i, wpt in ipairs(enrouteWaypoints[latGroup][lonGroup]) do
             local x, y = recomputePoint(get(wpt.lat), get(wpt.lon), get(currentLat), get(currentLon), get(CaptNdRnge), get(heading), 330)
             sasl.gl.drawTexturePart(symbols, (242 + x), 75 + y, 16, 16, 25, 100, 25, 25, ECAM_COLOURS.WHITE)
-            sasl.gl.drawText(ndFont, (260 + x), 80 + y, get(wpt.fixId), 15, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.PURPLE)
+            sasl.gl.drawText(ndFont, (260 + x), 65 + y, get(wpt.fixId), 20, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.PURPLE)
         end
     end
 
@@ -354,14 +354,14 @@ function draw_waypoints()
             for i, wpt in ipairs(enrouteWaypoints[latGroup + u][lonGroup - 2]) do
                 local x, y = recomputePoint(get(wpt.lat), get(wpt.lon), get(currentLat), get(currentLon), get(CaptNdRnge), get(heading), 330)
                 sasl.gl.drawTexturePart(symbols, (242 + x), 75 + y, 16, 16, 25, 100, 25, 25, ECAM_COLOURS.WHITE)
-                sasl.gl.drawText(ndFont, (260 + x), 80 + y, get(wpt.fixId), 15, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.PURPLE)
+                sasl.gl.drawText(ndFont, (260 + x), 65 + y, get(wpt.fixId), 20, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.PURPLE)
             end
         end
         if enrouteWaypoints[latGroup + u][lonGroup - 1] ~= nil then
             for i, wpt in ipairs(enrouteWaypoints[latGroup + u][lonGroup - 1]) do
                 local x, y = recomputePoint(get(wpt.lat), get(wpt.lon), get(currentLat), get(currentLon), get(CaptNdRnge), get(heading), 330)
                 sasl.gl.drawTexturePart(symbols, (242 + x), 75 + y, 16, 16, 25, 100, 25, 25, ECAM_COLOURS.WHITE)
-                sasl.gl.drawText(ndFont, (260 + x), 80 + y, get(wpt.fixId), 15, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.PURPLE)
+                sasl.gl.drawText(ndFont, (260 + x), 65 + y, get(wpt.fixId), 20, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.PURPLE)
             end
         end
         if u ~= 0 then
@@ -369,7 +369,7 @@ function draw_waypoints()
                 for i, wpt in ipairs(enrouteWaypoints[latGroup + u][lonGroup]) do
                     local x, y = recomputePoint(get(wpt.lat), get(wpt.lon), get(currentLat), get(currentLon), get(CaptNdRnge), get(heading), 330)
                     sasl.gl.drawTexturePart(symbols, (242 + x), 75 + y, 16, 16, 25, 100, 25, 25, ECAM_COLOURS.WHITE)
-                    sasl.gl.drawText(ndFont, (260 + x), 80 + y, get(wpt.fixId), 15, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.PURPLE)
+                    sasl.gl.drawText(ndFont, (260 + x), 65 + y, get(wpt.fixId), 20, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.PURPLE)
                 end
             end
         end
@@ -377,14 +377,14 @@ function draw_waypoints()
             for i, wpt in ipairs(enrouteWaypoints[latGroup + u][lonGroup + 1]) do
                 local x, y = recomputePoint(get(wpt.lat), get(wpt.lon), get(currentLat), get(currentLon), get(CaptNdRnge), get(heading), 330)
                 sasl.gl.drawTexturePart(symbols, (242 + x), 75 + y, 16, 16, 25, 100, 25, 25, ECAM_COLOURS.WHITE)
-                sasl.gl.drawText(ndFont, (260 + x), 80 + y, get(wpt.fixId), 15, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.PURPLE)
+                sasl.gl.drawText(ndFont, (260 + x), 65 + y, get(wpt.fixId), 20, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.PURPLE)
             end
         end
         if enrouteWaypoints[latGroup + u][lonGroup + 2] ~= nil then
             for i, wpt in ipairs(enrouteWaypoints[latGroup + u][lonGroup + 2]) do
                 local x, y = recomputePoint(get(wpt.lat), get(wpt.lon), get(currentLat), get(currentLon), get(CaptNdRnge), get(heading), 330)
                 sasl.gl.drawTexturePart(symbols, (242 + x), 75 + y, 16, 16, 25, 100, 25, 25, ECAM_COLOURS.WHITE)
-                sasl.gl.drawText(ndFont, (260 + x), 80 + y, get(wpt.fixId), 15, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.PURPLE)
+                sasl.gl.drawText(ndFont, (260 + x), 65 + y, get(wpt.fixId), 20, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.PURPLE)
             end
         end
     end
@@ -396,7 +396,7 @@ function draw_vors()
             if get(vor.navType) == "3" then
                 local x, y = recomputePoint(get(vor.lat), get(vor.lon), get(currentLat), get(currentLon), get(CaptNdRnge), get(heading), 330)
                 sasl.gl.drawTexturePart(symbols, (242 + x), 75 + y, 16, 16, 75, 100, 25, 25, ECAM_COLOURS.WHITE)
-                sasl.gl.drawText(ndFont, (260 + x), 80 + y, get(vor.navId), 15, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.PURPLE)
+                sasl.gl.drawText(ndFont, (260 + x), 65 + y, get(vor.navId), 20, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.PURPLE)
             end
         end
     end    
@@ -407,7 +407,7 @@ function draw_vors()
                 if get(vor.navType) == "3" then
                     local x, y = recomputePoint(get(vor.lat), get(vor.lon), get(currentLat), get(currentLon), get(CaptNdRnge), get(heading), 330)
                     sasl.gl.drawTexturePart(symbols, (242 + x), 75 + y, 16, 16, 75, 100, 25, 25, ECAM_COLOURS.WHITE)
-                    sasl.gl.drawText(ndFont, (260 + x), 80 + y, get(vor.navId), 15, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.PURPLE)
+                    sasl.gl.drawText(ndFont, (260 + x), 65 + y, get(vor.navId), 20, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.PURPLE)
                 end
             end
         end
@@ -416,7 +416,7 @@ function draw_vors()
                 if get(vor.navType) == "3" then
                     local x, y = recomputePoint(get(vor.lat), get(vor.lon), get(currentLat), get(currentLon), get(CaptNdRnge), get(heading), 330)
                     sasl.gl.drawTexturePart(symbols, (242 + x), 75 + y, 16, 16, 75, 100, 25, 25, ECAM_COLOURS.WHITE)
-                    sasl.gl.drawText(ndFont, (260 + x), 80 + y, get(vor.navId), 15, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.PURPLE)
+                    sasl.gl.drawText(ndFont, (260 + x), 65 + y, get(vor.navId), 20, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.PURPLE)
                 end
             end
         end
@@ -426,7 +426,7 @@ function draw_vors()
                     if get(vor.navType) == "2" then
                         local x, y = recomputePoint(get(vor.lat), get(vor.lon), get(currentLat), get(currentLon), get(CaptNdRnge), get(heading), 330)
                         sasl.gl.drawTexturePart(symbols, (242 + x), 75 + y, 16, 16, 75, 100, 25, 25, ECAM_COLOURS.WHITE)
-                        sasl.gl.drawText(ndFont, (260 + x), 80 + y, get(vor.navId), 15, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.PURPLE)
+                        sasl.gl.drawText(ndFont, (260 + x), 65 + y, get(vor.navId), 20, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.PURPLE)
                     end
                 end
             end
@@ -436,7 +436,7 @@ function draw_vors()
                 if get(vor.navType) == "3" then
                     local x, y = recomputePoint(get(vor.lat), get(vor.lon), get(currentLat), get(currentLon), get(CaptNdRnge), get(heading), 330)
                     sasl.gl.drawTexturePart(symbols, (242 + x), 75 + y, 16, 16, 75, 100, 25, 25, ECAM_COLOURS.WHITE)
-                    sasl.gl.drawText(ndFont, (260 + x), 80 + y, get(vor.navId), 15, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.PURPLE)
+                    sasl.gl.drawText(ndFont, (260 + x), 65 + y, get(vor.navId), 20, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.PURPLE)
                 end
             end
         end
@@ -445,7 +445,7 @@ function draw_vors()
                 if get(vor.navType) == "3" then
                     local x, y = recomputePoint(get(vor.lat), get(vor.lon), get(currentLat), get(currentLon), get(CaptNdRnge), get(heading), 330)
                     sasl.gl.drawTexturePart(symbols, (242 + x), 75 + y, 16, 16, 75, 100, 25, 25, ECAM_COLOURS.WHITE)
-                    sasl.gl.drawText(ndFont, (260 + x), 80 + y, get(vor.navId), 15, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.PURPLE)
+                    sasl.gl.drawText(ndFont, (260 + x), 65 + y, get(vor.navId), 20, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.PURPLE)
                 end
             end
         end
@@ -458,7 +458,7 @@ function draw_ndbs()
             if get(ndb.navType) == "2" then
                 local x, y = recomputePoint(get(ndb.lat), get(ndb.lon), get(currentLat), get(currentLon), get(CaptNdRnge), get(heading), 330)
                 sasl.gl.drawTexturePart(symbols, (242 + x), 75 + y, 16, 16, 100, 100, 25, 25, ECAM_COLOURS.WHITE)
-                sasl.gl.drawText(ndFont, (260 + x), 80 + y, get(ndb.navId), 15, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.PURPLE)
+                sasl.gl.drawText(ndFont, (260 + x), 65 + y, get(ndb.navId), 20, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.PURPLE)
             end
         end
     end    
@@ -469,7 +469,7 @@ function draw_ndbs()
                 if get(ndb.navType) == "2" then
                     local x, y = recomputePoint(get(ndb.lat), get(ndb.lon), get(currentLat), get(currentLon), get(CaptNdRnge), get(heading), 330)
                     sasl.gl.drawTexturePart(symbols, (242 + x), 75 + y, 16, 16, 100, 100, 25, 25, ECAM_COLOURS.WHITE)
-                    sasl.gl.drawText(ndFont, (260 + x), 80 + y, get(ndb.navId), 15, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.PURPLE)
+                    sasl.gl.drawText(ndFont, (260 + x), 65 + y, get(ndb.navId), 20, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.PURPLE)
                 end
             end
         end
@@ -478,7 +478,7 @@ function draw_ndbs()
                 if get(ndb.navType) == "2" then
                     local x, y = recomputePoint(get(ndb.lat), get(ndb.lon), get(currentLat), get(currentLon), get(CaptNdRnge), get(heading), 330)
                     sasl.gl.drawTexturePart(symbols, (242 + x), 75 + y, 16, 16, 100, 100, 25, 25, ECAM_COLOURS.WHITE)
-                    sasl.gl.drawText(ndFont, (260 + x), 80 + y, get(ndb.navId), 15, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.PURPLE)
+                    sasl.gl.drawText(ndFont, (260 + x), 65 + y, get(ndb.navId), 20, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.PURPLE)
                 end
             end
         end
@@ -488,7 +488,7 @@ function draw_ndbs()
                     if get(ndb.navType) == "2" then
                         local x, y = recomputePoint(get(ndb.lat), get(ndb.lon), get(currentLat), get(currentLon), get(CaptNdRnge), get(heading), 330)
                         sasl.gl.drawTexturePart(symbols, (242 + x), 75 + y, 16, 16, 100, 100, 25, 25, ECAM_COLOURS.WHITE)
-                        sasl.gl.drawText(ndFont, (260 + x), 80 + y, get(ndb.navId), 15, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.PURPLE)
+                        sasl.gl.drawText(ndFont, (260 + x), 65 + y, get(ndb.navId), 20, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.PURPLE)
                     end
                 end
             end
@@ -498,7 +498,7 @@ function draw_ndbs()
                 if get(ndb.navType) == "2" then
                     local x, y = recomputePoint(get(ndb.lat), get(ndb.lon), get(currentLat), get(currentLon), get(CaptNdRnge), get(heading), 330)
                     sasl.gl.drawTexturePart(symbols, (242 + x), 75 + y, 16, 16, 100, 100, 25, 25, ECAM_COLOURS.WHITE)
-                    sasl.gl.drawText(ndFont, (260 + x), 80 + y, get(ndb.navId), 15, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.PURPLE)
+                    sasl.gl.drawText(ndFont, (260 + x), 65 + y, get(ndb.navId), 20, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.PURPLE)
                 end
             end
         end
@@ -507,7 +507,7 @@ function draw_ndbs()
                 if get(ndb.navType) == "2" then
                     local x, y = recomputePoint(get(ndb.lat), get(ndb.lon), get(currentLat), get(currentLon), get(CaptNdRnge), get(heading), 330)
                     sasl.gl.drawTexturePart(symbols, (242 + x), 75 + y, 16, 16, 100, 100, 25, 25, ECAM_COLOURS.WHITE)
-                    sasl.gl.drawText(ndFont, (260 + x), 80 + y, get(ndb.navId), 15, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.PURPLE)
+                    sasl.gl.drawText(ndFont, (260 + x), 65 + y, get(ndb.navId), 20, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.PURPLE)
                 end
             end
         end
