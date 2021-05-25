@@ -1,3 +1,37 @@
+-- require 'MCDU.structs.Tree'
+-- require 'MCDU.structs.wpt'
+local aptTester = {}
+
+function processCustomAptData()
+	-- just testing and probably not going in final product
+	local path = getXPlanePath()
+	local aptData = io.open(path.."/Custom Data/GNS430/navdata/Airports.txt", "r")
+	if aptData == nil then
+		print("couldn't find file")
+	else
+		counter = 0
+		for line in aptData:lines() do
+			if string.sub(line, 1, 1) == "A" then
+				local tokens = createTokens(line, ",")
+				print(tokens[2])
+			end
+		end
+	end
+end
+
+-- function processCustomWaypointData()
+-- 	local wptData = io.open(getXPlanePath().."/Custom Data/GNS430/navdata/Waypoints.txt", "r")
+-- 	local tree = Tree:new()
+-- 	local counter = 0
+-- 	for line in wptData:lines() do
+-- 		local tokens = createTokens(line, ",")
+-- 		local wpt = wpt:new(tokens[1], tonumber(tokens[2]), tonumber(tokens[3]), tree:hash(tokens[1]))
+-- 		tree:insert(wpt)
+-- 	end
+-- 	return tree
+-- end
+
+
 function getOriginDestination(line)
 	-- get tokens
 	local result = ""

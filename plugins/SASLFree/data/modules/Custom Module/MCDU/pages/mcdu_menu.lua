@@ -31,6 +31,12 @@ function mcdu_menu_key_input(side, key)
             set(updatePageType, 1)
             set(MCDU_CURRENT_PAGE, 3)
         end
+        if key == 1 then
+            processCustomAptData()
+        end
+        if key == 2 then
+            set(MCDU_CURRENT_PAGE, 800)
+        end
         if key == 4 then
             if isUpdateAvailable() then
                 set(updatePageType, 0)
@@ -66,6 +72,8 @@ function draw_mcdu_menu()
         checkForUpdate()
         hasCheckedUpdate = true
     end
+    sasl.gl.drawText(MCDU_FONT_BOLD, 462, option_heading_locations[2], "EXPERIMENTAL", option_heading_font_size, false, false, TEXT_ALIGN_RIGHT, mcdu_font_colors[4])
+    sasl.gl.drawText(MCDU_FONT, 469, mdcu_positons[2], "WAYPOINT LOOKUP>", mcdu_option_size, false, false, TEXT_ALIGN_RIGHT, mcdu_font_colors[4])
     if isUpdateAvailable() then
         sasl.gl.drawText(MCDU_FONT, 469, mdcu_positons[4], "UPDATE AVAILABLE*>", mcdu_option_size, false, false, TEXT_ALIGN_RIGHT, mcdu_font_colors[4])
     end

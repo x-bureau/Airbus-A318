@@ -7,6 +7,7 @@ include("MCDU/pages/init_b.lua")
 include("MCDU/pages/data_index.lua")
 include("MCDU/pages/irs_init.lua")
 include("MCDU/pages/acf_update.lua")
+include("MCDU/pages/wpt_tester.lua")
 include("MCDU/mcdu_global_properties.lua")
 include("MCDU/fms_parser.lua")
 include("MCDU/updater.lua")
@@ -22,9 +23,9 @@ size = {479, 400}
 local MCDU_BLACK = {0 , 0 , 0 , 1.0}
 AIRBUS_FONT = sasl.gl.loadFont("fonts/PanelFont.ttf")
 --MCDU_FONT = sasl.gl.loadFont("fonts/B612Mono-Regular.ttf")
-MCDU_FONT = sasl.gl.loadFont("fonts/mcduf.ttf")
+MCDU_FONT = sasl.gl.loadFont("fonts/Roboto-Regular.ttf")
 BLANK_FONT = sasl.gl.loadFont("fonts/BBStrata.ttf")
-MCDU_FONT_BOLD = sasl.gl.loadFont("fonts/mcduf.ttf")
+MCDU_FONT_BOLD = sasl.gl.loadFont("fonts/Roboto-Bold.ttf")
 MCDU_CURRENT_PAGE = createGlobalPropertyi("A318/cockpit/mcdu/current_page", 0)
 local Airbus_VERSION = "A318-100"
 ENG_TYPE = "CFM-56-B"
@@ -35,9 +36,9 @@ local blinkTimer = sasl.createTimer()
 local isBlinking = false
 --Buttons Datarefs 
 
-sasl.gl.setFontGlyphSpacingFactor (BLANK_FONT, 1.2)
-sasl.gl.setFontGlyphSpacingFactor (MCDU_FONT, 1.1)
-sasl.gl.setFontGlyphSpacingFactor (MCDU_FONT_BOLD, 1.1)
+--sasl.gl.setFontGlyphSpacingFactor (BLANK_FONT, 1.2)
+sasl.gl.setFontGlyphSpacingFactor (MCDU_FONT, 1)
+sasl.gl.setFontGlyphSpacingFactor (MCDU_FONT_BOLD, 1)
 
 local BUTTON_1_L = createGlobalPropertyi("A318/cockpit/mcdu/buttons/left/1", 0)
 local BUTTON_2_L = createGlobalPropertyi("A318/cockpit/mcdu/buttons/left/2", 0)
@@ -156,15 +157,29 @@ keys = {
   [38] = createGlobalPropertyi("A318/cockpit/mcdu/keys/period", 0), --38
 }
 
+page_buttons = {
+    [1] = createGlobalPropertyi("A318/cockpit/mcdu/pageKeys/flightplan", 0),
+    [2] = createGlobalPropertyi("A318/cockpit/mcdu/pageKeys/perf", 0),
+    [3] = createGlobalPropertyi("A318/cockpit/mcdu/pageKeys/init", 0),
+    [4] = createGlobalPropertyi("A318/cockpit/mcdu/pageKeys/prog", 0),
+    [5] = createGlobalPropertyi("A318/cockpit/mcdu/pageKeys/prevPage", 0),
+    [6] = createGlobalPropertyi("A318/cockpit/mcdu/pageKeys/nextPage", 0),
+    [7] = createGlobalPropertyi("A318/cockpit/mcdu/pageKeys/pageUp", 0),
+    [8] = createGlobalPropertyi("A318/cockpit/mcdu/pageKeys/pageDown", 0),
+    [9] = createGlobalPropertyi("A318/cockpit/mcdu/pageKeys/mcduMenu", 0),
+    [10] = createGlobalPropertyi("A318/cockpit/mcdu/pageKeys/data", 0),
+    
+}
+
 ---------------------------------------------------------------------
 -- POSITIONS AND SIZING
 title_location = {
     x = 239,
     y = 360,
-    font_size = 30
+    font_size = 28
 }
 
-option_heading_font_size = 20
+option_heading_font_size = 18
 option_heading_locations = {
     [1] = 333,
     [2] = 280,
@@ -183,7 +198,7 @@ mdcu_positons = {
     [6] = 40
 }
 
-mcdu_option_size = 26
+mcdu_option_size = 24
 
 mcdu_font_colors = {
     [1] = {1, 1, 1, 1},
@@ -234,6 +249,11 @@ local function checkInput()
     end
 end
 
+function blink()
+    sasl.startTimer(blinkTimer)
+    isBlinking = true
+end
+
 function checkKeyInput()
     for i = 1, table.getn(buttonInputs), 1 do
         if get(buttonInputs[i]) == 1 then
@@ -251,8 +271,28 @@ function checkKeyInput()
             if isDisplayingError == false then
                 clearScratchpad()
             end
-            sasl.startTimer(blinkTimer)
-            isBlinking = true
+            blink()
+        end
+    end
+end
+
+function checkOtherButtons()
+    for i = 1, table.getn(page_buttons), 1 do
+        if get(page_buttons[i]) == 1 then
+            set(page_buttons[i], 0)
+            blink()
+            if i == 3 then
+                -- init a page
+                set(MCDU_CURRENT_PAGE, 11)
+            end
+            if i == 9 then
+                -- menu page
+                set(MCDU_CURRENT_PAGE, 0)
+            end
+            if i == 10 then
+                -- data page
+                set(MCDU_CURRENT_PAGE, 2)
+            end
         end
     end
 end
@@ -266,6 +306,7 @@ function update()
         sasl.resetTimer(blinkTimer)
         isBlinking = false
     end
+    checkOtherButtons()
 end
 
 
