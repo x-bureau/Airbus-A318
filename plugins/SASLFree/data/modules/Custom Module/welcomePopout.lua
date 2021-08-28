@@ -31,7 +31,7 @@ end
 
 function onMouseDown(component, x, y, button, parentX, parentY)
     if x > 75 and x < 315 and y > 40 and y < 175 then
-        sasl.setClipboardText("https://discord.gg/x-bureau/")
+        sasl.setClipboardText("https://discord.gg/Ax8tCze")
         DiscordLogoClicked = 1
     end
 end
