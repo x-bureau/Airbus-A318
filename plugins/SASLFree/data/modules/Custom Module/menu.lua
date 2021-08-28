@@ -13,6 +13,19 @@ sasl.registerCommandHandler(hydPopout_cmd, 0, function(phase)
     end
 end)
 
+local welcomePopout_cmd = sasl.createCommand("A318/popouts/welcome", "Welcome Screen")
+sasl.registerCommandHandler(welcomePopout_cmd, 0, function(phase)
+  if phase == SASL_COMMAND_BEGIN then
+      if welcomePopoutWindow:isVisible() then
+          welcomePopoutWindow:setIsVisible(false)
+      else
+        welcomePopoutWindow:setIsVisible(true)
+        welcomePopoutWindow:setMode(SASL_CW_MODE_MONITOR_CENTER)
+      end
+  end
+end)
+
+local welcome_popout_menuItem = sasl.appendMenuItemWithCommand(xb_menu, "Show/hide Welcome Screen", welcomePopout_cmd)
 local hyd_popout_menuItem = sasl.appendMenuItemWithCommand(xb_menu, "Show/hide HYD popup", hydPopout_cmd)
 
 hydPopoutWindow = contextWindow { name = 'HYD panel';
@@ -21,3 +34,11 @@ hydPopoutWindow = contextWindow { name = 'HYD panel';
     hydPopout {};
   }
 }
+
+welcomePopoutWindow = contextWindow { name = 'Welcome Screen';
+  position = {0, 0, 1000, 650 }; noBackground = true; proportional = true; gravity = {0, 1, 0, 1}; visible = false; saveState = false; noResize = true;
+  components = {
+    welcomePopout {};
+  }
+}
+
