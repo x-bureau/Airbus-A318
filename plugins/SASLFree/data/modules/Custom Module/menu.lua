@@ -34,7 +34,6 @@ hydPopoutWindow = contextWindow { name = 'HYD panel';
     hydPopout {};
   }
 }
-
 welcomePopoutWindow = contextWindow { name = 'Welcome Screen';
   position = {0, 0, 1000, 650 }; noBackground = true; proportional = true; gravity = {0, 1, 0, 1}; visible = true; saveState = false; noResize = true;
   components = {
