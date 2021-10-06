@@ -2,8 +2,8 @@ I
 800
 OBJ
 
-TEXTURE	texture/wing_baked.png
-TEXTURE_NORMAL	texture/wing_baked_NML.png
+TEXTURE	A318_wing/texture/wing_baked.png
+TEXTURE_NORMAL	A318_wing/texture/wing_baked_NML.png
 NORMAL_METALNESS
 GLOBAL_specular	1
 POINT_COUNTS	17084	0	0	68490
