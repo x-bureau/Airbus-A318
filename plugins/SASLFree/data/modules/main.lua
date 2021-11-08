@@ -52,18 +52,18 @@ components = {
     fpsLimit = 20
   };
   menu {};
-  efb{
-    cursor = {
-      x = -15 ,
-      y = -15 ,
-      width = 30 ,
-      height = 30 ,
-      shape = sasl.gl.loadImage ("efb/icons/cursor.png") ,
-      hideOSCursor = true
-      },
-      fbo = true,
-      fpsLimit = 20
-  };
+--   efb{
+--     cursor = {
+--       x = -15 ,
+--       y = -15 ,
+--       width = 30 ,
+--       height = 30 ,
+--       shape = sasl.gl.loadImage ("efb/icons/cursor.png") ,
+--       hideOSCursor = true
+--       },
+--       fbo = true,
+--       fpsLimit = 20
+--   };
   cockpit {};
 }
 
