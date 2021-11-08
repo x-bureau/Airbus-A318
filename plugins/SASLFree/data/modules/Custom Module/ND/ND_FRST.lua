@@ -1,4 +1,6 @@
-position = {595, 47, 500, 500}
+position = {2760, 100, 1280, 1340}
+
+-- position = {595, 47, 500, 500}
 size = {500, 500}
 
 -- get datarefs
