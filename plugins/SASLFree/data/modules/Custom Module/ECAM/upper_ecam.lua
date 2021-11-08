@@ -1,5 +1,5 @@
 --A318 Created by X-Bureau--
-position = {1165, 663, 519, 496}
+position = {1422, 150, 1214, 1214}
 size = {512, 512}
 
 --get datarefs
@@ -259,7 +259,7 @@ local function draw_ENG_PAGE()
     sasl.gl.drawText(AirbusFont, 143, 187, math.floor(get(fuel) / 100 + 0.5) * 100, 21, true, false, TEXT_ALIGN_RIGHT, ECAM_COLOURS.GREEN)
     sasl.gl.drawText(AirbusFont, 172, 187, 'KG', 19, true, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.BLUE)
     sasl.gl.drawWidePolyLine({346, 167, 504, 167}, 2, ECAM_COLOURS.WHITE)
-    sasl.gl.drawWidePolyLine({322, 26, 322, 155}, 2, ECAM_COLOURS.WHITE)
+    sasl.gl.drawWidePolyLine({322, 0, 322, 155}, 2, ECAM_COLOURS.WHITE)
     sasl.gl.drawWidePolyLine({8, 167, 297, 167}, 2, ECAM_COLOURS.WHITE)
 
     sasl.gl.restoreInternalLineState()
@@ -319,7 +319,7 @@ end
 function update()
     if not startup_complete then
         plane_startup()
-        startup_complete = true
+        startup_complete = 1
     end
 
     if get(eng1N1) < 19.5 then
