@@ -1,6 +1,6 @@
 -- A318 by X-Bureau --
 
-position = {296, 1630, 141, 154}
+position = {3380, 3010, 160, 190}
 size = {141, 154}
 
 local startup_complete = false
@@ -569,7 +569,7 @@ function draw()
         sasl.gl.drawText(font, 68, 15, ".", 62, false, false, TEXT_ALIGN_CENTER, colour)
         sasl.gl.drawText(font, 74, 15, getDec(get(bat_2.voltage)), 62, false, false, TEXT_ALIGN_LEFT, colour)
         sasl.gl.drawText(font, 142, 37, "v", 62, false, false, TEXT_ALIGN_RIGHT, colour)
-        sasl.gl.drawRectangle(115, 57, 130, 5, {0,0,0,1})
+        sasl.gl.drawRectangle(155, 70, 165, 5, {0,0,0,1}) -- fix this sometimes soon
         sasl.gl.resetClipArea()
     end
 end
