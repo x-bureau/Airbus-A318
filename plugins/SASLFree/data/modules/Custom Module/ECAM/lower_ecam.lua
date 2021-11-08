@@ -13,8 +13,9 @@ include("ECAM/pages/HYD.lua")
 include("ECAM/pages/PRESS.lua")
 include("ECAM/pages/STS.lua")
 include("ECAM/pages/WHEEL.lua")
+position = {2785, 1600, 1219, 1219}
 
-position = {1153, 51, 544, 503}
+-- position = {1153, 51, 544, 503}
 size = {522, 522}
 
 --defining dataref variables
