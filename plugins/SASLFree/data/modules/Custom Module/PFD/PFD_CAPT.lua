@@ -1,5 +1,7 @@
 -- A318 Created by X-Bureau --
-position = {43, 647, 512, 513}
+position = {50, 100, 1280, 1340}
+
+-- position = {1, 5, 10, 25}
 size = {500, 500}
 
 local BUS = globalProperty("A318/systems/ELEC/ACESS_V")
