@@ -14,7 +14,7 @@ include("ECAM/pages/PRESS.lua")
 include("ECAM/pages/STS.lua")
 include("ECAM/pages/WHEEL.lua")
 
-position = {2767, 1545, 1277, 1447}
+position = {2765, 1545, 1292, 1420}
 size = {522, 522}
 
 --defining dataref variables
@@ -153,6 +153,7 @@ end
 
 function draw() --the function that actually draws on the panel
     sasl.gl.setClipArea(0,0,512,512)
+    
     if get(BUS) > 0 then
         if selfTest == 1 then
             Timer = 0
