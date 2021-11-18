@@ -1,5 +1,5 @@
 -- A318 Created by X-Bureau --
-position = {50, 100, 1280, 1340}
+position = {49, 52, 1262, 1389}
 
 -- position = {1, 5, 10, 25}
 size = {500, 500}
@@ -429,6 +429,7 @@ function draw()
       sasl.gl.drawText(AirbusFont, 250, 255, "SELF TEST IN PROGESS", 22, true, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.GREEN)
       sasl.gl.drawText(AirbusFont, 250, 230, "MAX 40 SECONDS", 21, true, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.GREEN)
     end
+    --sasl.gl.drawRectangle(0,0,500,500, {0.33, 0.38, 0.42, 0.35 * get(captPfdBright)})
   else
     Timer = 0
     selfTest = 0

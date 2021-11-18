@@ -13,9 +13,8 @@ include("ECAM/pages/HYD.lua")
 include("ECAM/pages/PRESS.lua")
 include("ECAM/pages/STS.lua")
 include("ECAM/pages/WHEEL.lua")
-position = {2785, 1600, 1219, 1219}
 
--- position = {1153, 51, 544, 503}
+position = {2767, 1545, 1277, 1447}
 size = {522, 522}
 
 --defining dataref variables
@@ -28,9 +27,11 @@ local selfTest = 0
 
 local DELTA_TIME = globalProperty("sim/operation/misc/frame_rate_period")
 local Timer = 0
-local TimerFinal = math.random(25, 40)
+local TimerFinal = 0.1
 
-local current_ecam_page = createGlobalPropertyi("A318/cockpit/ecam/current_page", 7)--create variable that tells us current ecam page
+--local TimerFinal = math.random(25, 40)
+
+local current_ecam_page = createGlobalPropertyi("A318/cockpit/ecam/current_page", 2)--create variable that tells us current ecam page
 local current_flight_phase = createGlobalPropertyi("A318/cockpit/ecam/flight_phase", flight_phases.elec_pwr)
 local auto_change_page = false
 local fuel_flow = globalPropertyf("A318/systems/fuel/fuel_flow")
@@ -151,6 +152,7 @@ function update() -- perform updating logic as drawing should only draw!
 end
 
 function draw() --the function that actually draws on the panel
+    sasl.gl.setClipArea(0,0,512,512)
     if get(BUS) > 0 then
         if selfTest == 1 then
             Timer = 0
@@ -208,9 +210,11 @@ function draw() --the function that actually draws on the panel
             sasl.gl.drawText(AirbusFont, 261, 266, "SELF TEST IN PROGESS", 22, true, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.GREEN)
             sasl.gl.drawText(AirbusFont, 261, 239, "MAX 40 SECONDS", 22, true, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.GREEN)
         end
+        --sasl.gl.drawRectangle(0,0,512,512, {0.33, 0.38, 0.42, 0.35 * get(Bright)})
     else
         Timer = 0
          -- off
     end
     sasl.gl.drawRectangle(0,0,522,522, {0.0, 0.0, 0.0, 1 - get(Bright)})
+    sasl.gl.resetClipArea()
 end

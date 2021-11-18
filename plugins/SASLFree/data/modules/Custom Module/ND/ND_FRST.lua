@@ -1,4 +1,4 @@
-position = {2760, 100, 1280, 1340}
+position = {2768, 52, 1262, 1390}
 
 -- position = {595, 47, 500, 500}
 size = {500, 500}
@@ -679,7 +679,6 @@ end
 
 function draw()
     sasl.gl.setClipArea(0,0,500,500)
-
     if get(BUS) > 0 then
         if selfTest == 1 then
         if get(frstNdMode) == 0 then
@@ -719,6 +718,7 @@ function draw()
         sasl.gl.drawText(AirbusFont, 250, 255, "SELF TEST IN PROGESS", 22, true, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.GREEN)
         sasl.gl.drawText(AirbusFont, 250, 230, "MAX 40 SECONDS", 21, true, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.GREEN)
     end
+    --sasl.gl.drawRectangle(0,0,500,500, {0.33, 0.38, 0.42, 0.35 * get(foNdBright)})
     else
         Timer = 0
         selfTest = 0

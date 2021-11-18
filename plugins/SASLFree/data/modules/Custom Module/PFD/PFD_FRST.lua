@@ -1,5 +1,5 @@
 -- A318 Created by X-Bureau --
-position = {1410, 1600, 1280, 1340}
+position = {1408, 1545, 1262, 1389}
 size = {500, 500}
 
 local BUS = globalProperty("A318/systems/ELEC/AC2_V")
@@ -423,6 +423,7 @@ function draw()
       sasl.gl.drawText(AirbusFont, 250, 255, "SELF TEST IN PROGESS", 22, true, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.GREEN)
       sasl.gl.drawText(AirbusFont, 250, 230, "MAX 40 SECONDS", 21, true, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.GREEN)
     end
+    --sasl.gl.drawRectangle(0,0,500,500, {0.33, 0.38, 0.42, 0.35 * get(foPfdBright)})
   else
     Timer = 0
     selfTest = 0

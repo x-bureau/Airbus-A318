@@ -11,12 +11,15 @@ local eng2N1 = globalProperty("sim/flightmodel/engine/ENGN_N1_[1]")
 local apuN1 = globalProperty("sim/cockpit2/electrical/APU_N1_percent")
 
 local apuPress = createGlobalPropertyf("A318/systems/bleed/APUPress", 0)
+local apuTemp = createGlobalPropertyf("A318/systems/bleed/APUTemp", 0)
 local apuValve = createGlobalPropertyi("A318/systems/bleed/APUValve", 0)
 
 local eng1Press = createGlobalPropertyf("A318/systems/bleed/ENG1Press", 0)
+local eng1Temp = createGlobalPropertyf("A318/systems/bleed/ENG1Temp", 0)
 local eng1Valve = createGlobalPropertyi("A318/systems/bleed/ENG1Valve", 0)
 
 local eng2Press = createGlobalPropertyf("A318/systems/bleed/ENG2Press", 0)
+local eng2Temp = createGlobalPropertyf("A318/systems/bleed/ENG2Temp", 0)
 local eng2Valve = createGlobalPropertyi("A318/systems/bleed/ENG2Valve", 0)
 
 local simapuBleed = globalProperty("sim/cockpit2/bleedair/actuators/apu_bleed")
@@ -34,23 +37,28 @@ local switches = {
 
 local banks = {
     left = {
-        press = createGlobalPropertyf("A318/systems/bleed/left/pressure", 0)
+        press = createGlobalPropertyf("A318/systems/bleed/left/pressure", 0),
+        temp = createGlobalPropertyf("A318/systems/bleed/left/temp", 0)
     },
     right = {
-        press = createGlobalPropertyf("A318/systems/bleed/right/pressure", 0)
+        press = createGlobalPropertyf("A318/systems/bleed/right/pressure", 0),
+        temp = createGlobalPropertyf("A318/systems/bleed/right/temp", 0)
     },
     mixer = {
-        press = createGlobalPropertyf("A318/systems/bleed/mixer/pressure", 0)
+        press = createGlobalPropertyf("A318/systems/bleed/mixer/pressure", 0),
+        temp = createGlobalPropertyf("A318/systems/bleed/mixer/temp", 0)
     },
     crossBleed = createGlobalPropertyi("A318/systems/bleed/crossBleed", 0)
 }
 
 local packs = {
     one = {
-        valve = createGlobalPropertyi("A318/systems/bleed/packs/one/valve", 0)
+        valve = createGlobalPropertyi("A318/systems/bleed/packs/one/valve", 0),
+        temp = createGlobalPropertyi("A318/systems/bleed/packs/one/temp", 0)
     },
     two = {
-        valve = createGlobalPropertyi("A318/systems/bleed/packs/two/valve", 0)
+        valve = createGlobalPropertyi("A318/systems/bleed/packs/two/valve", 0),
+        temp = createGlobalPropertyi("A318/systems/bleed/packs/two/temp", 0)
     }
 }
 
@@ -140,8 +148,10 @@ function update()
     -- APU BLEED
     if get(apuN1) > 90 then
         set(apuPress, (0.35 * get(apuN1)))
+        set(apuTemp, 190)
     else
         set(apuPress, 0)
+        set(apuTemp, get(oat))
     end
 
     -- APU BLEED SWITCHES
@@ -157,9 +167,11 @@ function update()
 
     -- ENG1 BLEED
     if get(eng1N1) > 12 then
-        set(eng1Press, 30)
+        set(eng1Press, 40)
+        set(eng1Temp, 200)
     else
         set(eng1Press, 0)
+        set(eng1Temp, get(oat))
     end
 
     -- ENG1 BLEED SWITCHES
@@ -175,9 +187,11 @@ function update()
 
     -- ENG2 BLEED
     if get(eng2N1) > 12 then
-        set(eng2Press, 30)
+        set(eng2Press, 40)
+        set(eng2Temp, 200)
     else
         set(eng2Press, 0)
+        set(eng2Temp, get(oat))
     end
 
     -- ENG2 BLEED SWITCHES
@@ -208,28 +222,53 @@ function update()
     if get(apuValve) == 1 or get(eng1Valve) == 1 or get(banks.crossBleed) == 1 then
         if get(apuValve) == 1 then
             set(banks.left.press, get(apuPress))
+            set(banks.left.temp, get(apuTemp))
         elseif get(eng1Valve) == 1 then
             set(banks.left.press, get(eng1Press))
+            set(banks.left.temp, get(eng1Temp))
         elseif get(banks.crossBleed) == 1 and get(eng2Valve) == 1 then
             set(banks.left.press, get(banks.right.press))
+            set(banks.left.temp, get(banks.right.temp))
         else
             set(banks.left.press, 0)
+            if get(banks.left.temp) >= 0 then
+                set(banks.left.temp, get(banks.left.temp) - 0.8 * get(delta_time))
+            else
+                set(banks.left.temp, 0)
+            end
         end
     else
         set(banks.left.press, 0)
+        if get(banks.left.temp) >= 0 then
+            set(banks.left.temp, get(banks.left.temp) - 0.8 * get(delta_time))
+        else
+            set(banks.left.temp, 0)
+        end
     end
 
     -- RIGHT SIDE LOGIC
     if get(eng2Valve) == 1 or get(banks.crossBleed) == 1 then
         if get(eng2Valve) == 1 then
             set(banks.right.press, get(eng2Press))
+            set(banks.right.temp, get(eng2Temp))
         elseif get(banks.crossBleed) == 1 and (get(eng1Valve) == 1 or get(apuValve) == 1) then
             set(banks.right.press, get(banks.left.press))
+            set(banks.right.temp, get(banks.left.temp))
         else
             set(banks.right.press, 0)
+            if get(banks.right.temp) >= 0 then
+                set(banks.right.temp, get(banks.right.temp) - 0.8 * get(delta_time))
+            else
+                set(banks.right.temp, 0)
+            end
         end
     else
         set(banks.right.press, 0)
+        if get(banks.right.temp) >= 0 then
+            set(banks.right.temp, get(banks.right.temp) - 0.8 * get(delta_time))
+        else
+            set(banks.right.temp, 0)
+        end
     end
 
     -- PACK SWITCH LOGIC
@@ -250,6 +289,28 @@ function update()
         end
     else
         set(packs.two.valve, 0)
+    end
+
+    -- PACK 1 TEMPS
+    if get(packs.one.valve) == 1 then
+        if get(banks.left.temp) < 10 then
+            set(packs.one.temp, 0)
+        else
+            set(packs.one.temp, get(banks.left.temp) - 10)
+        end
+    else
+        set(packs.one.temp, get(packs.one.temp) - 0.02 * get(delta_time))
+    end
+
+    -- PACK 2 TEMPS
+    if get(packs.two.valve) == 1 then
+        if get(banks.right.temp) < 10 then
+            set(packs.two.temp, 0)
+        else
+            set(packs.two.temp, get(banks.right.temp) - 10)
+        end
+    else
+        set(packs.two.temp, get(packs.two.temp) - 0.02 * get(delta_time))
     end
 
     -- MIXER UNIT PRESSURE

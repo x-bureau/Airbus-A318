@@ -10,10 +10,10 @@ addSearchPath(moduleDirectory .. "/Custom Module/ATSAW/")
 addSearchPath(moduleDirectory .. "/Custom Module/efb/")
 addSearchPath(moduleDirectory .. "/Custom Module/MCDU/")
 
-size = {2048, 2048}
+size = {4096, 4096}
 
-panelWidth3d = 2048
-panelHeight3d = 2048
+panelWidth3d = 4096
+panelHeight3d = 4096
 
 components = {
   customdataref {};

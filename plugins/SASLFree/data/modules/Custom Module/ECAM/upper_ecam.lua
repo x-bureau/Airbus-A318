@@ -1,5 +1,5 @@
 --A318 Created by X-Bureau--
-position = {1422, 150, 1214, 1214}
+position = {1407, 51, 1262, 1390}
 size = {512, 512}
 
 --get datarefs
@@ -66,6 +66,7 @@ function getDec(num)
 end
 
 local function draw_ENG_PAGE()
+    
     sasl.gl.saveInternalLineState()
     sasl.gl.setInternalLineWidth(2)
 
@@ -259,7 +260,7 @@ local function draw_ENG_PAGE()
     sasl.gl.drawText(AirbusFont, 143, 187, math.floor(get(fuel) / 100 + 0.5) * 100, 21, true, false, TEXT_ALIGN_RIGHT, ECAM_COLOURS.GREEN)
     sasl.gl.drawText(AirbusFont, 172, 187, 'KG', 19, true, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.BLUE)
     sasl.gl.drawWidePolyLine({346, 167, 504, 167}, 2, ECAM_COLOURS.WHITE)
-    sasl.gl.drawWidePolyLine({322, 0, 322, 155}, 2, ECAM_COLOURS.WHITE)
+    sasl.gl.drawWidePolyLine({322, 26, 322, 155}, 2, ECAM_COLOURS.WHITE)
     sasl.gl.drawWidePolyLine({8, 167, 297, 167}, 2, ECAM_COLOURS.WHITE)
 
     sasl.gl.restoreInternalLineState()
@@ -319,7 +320,7 @@ end
 function update()
     if not startup_complete then
         plane_startup()
-        startup_complete = 1
+        startup_complete = true
     end
 
     if get(eng1N1) < 19.5 then
@@ -359,6 +360,7 @@ function draw()
             sasl.gl.drawText(AirbusFont, 256, 262, "SELF TEST IN PROGESS", 22, true, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.GREEN)
             sasl.gl.drawText(AirbusFont, 256, 235, "MAX 40 SECONDS", 22, true, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.GREEN)
         end
+        --sasl.gl.drawRectangle(0,0,512,512, {0.33, 0.38, 0.42, 0.35 * get(Bright)})
     else
         -- off
         Timer = 0
