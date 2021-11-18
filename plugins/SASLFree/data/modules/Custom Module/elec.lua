@@ -1,7 +1,7 @@
 -- A318 by X-Bureau --
 
-position = {3380, 3010, 160, 190}
-size = {141, 154}
+position = {3326, 2999, 231, 223}
+size = {231, 223}
 
 local startup_complete = false
 
@@ -558,18 +558,20 @@ local function getDec(num)
 end
 
 function draw()
-    
+    sasl.gl.setClipArea(0, 0, 231, 223)
+    drawRectangle(0, 0, 231, 223, {0,0,0,1})
     if get(bat_1.voltage) > 14 then
-        sasl.gl.setClipArea(-2, 0, 141, 160)
-        sasl.gl.drawText(font, -2, 119, math.floor(get(bat_1.voltage)), 62, false, false, TEXT_ALIGN_LEFT, colour)
-        sasl.gl.drawText(font, 62, 119, ".", 62, false, false, TEXT_ALIGN_CENTER, colour)
-        sasl.gl.drawText(font, 68, 119, getDec(get(bat_1.voltage)), 62, false, false, TEXT_ALIGN_LEFT, colour)
-        sasl.gl.drawText(font, 136, 141, "v", 62, false, false, TEXT_ALIGN_RIGHT, colour)
-        sasl.gl.drawText(font, 4, 15, math.floor(get(bat_2.voltage)), 62, false, false, TEXT_ALIGN_LEFT, colour)
-        sasl.gl.drawText(font, 68, 15, ".", 62, false, false, TEXT_ALIGN_CENTER, colour)
-        sasl.gl.drawText(font, 74, 15, getDec(get(bat_2.voltage)), 62, false, false, TEXT_ALIGN_LEFT, colour)
-        sasl.gl.drawText(font, 142, 37, "v", 62, false, false, TEXT_ALIGN_RIGHT, colour)
-        sasl.gl.drawRectangle(155, 70, 165, 5, {0,0,0,1}) -- fix this sometimes soon
-        sasl.gl.resetClipArea()
+        sasl.gl.drawText(font, 2, 137, math.floor(get(bat_2.voltage)), 130, false, false, TEXT_ALIGN_LEFT, colour)
+        sasl.gl.drawText(font, 100, 137, ".", 130, false, false, TEXT_ALIGN_LEFT, colour)
+        sasl.gl.drawText(font, 140, 137, getDec(get(bat_2.voltage)), 130, false, false, TEXT_ALIGN_LEFT, colour)
+        sasl.gl.drawText(font, 226, 202, "v", 62, false, false, TEXT_ALIGN_RIGHT, colour)
+
+
+        sasl.gl.drawText(font, 2, 7, math.floor(get(bat_1.voltage)), 130, false, false, TEXT_ALIGN_LEFT, colour)
+        sasl.gl.drawText(font, 100, 7, ".", 130, false, false, TEXT_ALIGN_LEFT, colour)
+        sasl.gl.drawText(font, 140, 7, getDec(get(bat_1.voltage)), 130, false, false, TEXT_ALIGN_LEFT, colour)
+        sasl.gl.drawText(font, 226, 72, "v", 62, false, false, TEXT_ALIGN_RIGHT, colour)
+        sasl.gl.drawRectangle(195, 92, 31, 10, {0,0,0,1})
     end
+    sasl.gl.resetClipArea()
 end

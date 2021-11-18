@@ -54,11 +54,13 @@ local banks = {
 local packs = {
     one = {
         valve = createGlobalPropertyi("A318/systems/bleed/packs/one/valve", 0),
-        temp = createGlobalPropertyi("A318/systems/bleed/packs/one/temp", 0)
+        temp = createGlobalPropertyi("A318/systems/bleed/packs/one/temp", 0),
+        output = createGlobalPropertyi("A318/systems/bleed/packs/one/output", 0)
     },
     two = {
         valve = createGlobalPropertyi("A318/systems/bleed/packs/two/valve", 0),
-        temp = createGlobalPropertyi("A318/systems/bleed/packs/two/temp", 0)
+        temp = createGlobalPropertyi("A318/systems/bleed/packs/two/temp", 0),
+        output = createGlobalPropertyi("A318/systems/bleed/packs/two/output", 0)
     }
 }
 

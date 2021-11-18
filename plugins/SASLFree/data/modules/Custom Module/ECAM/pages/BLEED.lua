@@ -22,7 +22,9 @@ local pack2valve = globalPropertyi("A318/systems/bleed/packs/two/valve")
 local apuMstr = globalPropertyi("A318/systems/ELEC/APUMASTRSwtch")
 
 local pack1Temp = globalPropertyf("A318/systems/bleed/packs/one/temp")
+local pack1Out = globalPropertyf("A318/systems/aircond/cockpit/actTemp")
 local pack2Temp = globalPropertyf("A318/systems/bleed/packs/two/temp")
+local pack2Out = globalPropertyf("A318/systems/aircond/aft/actTemp")
 
 function draw_bleed_page()
 
@@ -66,7 +68,7 @@ function draw_bleed_page()
     sasl.gl.drawText(AirbusFont, 64, 384, "C", 17, true, false, TEXT_ALIGN_RIGHT, ECAM_COLOURS.WHITE)
     sasl.gl.drawText(AirbusFont, 145, 384, "H", 17, true, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.WHITE)
     sasl.gl.drawText(AirbusFont, 104, 362, math.floor(get(pack1Temp) + 0.5), 19, true, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.GREEN)
-    --sasl.gl.drawText(AirbusFont, 104, 433, [outputtemp], 19, true, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.GREEN)
+    sasl.gl.drawText(AirbusFont, 104, 433, math.floor(get(pack1Out) + 0.5), 19, true, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.GREEN)
 
 
     if get(pack1valve) == 0 then
@@ -91,7 +93,7 @@ function draw_bleed_page()
     sasl.gl.drawText(AirbusFont, 378, 384, "C", 17, true, false, TEXT_ALIGN_RIGHT, ECAM_COLOURS.WHITE)
     sasl.gl.drawText(AirbusFont, 459, 384, "H", 17, true, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.WHITE)
     sasl.gl.drawText(AirbusFont, 418, 362, math.floor(get(pack2Temp) + 0.5), 19, true, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.GREEN)
-    --sasl.gl.drawText(AirbusFont, 418, 433, [outputtemp], 19, true, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.GREEN)
+    sasl.gl.drawText(AirbusFont, 418, 433, math.floor(get(pack2Out) + 0.5), 19, true, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.GREEN)
 
     if get(pack2valve) == 0 then
         sasl.gl.drawCircle(418, 313, 13, true, ECAM_COLOURS.GREEN)
