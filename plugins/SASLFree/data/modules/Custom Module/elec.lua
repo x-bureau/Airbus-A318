@@ -245,9 +245,6 @@ function update()
         end
     end
 
-
-
-
     -- APU GENERATOR
     if get(apuN1) > 95 then
         set(apu_pwr.voltage, 115)

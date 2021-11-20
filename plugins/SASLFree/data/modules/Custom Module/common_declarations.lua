@@ -21,6 +21,7 @@ valve_states = {closed = 0, transit = 1, open = 2}
 units = {metric = 0, imperial = 1}
 active_states = {inactive = 0, active = 1}
 enabled_states = {disabled = 0, enabled = 1}
+fltPhase = 1
 flight_phases = {
     elec_pwr = 1,
     engine_start = 2,

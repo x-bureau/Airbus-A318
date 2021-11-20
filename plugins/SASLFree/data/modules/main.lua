@@ -23,6 +23,7 @@ components = {
   fuel {};
   hydraulics {};
   bleed {};
+  fltwrngsys {};
   mcdu {
     fbo = true ,
     fpsLimit = 29

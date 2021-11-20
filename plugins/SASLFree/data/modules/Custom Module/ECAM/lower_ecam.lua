@@ -20,26 +20,46 @@ size = {522, 522}
 --defining dataref variables
 local Bright = createGlobalPropertyf("A318/cockpit/ecam/lwBright", 1)
 local startup_complete = false
-local eng1N1 = globalProperty("sim/flightmodel/engine/ENGN_N1_[0]")
 
 local BUS = globalProperty("A318/systems/ELEC/AC2_V")
 local selfTest = 0
 
 local DELTA_TIME = globalProperty("sim/operation/misc/frame_rate_period")
 local Timer = 0
-local TimerFinal = 0.1
+local TimerFinal = math.random(25, 40)
 
---local TimerFinal = math.random(25, 40)
+local eng = createGlobalPropertyi("A318/cockpit/ecam/eng", 0)
+local bleed = createGlobalPropertyi("A318/cockpit/ecam/bleed", 0)
+local press = createGlobalPropertyi("A318/cockpit/ecam/press", 0)
+local elec = createGlobalPropertyi("A318/cockpit/ecam/elec", 0)
+local hyd = createGlobalPropertyi("A318/cockpit/ecam/hyd", 0)
+local fuel = createGlobalPropertyi("A318/cockpit/ecam/fuel", 0)
+local apu = createGlobalPropertyi("A318/cockpit/ecam/apu", 0)
+local cond = createGlobalPropertyi("A318/cockpit/ecam/cond", 0)
+local door = createGlobalPropertyi("A318/cockpit/ecam/door", 0)
+local wheel = createGlobalPropertyi("A318/cockpit/ecam/wheel", 0)
+local fctl = createGlobalPropertyi("A318/cockpit/ecam/fctl", 0)
+local sts = createGlobalPropertyi("A318/cockpit/ecam/sts", 0)
 
-local current_ecam_page = createGlobalPropertyi("A318/cockpit/ecam/current_page", 2)--create variable that tells us current ecam page
-local current_flight_phase = createGlobalPropertyi("A318/cockpit/ecam/flight_phase", flight_phases.elec_pwr)
-local auto_change_page = false
+local buttons = {
+    eng,
+    bleed,
+    press,
+    elec,
+    hyd,
+    fuel,
+    apu,
+    cond,
+    door,
+    wheel,
+    fctl,
+    sts
+}
+
+local current_ecam_page = 9
+local auto_change_page = true
 local fuel_flow = globalPropertyf("A318/systems/fuel/fuel_flow")
 
-local airspeed = globalPropertyf("sim/cockpit2/gauges/indicators/airspeed_kts_pilot")--we define an airspeed variable
-local npercent = globalPropertyfa("sim/cockpit2/engine/indicators/N1_percent", 7)--we define the N1 Percent dataref
-local gear_on_ground = globalPropertyia("sim/flightmodel2/gear/on_ground", 10)
-local engine_burning_fuel = globalPropertyia("sim/flightmodel2/engines/engine_is_burning_fuel", 8)
 local fuel_flow_kg_sec = globalPropertyfa("sim/cockpit2/engine/indicators/fuel_flow_kg_sec", 2)
 
 local altitude = globalProperty("sim/cockpit2/gauges/indicators/altitude_ft_pilot")
@@ -54,6 +74,12 @@ local vsi = {["value"] = 0, ["colour"] = ECAM_COLOURS["GREEN"], ["blink"] = fals
 
 local efb_units = globalPropertyi("A318/efb/config/units")
 local lower_overlay = sasl.gl.loadImage("ECAM_LOWER_OVERLAY.png")--defining the lower ecam cruise page overlay
+
+local apuMode = globalProperty("sim/cockpit2/electrical/APU_starter_switch")
+local apuAvail = globalPropertyi("A318/systems/ELEC/apu_Avail")
+local engMode = globalPropertyi("A318/systems/FADEC/MODESEL")
+local eng1N1 = globalProperty("sim/flightmodel/engine/ENGN_N1_[0]")
+local eng2N1 = globalProperty("sim/flightmodel/engine/ENGN_N1_[1]")
 
 local function round(v, bracket)
     local function sign(v)
@@ -79,14 +105,6 @@ local ecam_pages = {
     cruise = 13,
 }
 
-local arrow_points = {left = -1, right = 1}
-
-local function update_page(page)
-    if auto_change_page then
-        set(current_ecam_page, page)
-    end
-end
-
 function get_isa()
     local alt = get(altitude)
     local isa = math.max(-56.5, 15 - 1.98 * math.floor(alt / 1000))
@@ -104,46 +122,52 @@ function plane_startup()
     end
 end
 
-function update() -- perform updating logic as drawing should only draw!
+function systemPages()
+    if auto_change_page == true then
+        -- set the current page to appropriate page for phase
+        if get(apuMode) == 1 and get(apuAvail) == 0 then
+            current_ecam_page = 7
+        elseif get(engMode) ~= 1 and (get(eng1N1) < 19.5 or get(eng2N1) < 19.5) then
+            current_ecam_page = 1
+        elseif fltPhase == 1 then
+            current_ecam_page = 9
+        elseif fltPhase == 2 then
+            current_ecam_page = 10
+         elseif fltPhase >= 3 and fltPhase <= 5 then
+            current_ecam_page = 1
+        elseif fltPhase == 6 then
+            current_ecam_page = 13
+        elseif fltPhase >= 7 and fltPhase <= 9 then
+            current_ecam_page = 10
+        elseif fltPhase == 10 then
+            current_ecam_page = 9
+        end
+    end
+end
+
+function update()
     if not startup_complete then
         plane_startup()
         startup_complete = true
     end
-    -- if get(fuel_current_quantity, 1) > 60 and get(centre_fuel_pump_mode) == 0 then -- fuel in centre tanks so centre pumps can be off and green
-        -- set()
-    -- set(fuel_used, 1) = (math.floor(get(fuel_init_quantity)) - (math.floor(get(fuel_current_quantity, 1) + math.floor(get(fuel_current_quantity, 2)))))--we determine the fuel used by engine 1
-    -- set(fuel_used, 2) = (math.floor(get(fuel_init_quantity)) - (math.floor(get(fuel_current_quantity, 1) + math.floor(get(fuel_current_quantity, 2)))))--we determine the fuel used by engine 2
+    systemPages()
+
     set(fuel_flow, get(fuel_flow_kg_sec, 1) + get(fuel_flow_kg_sec, 2))
     set(vsi, get_vsi())
 
-    if get(current_flight_phase) == flight_phases.elec_pwr and get(engine_burning_fuel, 1) == 1 then
-        set(current_flight_phase, flight_phases.engine_start)
-        update_page(ecam_pages.doors)
-    elseif get(current_flight_phase) == flight_phases.engine_start and get(npercent, 1) > 50 then
-        set(current_flight_phase, flight_phases.engine_power)
-        update_page(ecam_pages.wheel)
-    elseif get(current_flight_phase) == flight_phases.engine_power and get(airspeed) > 80 then
-        set(current_flight_phase, flight_phases.at_80_kts)
-        update_page(ecam_pages.eng)
-    elseif get(current_flight_phase) == flight_phases.at_80_kts and get(gear_on_ground, 2) == 0 then
-        set(current_flight_phase, flight_phases.liftoff)
-        update_page(ecam_pages.eng)
-    elseif get(current_flight_phase) == flight_phases.liftoff and round(get(altitude), 100) > 1500 then
-        set(current_flight_phase, flight_phases.above_1500_ft)
-        update_page(ecam_pages.cruise)
-    elseif get(current_flight_phase) == flight_phases.above_1500_ft and round(get(altitude), 100) < 800 then
-        set(current_flight_phase, flight_phases.below_800_ft)
-        update_page(ecam_pages.wheel)
-    elseif get(current_flight_phase) == flight_phases.below_800_ft and get(gear_on_ground, 1) == 1 then
-        set(current_flight_phase, flight_phases.touchdown)
-        update_page(ecam_pages.wheel)
-    elseif get(current_flight_phase) == flight_phases.touchdown and get(airspeed) < 80 then
-        set(current_flight_phase, flight_phases.below_80_kts)
-        update_page(ecam_pages.wheel)
-    elseif get(current_flight_phase) == flight_phases.below_80_kts and get(engine_burning_fuel, 2) == 0 then
-        set(current_flight_phase, flight_phases.engine_shutdown)
-        update_page(ecam_pages.door)
+    for i = 1, table.getn(buttons), 1 do
+        if get(buttons[i]) == 1 then
+            if current_ecam_page ~= i then
+                auto_change_page = false
+                current_ecam_page = i
+            else
+                auto_change_page = true
+            end
+            set(buttons[i], 0)
+        end
     end
+
+    
     if Timer < TimerFinal and selfTest == 0 then
         Timer = Timer + 1 * get(DELTA_TIME)
     else
@@ -151,38 +175,38 @@ function update() -- perform updating logic as drawing should only draw!
     end
 end
 
-function draw() --the function that actually draws on the panel
+function draw()
     sasl.gl.setClipArea(0,0,512,512)
     
     if get(BUS) > 0 then
         if selfTest == 1 then
             Timer = 0
-            if get(current_ecam_page) == ecam_pages.eng then --if the curent ecam page is 1
-                draw_eng_page()--draw the engine page
-            elseif get(current_ecam_page) == ecam_pages.bleed then --if the curent ecam page is 2
-                draw_bleed_page()--draw the bleed page
-            elseif get(current_ecam_page) == ecam_pages.press then --if the curent ecam page is 3
-                draw_press_page()--draw the pressure page
-            elseif get(current_ecam_page) == ecam_pages.elec then --if the curent ecam page is 4
-                draw_elec_page() --draw the electricity page
-            elseif get(current_ecam_page) == ecam_pages.hyd then --if the curent ecam page is 5
-                draw_hyd_page()--draw the hyd page
-            elseif get(current_ecam_page) == ecam_pages.fuel then --if the curent ecam page is 6
-                draw_fuel_page()--draw the fuel page
-            elseif get(current_ecam_page) == ecam_pages.apu then --if the curent ecam page is 7
-                draw_apu_page()--draw the apu page
-            elseif get(current_ecam_page) == ecam_pages.air_cond then --if the curent ecam page is 8
-                draw_air_cond_page()--draw the air conditioning page
-            elseif get(current_ecam_page) == ecam_pages.doors then --if the curent ecam page is 9
-                draw_doors_page()--draw the doors page
-            elseif get(current_ecam_page) == ecam_pages.wheel then --if the curent ecam page is 10
-                draw_wheel_page()--draw the wheel page
-            elseif get(current_ecam_page) == ecam_pages.fctl	then --if the curent ecam page is 11
-                draw_fctl_page()--draw the flight controls page
-            elseif get(current_ecam_page) == ecam_pages.sts then --if the curent ecam page is 12
-                draw_sts_page()--draw the systems page
-            elseif get(current_ecam_page) == ecam_pages.cruise then --if the curent ecam page is 13
-                draw_cruise_page()--draw the cruise page
+            if current_ecam_page == 1 then
+                draw_eng_page()
+            elseif current_ecam_page == 2 then
+                draw_bleed_page()
+            elseif current_ecam_page == 3 then
+                draw_press_page()
+            elseif current_ecam_page == 4 then
+                draw_elec_page()
+            elseif current_ecam_page == 5 then
+                draw_hyd_page()
+            elseif current_ecam_page == 6 then
+                draw_fuel_page()
+            elseif current_ecam_page == 7 then
+                draw_apu_page()
+            elseif current_ecam_page == 8 then
+                draw_air_cond_page()
+            elseif current_ecam_page == 9 then
+                draw_doors_page()
+            elseif current_ecam_page == 10 then
+                draw_wheel_page()
+            elseif current_ecam_page == 11 then
+                draw_fctl_page()
+            elseif current_ecam_page == 12 then
+                draw_sts_page()
+            elseif current_ecam_page == 13 then
+                draw_cruise_page()
             end
 
             sasl.gl.drawTexture(lower_overlay, 0, 0, 522, 72, ECAM_COLOURS.WHITE)--we are drawing the overlay
@@ -206,7 +230,6 @@ function draw() --the function that actually draws on the panel
             local tot_weight = get(weight_empty) + get(weight_fuel)
             sasl.gl.drawText(AirbusFont, 472, 46, string.format("%.0f", round(get_weight(get(tot_weight)), 10)), 20, false, false, TEXT_ALIGN_RIGHT, ECAM_COLOURS.GREEN)
             sasl.gl.drawText(AirbusFont, 482, 46, (get(efb_units) == units.metric and "KG" or "LBS"), 20, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.BLUE)
-            ----------------------------------------------------------------------------------------------------------
         else
             sasl.gl.drawText(AirbusFont, 261, 266, "SELF TEST IN PROGESS", 22, true, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.GREEN)
             sasl.gl.drawText(AirbusFont, 261, 239, "MAX 40 SECONDS", 22, true, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.GREEN)
