@@ -1,0 +1,78 @@
+[X-BUREAU'S A318 INFO]: Initializing...
+[X-BUREAU'S A318 INFO]: Path to module: C:\Users/jacob/Documents/X-Plane 11/Aircraft/XB A318/plugins/SASL/data/modules/main.lua
+[X-BUREAU'S A318 INFO]: Loading module...
+[X-BUREAU'S A318 INFO]: [LUA]: loading	module
+[X-BUREAU'S A318 INFO]: [LUA]: loading	customdataref
+[X-BUREAU'S A318 INFO]: [LUA]: loading	elec
+[X-BUREAU'S A318 INFO]: [LUA]: loading	FADEC
+[X-BUREAU'S A318 INFO]: [LUA]: loading	ADIRS
+[X-BUREAU'S A318 INFO]: [LUA]: loading	fuel
+[X-BUREAU'S A318 INFO]: [LUA]: loading	hydraulics
+[X-BUREAU'S A318 INFO]: [LUA]: loading	bleed
+[X-BUREAU'S A318 INFO]: [LUA]: loading	fltwrngsys
+[X-BUREAU'S A318 WARN]: [STACK]:| createDataRef : DataRefsHandler::luaCreateDataRef: <A318/systems/FADEC/MODESEL> already exists
+[X-BUREAU'S A318 WARN]: [STACK]:| ...rcraft/XB A318/plugins/SASL/data/init/initProperties.lua:440 in function <createGlobalPropertyi>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...8/plugins/SASL/data/modules/Custom Module/fltwrngsys.lua:4 in function <f>
+[X-BUREAU'S A318 WARN]: [STACK]:| ... 11/Aircraft/XB A318/plugins/SASL/data/init/initMain.lua:262 in function <fltwrngsys>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...e 11/Aircraft/XB A318/plugins/SASL/data/modules/main.lua:26 in function <f>
+[X-BUREAU'S A318 WARN]: [STACK]:| ... 11/Aircraft/XB A318/plugins/SASL/data/init/initMain.lua:262 in function <c>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...
+[X-BUREAU'S A318 INFO]: [LUA]: loading	mcdu
+[X-BUREAU'S A318 INFO]: [LUA]: including	MCDU/pages/mcdu_menu.lua
+[X-BUREAU'S A318 INFO]: [LUA]: including	MCDU/pages/acf_info.lua
+[X-BUREAU'S A318 INFO]: [LUA]: including	MCDU/pages/init.lua
+[X-BUREAU'S A318 INFO]: [LUA]: including	MCDU/pages/init_b.lua
+[X-BUREAU'S A318 INFO]: [LUA]: including	MCDU/pages/data_index.lua
+[X-BUREAU'S A318 INFO]: [LUA]: including	MCDU/pages/irs_init.lua
+[X-BUREAU'S A318 INFO]: [LUA]: including	MCDU/pages/acf_update.lua
+[X-BUREAU'S A318 INFO]: [LUA]: including	MCDU/pages/wpt_tester.lua
+[X-BUREAU'S A318 INFO]: [LUA]: including	MCDU/mcdu_global_properties.lua
+[X-BUREAU'S A318 INFO]: [LUA]: including	MCDU/fms_parser.lua
+[X-BUREAU'S A318 INFO]: [LUA]: including	MCDU/updater.lua
+[X-BUREAU'S A318 INFO]: [LUA]: loading	PFD_CAPT
+[X-BUREAU'S A318 INFO]: [LUA]: loading	PFD_FRST
+[X-BUREAU'S A318 INFO]: [LUA]: loading	ND_CAPT
+[X-BUREAU'S A318 INFO]: [LUA]: loading	ND_FRST
+[X-BUREAU'S A318 INFO]: [LUA]: loading	upper_ecam
+[X-BUREAU'S A318 INFO]: [LUA]: loading	lower_ecam
+[X-BUREAU'S A318 INFO]: [LUA]: including	ECAM/pages/AIRCOND.lua
+[X-BUREAU'S A318 INFO]: [LUA]: including	ECAM/pages/APU.lua
+[X-BUREAU'S A318 DEBUG]: [LUA]: "A318/systems/bleed/APUPress": Casting float to int
+[X-BUREAU'S A318 INFO]: [LUA]: including	ECAM/pages/BLEED.lua
+[X-BUREAU'S A318 INFO]: [LUA]: including	ECAM/pages/CRUISE.lua
+[X-BUREAU'S A318 WARN]: [STACK]:| findDataRef : DataRefsHandler::luaFindDataRef: <A318/systems/aircond/temps/actual> not found
+[X-BUREAU'S A318 WARN]: [STACK]:| ...rcraft/XB A318/plugins/SASL/data/init/initProperties.lua:746 in function <globalPropertyfa>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...ns/SASL/data/modules/Custom Module/ECAM/pages/CRUISE.lua:4 in function <f>
+[X-BUREAU'S A318 WARN]: [STACK]:| ... 11/Aircraft/XB A318/plugins/SASL/data/init/initMain.lua:302 in function <include>
+[X-BUREAU'S A318 WARN]: [STACK]:| ... 11/Aircraft/XB A318/plugins/SASL/data/init/initMain.lua:169 in function <include>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...ins/SASL/data/modules/Custom Module/ECAM//lower_ecam.lua:6 in function <f>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...
+[X-BUREAU'S A318 WARN]: [STACK]:| findDataRef : DataRefsHandler::luaFindDataRef: <A318/systems/aircond/ldg_elev> not found
+[X-BUREAU'S A318 WARN]: [STACK]:| ...rcraft/XB A318/plugins/SASL/data/init/initProperties.lua:390 in function <globalPropertyi>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...ns/SASL/data/modules/Custom Module/ECAM/pages/CRUISE.lua:5 in function <f>
+[X-BUREAU'S A318 WARN]: [STACK]:| ... 11/Aircraft/XB A318/plugins/SASL/data/init/initMain.lua:302 in function <include>
+[X-BUREAU'S A318 WARN]: [STACK]:| ... 11/Aircraft/XB A318/plugins/SASL/data/init/initMain.lua:169 in function <include>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...ins/SASL/data/modules/Custom Module/ECAM//lower_ecam.lua:6 in function <f>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...
+[X-BUREAU'S A318 WARN]: [STACK]:| findDataRef : DataRefsHandler::luaFindDataRef: <A318/systems/aircond/ldg_elev_auto> not found
+[X-BUREAU'S A318 WARN]: [STACK]:| ...rcraft/XB A318/plugins/SASL/data/init/initProperties.lua:390 in function <globalPropertyi>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...ns/SASL/data/modules/Custom Module/ECAM/pages/CRUISE.lua:6 in function <f>
+[X-BUREAU'S A318 WARN]: [STACK]:| ... 11/Aircraft/XB A318/plugins/SASL/data/init/initMain.lua:302 in function <include>
+[X-BUREAU'S A318 WARN]: [STACK]:| ... 11/Aircraft/XB A318/plugins/SASL/data/init/initMain.lua:169 in function <include>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...ins/SASL/data/modules/Custom Module/ECAM//lower_ecam.lua:6 in function <f>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...
+[X-BUREAU'S A318 INFO]: [LUA]: including	ECAM/pages/DOORS.lua
+[X-BUREAU'S A318 INFO]: [LUA]: including	ECAM/pages/ELEC.lua
+[X-BUREAU'S A318 INFO]: [LUA]: including	ECAM/pages/ENG.lua
+[X-BUREAU'S A318 INFO]: [LUA]: including	ECAM/pages/FCTL.lua
+[X-BUREAU'S A318 INFO]: [LUA]: including	ECAM/pages/FUEL.lua
+[X-BUREAU'S A318 INFO]: [LUA]: including	ECAM/pages/HYD.lua
+[X-BUREAU'S A318 INFO]: [LUA]: including	ECAM/pages/PRESS.lua
+[X-BUREAU'S A318 INFO]: [LUA]: including	ECAM/pages/STS.lua
+[X-BUREAU'S A318 INFO]: [LUA]: including	ECAM/pages/WHEEL.lua
+[X-BUREAU'S A318 INFO]: [LUA]: loading	menu
+[X-BUREAU'S A318 INFO]: [LUA]: loading	hydPopout
+[X-BUREAU'S A318 INFO]: [LUA]: loading	welcomePopout
+[X-BUREAU'S A318 INFO]: [LUA]: loading	cockpit
+[X-BUREAU'S A318 INFO]: Module loaded
+[X-BUREAU'S A318 INFO]: [LUA]: "mcdu"	 fixed i/c update bug

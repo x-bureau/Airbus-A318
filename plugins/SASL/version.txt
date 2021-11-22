@@ -1,0 +1,6 @@
+Scriptable Aviation Simulation Library
+Lua scripting environment for X-Plane add-ons (Free Edition)
+Version: 3.13.1+c1f025b
+
+
+© 2012-2021 FlightFactor, © 2015-2021 StepToSky

@@ -9529,7 +9529,7 @@ IDX	8627
 	TRIS	810 90
 	ATTR_manip_push	button	1	0	A318/cockpit/mcdu/keys/1	MCDU KEY 1
 	TRIS	900 90
-	ATTR_manip_push	hand	1	1	A318/cockpit/ecam/clr	CLEAR ECAM
+	ATTR_manip_push	button	1	0	A318/cockpit/ecam/clr	CLEAR ECAM
 	TRIS	990 36
 	TRIS	1026 36
 	ATTR_manip_toggle	button	1	0	A318/systems/ELEC/GEN1Swtch	Generator 1 ON/OFF
@@ -9570,29 +9570,29 @@ IDX	8627
 	TRIS	1674 36
 	ATTR_manip_toggle	button	1	0	A318/systems/FUEL/RTKPUMP2Switch	RIGHT TK PUMP 2 ON/OFF
 	TRIS	1710 36
-	ATTR_manip_toggle	button	1	0	A318/cockpit/ecam/eng	ENGINE ECAM Page
+	ATTR_manip_push	button	1	0	A318/cockpit/ecam/eng	ENGINE ECAM Page
 	TRIS	1746 36
-	ATTR_manip_toggle	button	1	0	A318/cockpit/ecam/bleed	BLEED ECAM Page
+	ATTR_manip_push	button	1	0	A318/cockpit/ecam/bleed	BLEED ECAM Page
 	TRIS	1782 36
-	ATTR_manip_toggle	button	1	0	A318/cockpit/ecam/press	PRESSURE ECAM Page
+	ATTR_manip_push	button	1	0	A318/cockpit/ecam/press	PRESSURE ECAM Page
 	TRIS	1818 36
-	ATTR_manip_toggle	button	1	0	A318/cockpit/ecam/elec	ELEC ECAM Page
+	ATTR_manip_push	button	1	0	A318/cockpit/ecam/elec	ELEC ECAM Page
 	TRIS	1854 36
-	ATTR_manip_toggle	button	1	0	A318/cockpit/ecam/hyd	HYD ECAM Page
+	ATTR_manip_push	button	1	0	A318/cockpit/ecam/hyd	HYD ECAM Page
 	TRIS	1890 36
-	ATTR_manip_toggle	button	1	0	A318/cockpit/ecam/fuel	FUEL ECAM Page
+	ATTR_manip_push	button	1	0	A318/cockpit/ecam/fuel	FUEL ECAM Page
 	TRIS	1926 36
-	ATTR_manip_toggle	button	1	0	A318/cockpit/ecam/apu	APU ECAM Page
+	ATTR_manip_push	button	1	0	A318/cockpit/ecam/apu	APU ECAM Page
 	TRIS	1962 36
-	ATTR_manip_toggle	button	1	0	A318/cockpit/ecam/cond	AIR COND ECAM Page
+	ATTR_manip_push	button	1	0	A318/cockpit/ecam/cond	AIR COND ECAM Page
 	TRIS	1998 36
-	ATTR_manip_toggle	button	1	0	A318/cockpit/ecam/door	DOORS ECAM Page
+	ATTR_manip_push	button	1	0	A318/cockpit/ecam/door	DOORS ECAM Page
 	TRIS	2034 36
-	ATTR_manip_toggle	button	1	0	A318/cockpit/ecam/wheel	WHEEL ECAM Page
+	ATTR_manip_push	button	1	0	A318/cockpit/ecam/wheel	WHEEL ECAM Page
 	TRIS	2070 36
-	ATTR_manip_toggle	button	1	0	A318/cockpit/ecam/fctl	FLIGHT CONTROL ECAM Page
+	ATTR_manip_push	button	1	0	A318/cockpit/ecam/fctl	FLIGHT CONTROL ECAM Page
 	TRIS	2106 36
-	ATTR_manip_toggle	button	1	0	A318/cockpit/ecam/sts	SYSTEM ECAM Page
+	ATTR_manip_push	button	1	0	A318/cockpit/ecam/sts	SYSTEM ECAM Page
 	TRIS	2142 36
 	ATTR_manip_toggle	button	1	0	A318/systems/ELEC/bat1/pb	BAT 1 ON/OFF
 	TRIS	2178 36
