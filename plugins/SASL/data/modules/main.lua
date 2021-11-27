@@ -9,6 +9,7 @@ addSearchPath(moduleDirectory .. "/Custom Module/ECAM/")
 addSearchPath(moduleDirectory .. "/Custom Module/ATSAW/")
 addSearchPath(moduleDirectory .. "/Custom Module/efb/")
 addSearchPath(moduleDirectory .. "/Custom Module/MCDU/")
+addSearchPath(moduleDirectory .. "/Custom Module/Comms/")
 
 size = {4096, 4096}
 
@@ -52,6 +53,10 @@ components = {
     fbo = true ,
     fpsLimit = 20
   };
+  Radio {
+		fbo = true ,
+		fpsLimit = 20
+	};
   menu {};
 --   efb{
 --     cursor = {
