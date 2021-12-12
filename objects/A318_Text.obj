@@ -3,7 +3,7 @@ I
 OBJ
 
 TEXTURE	../Textures/A318_Text.png
-TEXTURE_LIT ../Textures/A318_Text_LIT.png
+TEXTURE_LIT	../Textures/A318_Text_LIT.png
 POINT_COUNTS	5805	0	0	5805
 
 VT	0.22667785	1.0040606	1.751114	0	0.40583959	0.9139443	0.34973115	0.012518913
@@ -6736,39 +6736,39 @@ IDX	5804
 	TRIS	2409 33
 	TRIS	2442 18
 	TRIS	2460 18
-	ATTR_Light_Level_0_1	A318/cockpit/lights/apubleed
+	ATTR_Light_Level 0 1	A318/cockpit/lights/apubleed
 	TRIS	2478 18
 	TRIS	2496 18
 	TRIS	2514 18
 	TRIS	2532 18
-	ATTR_Light_Level_0_1	A318/cockpit/lights/eng2
+	ATTR_Light_Level 0 1	A318/cockpit/lights/eng2
 	TRIS	2550 18
 	TRIS	2568 18
-	ATTR_Light_Level_0_1	A318/cockpit/lights/pack2
+	ATTR_Light_Level 0 1	A318/cockpit/lights/pack2
 	TRIS	2586 18
 	TRIS	2604 18
-	ATTR_Light_Level_0_1	A318/cockpit/lights/gen2
+	ATTR_Light_Level 0 1	A318/cockpit/lights/gen2
 	TRIS	2622 18
-	ATTR_Light_Level_1_0	A318/cockpit/lights/gpu
+	ATTR_Light_Level 1 0	A318/cockpit/lights/gpu
 	TRIS	2640 18
-	ATTR_Light_Level_0_1	A318/cockpit/lights/bat2
+	ATTR_Light_Level 0 1	A318/cockpit/lights/bat2
 	TRIS	2658 18
-	ATTR_Light_Level_0_1	A318/cockpit/lights/bat1
+	ATTR_Light_Level 0 1	A318/cockpit/lights/bat1
 	TRIS	2676 18
-	ATTR_Light_Level_0_1	A318/cockpit/lights/bustie
+	ATTR_Light_Level 0 1	A318/cockpit/lights/bustie
 	TRIS	2694 18
-	ATTR_Light_Level_0_1	A318/cockpit/lights/apu
+	ATTR_Light_Level 0 1	A318/cockpit/lights/apu
 	TRIS	2712 18
 	TRIS	2730 18
 	TRIS	2748 18
 	TRIS	2766 18
 	TRIS	2784 18
-	ATTR_Light_Level_0_1	A318/cockpit/lights/eng1
+	ATTR_Light_Level 0 1	A318/cockpit/lights/eng1
 	TRIS	2802 18
-	ATTR_Light_Level_0_1	A318/cockpit/lights/pack1
+	ATTR_Light_Level 0 1	A318/cockpit/lights/pack1
 	TRIS	2820 18
 	TRIS	2838 18
-	ATTR_Light_Level_0_1	A318/cockpit/lights/gen1
+	ATTR_Light_Level 0 1	A318/cockpit/lights/gen1
 	TRIS	2856 18
 	TRIS	2874 18
 	TRIS	2892 30
@@ -6820,17 +6820,17 @@ IDX	5804
 	TRIS	4140 18
 	TRIS	4158 18
 	TRIS	4176 18
-	ATTR_Light_Level_0_1	A318/cockpit/lights/ctk2
+	ATTR_Light_Level 0 1	A318/cockpit/lights/ctk2
 	TRIS	4194 18
-	ATTR_Light_Level_0_1	A318/cockpit/lights/ctkmode
+	ATTR_Light_Level 0 1	A318/cockpit/lights/ctkmode
 	TRIS	4212 18
-	ATTR_Light_Level_0_1	A318/cockpit/lights/ctk1
+	ATTR_Light_Level 0 1	A318/cockpit/lights/ctk1
 	TRIS	4230 18
-	ATTR_Light_Level_1_0	A318/cockpit/lights/xfeed
+	ATTR_Light_Level 1 0	A318/cockpit/lights/xfeed
 	TRIS	4248 18
-	ATTR_Light_Level_0_1	A318/cockpit/lights/ltk2
+	ATTR_Light_Level 0 1	A318/cockpit/lights/ltk2
 	TRIS	4266 18
-	ATTR_Light_Level_0_1	A318/cockpit/lights/ltk1
+	ATTR_Light_Level 0 1	A318/cockpit/lights/ltk1
 	TRIS	4284 18
 	TRIS	4302 18
 	TRIS	4320 18
@@ -6864,7 +6864,7 @@ IDX	5804
 	TRIS	5217 18
 	TRIS	5235 18
 	TRIS	5253 18
-	ATTR_Light_Level_0_1	A318/cockpit/lights/xfeedOp
+	ATTR_Light_Level 0 1	A318/cockpit/lights/xfeedOp
 	TRIS	5271 18
 	TRIS	5289 18
 	TRIS	5307 18
@@ -6873,7 +6873,7 @@ IDX	5804
 	TRIS	5361 18
 	TRIS	5379 18
 	TRIS	5397 18
-	ATTR_Light_Level_1_0	A318/cockpit/lights/gpuAv
+	ATTR_Light_Level 1 0	A318/cockpit/lights/gpuAv
 	TRIS	5415 18
 	TRIS	5433 18
 	TRIS	5451 18
