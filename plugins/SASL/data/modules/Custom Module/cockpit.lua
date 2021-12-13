@@ -1,5 +1,8 @@
 local AC1 = globalProperty("A318/systems/ELEC/AC1_V")
 local AC2 = globalProperty("A318/systems/ELEC/AC2_V")
+local DC1 = globalProperty("A318/systems/ELEC/DC1_V")
+local DC2 = globalProperty("A318/systems/ELEC/DC2_V")
+local DCESS = globalProperty("A318/systems/ELEC/DCESS_V")
 
 local gpuAvail = globalProperty("A318/systems/ELEC/gpu_Avail")
 
@@ -53,6 +56,18 @@ local lights = {
         ctk2 = createGlobalPropertyi("A318/cockpit/lights/ctk2", 0),
         rtk1 = createGlobalPropertyi("A318/cockpit/lights/rtk1", 0),
         rtk2 = createGlobalPropertyi("A318/cockpit/lights/rtk2", 0),
+    },
+    integ = {
+        ped = createGlobalPropertyf("A318/cockpit/lights/integPed", 1.0),
+        mip = createGlobalPropertyf("A318/cockpit/lights/integMIP", 1.0),
+        ovhd = createGlobalPropertyf("A318/cockpit/lights/integOVHD", 1.0),
+        fcuA = createGlobalPropertyf("A318/cockpit/lights/integFCU", 1.0),
+        fcuB = createGlobalPropertyf("A318/cockpit/lights/bcklghtFCU", 1.0),
+    },
+    flood = {
+        ped = createGlobalPropertyf("A318/cockpit/lights/floodPed", 1.0),
+        mip = createGlobalPropertyf("A318/cockpit/lights/floodMIP", 1.0),
+        dome = createGlobalPropertyi("A318/cockpit/lights/dome", 2),
     }
 }
 
@@ -83,6 +98,13 @@ local switches = {
         ctr2 = globalProperty("A318/systems/FUEL/CTRPUMP2Switch"),
         rTk1 = globalProperty("A318/systems/FUEL/RTKPUMP1Switch"),
         rTk2 = globalProperty("A318/systems/FUEL/RTKPUMP2Switch")
+    },
+    lights = {
+        mipFlood = createGlobalPropertyf("A318/systems/LIGHTS/floodMIPRot", 1.0),
+        intMipPed = createGlobalPropertyf("A318/systems/LIGHTS/IntegPedMIPRot", 1.0),
+        pedFlood = createGlobalPropertyf("A318/systems/LIGHTS/floodPedRot", 1.0),
+        ovhdInteg = createGlobalPropertyf("A318/systems/LIGHTS/integOVHDRot", 1.0),
+        dome = createGlobalPropertyi("A318/systems/LIGHTS/dome", 2)
     }
 }
 
@@ -224,6 +246,44 @@ function fuelLights()
     end
 end
 
+function cockpitLights()
+    -- DOME LIGHT
+    if get(DC1) > 0 or get(DCESS) > 0 then
+        set(lights.flood.dome, get(switches.lights.dome))
+    else
+        set(lights.flood.dome, 0)
+    end
+    
+    --MIP FLOOD
+    if get(DC1) > 0 or get(DCESS) > 0 then
+        set(lights.flood.mip, get(switches.lights.mipFlood))
+    else
+        set(lights.flood.mip, 0)
+    end
+
+    --PED FLOOD
+    if get(DC1) > 0 then
+        set(lights.flood.ped, get(switches.lights.pedFlood))
+    else
+        set(lights.flood.ped, 0)
+    end
+
+    -- INTEG
+    if get(AC1) > 0 then
+        set(lights.integ.ovhd, get(switches.lights.ovhdInteg))
+        set(lights.integ.fcuA, 1.0)
+        set(lights.integ.fcuB, 1.0)
+        set(lights.integ.ped, get(switches.lights.intMipPed))
+        set(lights.integ.mip, get(switches.lights.intMipPed))
+    else
+        set(lights.integ.ovhd, 0)
+        set(lights.integ.fcuA, 0)
+        set(lights.integ.fcuB, 0)
+        set(lights.integ.ped, 0)
+        set(lights.integ.mip, 0)
+    end
+end
+
 function update()
     -- GPU AVAIL LIGHT
     if get(gpuAvail) == 1 then
@@ -232,6 +292,7 @@ function update()
         set(lights.elec.gpuAv, 0)
     end
 
+    cockpitLights()
     if get(AC1) > 0 or get(AC2) > 0 then
         elecLights()
         aircondLights()
