@@ -57,6 +57,10 @@ components = {
 		fbo = true ,
 		fpsLimit = 20
 	};
+  transponder {
+		fbo = true ,
+		fpsLimit = 20
+	};
   menu {};
 --   efb{
 --     cursor = {
