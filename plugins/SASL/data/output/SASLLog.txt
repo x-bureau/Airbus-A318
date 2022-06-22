@@ -76,3 +76,6 @@
 [X-BUREAU'S A318 INFO]: [LUA]: loading	mcduPopout
 [X-BUREAU'S A318 INFO]: [LUA]: loading	cockpit
 [X-BUREAU'S A318 INFO]: Module loaded
+[X-BUREAU'S A318 INFO]: Disabling...
+[X-BUREAU'S A318 INFO]: [LUA]: "module"	TODO: save state
+[X-BUREAU'S A318 INFO]: SASL plugin stopped...

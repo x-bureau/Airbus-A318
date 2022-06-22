@@ -49,14 +49,14 @@ hydPopoutWindow = contextWindow { name = 'HYD panel';
 }
 
 welcomePopoutWindow = contextWindow { name = 'Welcome Screen';
-  position = {0, 0, 1000, 650 }; noBackground = true; proportional = true; gravity = {0, 1, 0, 1}; visible = true; saveState = false; noResize = true;
+  position = {0, 0, 1000, 650 }; noBackground = true; proportional = true; gravity = {0, 1, 0, 1}; visible = false; saveState = false; noResize = true;
   components = {
     welcomePopout {};
   }
 }
 
 mcduPopoutWindow = contextWindow { name = 'MCDU Widget';
-  position = { 100, 250, 429, 609 }; noBackground = true; proportional = true; minimumSize = { 429, 609 }; maximumSize = { 429, 609 }; gravity = { 0, 1, 0, 1 }; visible = false; saveState = false;
+  position = { 100, 250, 429, 635 }; noBackground = true; proportional = true; minimumSize = { 429, 635 }; maximumSize = { 429, 635 }; gravity = { 0, 1, 0, 1 }; visible = true; saveState = false;
   components = {
   mcduPopout {};
   }
