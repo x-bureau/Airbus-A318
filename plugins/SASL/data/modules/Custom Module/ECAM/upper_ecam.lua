@@ -266,40 +266,14 @@ local function draw_ENG_PAGE()
     sasl.gl.restoreInternalLineState()
 end
 
-function draw_message(message, line, type)
-    if line == 1 and type == 1 then 
-        sasl.gl.drawText(AirbusFont, 28, 175, message, 21, true, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.GREEN )
-    elseif line == 1 and type == 2 then 
-        sasl.gl.drawText(AirbusFont, 28, 175, message, 21, true, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.ORANGE)
-    elseif line == 1 and type == 3 then 
-        sasl.gl.drawText(AirbusFont, 28, 175, message, 21, true, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.RED)
-    elseif line == 1 and type == 4 then 
-        sasl.gl.drawText(AirbusFont, 28, 175, message, 21, true, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.BLUE)
-    elseif line == 2 and type == 1 then 
-        sasl.gl.drawText(AirbusFont, 28, 155, message, 21, true, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.GREEN )
-    elseif line == 2 and type == 2 then 
-        sasl.gl.drawText(AirbusFont, 28, 155, message, 21, true, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.ORANGE )
-    elseif line == 2 and type == 3 then 
-        sasl.gl.drawText(AirbusFont, 28, 155, message, 21, true, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.RED )
-    elseif line == 2 and type == 4 then 
-        sasl.gl.drawText(AirbusFont, 28, 155, message, 21, true, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.BLUE )
-    elseif line == 3 and type == 1 then 
-        sasl.gl.drawText(AirbusFont, 28, 135, message, 21, true, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.GREEN )
-    elseif line == 3 and type == 2 then 
-        sasl.gl.drawText(AirbusFont, 28, 135, message, 21, true, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.ORANGE )
-    elseif line == 3 and type == 3 then 
-        sasl.gl.drawText(AirbusFont, 28, 135, message, 21, true, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.RED )
-    elseif line == 3 and type == 4 then 
-        sasl.gl.drawText(AirbusFont, 28, 135, message, 21, true, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.BLUE )
-    elseif line == 4 and type == 1 then 
-        sasl.gl.drawText(AirbusFont, 28, 115, message, 21, true, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.GREEN )
-    elseif line == 4 and type == 2 then 
-        sasl.gl.drawText(AirbusFont, 28, 115, message, 21, true, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.ORANGE )
-    elseif line == 4 and type == 3 then 
-        sasl.gl.drawText(AirbusFont, 28, 115, message, 21, true, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.RED )
-    elseif line == 4 and type == 4 then 
-        sasl.gl.drawText(AirbusFont, 28, 115, message, 21, true, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.BLUE )
-    end
+do
+local ewd_msg_colour_range = {ECAM_COLOURS.GREEN, ECAM_COLOURS.ORANGE, ECAM_COLOURS.RED, ECAM_COLOURS.BLUE}
+function draw_message (message, line, type)
+	if line >= 1 and line <= 4 and type >= 1 and type <= 4 then	
+		local colour = ewd_msg_colour_range[type]
+		sasl.gl.drawText(AirbusFont, 28, 195 - line*20, message, 21, true, false, TEXT_ALIGN_LEFT, colour)
+	end
+end
 end
 
 function plane_startup()
