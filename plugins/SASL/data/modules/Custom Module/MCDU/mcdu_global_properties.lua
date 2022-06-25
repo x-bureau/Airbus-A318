@@ -33,6 +33,7 @@ PAGE_CALLS = {
     [113] = {draw_irs_init, update_irs_init, irs_init_key_input},
     [2] = {draw_data_index, update_data_index, data_index_input},
     [3] = {draw_acf_update, update_acf_update, acf_update_key_info},
+    [4] = {draw_prog},
     [800] = {draw_wpt_tester, update_wpt_tester, wpt_tester_key_input}
 }
 -------------------------------------------------------

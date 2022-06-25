@@ -1,5 +1,5 @@
 -- testing if download works
-
+include("MCDU/pages/prog.lua")
 include("MCDU/pages/mcdu_menu.lua")
 include("MCDU/pages/acf_info.lua")
 include("MCDU/pages/init.lua")
@@ -292,6 +292,10 @@ function checkOtherButtons()
             if i == 10 then
                 -- data page
                 set(MCDU_CURRENT_PAGE, 2)
+            end
+            if i == 4 then
+                --prog page
+                set(MCDU_CURRENT_PAGE, 4)
             end
         end
     end

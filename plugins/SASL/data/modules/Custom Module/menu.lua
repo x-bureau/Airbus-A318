@@ -1,6 +1,7 @@
-local xb_menu_item = sasl.appendMenuItem(PLUGINS_MENU_ID , "X-Bureau")
 
-local xb_menu = sasl.createMenu("Project", PLUGINS_MENU_ID , xb_menu_item)
+
+local xb_menu_item = sasl.appendMenuItem(PLUGINS_MENU_ID , "X-Bureau")
+xb_menu = sasl.createMenu("Project", PLUGINS_MENU_ID , xb_menu_item)
 
 local hydPopout_cmd = sasl.createCommand("A318/popouts/hyd", "HYD popout panel")
 sasl.registerCommandHandler(hydPopout_cmd, 0, function(phase)

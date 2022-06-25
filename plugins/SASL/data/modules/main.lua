@@ -16,6 +16,9 @@ size = {4096, 4096}
 panelWidth3d = 4096
 panelHeight3d = 4096
 
+
+MCDU_DISPLAY = sasl.gl.createTexture(500, 510)
+
 components = {
   customdataref {};
   elec {};
@@ -75,9 +78,5 @@ components = {
 --       fpsLimit = 20
 --   };
   cockpit {};
+  panel_drawing {};
 }
-
-function onModuleDone()
-  print('TODO: save state')
-  -- saveState('a318.state')
-end

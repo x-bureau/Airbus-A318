@@ -1,5 +1,3 @@
---Hello World
-
 --Load images
 local mcduBackground = sasl.gl.loadImage("mcduBackground.png")
 
@@ -54,13 +52,14 @@ function draw()
     sasl.gl.drawTexture(mcduBackground, 0, 0, 429, 609)
 --[[DRAW EVERYTHING BELOW THIS LINE]]--
 --[[ DRAW THE SHOW CLICK REGIONS OPTION ]]--
-    sasl.gl.drawText(AirbusFont, 0, 618, "ENABLE SHOW CLICK REGION", 12
-    , true, false, TEXT_ALIGN_LEFT, AIRBUS_WHITE)
+    sasl.gl.drawText(AirbusFont, 0, 618, "ENABLE SHOW CLICK REGION", 12, true, false, TEXT_ALIGN_LEFT, AIRBUS_WHITE)
     sasl.gl.drawRectangle(170, 614, 18, 18, AIRBUS_WHITE)
+    sasl.gl.drawRectangle(70, 360, 286, 220, AIRBUS_BLACK_TEXT)
     if SHOW_CLICK_REGIONS == 1 then
         draw_click_regions()
         sasl.gl.drawText(AirbusFont, 174, 616, "X", 16, true, false, TEXT_ALIGN_LEFT, AIRBUS_BLACK_TEXT)
     end
+    sasl.gl.drawTexture(MCDU_DISPLAY, 85, 366, 275, 214, {1.0 , 1.0 , 1.0 , 1.0})
 end
 
 function onMouseDown(component, x, y, button, parentX, parentY)
