@@ -2,9 +2,8 @@ I
 800
 OBJ
 
-GLOBAL_cockpit_lit
-TEXTURE	../Textures/Fuselage_ALB.png
-TEXTURE_NORMAL	../Textures/Fuselage_NML.png
+TEXTURE	Fuselage_ALB.png
+TEXTURE_NORMAL	Fuselage_NML.png
 NORMAL_METALNESS
 GLOBAL_specular	1.0
 POINT_COUNTS	35445	0	0	35445
