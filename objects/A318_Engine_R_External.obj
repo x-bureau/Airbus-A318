@@ -2,7 +2,7 @@ I
 800
 OBJ
 
-TEXTURE	../Textures/External_ALB.png
+TEXTURE	../Textures/External.png
 TEXTURE_NORMAL	../Textures/External_NML.png
 NORMAL_METALNESS	
 GLOBAL_specular	1.0
