@@ -153,7 +153,7 @@ P _gear/0/_latN 0.0
 P _gear/0/_latR 0.0
 P _gear/0/_leg_len 5.199999809
 P _gear/0/_lonE 6.0
-P _gear/0/_lonN 29.230690002
+P _gear/0/_lonN 119.605590820
 P _gear/0/_lonR 120.0
 P _gear/0/_scon 31250.011718750
 P _gear/0/_stat_def 0.145855099
@@ -183,11 +183,11 @@ P _gear/1/_gear_x -8.989999771
 P _gear/1/_gear_y -1.789999962
 P _gear/1/_gear_z 50.500000000
 P _gear/1/_latE 0.0
-P _gear/1/_latN 16.913574219
+P _gear/1/_latN 82.712844849
 P _gear/1/_latR 83.0
 P _gear/1/_leg_len 6.800000191
 P _gear/1/_lonE -6.0
-P _gear/1/_lonN -4.777332306
+P _gear/1/_lonN -0.020758215
 P _gear/1/_lonR 0.0
 P _gear/1/_scon 50000.019531250
 P _gear/1/_stat_def 1.454384565
@@ -217,11 +217,11 @@ P _gear/2/_gear_x 8.989999771
 P _gear/2/_gear_y -1.789999962
 P _gear/2/_gear_z 50.500000000
 P _gear/2/_latE 0.0
-P _gear/2/_latN -16.913574219
+P _gear/2/_latN -82.712844849
 P _gear/2/_latR -83.0
 P _gear/2/_leg_len 6.800000191
 P _gear/2/_lonE -6.0
-P _gear/2/_lonN -4.777332306
+P _gear/2/_lonN -0.020758215
 P _gear/2/_lonR 0.0
 P _gear/2/_scon 50000.019531250
 P _gear/2/_stat_def 1.454384565
