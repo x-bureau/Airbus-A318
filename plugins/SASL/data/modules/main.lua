@@ -79,4 +79,9 @@ components = {
 --   };
   cockpit {};
   panel_drawing {};
+  DCDUmain {
+    fbo = true,
+    fpsLimit = 20
+  }
+  autopilot {};
 }
