@@ -7,63 +7,48 @@
 
 -- TODO : figure out some way to throttle up depeding on what speed they asked
 -----------------------------------------------------------------------------------------------------
-position = {296, 1630, 143, 180}
-size = {250, 250}
+position = {1570, 3602, 421, 87}
+size = {421, 87}
 
 local AP_SPD = createGlobalPropertyi("A318/cockpit/ap/speed", 0)
 local AP_SPD_ENGAGE = createGlobalPropertyi("A318/cockpit/ap/ENGAGE_SPEED", 0)
 local AIRSPEED = globalPropertyf("sim/cockpit2/gauges/indicators/airspeed_kts_pilot")
-local ENGINE_PERCENT = globalPropertyfa("sim/flightmodel/engine/ENGN_N1_", 7)
+local ENGINE_PERCENT = globalPropertyfa("sim/flightmodel/engine/ENGN_N1", 7)
 local gspeed = globalPropertyf("sim/flightmodel/position/groundspeed")
 local throttle_up = sasl.findCommand("sim/engines/throttle_up")
 local throttle_down = sasl.findCommand("sim/engines/throttle_down")
+local throttle_down = sasl.findCommand("sim/engines/throttle_down")
+local speed_setting = globalPropertyf("sim/cockpit/autopilot/airspeed")
+local hdg_setting = globalPropertyf("sim/cockpit/autopilot/heading")
+local alt_step_setting = globalPropertyf("sim/aircraft/autopilot/alt_step_ft")
+local altitude_setting = globalPropertyf("sim/cockpit/autopilot/altitude")
 
 local AP_SPD_SIZE = 34
 local MCDU_ORANGE = {1.0, 0.625, 0.0, 1.0}
+local font = sasl.gl.loadFont("fonts/digital.ttf")
+local AP_WHITE = {1.0, 1.0, 1.0, 1.0}
+local AP_GOLD = {1.0, 0.85, 0, 1.0}
 
-local SPD_TBL = { -- GOES BY THIS ORDER AND THIS ORDER ONLY!!!
-    "-", -- 3 
-    "-", -- 2 
-    "-" -- 1  
-}
 
 
 function draw_panel()
-    sasl.gl.drawText(AirbusFont, -370, 500, "SPD", 25, false, false, TEXT_ALIGN_RIGHT, MCDU_ORANGE)
-    sasl.gl.drawText(AirbusFont, -360, 470, SPD_TBL[3], AP_SPD_SIZE, false, false, TEXT_ALIGN_RIGHT, MCDU_ORANGE)
-    sasl.gl.drawText(AirbusFont, -375, 470, SPD_TBL[2], AP_SPD_SIZE, false, false, TEXT_ALIGN_RIGHT, MCDU_ORANGE)
-    sasl.gl.drawText(AirbusFont, -390, 470, SPD_TBL[1], AP_SPD_SIZE, false, false, TEXT_ALIGN_RIGHT, MCDU_ORANGE)
-    sasl.gl.drawText(AirbusFont, -110, 500, "HDG", 25, false, false, TEXT_ALIGN_RIGHT, MCDU_ORANGE)
-    sasl.gl.drawText(AirbusFont, -70, 470, "---", 50, false, false, TEXT_ALIGN_RIGHT, MCDU_ORANGE)
-    sasl.gl.drawText(AirbusFont, -30, 500, "LAT", 25, false, false, TEXT_ALIGN_RIGHT, MCDU_ORANGE)
-    sasl.gl.drawText(AirbusFont, 110, 480, "HDG", 25, false, false, TEXT_ALIGN_RIGHT, MCDU_ORANGE)
-end
-
-function update()
-
-    -- for i in ipairs(SPD_TBL) do
-    --     SPD_TBL[i] = get(AP_SPD)
-    -- end
-
-    -- AUTO THROTTLE 
-        if get(AP_SPD_ENGAGE) == 1 and get(AIRSPEED) ~= get(AP_SPD) and get(AP_SPD) > get(gspeed) * 2 then 
-            print(get(AIRSPEED))
-            if get(AP_SPD) >= 100 and get(AP_SPD) <= 110 then 
-                sasl.commandOnce(throttle_up)
-            elseif get(AP_SPD) >= 110 then
-                sasl.commandOnce(throttle_up)
-            else
-                sasl.commandOnce(throttle_up)
-            end
-        elseif get(AP_SPD) == get(gspeed) then 
-            sasl.commandOnce(throttle_down)
-    end
+    -- DRAW SPEED
+    sasl.gl.drawText(font, 25, 40, "SPD", 24, false, false, TEXT_ALIGN_LEFT, AP_GOLD )
+    sasl.gl.drawText(font, 45, 1, get(speed_setting), 50, true, false, TEXT_ALIGN_LEFT,AP_GOLD)
+    -- DRAW HEADING
+    sasl.gl.drawText(font, 170, 40, "HDG", 24, false, false, TEXT_ALIGN_LEFT, AP_GOLD)
+    sasl.gl.drawText(font, 260, 40, "LAT", 24, false, false, TEXT_ALIGN_LEFT, AP_GOLD)
+    sasl.gl.drawText(font, 190, 1, math.floor(get(hdg_setting)), 50, true, false, TEXT_ALIGN_LEFT,AP_GOLD)
+    sasl.gl.drawText(font, 372, 18, "HDG", 30, false, false, TEXT_ALIGN_LEFT, AP_GOLD)
+    -- DRAW altitude
+    sasl.gl.drawText(font, 15, 123, "V/S", 30, false, false, TEXT_ALIGN_LEFT, AP_GOLD)
+    sasl.gl.drawText(font, 185, 155, "ALT", 24, false, false, TEXT_ALIGN_LEFT, AP_GOLD)
+    sasl.gl.drawText(font, 120, 115, math.floor(get(altitude_setting)), 50, false, false, TEXT_ALIGN_LEFT, AP_GOLD)
 
 
 
-    -- HEADING
 end
 
 function draw()
-draw_panel() 
+draw_panel()
 end
