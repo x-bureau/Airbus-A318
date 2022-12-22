@@ -10,6 +10,7 @@ addSearchPath(moduleDirectory .. "/Custom Module/ATSAW/")
 addSearchPath(moduleDirectory .. "/Custom Module/efb/")
 addSearchPath(moduleDirectory .. "/Custom Module/MCDU/")
 addSearchPath(moduleDirectory .. "/Custom Module/Comms/")
+addSearchPath(moduleDirectory .. "/Custom Module/DCDU")
 
 size = {4096, 4096}
 
@@ -82,6 +83,6 @@ components = {
   DCDUmain {
     fbo = true,
     fpsLimit = 20
-  }
+  };
   autopilot {};
 }
