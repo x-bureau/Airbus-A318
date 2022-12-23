@@ -1,5 +1,5 @@
 [X-BUREAU'S A318 INFO]: Initializing...
-[X-BUREAU'S A318 INFO]: Path to module: /Users/jacobkatz/X-Plane 11/Aircraft/Dev Aircraft/Airbus-A318/plugins/SASL/data/modules/main.lua
+[X-BUREAU'S A318 INFO]: Path to module: /Users/jacobkatz/X-Plane 11/Aircraft/Dev Aircraft/Airbus-A318-master/Untitled/plugins/SASL/data/modules/main.lua
 [X-BUREAU'S A318 INFO]: Loading module...
 [X-BUREAU'S A318 INFO]: [LUA]: loading	module
 [X-BUREAU'S A318 INFO]: [LUA]: loading	customdataref
@@ -11,11 +11,11 @@
 [X-BUREAU'S A318 INFO]: [LUA]: loading	bleed
 [X-BUREAU'S A318 INFO]: [LUA]: loading	fltwrngsys
 [X-BUREAU'S A318 WARN]: [STACK]:| createDataRef : DataRefsHandler::luaCreateDataRef: <A318/systems/FADEC/MODESEL> already exists
-[X-BUREAU'S A318 WARN]: [STACK]:| ...ft/Airbus-A318/plugins/SASL/data/init/initProperties.lua:440 in function <createGlobalPropertyi>
-[X-BUREAU'S A318 WARN]: [STACK]:| ...8/plugins/SASL/data/modules/Custom Module/fltwrngsys.lua:4 in function <f>
-[X-BUREAU'S A318 WARN]: [STACK]:| ...Aircraft/Airbus-A318/plugins/SASL/data/init/initMain.lua:262 in function <fltwrngsys>
-[X-BUREAU'S A318 WARN]: [STACK]:| ... Aircraft/Airbus-A318/plugins/SASL/data/modules/main.lua:30 in function <f>
-[X-BUREAU'S A318 WARN]: [STACK]:| ...Aircraft/Airbus-A318/plugins/SASL/data/init/initMain.lua:262 in function <c>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...aster/Untitled/plugins/SASL/data/init/initProperties.lua:440 in function <createGlobalPropertyi>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...d/plugins/SASL/data/modules/Custom Module/fltwrngsys.lua:4 in function <f>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...A318-master/Untitled/plugins/SASL/data/init/initMain.lua:262 in function <fltwrngsys>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...-A318-master/Untitled/plugins/SASL/data/modules/main.lua:31 in function <f>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...A318-master/Untitled/plugins/SASL/data/init/initMain.lua:262 in function <c>
 [X-BUREAU'S A318 WARN]: [STACK]:| ...
 [X-BUREAU'S A318 INFO]: [LUA]: loading	mcdu
 [X-BUREAU'S A318 INFO]: [LUA]: including	MCDU/pages/prog.lua
@@ -42,24 +42,24 @@
 [X-BUREAU'S A318 INFO]: [LUA]: including	ECAM/pages/BLEED.lua
 [X-BUREAU'S A318 INFO]: [LUA]: including	ECAM/pages/CRUISE.lua
 [X-BUREAU'S A318 WARN]: [STACK]:| findDataRef : DataRefsHandler::luaFindDataRef: <A318/systems/aircond/temps/actual> not found
-[X-BUREAU'S A318 WARN]: [STACK]:| ...ft/Airbus-A318/plugins/SASL/data/init/initProperties.lua:746 in function <globalPropertyfa>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...aster/Untitled/plugins/SASL/data/init/initProperties.lua:746 in function <globalPropertyfa>
 [X-BUREAU'S A318 WARN]: [STACK]:| ...ns/SASL/data/modules/Custom Module/ECAM/pages/CRUISE.lua:4 in function <f>
-[X-BUREAU'S A318 WARN]: [STACK]:| ...Aircraft/Airbus-A318/plugins/SASL/data/init/initMain.lua:302 in function <include>
-[X-BUREAU'S A318 WARN]: [STACK]:| ...Aircraft/Airbus-A318/plugins/SASL/data/init/initMain.lua:169 in function <include>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...A318-master/Untitled/plugins/SASL/data/init/initMain.lua:302 in function <include>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...A318-master/Untitled/plugins/SASL/data/init/initMain.lua:169 in function <include>
 [X-BUREAU'S A318 WARN]: [STACK]:| ...ins/SASL/data/modules/Custom Module/ECAM//lower_ecam.lua:6 in function <f>
 [X-BUREAU'S A318 WARN]: [STACK]:| ...
 [X-BUREAU'S A318 WARN]: [STACK]:| findDataRef : DataRefsHandler::luaFindDataRef: <A318/systems/aircond/ldg_elev> not found
-[X-BUREAU'S A318 WARN]: [STACK]:| ...ft/Airbus-A318/plugins/SASL/data/init/initProperties.lua:390 in function <globalPropertyi>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...aster/Untitled/plugins/SASL/data/init/initProperties.lua:390 in function <globalPropertyi>
 [X-BUREAU'S A318 WARN]: [STACK]:| ...ns/SASL/data/modules/Custom Module/ECAM/pages/CRUISE.lua:5 in function <f>
-[X-BUREAU'S A318 WARN]: [STACK]:| ...Aircraft/Airbus-A318/plugins/SASL/data/init/initMain.lua:302 in function <include>
-[X-BUREAU'S A318 WARN]: [STACK]:| ...Aircraft/Airbus-A318/plugins/SASL/data/init/initMain.lua:169 in function <include>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...A318-master/Untitled/plugins/SASL/data/init/initMain.lua:302 in function <include>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...A318-master/Untitled/plugins/SASL/data/init/initMain.lua:169 in function <include>
 [X-BUREAU'S A318 WARN]: [STACK]:| ...ins/SASL/data/modules/Custom Module/ECAM//lower_ecam.lua:6 in function <f>
 [X-BUREAU'S A318 WARN]: [STACK]:| ...
 [X-BUREAU'S A318 WARN]: [STACK]:| findDataRef : DataRefsHandler::luaFindDataRef: <A318/systems/aircond/ldg_elev_auto> not found
-[X-BUREAU'S A318 WARN]: [STACK]:| ...ft/Airbus-A318/plugins/SASL/data/init/initProperties.lua:390 in function <globalPropertyi>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...aster/Untitled/plugins/SASL/data/init/initProperties.lua:390 in function <globalPropertyi>
 [X-BUREAU'S A318 WARN]: [STACK]:| ...ns/SASL/data/modules/Custom Module/ECAM/pages/CRUISE.lua:6 in function <f>
-[X-BUREAU'S A318 WARN]: [STACK]:| ...Aircraft/Airbus-A318/plugins/SASL/data/init/initMain.lua:302 in function <include>
-[X-BUREAU'S A318 WARN]: [STACK]:| ...Aircraft/Airbus-A318/plugins/SASL/data/init/initMain.lua:169 in function <include>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...A318-master/Untitled/plugins/SASL/data/init/initMain.lua:302 in function <include>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...A318-master/Untitled/plugins/SASL/data/init/initMain.lua:169 in function <include>
 [X-BUREAU'S A318 WARN]: [STACK]:| ...ins/SASL/data/modules/Custom Module/ECAM//lower_ecam.lua:6 in function <f>
 [X-BUREAU'S A318 WARN]: [STACK]:| ...
 [X-BUREAU'S A318 INFO]: [LUA]: including	ECAM/pages/DOORS.lua
@@ -77,6 +77,13 @@
 [X-BUREAU'S A318 INFO]: [LUA]: loading	mcduPopout
 [X-BUREAU'S A318 INFO]: [LUA]: loading	cockpit
 [X-BUREAU'S A318 INFO]: [LUA]: loading	panel_drawing
+[X-BUREAU'S A318 INFO]: [LUA]: loading	DCDUmain
+[X-BUREAU'S A318 INFO]: [LUA]: loading	autopilot
+[X-BUREAU'S A318 WARN]: [STACK]:| findDataRef : DataRefsHandler::luaFindDataRef: <sim/flightmodel/engine/ENGN_N1> not found
+[X-BUREAU'S A318 WARN]: [STACK]:| ...aster/Untitled/plugins/SASL/data/init/initProperties.lua:746 in function <globalPropertyfa>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...ed/plugins/SASL/data/modules/Custom Module/autopilot.lua:16 in function <f>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...A318-master/Untitled/plugins/SASL/data/init/initMain.lua:262 in function <autopilot>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...-A318-master/Untitled/plugins/SASL/data/modules/main.lua:87 in function <f>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...A318-master/Untitled/plugins/SASL/data/init/initMain.lua:262 in function <c>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...
 [X-BUREAU'S A318 INFO]: Module loaded
-[X-BUREAU'S A318 INFO]: Disabling...
-[X-BUREAU'S A318 INFO]: SASL plugin stopped...
