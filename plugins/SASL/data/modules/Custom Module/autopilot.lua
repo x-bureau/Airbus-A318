@@ -34,7 +34,7 @@ local AP_GOLD = {1.0, 0.85, 0, 1.0}
 function draw_panel()
     -- DRAW SPEED
     sasl.gl.drawText(font, 25, 40, "SPD", 24, false, false, TEXT_ALIGN_LEFT, AP_GOLD )
-    sasl.gl.drawText(font, 45, 1, get(speed_setting), 50, true, false, TEXT_ALIGN_LEFT,AP_GOLD)
+    sasl.gl.drawText(font, 45, 1, math.floor(get(speed_setting)), 50, true, false, TEXT_ALIGN_LEFT,AP_GOLD)
     -- DRAW HEADING
     sasl.gl.drawText(font, 170, 40, "HDG", 24, false, false, TEXT_ALIGN_LEFT, AP_GOLD)
     sasl.gl.drawText(font, 260, 40, "LAT", 24, false, false, TEXT_ALIGN_LEFT, AP_GOLD)
