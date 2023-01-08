@@ -11,6 +11,8 @@ addSearchPath(moduleDirectory .. "/Custom Module/efb/")
 addSearchPath(moduleDirectory .. "/Custom Module/MCDU/")
 addSearchPath(moduleDirectory .. "/Custom Module/Comms/")
 addSearchPath(moduleDirectory .. "/Custom Module/DCDU")
+addSearchPath(moduleDirectory .. "/Custom Module/MCDU_Rewrite")
+
 
 size = {4096, 4096}
 
@@ -85,4 +87,6 @@ components = {
     fpsLimit = 20
   };
   autopilot {};
+  --maintenance {};
+  mcdu2 {};
 }
