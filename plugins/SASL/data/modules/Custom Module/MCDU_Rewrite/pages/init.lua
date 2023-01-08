@@ -42,7 +42,7 @@ function processAltnCoRte()
         inputs.ALTN_CO_RTE[5] = scratchpad
         set(MCDU_CURRENT_BUTTON,-1)
         scratchpad = ""
-    elseif get(MCDU_CURRENT_BUTTON) == 1 and (string.len(scratchpad) ~= inputs.ALTN_CO_RTE[3] or string.sub(scratchpad, 5,6) ~= "/") then
+    elseif get(MCDU_CURRENT_BUTTON) == 1 and (string.len(scratchpad) ~= inputs.ALTN_CO_RTE[3] or string.sub(scratchpad, 5,5) ~= "/") then
         print(string.sub(scratchpad, 5,5))
         scratchpad = "ERROR"
     end
@@ -58,7 +58,39 @@ function processFltNbr()
     end
 end
 
+function processLat()
+    if string.len(scratchpad) == inputs.LAT[3]and get(MCDU_CURRENT_BUTTON) == 3 and string.sub(scratchpad,5,5) == "." then
+        inputs.LAT[5] = scratchpad
+        set(MCDU_CURRENT_BUTTON, -1)
+        scratchpad = ""
+    elseif get(MCDU_CURRENT_BUTTON) == 3 and (string.len(scratchpad) ~= inputs.LAT[3] or string.sub(scratchpad,5,5) ~= ".") then
+        scratchpad = "ERROR"
+    end
+end
 
+function processCostIndex()
+    if string.len(scratchpad) == inputs.COST_INDEX[3] and get(MCDU_CURRENT_BUTTON) == 4 then
+        inputs.COST_INDEX[5] = scratchpad
+        set(MCDU_CURRENT_BUTTON, -1)
+        scratchpad = ""
+    elseif get(MCDU_CURRENT_BUTTON) == 4 and string.len(scratchpad) ~= inputs.COST_INDEX[3] then
+        scratchpad = "ERROR"
+    end
+end
+
+function processCrzFlTemp()
+    if string.len(scratchpad) == inputs.CRZ_FL_TEMP[3] and get(MCDU_CURRENT_BUTTON) == 5 then
+        if string.sub(scratchpad,1,2) == "FL" and string.sub(scratchpad,6,6) == "/" then
+            inputs.CRZ_FL_TEMP[5] = scratchpad
+        else
+            scratchpad = "ERROR"
+        end
+    elseif get(MCDU_CURRENT_BUTTON) == 5 and string.len(scratchpad) ~= inputs.CRZ_FL_TEMP[3] then
+        scratchpad = "ERROR"
+    end
+end
+
+--TODO: function processFromTo - Need to validate airports
 
 function drawInit()
     processCoRte()
@@ -82,6 +114,26 @@ function drawInit()
         sasl.gl.drawText(MCDU_FONT, 2, mcdu_positions[3], inputs.FLT_NBR[5], mcdu_option_size, false, false, TEXT_ALIGN_LEFT, mcdu_font_colors[1])
     end
 
+    processLat()
+    if inputs.LAT[5] == " " then
+        drawDashDotSeparated(mcdu_positions[4], 4, 1, 1)
+    else
+        sasl.gl.drawText(MCDU_FONT, 2, mcdu_positions[4], inputs.LAT[5], mcdu_option_size, false, false, TEXT_ALIGN_LEFT, mcdu_font_colors[1])
+    end
+
+    processCostIndex()
+    if inputs.COST_INDEX == " " then
+        drawDashField(mcdu_positions[5], 1, 3)
+    else
+        sasl.gl.drawText(MCDU_FONT, 2, mcdu_positions[4], inputs.COST_INDEX[5], mcdu_option_size, false, false, TEXT_ALIGN_LEFT, mcdu_font_colors[1])
+    end
+
+    processCrzFlTemp()
+    if inputs.CRZ_FL_TEMP == " " then
+        drawDashSeparated(mcdu_positions[6], 5, 3,1)
+    else
+        sasl.gl.drawText(MCDU_FONT, 2, mcdu_positions[4], inputs.CRZ_FL_TEMP[5], mcdu_option_size, false, false, TEXT_ALIGN_LEFT, mcdu_font_colors[1])
+    end
     --STATIC DRAWINGS
     sasl.gl.drawText(MCDU_FONT, title_location.x, title_location.y, "INIT", title_location.font_size, false, false, TEXT_ALIGN_CENTER, mcdu_font_colors[1])
     sasl.gl.drawText(MCDU_FONT, 490, option_heading_locations[2], "INIT", option_heading_font_size, false, false, TEXT_ALIGN_RIGHT, MCDU_ORANGE)
@@ -89,8 +141,5 @@ function drawInit()
     sasl.gl.drawText(MCDU_FONT, 490, mcdu_positions[4], "WIND>", mcdu_option_size, false, false, TEXT_ALIGN_RIGHT, MCDU_WHITE)
     drawTextFieldBoxes(9, MCDU_ORANGE, 490, mcdu_positions[1],2)
     drawOptionHeadings(optionLables)
-    drawDashDotSeparated(mcdu_positions[4], 4, 1, 1)
-    drawDashField(mcdu_positions[5], 1, 3)
-    drawDashSeparated(mcdu_positions[6], 5, 3,1)
     drawDashField(mcdu_positions[6], 2, 3)
 end

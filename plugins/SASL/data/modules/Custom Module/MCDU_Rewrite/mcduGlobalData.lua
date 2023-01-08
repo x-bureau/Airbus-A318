@@ -1,5 +1,8 @@
 include("MCDU_Rewrite/pages/mcdu_menu.lua")
 include("MCDU_Rewrite/pages/init.lua")
+include("MCDU_Rewrite/pages/data.lua")
+include("MCDU_Rewrite/pages/printaoc.lua")
+
 
 MCDU_FONT = sasl.gl.loadFont("fonts/B612Mono-Regular.ttf")
 BLANK_FONT = sasl.gl.loadFont("fonts/B612Mono-Regular.ttf")
@@ -43,6 +46,8 @@ function update()
         buttonStorage = -1
     end
     pageButtons(buttons)
+    switchDataPage()
+    switchPrintAOCPage()
 
     -- REMOVE SCRATCHPAD ERRORS
 end
@@ -53,6 +58,9 @@ function pageButtons(button)
         set(MCDU_CURRENT_BUTTON, -1)
     elseif get(MCDU_CURRENT_BUTTON) == 22 then
         set(MCDU_CURRENT_PAGE, 0)
+        set(MCDU_CURRENT_BUTTON, -1)
+    elseif get(MCDU_CURRENT_BUTTON) == 16 then
+        set(MCDU_CURRENT_PAGE, 2)
         set(MCDU_CURRENT_BUTTON, -1)
     else
 
@@ -75,8 +83,18 @@ mcduPages = {
     [0] = {drawMCDUMenu},
     [1] = {drawInit},
     --[11] = {initB},
-    --[111] = {drawClimbWind}
-    --[112] = {drawDescentWind}
+    --[111] = {drawClimbWind},
+    --[112] = {drawDescentWind},
+    [2] = {drawDataA},
+    [22] = {drawDataB},
+    --[221] = {drawPositionMonitor},
+    --[222] = {drawIRSMonitor},
+    --[223] = {drawGPSMonitor},
+    --[224] = {drawACStatus},
+    [225] = {drawPrintA},
+    [2251] = {drawPrintB},
+    [226] = {drawAOCA},
+    [2261] = {drawAOCB},
 }
 
 mcdu_font_colors = {
