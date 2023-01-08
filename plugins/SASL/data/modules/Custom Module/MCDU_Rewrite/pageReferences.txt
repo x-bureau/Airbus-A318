@@ -1,0 +1,5 @@
+0 - MCDU MENU
+11 - INIT A
+    111 - WIND A
+    112 - WIND B
+12 - INIT B
