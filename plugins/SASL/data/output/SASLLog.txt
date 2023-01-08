@@ -14,7 +14,7 @@
 [X-BUREAU'S A318 WARN]: [STACK]:| ...aster/Untitled/plugins/SASL/data/init/initProperties.lua:440 in function <createGlobalPropertyi>
 [X-BUREAU'S A318 WARN]: [STACK]:| ...d/plugins/SASL/data/modules/Custom Module/fltwrngsys.lua:4 in function <f>
 [X-BUREAU'S A318 WARN]: [STACK]:| ...A318-master/Untitled/plugins/SASL/data/init/initMain.lua:262 in function <fltwrngsys>
-[X-BUREAU'S A318 WARN]: [STACK]:| ...-A318-master/Untitled/plugins/SASL/data/modules/main.lua:31 in function <f>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...-A318-master/Untitled/plugins/SASL/data/modules/main.lua:33 in function <f>
 [X-BUREAU'S A318 WARN]: [STACK]:| ...A318-master/Untitled/plugins/SASL/data/init/initMain.lua:262 in function <c>
 [X-BUREAU'S A318 WARN]: [STACK]:| ...
 [X-BUREAU'S A318 INFO]: [LUA]: loading	mcdu
@@ -83,9 +83,12 @@
 [X-BUREAU'S A318 WARN]: [STACK]:| ...aster/Untitled/plugins/SASL/data/init/initProperties.lua:746 in function <globalPropertyfa>
 [X-BUREAU'S A318 WARN]: [STACK]:| ...ed/plugins/SASL/data/modules/Custom Module/autopilot.lua:16 in function <f>
 [X-BUREAU'S A318 WARN]: [STACK]:| ...A318-master/Untitled/plugins/SASL/data/init/initMain.lua:262 in function <autopilot>
-[X-BUREAU'S A318 WARN]: [STACK]:| ...-A318-master/Untitled/plugins/SASL/data/modules/main.lua:87 in function <f>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...-A318-master/Untitled/plugins/SASL/data/modules/main.lua:89 in function <f>
 [X-BUREAU'S A318 WARN]: [STACK]:| ...A318-master/Untitled/plugins/SASL/data/init/initMain.lua:262 in function <c>
 [X-BUREAU'S A318 WARN]: [STACK]:| ...
+[X-BUREAU'S A318 INFO]: [LUA]: loading	mcdu2
+[X-BUREAU'S A318 INFO]: [LUA]: including	MCDU_Rewrite/input.lua
+[X-BUREAU'S A318 INFO]: [LUA]: including	MCDU_Rewrite/mcduGlobalData.lua
+[X-BUREAU'S A318 INFO]: [LUA]: including	MCDU_Rewrite/pages/mcdu_menu.lua
+[X-BUREAU'S A318 INFO]: [LUA]: including	MCDU_Rewrite/pages/init.lua
 [X-BUREAU'S A318 INFO]: Module loaded
-[X-BUREAU'S A318 INFO]: Disabling...
-[X-BUREAU'S A318 INFO]: SASL plugin stopped...
