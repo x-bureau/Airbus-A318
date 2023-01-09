@@ -9,7 +9,7 @@ size = {479, 400}
 
 scratchpad = ""
 
-set(MCDU_CURRENT_PAGE,0)
+set(MCDU_CURRENT_PAGE,3)
 
 
 function draw()

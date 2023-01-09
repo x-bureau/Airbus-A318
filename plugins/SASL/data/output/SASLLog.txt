@@ -91,7 +91,8 @@
 [X-BUREAU'S A318 INFO]: [LUA]: including	MCDU_Rewrite/mcduGlobalData.lua
 [X-BUREAU'S A318 INFO]: [LUA]: including	MCDU_Rewrite/pages/mcdu_menu.lua
 [X-BUREAU'S A318 INFO]: [LUA]: including	MCDU_Rewrite/pages/init.lua
+[X-BUREAU'S A318 INFO]: [LUA]: including	MCDU_Rewrite/pages/data.lua
+[X-BUREAU'S A318 INFO]: [LUA]: including	MCDU_Rewrite/pages/printaoc.lua
 [X-BUREAU'S A318 INFO]: Module loaded
-[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	L
 [X-BUREAU'S A318 INFO]: Disabling...
 [X-BUREAU'S A318 INFO]: SASL plugin stopped...

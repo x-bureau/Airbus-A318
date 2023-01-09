@@ -14,8 +14,6 @@ local optionLablesA = {
 }
 
 
-
-
 function switchDataPage()
     if get(MCDU_CURRENT_BUTTON) == 26 and get(MCDU_CURRENT_PAGE) == 2 then
         set(MCDU_CURRENT_PAGE, 22)
@@ -25,8 +23,13 @@ function switchDataPage()
         set(MCDU_CURRENT_BUTTON, -1)
     elseif get(MCDU_CURRENT_BUTTON) == 10 and get(MCDU_CURRENT_PAGE) == 2 then
         set(MCDU_CURRENT_PAGE, 225)
+        set(MCDU_CURRENT_BUTTON, -1)
     elseif get(MCDU_CURRENT_BUTTON) == 11 and get(MCDU_CURRENT_PAGE) == 2 then
         set(MCDU_CURRENT_PAGE, 226)
+        set(MCDU_CURRENT_BUTTON, -1)
+    elseif get(MCDU_CURRENT_BUTTON) == 2 and get(MCDU_CURRENT_PAGE) == 2 then
+        set(MCDU_CURRENT_PAGE, 223)
+        set(MCDU_CURRENT_BUTTON, -1)
     end
 end
 

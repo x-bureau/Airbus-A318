@@ -1,9 +1,14 @@
+------------------------------------------------------
+--                MCDU WRITTEN BY:
+--                  - FBI914
+------------------------------------------------------
+
 
 --Custom Colors
 local MCDU_ORANGE = {1.0, 0.549, 0.0, 1.0}
 local MCDU_WHITE = {1.0, 1.0, 1.0, 1.0}
 local MCDU_GREEN = {0.0, 1.0, 0.1, 1.0}
-local MCDU_BLUE = {0.0, 0.4, 0.7, 1.0}
+local MCDU_BLUE = {0.0, 0.7, 0.8, 1.0}
 
 -- INPUT HANDLER
 function switchPrintAOCPage()
@@ -45,8 +50,20 @@ local optionLablesA = {
     [11] = "",
     [12] = "AOC"
 }
+
+local function processPrintInput()
+    if get(MCDU_CURRENT_BUTTON) >= 6 and get(MCDU_CURRENT_BUTTON) <= 8 and get(MCDU_CURRENT_PAGE) == 225 then
+        scratchpad = "PRINTER NOT AVAILABLE"
+        set(MCDU_CURRENT_BUTTON, -1)
+    elseif get(MCDU_CURRENT_BUTTON) >= 6 and get(MCDU_CURRENT_BUTTON) <= 9 and get(MCDU_CURRENT_PAGE) == 2251 then
+        scratchpad = "PRINTER NOT AVAILABLE"
+        set(MCDU_CURRENT_BUTTON, -1)
+    end
+end
+
 function drawPrintA()
     --STATIC DRAWINGS
+    processPrintInput()
     drawOptionHeadings(optionLablesA)
     sasl.gl.drawText(MCDU_FONT, title_location.x, title_location.y, "PRINT FUNCTION", title_location.font_size, false, false, TEXT_ALIGN_CENTER, mcdu_font_colors[1])
     sasl.gl.drawText(MCDU_FONT, 420, title_location.y+10, "1/2", option_heading_font_size, false, false, TEXT_ALIGN_CENTER, mcdu_font_colors[1])
@@ -80,6 +97,7 @@ local optionLabelsB = {
 }
 function drawPrintB()
     --STATIC DRAWINGS
+    processPrintInput()
     drawOptionHeadings(optionLabelsB)
     sasl.gl.drawText(MCDU_FONT, title_location.x, title_location.y, "PRINT FUNCTION", title_location.font_size, false, false, TEXT_ALIGN_CENTER, mcdu_font_colors[1])
     sasl.gl.drawText(MCDU_FONT, 420, title_location.y+10, "2/2", option_heading_font_size, false, false, TEXT_ALIGN_CENTER, mcdu_font_colors[1])

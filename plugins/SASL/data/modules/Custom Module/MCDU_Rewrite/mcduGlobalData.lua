@@ -2,6 +2,8 @@ include("MCDU_Rewrite/pages/mcdu_menu.lua")
 include("MCDU_Rewrite/pages/init.lua")
 include("MCDU_Rewrite/pages/data.lua")
 include("MCDU_Rewrite/pages/printaoc.lua")
+include("MCDU_Rewrite/pages/gps.lua")
+include("MCDU_Rewrite/pages/FPLAN/fplan.lua")
 
 
 MCDU_FONT = sasl.gl.loadFont("fonts/B612Mono-Regular.ttf")
@@ -16,6 +18,13 @@ MCDU_CURRENT_PAGE = createGlobalPropertyi("A318/cockpit/mcdu2/current_page", 0)
 MCDU_CURRENT_KEY = createGlobalPropertyi("A318/cockpit/mcdu2/current_key")
 MCDU_CURRENT_BUTTON = createGlobalPropertyi("A318/cockpit/mcdu2/current_button")
 
+hours = globalPropertyi("sim/cockpit2/clock_timer/zulu_time_hours")
+minutes = globalPropertyi("sim/cockpit2/clock_timer/zulu_time_minutes")
+seconds = globalPropertyi("sim/cockpit2/clock_timer/zulu_time_seconds")
+
+--MCDU GLOBAL VARIABLES
+DEPARTURE_AIRPORT = " "
+ARRIVAL_AIRPORT = " "
 --======================================--
 --           INPUT HANDLER              --
 --======================================--
@@ -48,6 +57,7 @@ function update()
     pageButtons(buttons)
     switchDataPage()
     switchPrintAOCPage()
+    switchInitPage()
 
     -- REMOVE SCRATCHPAD ERRORS
 end
@@ -62,7 +72,14 @@ function pageButtons(button)
     elseif get(MCDU_CURRENT_BUTTON) == 16 then
         set(MCDU_CURRENT_PAGE, 2)
         set(MCDU_CURRENT_BUTTON, -1)
-    else
+    elseif get(MCDU_CURRENT_BUTTON) == 17 then
+        print("MONKEY")
+        if checkForAirports() == true then
+            print("FAT")
+            set(MCDU_CURRENT_PAGE, 3)
+        else
+            scratchpad = "ERROR: INITALIZE ROUTE"
+        end
 
     end
 end
@@ -82,6 +99,7 @@ end
 mcduPages = {
     [0] = {drawMCDUMenu},
     [1] = {drawInit},
+    [12] = {drawCoRte},
     --[11] = {initB},
     --[111] = {drawClimbWind},
     --[112] = {drawDescentWind},
@@ -89,12 +107,13 @@ mcduPages = {
     [22] = {drawDataB},
     --[221] = {drawPositionMonitor},
     --[222] = {drawIRSMonitor},
-    --[223] = {drawGPSMonitor},
+    [223] = {drawGPSMonitor},
     --[224] = {drawACStatus},
     [225] = {drawPrintA},
     [2251] = {drawPrintB},
     [226] = {drawAOCA},
     [2261] = {drawAOCB},
+    [3] = {drawFPlan},
 }
 
 mcdu_font_colors = {
@@ -241,4 +260,127 @@ function isEmpty(input)
     else
          return false
     end
+end
+
+function round(num, numDecimalPlaces)
+    local mult = 10^(numDecimalPlaces or 0)
+    return math.floor(num * mult + 0.5) / mult
+end
+
+function getAiracCycle()
+    -- don't loop through file if value already exists
+    if AIRAC_CYCLE == "" then
+        local path = getXPlanePath() --gets the xplane path
+        local file = io.open(path.."/Custom Data/cycle_info.txt", "r")
+        local result = ""
+        if file ~= nil  then
+            for line in file:lines() do
+                if string.match(line, "AIRAC") then
+                    for token in string.gmatch(line, "[^%s]+") do
+                        result = token
+                    end
+                    break
+                end
+            end
+            if result ~= nil then
+                AIRAC_CYCLE = result
+                return AIRAC_CYCLE
+            end
+        end
+        file = io.open(path.."/Resources/default data/earth_nav.dat", "r")
+        isFound = false
+        for line in file:lines() do
+            if string.match(line, "cycle") then
+                for token in string.gmatch(line, "[^%s]+") do
+                    result = token
+                    if isFound then
+                        break
+                    end
+                    if result == "cycle" then
+                        isFound = true
+                    end
+                end
+            end
+        end
+        AIRAC_CYCLE = result:sub(1, 4)
+        return AIRAC_CYCLE
+    else
+        -- if we have found the airac cycle before then don't look it up again
+        return AIRAC_CYCLE
+    end
+end
+
+function checkICAO(icao)
+    local path = getXPlanePath() --gets the xplane path
+    local file = io.open(path.."/Custom Data/CIFP/"..icao..".dat", "r")
+    if file ~= nil then
+        return true
+    end
+    print("not found in og directory")
+    file = io.open(path.."/Resources/default data/CIFP/"..icao..".dat", "r")
+    if file ~= nil then
+        return true
+    end
+    return false
+end
+
+function checkForAirports()
+    if DEPARTURE_AIRPORT ~= " " and ARRIVAL_AIRPORT ~= " " then
+        print("monkey")
+        return true
+    else
+        print("fat")
+        return false
+    end
+end
+
+function calculateDistance(lat1, lon1, lat2, lon2)
+    local distance = math.acos(math.cos(math.rad(90-lat1))*math.cos(math.rad(90-lat2))+
+    math.sin(math.rad(90-lat1))*math.sin(math.rad(90-lat2))*math.cos(math.rad(lon1-lon2))) * (6378000/1852)
+return distance
+
+end
+
+function createTokens(str, separator)
+    local tokens = {}
+    for token in string.gmatch(str, "[^%"..separator.."]+") do
+        table.insert(tokens, token)
+    end
+    return tokens
+end
+
+function getBasicLatLong(icao)
+--    if isFileExists(path.."/Resources/default data/CIFP/"..icao..".dat", "r") then
+        local file = io.open(getXPlanePath().."/Resources/default data/CIFP/"..icao..".dat")
+        local str = ""
+        for line in file:lines() do
+            if string.match(line, "RWY") then
+                str = line
+                break
+            end
+        end
+        local firstTokenSet = createTokens(str, ";")[2]
+        local secondTokenSet = createTokens(firstTokenSet, ",")
+        if string.sub(tostring(secondTokenSet[1]),1,1) == "S" then
+            secondTokenSet[1] = -1 * (tonumber(string.sub(tostring(secondTokenSet[1]),2,-1)))
+        else
+            secondTokenSet[1] = tonumber(string.sub(tostring(secondTokenSet[1]),2,-1))
+        end
+        if string.sub(tostring(secondTokenSet[2]),1,1) == "W" then 
+            secondTokenSet[2] = -1 * (tonumber(string.sub(tostring(secondTokenSet[2]),2,-1)))
+        else
+            secondTokenSet[2] = (tonumber(string.sub(tostring(secondTokenSet[2]),2,-1)))
+        end
+        return {secondTokenSet[1], secondTokenSet[2]}
+ --   else
+--        print("DIABETES")
+ --       return "0"
+   -- end
+end
+
+function calculateAirportDistance(icao1, icao2)
+    local apt1 = getBasicLatLong(icao1)
+    local apt2 = getBasicLatLong(icao2)
+    local nmDist = calculateDistance(apt1[2],apt1[1],apt2[2],apt2[1])
+    return nmDist
 end
