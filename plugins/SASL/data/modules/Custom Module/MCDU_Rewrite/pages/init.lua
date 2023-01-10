@@ -121,7 +121,7 @@ function processFromTo()
             local icao2 = string.sub(scratchpad,6,9)
             if checkICAO(icao1) == true and checkICAO(icao2) == true then
                 DEPARTURE_AIRPORT = icao1
-                ARRIVAL_AIRPORT = icao2
+                DESTINATION_AIRPORT = icao2
                 inputs.FROM_TO[5] = scratchpad
                 scratchpad = ""
                 set(MCDU_CURRENT_PAGE, 12)
@@ -207,7 +207,7 @@ end
 
 function drawCoRte()
     --STATIC DRAWINGS
-    local CO_RTE_TITLE = DEPARTURE_AIRPORT.."/"..ARRIVAL_AIRPORT
+    local CO_RTE_TITLE = DEPARTURE_AIRPORT.."/"..DESTINATION_AIRPORT
     sasl.gl.drawText(MCDU_FONT, title_location.x, title_location.y, CO_RTE_TITLE, title_location.font_size, false, false, TEXT_ALIGN_CENTER, mcdu_font_colors[1])
     sasl.gl.drawText(MCDU_FONT, 2, mcdu_positions[1], "NONE", mcdu_option_size, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
     sasl.gl.drawText(MCDU_FONT, 2, mcdu_positions[6], "<RETURN", mcdu_option_size, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)

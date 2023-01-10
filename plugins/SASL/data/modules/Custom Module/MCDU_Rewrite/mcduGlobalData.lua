@@ -4,6 +4,7 @@ include("MCDU_Rewrite/pages/data.lua")
 include("MCDU_Rewrite/pages/printaoc.lua")
 include("MCDU_Rewrite/pages/gps.lua")
 include("MCDU_Rewrite/pages/FPLAN/fplan.lua")
+include("MCDU_Rewrite/pages/FPLAn/latrev.lua")
 
 
 MCDU_FONT = sasl.gl.loadFont("fonts/B612Mono-Regular.ttf")
@@ -12,6 +13,8 @@ MCDU_FONT_BOLD = sasl.gl.loadFont("fonts/B612Mono-Regular.ttf")
 
 MCDU_ORANGE = {1.0, 0.549, 0.0, 1.0}
 MCDU_WHITE = {1.0, 1.0, 1.0, 1.0}
+MCDU_GREEN = {0.0, 1.0, 0.1, 1.0}
+
 
 -- MCDU GENERAL DATAREFS
 MCDU_CURRENT_PAGE = createGlobalPropertyi("A318/cockpit/mcdu2/current_page", 0)
@@ -24,7 +27,7 @@ seconds = globalPropertyi("sim/cockpit2/clock_timer/zulu_time_seconds")
 
 --MCDU GLOBAL VARIABLES
 DEPARTURE_AIRPORT = " "
-ARRIVAL_AIRPORT = " "
+DESTINATION_AIRPORT = " "
 --======================================--
 --           INPUT HANDLER              --
 --======================================--
@@ -73,9 +76,7 @@ function pageButtons(button)
         set(MCDU_CURRENT_PAGE, 2)
         set(MCDU_CURRENT_BUTTON, -1)
     elseif get(MCDU_CURRENT_BUTTON) == 17 then
-        print("MONKEY")
         if checkForAirports() == true then
-            print("FAT")
             set(MCDU_CURRENT_PAGE, 3)
         else
             scratchpad = "ERROR: INITALIZE ROUTE"
@@ -114,6 +115,7 @@ mcduPages = {
     [226] = {drawAOCA},
     [2261] = {drawAOCB},
     [3] = {drawFPlan},
+    [4] = {drawInitialLatRev}
 }
 
 mcdu_font_colors = {
@@ -314,31 +316,36 @@ function checkICAO(icao)
     local path = getXPlanePath() --gets the xplane path
     local file = io.open(path.."/Custom Data/CIFP/"..icao..".dat", "r")
     if file ~= nil then
+        file:close()
         return true
     end
     print("not found in og directory")
     file = io.open(path.."/Resources/default data/CIFP/"..icao..".dat", "r")
     if file ~= nil then
+        file:close()
         return true
     end
     return false
 end
 
 function checkForAirports()
-    if DEPARTURE_AIRPORT ~= " " and ARRIVAL_AIRPORT ~= " " then
-        print("monkey")
+    if DEPARTURE_AIRPORT ~= " " and DESTINATION_AIRPORT ~= " " then
         return true
     else
-        print("fat")
         return false
     end
 end
 
 function calculateDistance(lat1, lon1, lat2, lon2)
-    local distance = math.acos(math.cos(math.rad(90-lat1))*math.cos(math.rad(90-lat2))+
-    math.sin(math.rad(90-lat1))*math.sin(math.rad(90-lat2))*math.cos(math.rad(lon1-lon2))) * (6378000/1852)
-return distance
 
+    --This function returns great circle distance between 2 points.
+    --Found here: http://bluemm.blogspot.gr/2007/01/excel-formula-to-calculate-distance.html
+    --lat1, lon1 = the coords from start position (or aircraft's) / lat2, lon2 coords of the target waypoint.
+    --6371km is the mean radius of earth in meters. Since X-Plane uses 6378 km as radius, which does not makes a big difference,
+    --(about 5 NM at 6000 NM), we are going to use the same.
+    --Other formulas I've tested, seem to break when latitudes are in different hemisphere (west-east).  
+    local distance = math.acos(math.cos(math.rad(90-lat1))*math.cos(math.rad(90-lat2))+math.sin(math.rad(90-lat1))*math.sin(math.rad(90-lat2))*math.cos(math.rad(lon1-lon2))) * (6378000/1852)
+    return distance
 end
 
 function createTokens(str, separator)
@@ -350,26 +357,29 @@ function createTokens(str, separator)
 end
 
 function getBasicLatLong(icao)
+    local path = getXPlanePath()
 --    if isFileExists(path.."/Resources/default data/CIFP/"..icao..".dat", "r") then
-        local file = io.open(getXPlanePath().."/Resources/default data/CIFP/"..icao..".dat")
-        local str = ""
-        for line in file:lines() do
-            if string.match(line, "RWY") then
-                str = line
-                break
-            end
+    local file = assert(io.open(path.."/Resources/default data/CIFP/"..icao..".dat", "r"))
+    local str = ""
+    io.input(file)
+    for line in io.lines() do
+        if string.match(line, "RWY") then
+            str = line
+            break
         end
+    end
         local firstTokenSet = createTokens(str, ";")[2]
         local secondTokenSet = createTokens(firstTokenSet, ",")
+        file:close()
         if string.sub(tostring(secondTokenSet[1]),1,1) == "S" then
-            secondTokenSet[1] = -1 * (tonumber(string.sub(tostring(secondTokenSet[1]),2,-1)))
+            secondTokenSet[1] = -1 * (tonumber(string.sub(tostring(secondTokenSet[1]),2,-1)))*(10^(-6))
         else
-            secondTokenSet[1] = tonumber(string.sub(tostring(secondTokenSet[1]),2,-1))
+            secondTokenSet[1] = tonumber(string.sub(tostring(secondTokenSet[1]),2,-1))*(10^(-6))
         end
-        if string.sub(tostring(secondTokenSet[2]),1,1) == "W" then 
-            secondTokenSet[2] = -1 * (tonumber(string.sub(tostring(secondTokenSet[2]),2,-1)))
+        if string.sub(tostring(secondTokenSet[2]),1,1) == "W" then
+            secondTokenSet[2] = -1 * (tonumber(string.sub(tostring(secondTokenSet[2]),2,-1)))*(10^(-6))
         else
-            secondTokenSet[2] = (tonumber(string.sub(tostring(secondTokenSet[2]),2,-1)))
+            secondTokenSet[2] = (tonumber(string.sub(tostring(secondTokenSet[2]),2,-1)))*(10^(-6))
         end
         return {secondTokenSet[1], secondTokenSet[2]}
  --   else
@@ -381,6 +391,13 @@ end
 function calculateAirportDistance(icao1, icao2)
     local apt1 = getBasicLatLong(icao1)
     local apt2 = getBasicLatLong(icao2)
-    local nmDist = calculateDistance(apt1[2],apt1[1],apt2[2],apt2[1])
+    local nmDist = calculateDistance(apt1[1],apt1[2],apt2[1],apt2[2])
     return nmDist
+end
+
+function calcTimeToDest(dist)
+    local m = dist/(453.564/60)
+    local h = m%60
+    m = m-h*60
+    return h,m
 end
