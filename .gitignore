@@ -7,7 +7,7 @@ cockpit_new.blend1
 Textures/*.psd
 
 ### Planemaker temp ###
-.acf~
+*.acf~
 
 ### macOS ###
 # General
@@ -28,6 +28,6 @@ A318.cfg
 
 ### VisualStudioCode Patch ###
 # Ignore all local history of files
-.history
+*.history
 
 luacov.stats.out
