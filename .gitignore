@@ -31,3 +31,4 @@ A318.cfg
 *.history
 
 luacov.stats.out
+plugins/SASL/data/output/SASLLog.txt
