@@ -42,6 +42,7 @@ function processPongInput()
         b.y = b.y - 25
     end
     if get(MCDU_CURRENT_BUTTON) == 0 then
+        print("Fat")
         ball.vel.x = 3
         ball.vel.y = 1
         drawGame = true

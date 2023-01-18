@@ -17,6 +17,8 @@ local function processArcadeMenuInput()
         --ADD RESET BALL FUNCTION HERE
     elseif get(MCDU_CURRENT_BUTTON) == 1 and get(MCDU_CURRENT_PAGE) == -2 then
         set(MCDU_CURRENT_PAGE, -22)
+    elseif get(MCDU_CURRENT_PAGE) == -2 and get(MCDU_CURRENT_BUTTON) == 2 then
+        set(MCDU_CURRENT_PAGE, -23)
     end
 end
 
@@ -25,5 +27,6 @@ function drawArcadeMenu()
     sasl.gl.drawText(MCDU_FONT, title_location.x, title_location.y, "X-BUREAU ARCADE", title_location.font_size, true, false, TEXT_ALIGN_CENTER, mcdu_font_colors[1])
     sasl.gl.drawText(MCDU_FONT, 2, mcdu_positions[1], "<PONG", mcdu_option_size, true, false, TEXT_ALIGN_LEFT, mcdu_font_colors[1])
     sasl.gl.drawText(MCDU_FONT, 2, mcdu_positions[2], "<SIMON", mcdu_option_size, true, false, TEXT_ALIGN_LEFT, mcdu_font_colors[1])
+    sasl.gl.drawText(MCDU_FONT, 2, mcdu_positions[3], "<SNAKE", mcdu_option_size, true, false, TEXT_ALIGN_LEFT, mcdu_font_colors[1])
     sasl.gl.drawText(MCDU_FONT, 2, mcdu_positions[6], "<RETURN", mcdu_option_size, true, false, TEXT_ALIGN_LEFT, mcdu_font_colors[1])
 end

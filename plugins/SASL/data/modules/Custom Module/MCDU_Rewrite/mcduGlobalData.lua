@@ -9,6 +9,7 @@ include("MCDU_Rewrite/pages/FPLAN/rnwy.lua")
 include("MCDU_Rewrite/pages/arcade.lua")
 include("MCDU_Rewrite/pages/pong.lua")
 include("MCDU_Rewrite/pages/simon.lua")
+include("MCDU_Rewrite/pages/snake.lua")
 
 MCDU_FONT = sasl.gl.loadFont("fonts/B612Mono-Regular.ttf")
 BLANK_FONT = sasl.gl.loadFont("fonts/B612Mono-Regular.ttf")
@@ -106,6 +107,7 @@ end
 
 --MCDU PAGES:
 mcduPages = {
+    [-23] = {drawSnake},
     [-22] = {drawSimon},
     [-21] = {drawPong},
     [-2] = {drawArcadeMenu},
