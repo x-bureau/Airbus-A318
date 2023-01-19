@@ -1,6 +1,7 @@
 CURRENT_LATREV = ""
 local MCDU_BLUE = {0.0, 0.7, 0.8, 1.0}
 
+
 local function generateLongLat(long, lat)
     local longD = math.floor(long)
     local latD = math.floor(lat)
@@ -9,8 +10,16 @@ local function generateLongLat(long, lat)
     local longlat = tostring(longD).."°"..tostring(longM).."N/"..tostring(latD).."°"..tostring(latM).."W"
     return longlat
 end
+local function processDptInput()
+    if get(MCDU_CURRENT_BUTTON) == 0 then
+        set(MCDU_CURRENT_PAGE, 41)
+    elseif get(MCDU_CURRENT_BUTTON) == 5 then
+        set(MCDU_CURRENT_PAGE, 3)
+    end
+end
 
 function drawDepartureAirportLatRev()
+    processDptInput()
     local coords = getBasicLatLong(DEPARTURE_AIRPORT)
     local dptLatLong = generateLongLat(coords[1],coords[2])
     sasl.gl.drawText(MCDU_FONT, title_location.x, option_heading_locations[1], dptLatLong, option_heading_font_size, false, false, TEXT_ALIGN_CENTER, MCDU_GREEN)

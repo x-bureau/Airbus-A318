@@ -4,8 +4,12 @@ include("MCDU_Rewrite/pages/data.lua")
 include("MCDU_Rewrite/pages/printaoc.lua")
 include("MCDU_Rewrite/pages/gps.lua")
 include("MCDU_Rewrite/pages/FPLAN/fplan.lua")
-include("MCDU_Rewrite/pages/FPLAn/latrev.lua")
-
+include("MCDU_Rewrite/pages/FPLAN/latrev.lua")
+include("MCDU_Rewrite/pages/FPLAN/rnwy.lua")
+include("MCDU_Rewrite/pages/arcade.lua")
+include("MCDU_Rewrite/pages/pong.lua")
+include("MCDU_Rewrite/pages/simon.lua")
+include("MCDU_Rewrite/pages/snake.lua")
 
 MCDU_FONT = sasl.gl.loadFont("fonts/B612Mono-Regular.ttf")
 BLANK_FONT = sasl.gl.loadFont("fonts/B612Mono-Regular.ttf")
@@ -14,6 +18,10 @@ MCDU_FONT_BOLD = sasl.gl.loadFont("fonts/B612Mono-Regular.ttf")
 MCDU_ORANGE = {1.0, 0.549, 0.0, 1.0}
 MCDU_WHITE = {1.0, 1.0, 1.0, 1.0}
 MCDU_GREEN = {0.0, 1.0, 0.1, 1.0}
+MCDU_BLUE = {0.0, 0.8, 1.0, 1.0}
+MCDU_YELLOW = {1.0, 1.0, 0.0, 1.0}
+MCDU_RED = {1.0, 0.0, 0.0, 1.0}
+
 
 
 -- MCDU GENERAL DATAREFS
@@ -28,6 +36,8 @@ seconds = globalPropertyi("sim/cockpit2/clock_timer/zulu_time_seconds")
 --MCDU GLOBAL VARIABLES
 DEPARTURE_AIRPORT = " "
 DESTINATION_AIRPORT = " "
+RWY_LABELS = "RLC"
+
 --======================================--
 --           INPUT HANDLER              --
 --======================================--
@@ -61,7 +71,6 @@ function update()
     switchDataPage()
     switchPrintAOCPage()
     switchInitPage()
-
     -- REMOVE SCRATCHPAD ERRORS
 end
 
@@ -98,6 +107,10 @@ end
 
 --MCDU PAGES:
 mcduPages = {
+    [-23] = {drawSnake},
+    [-22] = {drawSimon},
+    [-21] = {drawPong},
+    [-2] = {drawArcadeMenu},
     [0] = {drawMCDUMenu},
     [1] = {drawInit},
     [12] = {drawCoRte},
@@ -115,7 +128,8 @@ mcduPages = {
     [226] = {drawAOCA},
     [2261] = {drawAOCB},
     [3] = {drawFPlan},
-    [4] = {drawInitialLatRev}
+    [4] = {drawInitialLatRev},
+    [41] = {drawRnwy},
 }
 
 mcdu_font_colors = {
@@ -400,4 +414,96 @@ function calcTimeToDest(dist)
     local h = m%60
     m = m-h*60
     return h,m
+end
+
+function getAirportRunways(icao)
+    local path = getXPlanePath()
+    local file = assert(io.open(path.."/Resources/default data/CIFP/"..icao..".dat", "r"))
+    local runways = {}
+    io.input(file)
+    for line in io.lines() do
+        if string.match(line, "RWY:") then
+            local str = string.sub(line, 1, string.find(line, ",")-1)
+            table.insert(runways, str)
+        end
+    end
+    file:close()
+    return runways
+end
+
+function wrap( t, l )
+    for i = 1, l do
+        table.insert( t, #t+1, t[1])
+        table.remove( t, 1)
+    end
+end
+
+function getDepartureProcedures(icao, runway)
+    if string.match(RWY_LABELS, string.sub(runway, -1, -1)) then
+        runway = string.sub(runway, 1, -2)
+    else
+        runway = runway
+    end
+    runway = ",RW"..runway
+    local path = getXPlanePath()
+    local file = assert(io.open(path.."/Resources/default data/CIFP/"..icao..".dat", "r"))
+    local procedures = {}
+    io.input(file)
+    for line in io.lines() do
+        if string.match(line, "SID:") and string.match(line, runway) then
+            local str = string.sub(line, string.find(line, ",",7), string.find(line, ",", 25 ))
+            table.insert(procedures, str)
+            print("OBESITY")
+        end
+    end
+    file:close()
+    return procedures
+end
+
+function table.contains(table, element)
+    for _, value in pairs(table) do
+      if value == element then
+        return true
+      end
+    end
+    return false
+end
+
+-- function checkIsInProcedure(firstLine, checkLine)
+--     print(tonumber(string.sub(checkLine, 5, 6)))
+--     print(tonumber(string.sub(firstLine, 5, 6)))
+--     return (tonumber(string.sub(checkLine, 5, 6)) > tonumber(string.sub(firstLine, 5, 6)))
+-- end
+
+function getFullDepartureProcedure()
+    local icao = DEPARTURE_AIRPORT
+    local rwy = SELECTED_RUNWAY
+    local sid = SELECTED_DPT_SID
+    local path = getXPlanePath()
+    local file = assert(io.open(path.."/Resources/default data/CIFP/"..icao..".dat","r"))
+    local wpts = {}
+    if string.match(RWY_LABELS, string.sub(rwy, -1, -1)) then
+        rwy = string.sub(rwy, 1, -2)
+    else
+        rwy = rwy
+    end
+    io.input(file)
+    for line in io.lines() do
+        local str = line
+        if string.match(str, sid) and string.match(str, rwy) and #wpts == 0 then
+            table.insert(wpts, str)
+        end
+        if #wpts > 0 and line ~= wpts[1] then
+            if tonumber(string.sub(str, 5, 7)) > tonumber(string.sub(wpts[#wpts], 5, 7)) and string.match(str, "RW"..rwy) and string.match(str, sid) then
+                table.insert(wpts, str)
+            else
+                file:close()
+                return wpts
+            end
+        end
+    end
+end
+
+function isGreaterThan(val1, val2)
+    return(val1 > val2)
 end
