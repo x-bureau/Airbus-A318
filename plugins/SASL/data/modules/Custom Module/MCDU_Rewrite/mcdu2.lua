@@ -9,7 +9,7 @@ size = {505, 500}
 
 scratchpad = ""
 
-set(MCDU_CURRENT_PAGE,3)
+set(MCDU_CURRENT_PAGE,0)
 
 function draw()
     mcduPages[get(MCDU_CURRENT_PAGE)][1]() -- We draw the current page
