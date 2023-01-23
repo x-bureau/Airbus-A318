@@ -12,6 +12,7 @@ FPLAN_SHIFT = 0
 FLIGHT_PLAN = {
 }
 
+waypoints = {}
 
 ------------------------------
 local function formatTime(hours, mins)
@@ -33,16 +34,14 @@ end
 
 
 local function processFPLANInput()
-    if get(MCDU_CURRENT_BUTTON) == 0 then
+    if get(MCDU_CURRENT_BUTTON) == 0 and FPLAN_SHIFT == 0 then
         set(MCDU_CURRENT_PAGE,4)
         CURRENT_LATREV = DEPARTURE_AIRPORT
     end
     if get(MCDU_CURRENT_BUTTON) == 25 and #(waypoints) > 1 and FPLAN_SHIFT > 0 then
         FPLAN_SHIFT = FPLAN_SHIFT - 1
-        print(FPLAN_SHIFT)
     elseif get(MCDU_CURRENT_BUTTON) == 27 and #(waypoints) > 1 and FPLAN_SHIFT < #waypoints-1 then
         FPLAN_SHIFT = FPLAN_SHIFT + 1
-        print(FPLAN_SHIFT)
     else
         FPLAN_SHIFT = FPLAN_SHIFT
     end
@@ -51,54 +50,54 @@ end
 local function drawArrInfo(originUTC, arrDepDist, draw)
     if draw <= 6 and draw > 0 then
         --DESTINATION BAR
-        sasl.gl.drawText(MCDU_FONT, 2, option_heading_locations[draw], "DEST", option_heading_font_size, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
-        sasl.gl.drawText(MCDU_FONT, title_location.x, option_heading_locations[draw], "UTC", option_heading_font_size, false, false, TEXT_ALIGN_CENTER, MCDU_WHITE)
-        sasl.gl.drawText(MCDU_FONT, 490, option_heading_locations[draw], "DIST    EFOB", option_heading_font_size, false, false, TEXT_ALIGN_RIGHT, MCDU_WHITE)
-        drawDashField(mcdu_positions[draw], 2, 4)
-        sasl.gl.drawText(MCDU_FONT, 2, mcdu_positions[draw], DESTINATION_AIRPORT, mcdu_option_size, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
-        sasl.gl.drawText(MCDU_FONT, title_location.x, mcdu_positions[draw], originUTC, mcdu_option_size, false, false, TEXT_ALIGN_CENTER, MCDU_WHITE)
-        sasl.gl.drawText(MCDU_FONT, 370, mcdu_positions[draw], math.floor(arrDepDist), mcdu_option_size, false, false, TEXT_ALIGN_CENTER, MCDU_WHITE)
+        drawText("DEST", 1, draw, MCDU_WHITE, SIZE.HEADER, false, "L", true, "H")
+        drawText("UTC", 10, draw, MCDU_WHITE, SIZE.HEADER, false, "L", true, "H")
+        drawText("DIST EFOB", 24, draw, MCDU_WHITE, SIZE.HEADER, false, "R", true, "H")
+        drawText("----", 24, draw, MCDU_WHITE, SIZE.OPTION, false, "R", true, "O")
+        drawText(DESTINATION_AIRPORT, 1, draw, MCDU_WHITE, SIZE.OPTION, false, "L", true, "O")
+        drawText(originUTC, 10, draw, MCDU_WHITE, SIZE.OPTION, false, "L", true, "O")
+        drawText(tostring(math.floor(arrDepDist)), 16, draw, MCDU_WHITE, SIZE.OPTION, false, "L", true, "O")
     end
 end
 
 local function drawDeptInfo(originUTC, draw)
     if draw <=6 and draw > 0 then
-        sasl.gl.drawText(MCDU_FONT, 2, option_heading_locations[draw], "FROM", option_heading_font_size, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
-        sasl.gl.drawText(MCDU_FONT, title_location.x, option_heading_locations[draw], "UTC", option_heading_font_size, false, false, TEXT_ALIGN_CENTER, MCDU_WHITE)
-        sasl.gl.drawText(MCDU_FONT, 490, option_heading_locations[draw], "SPD/ALT", option_heading_font_size, false, false, TEXT_ALIGN_RIGHT, MCDU_WHITE)
+        drawText("FROM", 1, draw, MCDU_WHITE, SIZE.HEADER, false, "L", true, "H")
+        drawText("UTC", 10, draw, MCDU_WHITE, SIZE.HEADER, false, "L", true, "H")
+        drawText("SPD/ALT", 24, draw, MCDU_WHITE, SIZE.HEADER, false, "R", true, "H")
 
-        sasl.gl.drawText(MCDU_FONT, 2, mcdu_positions[draw], DEPARTURE_AIRPORT, mcdu_option_size, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
-        sasl.gl.drawText(MCDU_FONT, title_location.x, mcdu_positions[draw], originUTC, mcdu_option_size, false, false, TEXT_ALIGN_CENTER, MCDU_WHITE)
-        drawDashSeparated(mcdu_positions[draw], 3, 3, 2)
+
+        drawText(DEPARTURE_AIRPORT, 1, draw, MCDU_WHITE, SIZE.OPTION, false, "L", true, "O")
+        drawText(originUTC, 10, draw, MCDU_WHITE, SIZE.OPTION, false, "L", true, "O")
+        drawText("---/---", 24, draw, MCDU_WHITE, SIZE.OPTION, false, "R", true, "O")
     end
 end
 
-function drawWpt(waypoint, originUTC, pos)
-    if pos <= 6 and pos > 0 then
-        sasl.gl.drawText(MCDU_FONT, 2, mcdu_positions[pos], waypoint, mcdu_option_size, false, false, TEXT_ALIGN_LEFT, MCDU_BLUE)
-        sasl.gl.drawText(MCDU_FONT, title_location.x, mcdu_positions[pos], originUTC, mcdu_option_size, false, false, TEXT_ALIGN_CENTER, MCDU_BLUE)
-        drawDashSeparated(mcdu_positions[pos], 3, 3, 2)
+local function drawWpt(waypoint, originUTC, pos)
+    if pos <= 5 and pos > 0 then
+        drawText(waypoint, 1, pos, MCDU_GREEN, SIZE.OPTION, false, "L", true, "O")
+        drawText(originUTC, 10, pos, MCDU_GREEN, SIZE.OPTION, false, "L", true, "O")
+        drawText("---/---", 24, pos, MCDU_WHITE, SIZE.OPTION, false, "R", true, "O")
     end
 end
 
 local function drawEndLine(pos)
     if pos <= 6 and pos>0 then
-        sasl.gl.drawText(MCDU_FONT, title_location.x+3, mcdu_positions[pos],"------ END OF F-PLN ------", title_location.font_size, false, false, TEXT_ALIGN_CENTER, mcdu_font_colors[1])
+        drawText("------END OF F-PLN------", 1, pos, MCDU_WHITE, SIZE.OPTION, false, "L", true, "O")
     end
 end
 
 function getFields(waypoints, originUTC, arrDepDist)
-    local fields = {
+    fields = {
 
     }
     table.insert(fields, 1, drawDeptInfo(originUTC, 1-FPLAN_SHIFT))
-    local val = 1
-    if FPLAN_SHIFT > 0 then
-        val = 0
-    end
+
     for i in ipairs(waypoints) do
         table.insert(fields, #fields+1, drawWpt(waypoints[i], originUTC, 1+i-FPLAN_SHIFT))
     end
+
+    --table.insert(fields, #fields+1, drawWpt("DECEL", originUTC, (#waypoints+1)-FPLAN_SHIFT))
     table.insert(fields, #fields+1, drawArrInfo(originUTC, arrDepDist, (#waypoints+2)-FPLAN_SHIFT))
     table.insert(fields, #fields+1, drawEndLine((#waypoints+3)-FPLAN_SHIFT))
     table.insert(fields, #fields+1, drawDeptInfo(originUTC, (#waypoints+4)-FPLAN_SHIFT))
@@ -106,39 +105,77 @@ function getFields(waypoints, originUTC, arrDepDist)
 
     local FPLAN_SCREEN = {}
 
-    for i = 1+FPLAN_SHIFT, 6+SHIFT do
-        -- if i == 6 then
-        --     table.insert(FPLAN_SCREEN, #fields+1, drawArrInfo(originUTC, arrDepDist, 6))
-        -- else
-            table.insert(FPLAN_SCREEN, #FPLAN_SCREEN, fields[i])
-        -- end
+    for i = 1, 6 do
+        if i == 6 and i+FPLAN_SHIFT < #fields-3 then
+             table.insert(FPLAN_SCREEN, 6, drawArrInfo(originUTC, arrDepDist, 6))
+        elseif i < 5 then
+            table.insert(FPLAN_SCREEN, #FPLAN_SCREEN, fields[i+FPLAN_SHIFT])
+        end
 
     end
     return FPLAN_SCREEN
 end
 
+local function processCurrentLatrev()
+    if get(MCDU_CURRENT_BUTTON) > -1 and get(MCDU_CURRENT_BUTTON) < 6 then
+        if get(MCDU_CURRENT_BUTTON)+FPLAN_SHIFT~=0 and get(MCDU_CURRENT_BUTTON)+FPLAN_SHIFT < #fields-4 then
+            CURRENT_LATREV = waypoints[get(MCDU_CURRENT_BUTTON)+FPLAN_SHIFT]
+            local index = 0
+            for i in ipairs(EXISTING_LATREVS) do
+                if EXISTING_LATREVS[i][1] == CURRENT_LATREV then
+                    index = i
+                    break
+                end
+            end
+            if index == 0 then
+                table.insert(EXISTING_LATREVS, #EXISTING_LATREVS+1, {CURRENT_LATREV, 1+#EXISTING_LATREVS, airways = {}, wpts = {}})
+            end
+
+            CURRENT_LATREV_INDEX = #EXISTING_LATREVS
+            set(MCDU_CURRENT_PAGE, 4)
+        end
+    end
+end
+
 function drawFPlan()
+    -- TESTING AIRPORTS
+    DEPARTURE_AIRPORT = "KMIA"
+    DESTINATION_AIRPORT = "KDTW"
     --TEMP
     processFPLANInput()
+    processCurrentLatrev()
     --END TEMP
     local arrDepDist = calculateAirportDistance(DEPARTURE_AIRPORT, DESTINATION_AIRPORT)
     local FPLAN_TITLE = "FROM "..DEPARTURE_AIRPORT
-    sasl.gl.drawText(MCDU_FONT, title_location.x, title_location.y+20, FPLAN_TITLE, title_location.font_size, false, false, TEXT_ALIGN_CENTER, mcdu_font_colors[1])
+    drawText(FPLAN_TITLE, 8, 14, MCDU_WHITE, SIZE.TITLE, false, "L", false)
     local originUTC = formatTime(get(hours),get(minutes))
 
 
-    -- DRAW WAYPOINTS
- 
-    waypoints = {
-
-    }
-
-    for i in ipairs(FLIGHT_PLAN) do
-        local wpt = string.sub(FLIGHT_PLAN[i], string.find(FLIGHT_PLAN[i], ",", 21)+1, string.find(FLIGHT_PLAN[i], ",", 24)-1)
-        if not table.contains(waypoints, wpt) and wpt ~= " " then
-            table.insert(waypoints, #waypoints+1, wpt)
+    if #EXISTING_LATREVS ~= 0 then
+        for i in ipairs(EXISTING_LATREVS) do
+            if #EXISTING_LATREVS[i].wpts ~= 0 then
+                for j in ipairs(EXISTING_LATREVS[i].wpts) do
+                    if not table.contains(FLIGHT_PLAN, EXISTING_LATREVS[i].wpts[j]) then
+                        table.insert(FLIGHT_PLAN, #FLIGHT_PLAN+1, EXISTING_LATREVS[i].wpts[j])
+                    end
+                end
+            end
         end
     end
+
+    for i in ipairs(FLIGHT_PLAN) do
+        if string.len(FLIGHT_PLAN[i]) > 7 then
+            local wpt = string.sub(FLIGHT_PLAN[i], string.find(FLIGHT_PLAN[i], ",", 21)+1, string.find(FLIGHT_PLAN[i], ",", 24)-1)
+            if not table.contains(waypoints, wpt) and wpt ~= " " then
+                table.insert(waypoints, #waypoints+1, wpt)
+            end
+        elseif string.len(FLIGHT_PLAN[i]) < 7 then
+            if not table.contains(waypoints, FLIGHT_PLAN[i]) then
+                table.insert(waypoints, FLIGHT_PLAN[i])
+            end
+        end
+    end
+
 
     if #waypoints ~= 0 then
         FLIGHT_PLAN_SCREEN = getFields(waypoints, originUTC, arrDepDist)
@@ -149,7 +186,7 @@ function drawFPlan()
         drawDeptInfo(originUTC, 1)
         drawWpt("DECEL", originUTC, 2)
         drawArrInfo(originUTC, arrDepDist, 3)
-        sasl.gl.drawText(MCDU_FONT, title_location.x+3, mcdu_positions[4], "------ END OF F-PLN ------", title_location.font_size, false, false, TEXT_ALIGN_CENTER, mcdu_font_colors[1])
+        drawEndLine(4)
         drawDeptInfo(originUTC, 5)
         drawArrInfo(originUTC, arrDepDist, 6)
     end

@@ -37,10 +37,10 @@ local function processRnwyInput()
     end
 end
 
-local function processRwySelect(RUNWAYS)
+local function processRwySelect(runway)
     if get(MCDU_CURRENT_BUTTON) > 0 and get(MCDU_CURRENT_BUTTON) < 6 then
         local val = get(MCDU_CURRENT_BUTTON) -- We determine what the index is of the airport aligned with the selected button
-        SELECTED_RUNWAY = RUNWAYS[val]
+        SELECTED_RUNWAY = string.sub(runway[val], 1, -2)
         PAGE_STATE = 2
     end
 end
@@ -49,7 +49,6 @@ local function processSidSelect(DPT_PROCEDURE)
     if get(MCDU_CURRENT_BUTTON) > 0 and get(MCDU_CURRENT_BUTTON) < 6 then
         local val = get(MCDU_CURRENT_BUTTON) -- We determine what the index is of the airport aligned with the selected button
         SELECTED_DPT_SID = DPT_PROCEDURE[val]
-        print(SELECTED_DPT_SID)
         PAGE_STATE = 3
     end
 end
@@ -93,14 +92,18 @@ function drawRnwy()
                 table.insert(RwyList,i,"")
             end
         end
-        sasl.gl.drawText(MCDU_FONT, 2, mcdu_positions[2], "←"..RwyList[1], mcdu_option_size, false, false, TEXT_ALIGN_LEFT, MCDU_BLUE)
-        sasl.gl.drawText(MCDU_FONT, 2, mcdu_positions[3], "←"..RwyList[2], mcdu_option_size, false, false, TEXT_ALIGN_LEFT, MCDU_BLUE)
-        sasl.gl.drawText(MCDU_FONT, 2, mcdu_positions[4], "←"..RwyList[3], mcdu_option_size, false, false, TEXT_ALIGN_LEFT, MCDU_BLUE)
-        sasl.gl.drawText(MCDU_FONT, 2, mcdu_positions[5], "←"..RwyList[4], mcdu_option_size, false, false, TEXT_ALIGN_LEFT, MCDU_BLUE)
-        drawDashField(mcdu_positions[1],1,3)
-        drawDashField(mcdu_positions[1],2,6)
-        sasl.gl.drawText(MCDU_FONT, title_location.x, option_heading_locations[2]-4, "AVAILABLE RUNWAYS", option_heading_font_size+3, false, false, TEXT_ALIGN_CENTER, MCDU_WHITE)
-        sasl.gl.drawText(MCDU_FONT, title_location.x, mcdu_positions[1]+4, "------", mcdu_option_size, false, false, TEXT_ALIGN_CENTER, MCDU_WHITE)
+        drawText("<"..RwyList[1], 1, 10, MCDU_BLUE, SIZE.OPTION, false, "L")
+        drawText("<"..RwyList[2], 1, 8, MCDU_BLUE, SIZE.OPTION, false, "L")
+        drawText("<"..RwyList[3], 1, 6, MCDU_BLUE, SIZE.OPTION, false, "L")
+        drawText("<"..RwyList[4], 1, 4, MCDU_BLUE, SIZE.OPTION, false, "L")
+
+        drawText("---", 1, 12, MCDU_WHITE, SIZE.OPTION, false, "L")
+        drawText("------", 24, 12, MCDU_WHITE, SIZE.OPTION, false, "R")
+        drawText("AVAILABLE RUNWAYS", 4, 11, MCDU_WHITE, SIZE.HEADER, false, "L")
+        drawText("------", 10, 12, MCDU_WHITE, SIZE.OPTION, false, "L")
+
+
+
     elseif PAGE_STATE == 2 then
         DPT_PROCEDURE = getDepartureProcedures(DEPARTURE_AIRPORT, SELECTED_RUNWAY)
         SIDS = {
@@ -110,39 +113,40 @@ function drawRnwy()
                 table.insert(SIDS, #SIDS+1, string.sub(DPT_PROCEDURE[i], 4, string.find(DPT_PROCEDURE[i],",",6)-1))
             end
         end
+
         sidListInput()
         wrap(SIDS, SID_SHIFT)
         processSidSelect(SIDS)
         if #SIDS < 4 then
-            local amt = 4 - #SIDS
-            for i=amt,4-amt,-1 do
-                table.insert(SIDS,i,"")
+            for i=4, 4-#SIDS, -1 do
+                table.insert(SIDS, i, " ")
             end
         end
-        sasl.gl.drawText(MCDU_FONT, 2, mcdu_positions[2], "←"..SIDS[1], mcdu_option_size, false, false, TEXT_ALIGN_LEFT, MCDU_BLUE)
-        sasl.gl.drawText(MCDU_FONT, 2, mcdu_positions[3], "←"..SIDS[2], mcdu_option_size, false, false, TEXT_ALIGN_LEFT, MCDU_BLUE)
-        sasl.gl.drawText(MCDU_FONT, 2, mcdu_positions[4], "←"..SIDS[3], mcdu_option_size, false, false, TEXT_ALIGN_LEFT, MCDU_BLUE)
-        sasl.gl.drawText(MCDU_FONT, 2, mcdu_positions[5], "←"..SIDS[4], mcdu_option_size, false, false, TEXT_ALIGN_LEFT, MCDU_BLUE)
-        sasl.gl.drawText(MCDU_FONT, 2, mcdu_positions[1]+4, SELECTED_RUNWAY, mcdu_option_size, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
-        drawDashField(mcdu_positions[1],2,6)
-        sasl.gl.drawText(MCDU_FONT, title_location.x, mcdu_positions[1]+4, "------", mcdu_option_size, false, false, TEXT_ALIGN_CENTER, MCDU_WHITE)
-        sasl.gl.drawText(MCDU_FONT, title_location.x, option_heading_locations[2]-4, "AVAILABLE SIDS", option_heading_font_size+3, false, false, TEXT_ALIGN_CENTER, MCDU_WHITE)
+        for i=1, 4 do
+            if SIDS[i] ~= " " then
+                drawText("<"..SIDS[i], 1, i+1, MCDU_BLUE, SIZE.OPTION, false, "L", true, "O")
+            end
+        end
+        drawText(SELECTED_RUNWAY, 1, 12, MCDU_WHITE, SIZE.OPTION, false, "L")
+        drawText("------", 24, 12, MCDU_WHITE, SIZE.OPTION, false, "R")
+        drawText("------", 10, 12, MCDU_WHITE, SIZE.OPTION, false, "L")
+        drawText("AVAILABLE SIDS", 5, 11, MCDU_WHITE, SIZE.HEADER, false, "L")
     elseif PAGE_STATE == 3 then
-        sasl.gl.drawText(MCDU_FONT, 2, mcdu_positions[1]+4, SELECTED_RUNWAY, mcdu_option_size, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
-        sasl.gl.drawText(MCDU_FONT, title_location.x, mcdu_positions[1]+4, SELECTED_DPT_SID, mcdu_option_size, false, false, TEXT_ALIGN_CENTER, MCDU_WHITE)
-        sasl.gl.drawText(MCDU_FONT, 480, mcdu_positions[1]+4, "------", mcdu_option_size, false, false, TEXT_ALIGN_RIGHT, MCDU_WHITE)
-        sasl.gl.drawText(MCDU_FONT, 495, mcdu_positions[6], "INSERT*", mcdu_option_size, false, false, TEXT_ALIGN_RIGHT, MCDU_ORANGE)
+        drawText(SELECTED_RUNWAY, 1, 12, MCDU_WHITE, SIZE.OPTION, false, "L")
+        drawText(SELECTED_DPT_SID, 10, 12, MCDU_WHITE, SIZE.OPTION, false, "L")
+        drawText("------", 24, 12, MCDU_WHITE, SIZE.OPTION, false, "R")
+        drawText("INSERT*", 24, 2, MCDU_ORANGE, SIZE.OPTION, false, "R")
     else
-        sasl.gl.drawText(MCDU_FONT, 2, mcdu_positions[1]+4, SELECTED_RUNWAY, mcdu_option_size, false, false, TEXT_ALIGN_CENTER, MCDU_WHITE)
-        sasl.gl.drawText(MCDU_FONT, 2, mcdu_positions[1]+4, SELECTED_DPT_SID, mcdu_option_size, false, false, TEXT_ALIGN_CENTER, MCDU_WHITE)
-        sasl.gl.drawText(MCDU_FONT, title_location.x, mcdu_positions[1]+4, SELECTED_TRANS, mcdu_option_size, false, false, TEXT_ALIGN_CENTER, MCDU_WHITE)
+        drawText(SELECTED_RUNWAY, 1, 12, MCDU_WHITE, SIZE.OPTION, false, "L")
+        drawText(SELECTED_DPT_SID, 12, 12, MCDU_WHITE, SIZE.OPTION, false, "L")
+        drawText(SELECTED_TRANS, 24, 12, MCDU_WHITE, SIZE.OPTION, false, "R")
     end
     -- Draw text_fields
-    sasl.gl.drawText(MCDU_FONT, 2, option_heading_locations[1]-4, "RWY", option_heading_font_size+3, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
-    sasl.gl.drawText(MCDU_FONT, title_location.x, option_heading_locations[1]-4, "SID", option_heading_font_size+3, false, false, TEXT_ALIGN_CENTER, MCDU_WHITE)
-    sasl.gl.drawText(MCDU_FONT, 480, option_heading_locations[1]-4, "TRANS", option_heading_font_size+3, false, false, TEXT_ALIGN_RIGHT, MCDU_WHITE)
-    sasl.gl.drawText(MCDU_FONT, title_location.x, title_location.y+20, "DEPARTURE FROM "..DEPARTURE_AIRPORT, title_location.font_size, false, false, TEXT_ALIGN_CENTER, mcdu_font_colors[1])
-    sasl.gl.drawText(MCDU_FONT, 2, mcdu_positions[6], "<RETURN", mcdu_option_size, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
+    drawText("RWY", 1, 13, MCDU_WHITE, SIZE.HEADER, false, "L")
+    drawText("SID", 11, 13, MCDU_WHITE, SIZE.HEADER, false, "L")
+    drawText("TRANS", 24, 13, MCDU_WHITE, SIZE.HEADER, false, "R")
+    drawText("DEPARTURE FROM "..DEPARTURE_AIRPORT, 3, 14, MCDU_WHITE, SIZE.TITLE, false, "L")
+    drawText("<RETURN", 1, 2, MCDU_WHITE, SIZE.OPTION, false, "L")
 end
 
 --TODO: FIX VISIBILITY OF SIDS FROM SPECIFIC RUNWAYS

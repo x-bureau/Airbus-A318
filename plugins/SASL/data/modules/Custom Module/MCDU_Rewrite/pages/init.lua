@@ -143,59 +143,61 @@ end
 function drawInit()
     processCoRte()
     if inputs.CO_RTE[5] == " " then
-        drawTextFieldBoxes(10, MCDU_ORANGE, 0, mcdu_positions[1],1)
+        drawTextFieldBoxes(10, MCDU_ORANGE, -8, TEXT_Y[12]-4,1)
     else
-        sasl.gl.drawText(MCDU_FONT, 2, mcdu_positions[1], inputs.CO_RTE[5], mcdu_option_size, false, false, TEXT_ALIGN_LEFT, mcdu_font_colors[1])
+        drawText(inputs.CO_RTE[5], 1, 12, MCDU_WHITE, SIZE.OPTION, false, "L")
     end
 
     processAltnCoRte()
     if inputs.ALTN_CO_RTE[5] == " " then
-        drawDashSeparated(mcdu_positions[2], 4, 10,1)
+        drawText("----/--------", 1, 10, MCDU_WHITE, SIZE.OPTION, false, "L")
     else
-        sasl.gl.drawText(MCDU_FONT, 2, mcdu_positions[2], inputs.ALTN_CO_RTE[5], mcdu_option_size, false, false, TEXT_ALIGN_LEFT, mcdu_font_colors[1])
+        drawText(inputs.ALTN_CO_RTE[5], 1, 10, MCDU_WHITE, SIZE.OPTION, false, "L")
     end
 
     processFltNbr()
     if inputs.FLT_NBR[5] == " " then
-        drawTextFieldBoxes(8, MCDU_ORANGE, 0, mcdu_positions[3],1)
+        drawTextFieldBoxes(8, MCDU_ORANGE, -8, TEXT_Y[8]-3,1)
     else
-        sasl.gl.drawText(MCDU_FONT, 2, mcdu_positions[3], inputs.FLT_NBR[5], mcdu_option_size, false, false, TEXT_ALIGN_LEFT, mcdu_font_colors[1])
+        drawText(inputs.FLT_NBR[5], 1, 8, MCDU_WHITE, SIZE.OPTION, false, "L")
     end
 
     processLat()
     if inputs.LAT[5] == " " then
-        drawDashDotSeparated(mcdu_positions[4], 4, 1, 1)
+        drawText("---.--", 1, 6, MCDU_WHITE, SIZE.OPTION, false, "L")
     else
-        sasl.gl.drawText(MCDU_FONT, 2, mcdu_positions[4], inputs.LAT[5], mcdu_option_size, false, false, TEXT_ALIGN_LEFT, mcdu_font_colors[1])
+        drawText(inputs.LAT[5], 1, 6, MCDU_WHITE, SIZE.OPTION, false, "L")
     end
 
     processCostIndex()
     if inputs.COST_INDEX[5] == " " then
-        drawDashField(mcdu_positions[5], 1, 3)
+        drawText("---", 1, 4, MCDU_WHITE, SIZE.OPTION, false, "L")
     else
-        sasl.gl.drawText(MCDU_FONT, 2, mcdu_positions[5], inputs.COST_INDEX[5], mcdu_option_size, false, false, TEXT_ALIGN_LEFT, mcdu_font_colors[1])
+        drawText(inputs.COST_INDEX[5], 1, 4, MCDU_WHITE, SIZE.OPTION, false, "L")
     end
 
     processCrzFlTemp()
     if inputs.CRZ_FL_TEMP[5] == " " then
-        drawDashSeparated(mcdu_positions[6], 5, 3, 1)
+        drawText("-----/---", 1, 2, MCDU_WHITE, SIZE.OPTION, false, "L")
     else
-        sasl.gl.drawText(MCDU_FONT, 2, mcdu_positions[6], inputs.CRZ_FL_TEMP[5], mcdu_option_size, false, false, TEXT_ALIGN_LEFT, mcdu_font_colors[1])
+        drawText(inputs.CRZ_FL_TEMP[5], 1, 6, MCDU_WHITE, SIZE.OPTION, false, "L")
     end
 
     processFromTo()
     if inputs.FROM_TO[5] == " " then
-        drawTextFieldBoxes(9, MCDU_ORANGE, 490, mcdu_positions[1],2)
+        drawTextFieldBoxes(9, MCDU_ORANGE, 519, TEXT_Y[12]-4,2)
     else
-        sasl.gl.drawText(MCDU_FONT, 490, mcdu_positions[1], inputs.FROM_TO[5], mcdu_option_size, false, false, TEXT_ALIGN_RIGHT, MCDU_BLUE)
+        drawText(inputs.FROM_TO[5], 24, 12, MCDU_BLUE, SIZE.OPTION, false, "R")
     end
     --STATIC DRAWINGS
-    sasl.gl.drawText(MCDU_FONT, title_location.x, title_location.y, "INIT", title_location.font_size, false, false, TEXT_ALIGN_CENTER, mcdu_font_colors[1])
-    sasl.gl.drawText(MCDU_FONT, 490, option_heading_locations[2], "INIT", option_heading_font_size, false, false, TEXT_ALIGN_RIGHT, MCDU_ORANGE)
-    sasl.gl.drawText(MCDU_FONT, 490, mcdu_positions[2], "INOP*", mcdu_option_size, false, true, TEXT_ALIGN_RIGHT, MCDU_ORANGE)
-    sasl.gl.drawText(MCDU_FONT, 490, mcdu_positions[4], "WIND>", mcdu_option_size, false, false, TEXT_ALIGN_RIGHT, MCDU_WHITE)
+    drawText("INIT", 11, 14, MCDU_WHITE, SIZE.TITLE, false, "L")
+    drawText("INIT", 24, 11, MCDU_ORANGE, SIZE.HEADER, false, "R")
+    drawText("REQUEST*", 24, 10, MCDU_ORANGE, SIZE.OPTION, false, "R")
+
+
+    drawText("WIND/TEMP>", 24, 6, MCDU_WHITE, SIZE.OPTION, false, "R")
+    drawText("---°", 24, 2, MCDU_WHITE, SIZE.OPTION, false, "R")
     drawOptionHeadings(optionLables)
-    drawDashField(mcdu_positions[6], 2, 3)
 end
 
 function switchInitPage()
@@ -208,7 +210,7 @@ end
 function drawCoRte()
     --STATIC DRAWINGS
     local CO_RTE_TITLE = DEPARTURE_AIRPORT.."/"..DESTINATION_AIRPORT
-    sasl.gl.drawText(MCDU_FONT, title_location.x, title_location.y, CO_RTE_TITLE, title_location.font_size, false, false, TEXT_ALIGN_CENTER, mcdu_font_colors[1])
-    sasl.gl.drawText(MCDU_FONT, 2, mcdu_positions[1], "NONE", mcdu_option_size, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
-    sasl.gl.drawText(MCDU_FONT, 2, mcdu_positions[6], "<RETURN", mcdu_option_size, false, false, TEXT_ALIGN_LEFT, MCDU_WHITE)
+    drawText(CO_RTE_TITLE, 9, 14, MCDU_WHITE, SIZE.TITLE, false, "L")
+    drawText("NONE", 1, 12, MCDU_WHITE, SIZE.OPTION, false, "L")
+    drawText("<RETURN", 1, 2, MCDU_WHITE, SIZE.OPTION, false, "L")
 end

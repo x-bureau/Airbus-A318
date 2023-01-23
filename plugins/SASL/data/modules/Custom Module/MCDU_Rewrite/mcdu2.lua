@@ -1,17 +1,17 @@
 include("MCDU_Rewrite/input.lua")
 include("MCDU_Rewrite/mcduGlobalData.lua")
 
-position = {1115, 2980, 500, 510}
-size = {479, 400}
+position = {1120, 3010, 500, 510}
+size = {505, 500}
 
 
 -- Custom Functions
 
 scratchpad = ""
 
-set(MCDU_CURRENT_PAGE,-2)
+set(MCDU_CURRENT_PAGE,3)
 
 function draw()
     mcduPages[get(MCDU_CURRENT_PAGE)][1]() -- We draw the current page
-    sasl.gl.drawText(MCDU_FONT, 10, 25, scratchpad, title_location.font_size, false, false, TEXT_ALIGN_LEFT, mcdu_font_colors[1])
+    drawText(scratchpad, 1, 1, MCDU_WHITE, SIZE.TITLE, false, "L")
 end

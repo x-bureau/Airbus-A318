@@ -13,13 +13,11 @@ end
 
 function drawMCDUMenu()
     processMenuInput()
-    sasl.gl.drawText(MCDU_FONT, title_location.x, title_location.y, "MCDU MENU", title_location.font_size, false, false, TEXT_ALIGN_CENTER, mcdu_font_colors[1])
-    sasl.gl.drawText(MCDU_FONT, 0, mcdu_positions[1], "<FMGC", mcdu_option_size, false, false, TEXT_ALIGN_LEFT, GREEN_COLOR)
-    sasl.gl.drawText(MCDU_FONT, 0, mcdu_positions[2], "<ATSU", mcdu_option_size, false, false, TEXT_ALIGN_LEFT, mcdu_font_colors[1])
-    sasl.gl.drawText(MCDU_FONT, 0, mcdu_positions[3], "<ACMS", mcdu_option_size, false, false, TEXT_ALIGN_LEFT, mcdu_font_colors[1])
-    sasl.gl.drawText(MCDU_FONT, 0, mcdu_positions[5], "<SAT", mcdu_option_size, false, false, TEXT_ALIGN_LEFT, mcdu_font_colors[1])
-    sasl.gl.drawText(MCDU_FONT, 500, mcdu_positions[4], "CLICK ME>", mcdu_option_size, false, false, TEXT_ALIGN_RIGHT, mcdu_font_colors[1])
-    sasl.gl.drawText(MCDU_FONT, 500, mcdu_positions[6], "RETURN>", mcdu_option_size, false, false, TEXT_ALIGN_RIGHT, mcdu_font_colors[1])
+    drawText("MCDU MENU", 9, 14, MCDU_WHITE, SIZE.TITLE, false, "L")
+    drawText("<FMGC", 1, 12, MCDU_WHITE, SIZE.OPTION, false, "L")
+    drawText("<ATSU", 1, 10, MCDU_GREEN, SIZE.OPTION, false, "L")
+    drawText("<ACMS", 1, 8, MCDU_WHITE, SIZE.OPTION, false, "L")
+    drawText("<SAT", 1, 4, MCDU_WHITE, SIZE.OPTION, false, "L")
+    drawText("ARCADE>", 24, 6, MCDU_WHITE, SIZE.OPTION, false, "R")
+    drawText("RETURN>", 24, 2, MCDU_WHITE, SIZE.OPTION, false, "R")
 end
-
---ADD SEPARATE INPUT HANDLER HERE
