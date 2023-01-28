@@ -32,3 +32,5 @@ A318.cfg
 
 luacov.stats.out
 plugins/SASL/data/output/SASLLog.txt
+plugins/SASL/data/modules/configuration/wprefs.ini
+plugins/SASL/data/output/SASLLog.txt
