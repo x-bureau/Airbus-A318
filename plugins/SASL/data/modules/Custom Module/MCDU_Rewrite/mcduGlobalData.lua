@@ -10,10 +10,13 @@ include("MCDU_Rewrite/pages/arcade.lua")
 include("MCDU_Rewrite/pages/pong.lua")
 include("MCDU_Rewrite/pages/simon.lua")
 include("MCDU_Rewrite/pages/snake.lua")
+include("MCDU_Rewrite/pages/text.lua")
+include("MCDU_Rewrite/mcduLib.lua")
+include("MCDU_Rewrite/pages/FPLAN/arrival.lua")
 
-MCDU_FONT = sasl.gl.loadFont("fonts/B612Mono-Regular.ttf")
-BLANK_FONT = sasl.gl.loadFont("fonts/B612Mono-Regular.ttf")
-MCDU_FONT_BOLD = sasl.gl.loadFont("fonts/B612Mono-Regular.ttf")
+MCDU_FONT = sasl.gl.loadFont("fonts/MCDU.ttf")
+BLANK_FONT = sasl.gl.loadFont("fonts/MCDU.ttf")
+MCDU_FONT_BOLD = sasl.gl.loadFont("fonts/MCDU.ttf")
 
 MCDU_ORANGE = {1.0, 0.549, 0.0, 1.0}
 MCDU_WHITE = {1.0, 1.0, 1.0, 1.0}
@@ -114,7 +117,7 @@ mcduPages = {
     [0] = {drawMCDUMenu},
     [1] = {drawInit},
     [12] = {drawCoRte},
-    --[11] = {initB},
+    [11] = {drawInitB},
     --[111] = {drawClimbWind},
     --[112] = {drawDescentWind},
     [2] = {drawDataA},
@@ -130,6 +133,9 @@ mcduPages = {
     [3] = {drawFPlan},
     [4] = {drawInitialLatRev},
     [41] = {drawRnwy},
+    [42] = {drawArr},
+    [5] = {drawAirway},
+    [6] = {drawTextTest},
 }
 
 mcdu_font_colors = {
@@ -176,334 +182,78 @@ mcdu_font_colors = {
     [4] = {1, 153/255, 0, 1}
 }
 
-function drawTextFieldBoxes(chars, color, x, y, side)
-    y = y + 24
-    if side == 1 then
-        sasl.gl.drawLine(x, y, (option_heading_font_size*chars), y, color)
-        for i=0, chars do
-            sasl.gl.drawLine(x+(i*option_heading_font_size), y, x+(i*option_heading_font_size), y-option_heading_font_size, color)
-        end
-        sasl.gl.drawLine(x, (y)-option_heading_font_size, (option_heading_font_size*chars), (y)-option_heading_font_size, color)
-    elseif side == 2 then
-        sasl.gl.drawLine(x, y, x-(option_heading_font_size*chars), y, color)
-        for i=0, chars do
-            sasl.gl.drawLine(x-(i*option_heading_font_size), y, x-(i*option_heading_font_size), y-option_heading_font_size, color)
-        end
-        sasl.gl.drawLine(x, (y)-option_heading_font_size, x-(option_heading_font_size*chars), (y)-option_heading_font_size, color)
-    end
-end
 
 
-function drawOptionHeadings(field)
-    for i=1, 6 do
-        sasl.gl.drawText(MCDU_FONT, 0, option_heading_locations[i],field[i],option_heading_font_size, false, false, TEXT_ALIGN_LEFT, mcdu_font_colors[1])
-    end
-    for j = 7, 12 do
-         sasl.gl.drawText(MCDU_FONT, 490, option_heading_locations[j-6],field[j],option_heading_font_size, false, false, TEXT_ALIGN_RIGHT, mcdu_font_colors[1])
-    end
-end
+-- TEXT SHIT
+TEXT_X = {
+    [1] = 2,
+    [2] = 24,
+    [3] = 46,
+    [4] = 68,
+    [5] = 90,
+    [6] = 112,
+    [7] = 134,
+    [8] = 156,
+    [9] = 178,
+    [10] = 200,
+    [11] = 222,
+    [12] = 244,
+    [13] = 266,
+    [14] = 288,
+    [15] = 310,
+    [16] = 332,
+    [17] = 354,
+    [18] = 376,
+    [19] = 398,
+    [20] = 420,
+    [21] = 442,
+    [22] = 464,
+    [23] = 486,
+    [24] = 508,
+}
 
-function drawDashSeparated(position, num1, num2, side)
-    if side == 1 then
-        for i=0, (num1-1) do
-            local x = 0+(i*12)+(2*i)
-            sasl.gl.drawLine(x, position+10, x+12, position+10, mcdu_font_colors[1])
-        end
-        sasl.gl.drawText(MCDU_FONT, 5+(num1*12)+(num1*1), position+2, "/",option_heading_font_size, false, false, TEXT_ALIGN_LEFT, mcdu_font_colors[1])
-        for i=1, num2 do
-            local x = 0+(num1*12)+(num1*1)+10+(12*i)+(2*i)
-            sasl.gl.drawLine(x, position+10, x+12, position+10, mcdu_font_colors[1])
-        end
-    elseif side == 2 then
-        for i = 0, (num1-1) do
-            local x = 480 - (num2*12)-(num2*1)-10-(12*i)-(2*i)
-            sasl.gl.drawLine(x, position+10, x+12, position+10, mcdu_font_colors[1])
-        end
-        sasl.gl.drawText(MCDU_FONT, 480-(num2*12)-(num2*1), position+2, "/",option_heading_font_size, false, false, TEXT_ALIGN_LEFT, mcdu_font_colors[1])
-        for i=0, (num2-1) do
-            local x = 480-(i*12)-(2*i)
-            sasl.gl.drawLine(x, position+10, x+12, position+10, mcdu_font_colors[1])
-        end
-    end
-end
+TEXT_Y = {
+    [1] = 5,
+    [2] = 40,
+    [3] = 75,
+    [4] = 110,
+    [5] = 145,
+    [6] = 180,
+    [7] = 215,
+    [8] = 250,
+    [9] = 285,
+    [10] = 320,
+    [11] = 355,
+    [12] = 390,
+    [13] = 425,
+    [14] = 460
+}
 
-function drawDashDotSeparated (position, num1, num2, side)
-    if side == 1 then
-        for i=0, (num1-1) do
-            local x = 0+(i*12)+(2*i)
-            sasl.gl.drawLine(x, position+10, x+12, position+10, mcdu_font_colors[1])
-        end
-        sasl.gl.drawText(MCDU_FONT, 3+(num1*12)+(num1*1), position+2, ".",25, false, false, TEXT_ALIGN_LEFT, mcdu_font_colors[1])
-        for i=0, (num2-1) do
-            local x = 0+(num1*12)+(num1*1)+10+(12*i)+(2*i)
-            sasl.gl.drawLine(x, position+10, x+12, position+10, mcdu_font_colors[1])
-        end
-    elseif side == 2 then
-        for i = 0, (num1-1) do
-            local x = 480 - (num2*12)-(num2*1)-10-(12*i)-(2*i)
-            sasl.gl.drawLine(x, position+10, x+12, position+10, mcdu_font_colors[1])
-        end
-        sasl.gl.drawText(MCDU_FONT, 483-(num2*12)-(num2*1), position+2, ".",25, false, false, TEXT_ALIGN_LEFT, mcdu_font_colors[1])
-        for i=0, (num2-1) do
-            local x = 480-(i*12)-(2*i)
-            sasl.gl.drawLine(x, position+10, x+12, position+10, mcdu_font_colors[1])
-        end
-    end
-end
+OPTION = {
+    [1] = TEXT_Y[12],
+    [2] = TEXT_Y[10],
+    [3] = TEXT_Y[8],
+    [4] = TEXT_Y[6],
+    [5] = TEXT_Y[4],
+    [6] = TEXT_Y[2]
+}
 
-function drawDashField(position, side, num1)
-    if side == 1 then
-        for i=0, (num1-1) do
-            local x = 0+(i*12)+(2*i)
-            sasl.gl.drawLine(x, position+10, x+12, position+10, mcdu_font_colors[1])
-        end
-    elseif side == 2 then
-        for i=0, (num1-1) do
-            local x = 480-(i*12)-(2*i)
-            sasl.gl.drawLine(x, position+10, x+12, position+10, mcdu_font_colors[1])
-        end
-    end
-end
+HEADER = {
+    [1] = TEXT_Y[13],
+    [2] = TEXT_Y[11],
+    [3] = TEXT_Y[9],
+    [4] = TEXT_Y[7],
+    [5] = TEXT_Y[5],
+    [6] = TEXT_Y[3]
+}
 
-function clearScratch(scratchpad)
-    local scratchpad = ""
-    return scratchpad
-end
+SIZE = {
+    HEADER = 22,
+    OPTION = 30,
+    TITLE = 30,
+}
 
-function isEmpty(input)
-    if input[5] == " " then
-        return true
-    else
-         return false
-    end
-end
-
-function round(num, numDecimalPlaces)
-    local mult = 10^(numDecimalPlaces or 0)
-    return math.floor(num * mult + 0.5) / mult
-end
-
-function getAiracCycle()
-    -- don't loop through file if value already exists
-    if AIRAC_CYCLE == "" then
-        local path = getXPlanePath() --gets the xplane path
-        local file = io.open(path.."/Custom Data/cycle_info.txt", "r")
-        local result = ""
-        if file ~= nil  then
-            for line in file:lines() do
-                if string.match(line, "AIRAC") then
-                    for token in string.gmatch(line, "[^%s]+") do
-                        result = token
-                    end
-                    break
-                end
-            end
-            if result ~= nil then
-                AIRAC_CYCLE = result
-                return AIRAC_CYCLE
-            end
-        end
-        file = io.open(path.."/Resources/default data/earth_nav.dat", "r")
-        isFound = false
-        for line in file:lines() do
-            if string.match(line, "cycle") then
-                for token in string.gmatch(line, "[^%s]+") do
-                    result = token
-                    if isFound then
-                        break
-                    end
-                    if result == "cycle" then
-                        isFound = true
-                    end
-                end
-            end
-        end
-        AIRAC_CYCLE = result:sub(1, 4)
-        return AIRAC_CYCLE
-    else
-        -- if we have found the airac cycle before then don't look it up again
-        return AIRAC_CYCLE
-    end
-end
-
-function checkICAO(icao)
-    local path = getXPlanePath() --gets the xplane path
-    local file = io.open(path.."/Custom Data/CIFP/"..icao..".dat", "r")
-    if file ~= nil then
-        file:close()
-        return true
-    end
-    print("not found in og directory")
-    file = io.open(path.."/Resources/default data/CIFP/"..icao..".dat", "r")
-    if file ~= nil then
-        file:close()
-        return true
-    end
-    return false
-end
-
-function checkForAirports()
-    if DEPARTURE_AIRPORT ~= " " and DESTINATION_AIRPORT ~= " " then
-        return true
-    else
-        return false
-    end
-end
-
-function calculateDistance(lat1, lon1, lat2, lon2)
-
-    --This function returns great circle distance between 2 points.
-    --Found here: http://bluemm.blogspot.gr/2007/01/excel-formula-to-calculate-distance.html
-    --lat1, lon1 = the coords from start position (or aircraft's) / lat2, lon2 coords of the target waypoint.
-    --6371km is the mean radius of earth in meters. Since X-Plane uses 6378 km as radius, which does not makes a big difference,
-    --(about 5 NM at 6000 NM), we are going to use the same.
-    --Other formulas I've tested, seem to break when latitudes are in different hemisphere (west-east).  
-    local distance = math.acos(math.cos(math.rad(90-lat1))*math.cos(math.rad(90-lat2))+math.sin(math.rad(90-lat1))*math.sin(math.rad(90-lat2))*math.cos(math.rad(lon1-lon2))) * (6378000/1852)
-    return distance
-end
-
-function createTokens(str, separator)
-    local tokens = {}
-    for token in string.gmatch(str, "[^%"..separator.."]+") do
-        table.insert(tokens, token)
-    end
-    return tokens
-end
-
-function getBasicLatLong(icao)
-    local path = getXPlanePath()
---    if isFileExists(path.."/Resources/default data/CIFP/"..icao..".dat", "r") then
-    local file = assert(io.open(path.."/Resources/default data/CIFP/"..icao..".dat", "r"))
-    local str = ""
-    io.input(file)
-    for line in io.lines() do
-        if string.match(line, "RWY") then
-            str = line
-            break
-        end
-    end
-        local firstTokenSet = createTokens(str, ";")[2]
-        local secondTokenSet = createTokens(firstTokenSet, ",")
-        file:close()
-        if string.sub(tostring(secondTokenSet[1]),1,1) == "S" then
-            secondTokenSet[1] = -1 * (tonumber(string.sub(tostring(secondTokenSet[1]),2,-1)))*(10^(-6))
-        else
-            secondTokenSet[1] = tonumber(string.sub(tostring(secondTokenSet[1]),2,-1))*(10^(-6))
-        end
-        if string.sub(tostring(secondTokenSet[2]),1,1) == "W" then
-            secondTokenSet[2] = -1 * (tonumber(string.sub(tostring(secondTokenSet[2]),2,-1)))*(10^(-6))
-        else
-            secondTokenSet[2] = (tonumber(string.sub(tostring(secondTokenSet[2]),2,-1)))*(10^(-6))
-        end
-        return {secondTokenSet[1], secondTokenSet[2]}
- --   else
---        print("DIABETES")
- --       return "0"
-   -- end
-end
-
-function calculateAirportDistance(icao1, icao2)
-    local apt1 = getBasicLatLong(icao1)
-    local apt2 = getBasicLatLong(icao2)
-    local nmDist = calculateDistance(apt1[1],apt1[2],apt2[1],apt2[2])
-    return nmDist
-end
-
-function calcTimeToDest(dist)
-    local m = dist/(453.564/60)
-    local h = m%60
-    m = m-h*60
-    return h,m
-end
-
-function getAirportRunways(icao)
-    local path = getXPlanePath()
-    local file = assert(io.open(path.."/Resources/default data/CIFP/"..icao..".dat", "r"))
-    local runways = {}
-    io.input(file)
-    for line in io.lines() do
-        if string.match(line, "RWY:") then
-            local str = string.sub(line, 1, string.find(line, ",")-1)
-            table.insert(runways, str)
-        end
-    end
-    file:close()
-    return runways
-end
-
-function wrap( t, l )
-    for i = 1, l do
-        table.insert( t, #t+1, t[1])
-        table.remove( t, 1)
-    end
-end
-
-function getDepartureProcedures(icao, runway)
-    if string.match(RWY_LABELS, string.sub(runway, -1, -1)) then
-        runway = string.sub(runway, 1, -2)
-    else
-        runway = runway
-    end
-    runway = ",RW"..runway
-    local path = getXPlanePath()
-    local file = assert(io.open(path.."/Resources/default data/CIFP/"..icao..".dat", "r"))
-    local procedures = {}
-    io.input(file)
-    for line in io.lines() do
-        if string.match(line, "SID:") and string.match(line, runway) then
-            local str = string.sub(line, string.find(line, ",",7), string.find(line, ",", 25 ))
-            table.insert(procedures, str)
-            print("OBESITY")
-        end
-    end
-    file:close()
-    return procedures
-end
-
-function table.contains(table, element)
-    for _, value in pairs(table) do
-      if value == element then
-        return true
-      end
-    end
-    return false
-end
-
--- function checkIsInProcedure(firstLine, checkLine)
---     print(tonumber(string.sub(checkLine, 5, 6)))
---     print(tonumber(string.sub(firstLine, 5, 6)))
---     return (tonumber(string.sub(checkLine, 5, 6)) > tonumber(string.sub(firstLine, 5, 6)))
--- end
-
-function getFullDepartureProcedure()
-    local icao = DEPARTURE_AIRPORT
-    local rwy = SELECTED_RUNWAY
-    local sid = SELECTED_DPT_SID
-    local path = getXPlanePath()
-    local file = assert(io.open(path.."/Resources/default data/CIFP/"..icao..".dat","r"))
-    local wpts = {}
-    if string.match(RWY_LABELS, string.sub(rwy, -1, -1)) then
-        rwy = string.sub(rwy, 1, -2)
-    else
-        rwy = rwy
-    end
-    io.input(file)
-    for line in io.lines() do
-        local str = line
-        if string.match(str, sid) and string.match(str, rwy) and #wpts == 0 then
-            table.insert(wpts, str)
-        end
-        if #wpts > 0 and line ~= wpts[1] then
-            if tonumber(string.sub(str, 5, 7)) > tonumber(string.sub(wpts[#wpts], 5, 7)) and string.match(str, "RW"..rwy) and string.match(str, sid) then
-                table.insert(wpts, str)
-            else
-                file:close()
-                return wpts
-            end
-        end
-    end
-end
-
-function isGreaterThan(val1, val2)
-    return(val1 > val2)
-end
+SIDE = {
+    "L",
+    "R",
+}

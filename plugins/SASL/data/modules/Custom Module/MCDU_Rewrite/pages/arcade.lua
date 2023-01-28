@@ -24,9 +24,9 @@ end
 
 function drawArcadeMenu()
     processArcadeMenuInput()
-    sasl.gl.drawText(MCDU_FONT, title_location.x, title_location.y, "X-BUREAU ARCADE", title_location.font_size, true, false, TEXT_ALIGN_CENTER, mcdu_font_colors[1])
-    sasl.gl.drawText(MCDU_FONT, 2, mcdu_positions[1], "<PONG", mcdu_option_size, true, false, TEXT_ALIGN_LEFT, mcdu_font_colors[1])
-    sasl.gl.drawText(MCDU_FONT, 2, mcdu_positions[2], "<SIMON", mcdu_option_size, true, false, TEXT_ALIGN_LEFT, mcdu_font_colors[1])
-    sasl.gl.drawText(MCDU_FONT, 2, mcdu_positions[3], "<SNAKE", mcdu_option_size, true, false, TEXT_ALIGN_LEFT, mcdu_font_colors[1])
-    sasl.gl.drawText(MCDU_FONT, 2, mcdu_positions[6], "<RETURN", mcdu_option_size, true, false, TEXT_ALIGN_LEFT, mcdu_font_colors[1])
+    drawText("X-BUREAU ARCADE", 5, 14, MCDU_WHITE, SIZE.TITLE, false, "L")
+    drawText("<PONG", 1, 12, MCDU_WHITE, SIZE.OPTION, false, "L")
+    drawText("<SIMON", 1, 10, MCDU_WHITE, SIZE.OPTION, false, "L")
+    drawText("<SNAKE", 1, 8, MCDU_WHITE, SIZE.OPTION, false, "L")
+    drawText("<RETURN", 1, 2, MCDU_WHITE, SIZE.OPTION, false, "L")
 end

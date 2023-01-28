@@ -106,7 +106,7 @@ function drawSnake()
         processSnakeMovement() -- Handle the snake controls
         if snakeAlive then
             init = false
-            if ticks%45 == 0 then
+            if ticks%30 == 0 then
 
                 if #directionQueue > 1 then
                     table.remove(directionQueue, 1)

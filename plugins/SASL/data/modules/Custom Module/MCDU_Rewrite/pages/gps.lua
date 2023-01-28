@@ -63,21 +63,21 @@ end
 function drawGPSMonitor()
     --Static drawings
     drawOptionHeadings(optionLabels)
-    sasl.gl.drawText(MCDU_FONT, title_location.x, title_location.y+13, "GPS MONITOR", title_location.font_size, false, false, TEXT_ALIGN_CENTER, mcdu_font_colors[1])
+    drawText("GPS MONITOR", 7, 14, MCDU_WHITE, SIZE.TITLE, false, "L")
     --Dynamic ALT/Time
     local time1 = formatTime(get(hours),get(minutes),get(seconds))
     local time2 = formatTime(get(hours),get(minutes),get(seconds))
-    sasl.gl.drawText(MCDU_FONT, title_location.x, mcdu_positions[2], time1, mcdu_option_size, false, false, TEXT_ALIGN_CENTER, MCDU_BLUE)
-    sasl.gl.drawText(MCDU_FONT, title_location.x, mcdu_positions[3], math.floor(get(altitude)), mcdu_option_size, false, false, TEXT_ALIGN_CENTER, MCDU_GREEN)
-    sasl.gl.drawText(MCDU_FONT, title_location.x, mcdu_positions[5], time2, mcdu_option_size, false, false, TEXT_ALIGN_CENTER, MCDU_BLUE)
-    sasl.gl.drawText(MCDU_FONT, title_location.x, mcdu_positions[6], math.floor(get(altitude)), mcdu_option_size, false, false, TEXT_ALIGN_CENTER, MCDU_GREEN)
+    drawText(time1, 8, 10, MCDU_BLUE, SIZE.OPTION, false, "L")
+    drawText(tostring(math.floor(get(altitude))), 10, 8, MCDU_GREEN, SIZE.OPTION, false, "L")
+    drawText(time2, 8, 4, MCDU_BLUE, SIZE.OPTION, false, "L")
+    --drawText(tostring(math.floor(get(altitude))), 10, 6, MCDU_GREEN, SIZE.OPTION, false, "L")
+
     --Static Alt/Time Lables
-    sasl.gl.drawText(MCDU_FONT, title_location.x, option_heading_locations[2], "UTC", option_heading_font_size, false, false, TEXT_ALIGN_CENTER, MCDU_WHITE)
-    sasl.gl.drawText(MCDU_FONT, title_location.x, option_heading_locations[3], "GPS ALT", option_heading_font_size, false, false, TEXT_ALIGN_CENTER, MCDU_WHITE)
-    sasl.gl.drawText(MCDU_FONT, title_location.x, option_heading_locations[5], "UTC", option_heading_font_size, false, false, TEXT_ALIGN_CENTER, MCDU_WHITE)
-    sasl.gl.drawText(MCDU_FONT, title_location.x, option_heading_locations[6], "GPS ALT", option_heading_font_size, false, false, TEXT_ALIGN_CENTER, MCDU_WHITE)
+    drawText("UTC", 11, 11, MCDU_WHITE, SIZE.HEADER, false, "L")
+    drawText("GPS ALT", 9, 9, MCDU_WHITE, SIZE.HEADER, false, "L")
+    drawText("UTC", 11, 5, MCDU_WHITE, SIZE.HEADER, false, "L")
     --MCDU OPTION TEXT
-    local newLongLat = generateLongLat(get(longitude),get(latitude))
-    sasl.gl.drawText(MCDU_FONT, 2, mcdu_positions[1]+4, newLongLat, 22, false, false, TEXT_ALIGN_LEFT, MCDU_GREEN)
-    sasl.gl.drawText(MCDU_FONT, 2, mcdu_positions[4]+4, newLongLat, 22, false, false, TEXT_ALIGN_LEFT, MCDU_GREEN)
+    local newLongLat = tostring(generateLongLat(get(longitude),get(latitude)))
+    drawText(newLongLat, 1, 12, MCDU_GREEN, SIZE.OPTION, false, "L")
+    drawText(newLongLat, 1, 6, MCDU_GREEN, SIZE.OPTION, false, "L")
 end
