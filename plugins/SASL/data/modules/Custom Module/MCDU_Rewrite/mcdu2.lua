@@ -1,8 +1,8 @@
 include("MCDU_Rewrite/input.lua")
 include("MCDU_Rewrite/mcduGlobalData.lua")
 
-position = {1120, 3010, 500, 510}
-size = {505, 500}
+position = {1130, 3015, 500, 510}
+size = {525, 510}
 
 
 -- Custom Functions

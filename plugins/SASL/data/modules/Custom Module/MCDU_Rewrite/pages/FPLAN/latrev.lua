@@ -21,6 +21,14 @@ local function processDptInput()
     end
 end
 
+local function processArrInput()
+    if get(MCDU_CURRENT_BUTTON) == 0 then
+        set(MCDU_CURRENT_PAGE, 42)
+    elseif get(MCDU_CURRENT_BUTTON) == 5 then
+        set(MCDU_CURRENT_PAGE, 3)
+    end
+end
+
 function drawDepartureAirportLatRev()
     processDptInput()
     local coords = getBasicLatLong(DEPARTURE_AIRPORT)
@@ -51,6 +59,24 @@ function drawLatRev()
     processLatRevInput()
     local coords = getBasicLatLong(DEPARTURE_AIRPORT)
     local dptLatLong = generateLongLat(coords[1],coords[2])
+    drawText("FIX INFO>", 24, 12, MCDU_WHITE, SIZE.OPTION, false, "R")
+    drawText("LL WING/INCR/NO", 24, 11, MCDU_WHITE, SIZE.HEADER, false, "R")
+    drawText("[] /[] /[]", 24, 10, MCDU_WHITE, SIZE.OPTION, false, "R")
+    drawText("NEXT WPT", 24, 9, MCDU_WHITE, SIZE.HEADER, false, "R")
+    drawText("[]", 24, 8, MCDU_BLUE, SIZE.OPTION, false, "R")
+    drawText("<HOLD", 1, 8, MCDU_WHITE, SIZE.OPTION, false, "L")
+    drawText("NEW DEST", 24, 7, MCDU_WHITE, SIZE.HEADER, false, "R")
+    drawText("[]", 24, 6, MCDU_BLUE, SIZE.OPTION, false, "R")
+    drawText("AIRWAYS>", 24, 4, MCDU_WHITE, SIZE.OPTION, false, "R")
+    drawText("<RETURN", 1, 2, MCDU_WHITE, SIZE.OPTION, false, "L")
+end
+
+function drawArrLatRev()
+    processArrInput()
+    local coords = getBasicLatLong(DEPARTURE_AIRPORT)
+    local dptLatLong = generateLongLat(coords[1],coords[2])
+    drawText(dptLatLong, 3, 13, MCDU_GREEN, SIZE.HEADER, false, "L")
+    drawText("<ARRIVAL", 1, 12, MCDU_WHITE, SIZE.OPTION, false, "L")
     drawText("FIX INFO>", 24, 12, MCDU_WHITE, SIZE.OPTION, false, "R")
     drawText("LL WING/INCR/NO", 24, 11, MCDU_WHITE, SIZE.HEADER, false, "R")
     drawText("[] /[] /[]", 24, 10, MCDU_WHITE, SIZE.OPTION, false, "R")
@@ -127,6 +153,8 @@ function drawInitialLatRev()
     drawText("LAT REV FROM "..CURRENT_LATREV, 4, 14, MCDU_WHITE, SIZE.TITLE, false, "L")
     if CURRENT_LATREV == DEPARTURE_AIRPORT then
         drawDepartureAirportLatRev()
+    elseif CURRENT_LATREV == DESTINATION_AIRPORT then
+        drawArrLatRev()
     else
         drawLatRev()
     end

@@ -393,3 +393,143 @@ function drawText(TEXT, X, Y, COLOR, size, BOLD, FROMSIDE, inFpln, field)
         end
     end
 end
+
+function getApproachProcedures(icao)
+    local path = getXPlanePath()
+    local file = assert(io.open(path.."/Resources/default data/CIFP/"..icao..".dat", "r"))
+    local arrival = {}
+    io.input(file)
+    
+    for line in io.lines() do
+        if string.sub(line,1,6) == "APPCH:" then
+            if not table.contains(arrival, string.sub(line, 11, string.find(line, ",", 14)-1)) and string.sub(line,11,11) ~= "A" then
+                table.insert(arrival, string.sub(line, 11, string.find(line, ",", 14)-1))
+            end
+        end
+    end
+
+    for i in ipairs(arrival) do
+        if string.sub(arrival[i],3,3)~= "," then
+            table.remove(arrival, i)
+        end
+    end
+
+    file:close()
+    return arrival
+end
+
+function getArrivalProcedures(icao)
+    local path = getXPlanePath()
+    local file = assert(io.open(path.."/Resources/default data/CIFP/"..icao..".dat", "r"))
+    local procedures = {}
+    table.insert(procedures, "NO STAR")
+    io.input(file)
+    
+    for line in io.lines() do
+        local STAR = string.sub(line, 12, string.find(line, ",", 13)-1)
+        if string.match(line, "STAR:") and not table.contains(procedures, STAR) then
+            table.insert(procedures, STAR)
+        end
+    end
+    file:close()
+    return procedures
+end
+
+function getWptCord(wpt)
+    local path = getXPlanePath()
+    local file = assert(io.open(path.."/Resources/default data/earth_fix.dat", "r"))
+    io.input(file)
+    for line in io.lines() do
+        if string.match(line, wpt) then
+            local latLong = string.sub(line, 1, 29)
+            local lat = string.sub(latLong, 1, string.find(line, " ", 6)-1)
+            string.reverse(latLong)
+            local long = string.sub(latLong, 1, string.find(latLong, " ", 8))
+            file:close()
+            return lat,long
+        end
+    end
+end
+
+function getArrivalTrans(icao)
+    local path = getXPlanePath()
+    local file = assert(io.open(path.."/Resources/default data/CIFP/"..icao..".dat", "r"))
+    local procedures = {}
+    table.insert(procedures, "NO TRANS")
+    io.input(file)
+    
+    for line in io.lines() do
+        if string.match(line, "APPCH:") and string.match(line, GLOBAL_APPCH) then --and string.match(line, ',A,') then
+            local temp = string.sub(line, string.find(line, ",",13)+1, string.find(line,",",20)-1)
+            if not table.contains(procedures, temp) and temp ~= " " then
+                table.insert(procedures, temp)
+            end
+        end
+    end
+    file:close()
+    return procedures
+end
+
+function findVias()
+    local icao = DESTINATION_AIRPORT
+    local path = getXPlanePath()
+    local wpts = {}
+    local file = assert(io.open(path.."/Resources/default data/CIFP/"..icao..".dat","r"))
+    io.input(file)
+    for line in io.lines() do
+        if string.match(line, "STAR:") and string.match(line, SELECTED_STAR) then
+            local via = string.sub(line, string.find(line, ",",12)+1, string.find(line,",",19)-1)
+            if not table.contains(wpts, via) then
+                table.insert(wpts, via)
+            end
+        end
+    end
+    file:close()
+    return wpts
+end
+
+function getFullApproachProcedure()
+    local icao = DESTINATION_AIRPORT
+    local path = getXPlanePath()
+    local wpts = {}
+    local file = assert(io.open(path.."/Resources/default data/CIFP/"..icao..".dat","r"))
+    io.input(file)
+    for line in io.lines() do
+        if string.match(line, "STAR:") and string.match(line, SELECTED_STAR) and string.match(line, SELECTED_VIA) then
+            local wpt = string.sub(line, string.find(line, ",", 19)+1,string.find(line, ",", 23)-1)
+            if not table.contains(wpts, wpt) and wpt ~= " " then
+                table.insert(wpts, wpt)
+            end
+        end
+
+        if string.match(line, GLOBAL_APPCH) and string.match(line, "APPCH:") then
+            if SELECTED_ARR_TRANS ~= "" then
+                local wpt = string.sub(line, string.find(line, ",", 20)+1, string.find(line, ",", 25)-1)
+                if string.match(line, SELECTED_ARR_TRANS) and wpt ~= " " then
+                    table.insert(wpts, wpt)
+                end
+                if string.sub(line, 11, 11) == "I" and wpt ~= " " then
+                    table.insert(wpts, wpt)
+                end
+                if wpt == "RW"..string.sub(GLOBAL_APPCH, 2,string.len(GLOBAL_APPCH)-1) then
+                    table.insert(wpts, wpt)
+                    file:close()
+                    return wpts
+                end
+            else
+                local wpt = string.sub(line, string.find(line, ",", 20)+1, string.find(line, ",", 25)-1)
+                if string.sub(line, 11, 11) == "I" and wpt ~= " " then
+                    table.insert(wpts, wpt)
+                end
+                if wpt == "RW"..string.sub(GLOBAL_APPCH, 2,string.len(GLOBAL_APPCH)-1) then
+                    table.insert(wpts, wpt)
+                    file:close()
+                    return wpts
+                end
+            end
+        end
+    end
+    file:close()
+    return wpts
+end
+

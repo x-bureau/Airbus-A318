@@ -12,6 +12,7 @@ include("MCDU_Rewrite/pages/simon.lua")
 include("MCDU_Rewrite/pages/snake.lua")
 include("MCDU_Rewrite/pages/text.lua")
 include("MCDU_Rewrite/mcduLib.lua")
+include("MCDU_Rewrite/pages/FPLAN/arrival.lua")
 
 MCDU_FONT = sasl.gl.loadFont("fonts/MCDU.ttf")
 BLANK_FONT = sasl.gl.loadFont("fonts/MCDU.ttf")
@@ -116,7 +117,7 @@ mcduPages = {
     [0] = {drawMCDUMenu},
     [1] = {drawInit},
     [12] = {drawCoRte},
-    --[11] = {initB},
+    [11] = {drawInitB},
     --[111] = {drawClimbWind},
     --[112] = {drawDescentWind},
     [2] = {drawDataA},
@@ -132,6 +133,7 @@ mcduPages = {
     [3] = {drawFPlan},
     [4] = {drawInitialLatRev},
     [41] = {drawRnwy},
+    [42] = {drawArr},
     [5] = {drawAirway},
     [6] = {drawTextTest},
 }

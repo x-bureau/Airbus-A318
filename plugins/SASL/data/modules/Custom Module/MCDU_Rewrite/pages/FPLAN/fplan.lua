@@ -32,6 +32,19 @@ local function formatTime(hours, mins)
     return UTC_TIME
 end
 
+local function predictTime(wpt)
+    local cords = getBasicLatLong(DEPARTURE_AIRPORT)
+    local wptLat, wptLong = getWptCord(wpt)
+    local distance = calculateDistance(cords[1], cords, wptLat, wptLong)
+
+    -- Rate x Time = distance --> Distance/Rate = Time --> convert KTS 
+    -- OUR (Temporary) Constant will be 7.5594, which is the standard economical cruising speed of an A320
+    -- converted from 840 km/h to kts/minute
+    local timeMINS = round(distance/7.5594,0)
+    local hours = timeMINS%60
+    local mins = timeMINS-hours*60
+    return formatTime(hours, mins)
+end
 
 local function processFPLANInput()
     if get(MCDU_CURRENT_BUTTON) == 0 and FPLAN_SHIFT == 0 then
@@ -44,6 +57,14 @@ local function processFPLANInput()
         FPLAN_SHIFT = FPLAN_SHIFT + 1
     else
         FPLAN_SHIFT = FPLAN_SHIFT
+    end
+    if get(MCDU_CURRENT_BUTTON) == 5 then
+        set(MCDU_CURRENT_PAGE, 4)
+        CURRENT_LATREV = DESTINATION_AIRPORT
+    end
+    if #waypoints == 0 and get(MCDU_CURRENT_BUTTON) == 2 then
+        set(MCDU_CURRENT_PAGE, 4)
+        CURRENT_LATREV = DESTINATION_AIRPORT
     end
 end
 
@@ -73,10 +94,10 @@ local function drawDeptInfo(originUTC, draw)
     end
 end
 
-local function drawWpt(waypoint, originUTC, pos)
+local function drawWpt(waypoint, utc, pos)
     if pos <= 5 and pos > 0 then
         drawText(waypoint, 1, pos, MCDU_GREEN, SIZE.OPTION, false, "L", true, "O")
-        drawText(originUTC, 10, pos, MCDU_GREEN, SIZE.OPTION, false, "L", true, "O")
+        drawText(utc, 10, pos, MCDU_GREEN, SIZE.OPTION, false, "L", true, "O")
         drawText("---/---", 24, pos, MCDU_WHITE, SIZE.OPTION, false, "R", true, "O")
     end
 end
@@ -88,16 +109,14 @@ local function drawEndLine(pos)
 end
 
 function getFields(waypoints, originUTC, arrDepDist)
-    fields = {
+    fields = {}
 
-    }
     table.insert(fields, 1, drawDeptInfo(originUTC, 1-FPLAN_SHIFT))
 
     for i in ipairs(waypoints) do
         table.insert(fields, #fields+1, drawWpt(waypoints[i], originUTC, 1+i-FPLAN_SHIFT))
     end
 
-    --table.insert(fields, #fields+1, drawWpt("DECEL", originUTC, (#waypoints+1)-FPLAN_SHIFT))
     table.insert(fields, #fields+1, drawArrInfo(originUTC, arrDepDist, (#waypoints+2)-FPLAN_SHIFT))
     table.insert(fields, #fields+1, drawEndLine((#waypoints+3)-FPLAN_SHIFT))
     table.insert(fields, #fields+1, drawDeptInfo(originUTC, (#waypoints+4)-FPLAN_SHIFT))
@@ -106,18 +125,17 @@ function getFields(waypoints, originUTC, arrDepDist)
     local FPLAN_SCREEN = {}
 
     for i = 1, 6 do
-        if i == 6 and i+FPLAN_SHIFT < #fields-3 then
+        if i == 6 and fields[i+FPLAN_SHIFT] < #fields-3 then
              table.insert(FPLAN_SCREEN, 6, drawArrInfo(originUTC, arrDepDist, 6))
         elseif i < 5 then
-            table.insert(FPLAN_SCREEN, #FPLAN_SCREEN, fields[i+FPLAN_SHIFT])
+            table.insert(FPLAN_SCREEN, i, fields[i+FPLAN_SHIFT])
         end
-
     end
     return FPLAN_SCREEN
 end
 
 local function processCurrentLatrev()
-    if get(MCDU_CURRENT_BUTTON) > -1 and get(MCDU_CURRENT_BUTTON) < 6 then
+    if get(MCDU_CURRENT_BUTTON) > -1 and get(MCDU_CURRENT_BUTTON) < 5 then
         if get(MCDU_CURRENT_BUTTON)+FPLAN_SHIFT~=0 and get(MCDU_CURRENT_BUTTON)+FPLAN_SHIFT < #fields-4 then
             CURRENT_LATREV = waypoints[get(MCDU_CURRENT_BUTTON)+FPLAN_SHIFT]
             local index = 0
