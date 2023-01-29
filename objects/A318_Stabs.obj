@@ -6,7 +6,6 @@ GLOBAL_cockpit_lit
 TEXTURE	Stabs_ALB.png
 TEXTURE_NORMAL	Stabs_NML.png
 NORMAL_METALNESS
-GLOBAL_specular	1
 Global_specular	1.0
 POINT_COUNTS	4422	0	0	4422
 
