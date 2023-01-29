@@ -1,3 +1,4 @@
+-- PAGE REFERENCES -- 
 include("MCDU_Rewrite/pages/mcdu_menu.lua")
 include("MCDU_Rewrite/pages/init.lua")
 include("MCDU_Rewrite/pages/data.lua")
@@ -13,15 +14,23 @@ include("MCDU_Rewrite/pages/snake.lua")
 include("MCDU_Rewrite/pages/text.lua")
 include("MCDU_Rewrite/mcduLib.lua")
 include("MCDU_Rewrite/pages/FPLAN/arrival.lua")
+include("MCDU_Rewrite/pages/initb.lua")
+include("MCDU_Rewrite/pages/PERF/takeoff.lua")
+include("MCDU_Rewrite/pages/PERF/clb.lua")
+include("MCDU_Rewrite/pages/PERF/perfData.lua")
+include("MCDU_Rewrite/pages/PERF/crz.lua")
 
 MCDU_FONT = sasl.gl.loadFont("fonts/MCDU.ttf")
 BLANK_FONT = sasl.gl.loadFont("fonts/MCDU.ttf")
 MCDU_FONT_BOLD = sasl.gl.loadFont("fonts/MCDU.ttf")
+SPECIAL_CHAR_FONT = sasl.gl.loadFont("fonts/Roboto-Regular.ttf")
 
 MCDU_ORANGE = {1.0, 0.549, 0.0, 1.0}
 MCDU_WHITE = {1.0, 1.0, 1.0, 1.0}
-MCDU_GREEN = {0.0, 1.0, 0.1, 1.0}
-MCDU_BLUE = {0.0, 0.8, 1.0, 1.0}
+MCDU_GREY = {1.0, 1.0, 1.0, 0.5}
+
+MCDU_GREEN = {0., 1.0, 0.1, 1.0}
+MCDU_BLUE = {0.4, 0.9, 1.0, 1.0}
 MCDU_YELLOW = {1.0, 1.0, 0.0, 1.0}
 MCDU_RED = {1.0, 0.0, 0.0, 1.0}
 
@@ -93,7 +102,8 @@ function pageButtons(button)
         else
             scratchpad = "ERROR: INITALIZE ROUTE"
         end
-
+    elseif get(MCDU_CURRENT_BUTTON) == 14 then
+        set(MCDU_CURRENT_PAGE, 61)
     end
 end
 
@@ -116,8 +126,8 @@ mcduPages = {
     [-2] = {drawArcadeMenu},
     [0] = {drawMCDUMenu},
     [1] = {drawInit},
-    [12] = {drawCoRte},
     [11] = {drawInitB},
+    [12] = {drawCoRte},
     --[111] = {drawClimbWind},
     --[112] = {drawDescentWind},
     [2] = {drawDataA},
@@ -135,7 +145,9 @@ mcduPages = {
     [41] = {drawRnwy},
     [42] = {drawArr},
     [5] = {drawAirway},
-    [6] = {drawTextTest},
+    [61] = {drawTakeoff},
+    [62] = {drawClb},
+    [63] = {drawCrz},
 }
 
 mcdu_font_colors = {
@@ -257,3 +269,9 @@ SIDE = {
     "L",
     "R",
 }
+
+SPECIAL_CHARS = {
+    [1] = "°",
+}
+
+DEG_SYMBOL = string.char(248)
