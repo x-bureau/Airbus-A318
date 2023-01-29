@@ -104,15 +104,11 @@
 [X-BUREAU'S A318 INFO]: [LUA]: including	MCDU_Rewrite/pages/text.lua
 [X-BUREAU'S A318 INFO]: [LUA]: including	MCDU_Rewrite/mcduLib.lua
 [X-BUREAU'S A318 INFO]: [LUA]: including	MCDU_Rewrite/pages/FPLAN/arrival.lua
-[X-BUREAU'S A318 INFO]: [LUA]: loading	drawInitB
-[X-BUREAU'S A318 ERROR]: [LUA]: can't load component	drawInitB
-[X-BUREAU'S A318 ERROR]: [STACK]:| ...A318-master/Untitled/plugins/SASL/data/init/initMain.lua:223 in function <__index>
-[X-BUREAU'S A318 ERROR]: [STACK]:| ...ta/modules/Custom Module/MCDU_Rewrite/mcduGlobalData.lua:120 in function <f>
-[X-BUREAU'S A318 ERROR]: [STACK]:| ...A318-master/Untitled/plugins/SASL/data/init/initMain.lua:302 in function <include>
-[X-BUREAU'S A318 ERROR]: [STACK]:| ...A318-master/Untitled/plugins/SASL/data/init/initMain.lua:169 in function <include>
-[X-BUREAU'S A318 ERROR]: [STACK]:| ...s/SASL/data/modules/Custom Module/MCDU_Rewrite/mcdu2.lua:2 in function <f>
-[X-BUREAU'S A318 ERROR]: [STACK]:| ...A318-master/Untitled/plugins/SASL/data/init/initMain.lua:262 in function <mcdu2>
-[X-BUREAU'S A318 ERROR]: [STACK]:| ...
+[X-BUREAU'S A318 INFO]: [LUA]: including	MCDU_Rewrite/pages/initb.lua
+[X-BUREAU'S A318 INFO]: [LUA]: including	MCDU_Rewrite/pages/PERF/takeoff.lua
+[X-BUREAU'S A318 INFO]: [LUA]: including	MCDU_Rewrite/pages/PERF/clb.lua
+[X-BUREAU'S A318 INFO]: [LUA]: including	MCDU_Rewrite/pages/PERF/perfData.lua
+[X-BUREAU'S A318 INFO]: [LUA]: including	MCDU_Rewrite/pages/PERF/crz.lua
 [X-BUREAU'S A318 INFO]: Module loaded
 [X-BUREAU'S A318 INFO]: Disabling...
 [X-BUREAU'S A318 INFO]: SASL plugin stopped...

@@ -5,11 +5,15 @@
 function drawTextFieldBoxes(chars, color, x, y, side)
     y = y + 24
     if side == 1 then
-        sasl.gl.drawLine(x, y, (SIZE.HEADER*chars), y, color)
+        local offset = 0
+        if x<0 then
+            offset = math.abs(x)
+        end
+        sasl.gl.drawLine(x, y, (SIZE.HEADER*chars)-offset, y, color)
         for i=0, chars do
             sasl.gl.drawLine(x+(i*SIZE.HEADER), y, x+(i*SIZE.HEADER), y-SIZE.HEADER, color)
         end
-        sasl.gl.drawLine(x, (y)-SIZE.HEADER, (SIZE.HEADER*chars), (y)-SIZE.HEADER, color)
+        sasl.gl.drawLine(x, (y)-SIZE.HEADER, (SIZE.HEADER*chars)-offset, (y)-SIZE.HEADER, color)
     elseif side == 2 then
         sasl.gl.drawLine(x, y, x-(SIZE.HEADER*chars), y, color)
         for i=0, chars do
@@ -354,8 +358,16 @@ end
 
 function strToTable(str)
     local t = {}
+    local special_char_index = 0
+    if string.match(str, DEG_SYMBOL) then
+        special_char_index = string.find(str,DEG_SYMBOL)
+    end
     for i = 1, #str do
-        t[i] = str:sub(i, i)
+        if i == special_char_index then
+            t[i] = "dg"
+        else
+            t[i] = str:sub(i, i)
+        end
     end
     return t
 end
@@ -363,8 +375,17 @@ end
 function drawText(TEXT, X, Y, COLOR, size, BOLD, FROMSIDE, inFpln, field)
     local len = string.len(TEXT)
     local text = strToTable(TEXT)
+    local sIndex = 0
+    if table.contains(text, "dg") then
+        for i in ipairs(text) do
+            if text[i] == "dg" then
+                text[i] = "°"
+            end
+        end
+    end
     local HDG_FACTOR = 0
     local TITLE_FACTOR = 0
+    local FONT = MCDU_FONT
     if size == SIZE.HEADER then
         HDG_FACTOR = 8
     elseif size == SIZE.TITLE then
@@ -381,14 +402,14 @@ function drawText(TEXT, X, Y, COLOR, size, BOLD, FROMSIDE, inFpln, field)
     if FROMSIDE == "L" then
         for i=1, len do
             if text[i] ~= " " then
-                sasl.gl.drawText(MCDU_FONT, TEXT_X[(X-1)+i], YCord-HDG_FACTOR-TITLE_FACTOR, text[i], size, BOLD, false, TEXT_ALIGN_CENTER, COLOR)
+                sasl.gl.drawText(FONT, TEXT_X[(X-1)+i], YCord-HDG_FACTOR-TITLE_FACTOR, text[i], size, BOLD, false, TEXT_ALIGN_CENTER, COLOR)
             end
         end
     elseif FROMSIDE == "R" then
         for i=len,1,-1 do
             local char = len-i+1
             if text[char] ~= " " then
-                sasl.gl.drawText(MCDU_FONT, TEXT_X[(X+1)-i], YCord-HDG_FACTOR-TITLE_FACTOR, text[char], size, BOLD, false, TEXT_ALIGN_CENTER, COLOR)
+                sasl.gl.drawText(FONT, TEXT_X[(X+1)-i], YCord-HDG_FACTOR-TITLE_FACTOR, text[char], size, BOLD, false, TEXT_ALIGN_CENTER, COLOR)
             end
         end
     end
@@ -533,3 +554,6 @@ function getFullApproachProcedure()
     return wpts
 end
 
+function toNum(str)
+    return tonumber(str) or false
+end

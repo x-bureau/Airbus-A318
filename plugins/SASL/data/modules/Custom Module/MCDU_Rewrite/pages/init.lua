@@ -10,6 +10,8 @@ function calculateGndTemp(fl)
     return math.ceil(crzTemp)
 end
 
+-- GLOBAL VARIABLES
+COST_INDEX = 0
 local optionLables = {
     [1] = "CO RTE",
     [2] = "ALTN/CO RTE",
@@ -82,9 +84,10 @@ function processLat()
 end
 
 function processCostIndex()
-    if string.len(scratchpad) == inputs.COST_INDEX[3] and get(MCDU_CURRENT_BUTTON) == 4 then
+    if string.len(scratchpad) == inputs.COST_INDEX[3] and get(MCDU_CURRENT_BUTTON) == 4 and toNum(scratchpad) then
         inputs.COST_INDEX[5] = scratchpad
         set(MCDU_CURRENT_BUTTON, -1)
+        COST_INDEX = scratchpad
         scratchpad = ""
     elseif get(MCDU_CURRENT_BUTTON) == 4 and string.len(scratchpad) ~= inputs.COST_INDEX[3] then
         scratchpad = "ERROR"
@@ -138,9 +141,16 @@ function processFromTo()
     end
 end
 
+local function processPageInput()
+    if get(MCDU_CURRENT_BUTTON) == 24 or get(MCDU_CURRENT_BUTTON) == 26 then
+        set(MCDU_CURRENT_PAGE, 11)
+    end
+end
+
 --TODO: function processFromTo - Need to validate airports
 
 function drawInit()
+    processPageInput()
     processCoRte()
     if inputs.CO_RTE[5] == " " then
         drawTextFieldBoxes(10, MCDU_ORANGE, -8, TEXT_Y[12]-4,1)
@@ -178,9 +188,9 @@ function drawInit()
 
     processCrzFlTemp()
     if inputs.CRZ_FL_TEMP[5] == " " then
-        drawText("-----/---", 1, 2, MCDU_WHITE, SIZE.OPTION, false, "L")
+        drawText("-----/---"..DEG_SYMBOL, 1, 2, MCDU_WHITE, SIZE.OPTION, false, "L")
     else
-        drawText(inputs.CRZ_FL_TEMP[5], 1, 6, MCDU_WHITE, SIZE.OPTION, false, "L")
+        drawText(inputs.CRZ_FL_TEMP[5]..DEG_SYMBOL, 1, 2, MCDU_WHITE, SIZE.OPTION, false, "L")
     end
 
     processFromTo()
@@ -196,7 +206,7 @@ function drawInit()
 
 
     drawText("WIND/TEMP>", 24, 6, MCDU_WHITE, SIZE.OPTION, false, "R")
-    drawText("---°", 24, 2, MCDU_WHITE, SIZE.OPTION, false, "R")
+    drawText("---"..DEG_SYMBOL, 24, 2, MCDU_WHITE, SIZE.OPTION, false, "R")
     drawOptionHeadings(optionLables)
 end
 
