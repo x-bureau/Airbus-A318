@@ -30,3 +30,4 @@ luacov.stats.out
 plugins/SASL/data/output/SASLLog.txt
 plugins/SASL/data/modules/configuration/wprefs.ini
 Thumbs.db
+*.log
