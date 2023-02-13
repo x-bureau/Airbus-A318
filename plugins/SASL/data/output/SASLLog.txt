@@ -110,5 +110,6 @@
 [X-BUREAU'S A318 INFO]: [LUA]: including	MCDU_Rewrite/pages/PERF/perfData.lua
 [X-BUREAU'S A318 INFO]: [LUA]: including	MCDU_Rewrite/pages/PERF/crz.lua
 [X-BUREAU'S A318 INFO]: Module loaded
+[X-BUREAU'S A318 INFO]: [LUA]: "mcdu"	 fixed i/c update bug
 [X-BUREAU'S A318 INFO]: Disabling...
 [X-BUREAU'S A318 INFO]: SASL plugin stopped...
