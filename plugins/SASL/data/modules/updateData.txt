@@ -9,7 +9,7 @@ ATSAW.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins
 AIRCOND.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/ECAM/pages/AIRCOND.lua, ECAM/pages/
 APU.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/ECAM/pages/APU.lua, ECAM/pages/
 BLEED.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/ECAM/pages/BLEED.lua, ECAM/pages/
-CRUISE.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/ECAM/pages/CRUISE.lua, ECAM/pages/
+CRUISE.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/ECAM/pages/CRUISE.lua, ECAM/pages/ 
 DOORS.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/ECAM/pages/DOORS.lua, ECAM/pages/
 ELEC.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/ECAM/pages/ELEC.lua, ECAM/pages/
 ENG.lua, https://raw.githubusercontent.com/x-bureau/Airbus-A318/master/plugins/SASLFree/data/modules/Custom%20Module/ECAM/pages/ENG.lua, ECAM/pages/
