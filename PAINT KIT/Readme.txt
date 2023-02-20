@@ -3,6 +3,10 @@
 Author: @Martian-Taiwan
 Based on @FBI914 (@jacob914, X-bureau)'s baked textures
 
+v1.3
+-Add More Details by @FBI914
+-Improve Paint Kits
+
 v1.2
 -Fix Stabs BUGs
 
