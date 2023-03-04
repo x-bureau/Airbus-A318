@@ -3,15 +3,10 @@
 Author: @Martian-Taiwan
 Based on @FBI914 (@jacob914, X-bureau)'s baked textures
 
-v1.3
--Add More Details by @FBI914
--Improve Paint Kits
+I will not update "Airbus-A318/liveries/Paintkit"!
 
-v1.2
--Fix Stabs BUGs
+If you want to use the latest paint kit. 
 
-v1.1
--Improve Paint Kit
+Please extract this RAR file. 
 
-v1.0
--First release
+Thanks!
