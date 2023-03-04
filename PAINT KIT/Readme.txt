@@ -3,6 +3,9 @@
 Author: @Martian-Taiwan
 Based on @FBI914 (@jacob914, X-bureau)'s baked textures
 
+v1.4
+-Add Lines For Stabs
+
 v1.3
 -Add More Details by @FBI914
 -Improve Paint Kits
