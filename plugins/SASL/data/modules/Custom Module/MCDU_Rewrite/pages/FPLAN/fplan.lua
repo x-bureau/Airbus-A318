@@ -95,8 +95,17 @@ local function drawDeptInfo(originUTC, draw)
 end
 
 local function drawWpt(waypoint, utc, pos)
+    local wpt = waypoint
+    local awy = ""
+    if string.find(waypoint, ":") then
+        wpt = string.sub(waypoint, 0, string.find(waypoint, ":")-1)
+        awy = string.sub(waypoint, string.find(waypoint, ":")+1)
+    end
     if pos <= 5 and pos > 0 then
-        drawText(waypoint, 1, pos, MCDU_GREEN, SIZE.OPTION, false, "L", true, "O")
+        if awy~="" then
+            drawText(awy, 1, pos, MCDU_WHITE, SIZE.HEADER, false, "L", true, "H")
+        end
+        drawText(wpt, 1, pos, MCDU_GREEN, SIZE.OPTION, false, "L", true, "O")
         drawText(utc, 10, pos, MCDU_GREEN, SIZE.OPTION, false, "L", true, "O")
         drawText("---/---", 24, pos, MCDU_WHITE, SIZE.OPTION, false, "R", true, "O")
     end
@@ -157,8 +166,8 @@ end
 
 function drawFPlan()
     -- TESTING AIRPORTS
-    -- DEPARTURE_AIRPORT = "KMIA"
-    -- DESTINATION_AIRPORT = "KDTW"
+    DEPARTURE_AIRPORT = "KMIA"
+    DESTINATION_AIRPORT = "KDTW"
     --TEMP
     processFPLANInput()
     processCurrentLatrev()
@@ -173,8 +182,12 @@ function drawFPlan()
         for i in ipairs(EXISTING_LATREVS) do
             if #EXISTING_LATREVS[i].wpts ~= 0 then
                 for j in ipairs(EXISTING_LATREVS[i].wpts) do
+                    local wpt = EXISTING_LATREVS[i].wpts[j]
+                    if EXISTING_LATREVS[i].airways[j] ~= "" then
+                        wpt = wpt..":"..EXISTING_LATREVS[i].airways[j]
+                    end
                     if not table.contains(FLIGHT_PLAN, EXISTING_LATREVS[i].wpts[j]) then
-                        table.insert(FLIGHT_PLAN, #FLIGHT_PLAN+1, EXISTING_LATREVS[i].wpts[j])
+                        table.insert(FLIGHT_PLAN, #FLIGHT_PLAN+1, wpt)
                     end
                 end
             end

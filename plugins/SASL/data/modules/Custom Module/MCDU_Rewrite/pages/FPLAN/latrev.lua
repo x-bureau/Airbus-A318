@@ -53,6 +53,19 @@ function processLatRevInput()
     elseif get(MCDU_CURRENT_BUTTON) == 5 then
         set(MCDU_CURRENT_PAGE, 3)
     end
+    if get(MCDU_CURRENT_BUTTON) == 8 then
+        if validateAirway(scratchpad) then
+            local wpts = EXISTING_LATREVS[CURRENT_LATREV_INDEX].wpts
+            local awys = EXISTING_LATREVS[CURRENT_LATREV_INDEX].airways
+
+            table.insert(wpts, #wpts+1, scratchpad)
+            table.insert(awys, #awys+1, "")
+            scratchpad = ""
+            set(MCDU_CURRENT_PAGE, 3)
+        else
+            scratchpad = "INVALID WAYPOINT"
+        end
+    end
 end
 
 function drawLatRev()
@@ -63,7 +76,7 @@ function drawLatRev()
     drawText("LL WING/INCR/NO", 24, 11, MCDU_WHITE, SIZE.HEADER, false, "R")
     drawText("[] /[] /[]", 24, 10, MCDU_WHITE, SIZE.OPTION, false, "R")
     drawText("NEXT WPT", 24, 9, MCDU_WHITE, SIZE.HEADER, false, "R")
-    drawText("[]", 24, 8, MCDU_BLUE, SIZE.OPTION, false, "R")
+    drawText("[     ]", 24, 8, MCDU_BLUE, SIZE.OPTION, false, "R")
     drawText("<HOLD", 1, 8, MCDU_WHITE, SIZE.OPTION, false, "L")
     drawText("NEW DEST", 24, 7, MCDU_WHITE, SIZE.HEADER, false, "R")
     drawText("[]", 24, 6, MCDU_BLUE, SIZE.OPTION, false, "R")
@@ -81,7 +94,7 @@ function drawArrLatRev()
     drawText("LL WING/INCR/NO", 24, 11, MCDU_WHITE, SIZE.HEADER, false, "R")
     drawText("[] /[] /[]", 24, 10, MCDU_WHITE, SIZE.OPTION, false, "R")
     drawText("NEXT WPT", 24, 9, MCDU_WHITE, SIZE.HEADER, false, "R")
-    drawText("[]", 24, 8, MCDU_BLUE, SIZE.OPTION, false, "R")
+    drawText("[     ]", 24, 8, MCDU_BLUE, SIZE.OPTION, false, "R")
     drawText("<HOLD", 1, 8, MCDU_WHITE, SIZE.OPTION, false, "L")
     drawText("NEW DEST", 24, 7, MCDU_WHITE, SIZE.HEADER, false, "R")
     drawText("[]", 24, 6, MCDU_BLUE, SIZE.OPTION, false, "R")
