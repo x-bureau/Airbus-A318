@@ -67,7 +67,6 @@ components = {
 		fbo = true ,
 		fpsLimit = 20
 	}; ]]--
-  menu {};
 --   efb{
 --     cursor = {
 --       x = -15 ,
@@ -81,7 +80,6 @@ components = {
 --       fpsLimit = 20
 --   };
   cockpit {};
-  panel_drawing {};
   DCDUmain {
     fbo = true,
     fpsLimit = 20
@@ -89,4 +87,6 @@ components = {
   autopilot {};
   --maintenance {};
   mcdu2 {};
+  panel_drawing {};
+  menu {};
 }

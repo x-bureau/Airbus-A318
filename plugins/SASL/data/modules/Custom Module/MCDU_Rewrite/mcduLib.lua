@@ -460,6 +460,7 @@ function getWptCord(wpt)
     local path = getXPlanePath()
     local file = assert(io.open(path.."/Resources/default data/earth_fix.dat", "r"))
     io.input(file)
+    local coords = {}
     for line in io.lines() do
         if string.match(line, wpt) then
             local latLong = string.sub(line, 1, 29)
@@ -467,7 +468,9 @@ function getWptCord(wpt)
             string.reverse(latLong)
             local long = string.sub(latLong, 1, string.find(latLong, " ", 8))
             file:close()
-            return lat,long
+            coords[0]=lat
+            coords[1]=long
+            return coords
         end
     end
 end

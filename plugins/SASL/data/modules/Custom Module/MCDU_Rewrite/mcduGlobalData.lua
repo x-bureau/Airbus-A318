@@ -19,6 +19,8 @@ include("MCDU_Rewrite/pages/PERF/takeoff.lua")
 include("MCDU_Rewrite/pages/PERF/clb.lua")
 include("MCDU_Rewrite/pages/PERF/perfData.lua")
 include("MCDU_Rewrite/pages/PERF/crz.lua")
+include("MCDU_Rewrite/pages/acstatus.lua")
+include("MCDU_Rewrite/mcduPopout.lua")
 
 MCDU_FONT = sasl.gl.loadFont("fonts/MCDU.ttf")
 BLANK_FONT = sasl.gl.loadFont("fonts/MCDU.ttf")
@@ -37,9 +39,10 @@ MCDU_RED = {1.0, 0.0, 0.0, 1.0}
 
 
 -- MCDU GENERAL DATAREFS
-MCDU_CURRENT_PAGE = createGlobalPropertyi("A318/cockpit/mcdu2/current_page", 0)
+MCDU_CURRENT_PAGE = createGlobalPropertyi("A318/cockpit/mcdu2/current_page")
 MCDU_CURRENT_KEY = createGlobalPropertyi("A318/cockpit/mcdu2/current_key")
 MCDU_CURRENT_BUTTON = createGlobalPropertyi("A318/cockpit/mcdu2/current_button")
+FPLAN_INIT = createGlobalPropertyi("A318/cockpit/systems/MCDU/FPLAN/isInitialized")
 
 hours = globalPropertyi("sim/cockpit2/clock_timer/zulu_time_hours")
 minutes = globalPropertyi("sim/cockpit2/clock_timer/zulu_time_minutes")
@@ -140,6 +143,7 @@ mcduPages = {
     [2251] = {drawPrintB},
     [226] = {drawAOCA},
     [2261] = {drawAOCB},
+    [23] = {drawACStatus},
     [3] = {drawFPlan},
     [4] = {drawInitialLatRev},
     [41] = {drawRnwy},

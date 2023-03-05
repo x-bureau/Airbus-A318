@@ -32,20 +32,14 @@ local function formatTime(hours, mins)
     return UTC_TIME
 end
 
-local function predictTime(wpt)
-    local cords = getBasicLatLong(DEPARTURE_AIRPORT)
-    local wptLat, wptLong = getWptCord(wpt)
-    local distance = calculateDistance(cords[1], cords, wptLat, wptLong)
-
-    -- Rate x Time = distance --> Distance/Rate = Time --> convert KTS 
-    -- OUR (Temporary) Constant will be 7.5594, which is the standard economical cruising speed of an A320
-    -- converted from 840 km/h to kts/minute
-    local timeMINS = round(distance/7.5594,0)
-    local hours = timeMINS%60
-    local mins = timeMINS-hours*60
-    return formatTime(hours, mins)
+local function calculateTime(wpt, UTC_TIME)
+    local cords = getBasicLatLong("KMIA")
+    local cords = getWptCord(wpt)
+    return cords
 end
 
+
+--print(predictTime("VVMAX"))
 local function processFPLANInput()
     if get(MCDU_CURRENT_BUTTON) == 0 and FPLAN_SHIFT == 0 then
         set(MCDU_CURRENT_PAGE,4)
@@ -166,8 +160,8 @@ end
 
 function drawFPlan()
     -- TESTING AIRPORTS
-    DEPARTURE_AIRPORT = "KMIA"
-    DESTINATION_AIRPORT = "KDTW"
+    -- DEPARTURE_AIRPORT = "KMIA"
+    -- DESTINATION_AIRPORT = "KDTW"
     --TEMP
     processFPLANInput()
     processCurrentLatrev()
