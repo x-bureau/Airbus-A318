@@ -134,13 +134,13 @@
 [X-BUREAU'S A318 WARN]: [STACK]:| ...A318-master/Untitled/plugins/SASL/data/init/initMain.lua:169 in function <include>
 [X-BUREAU'S A318 WARN]: [STACK]:| ...ta/modules/Custom Module/MCDU_Rewrite/mcduGlobalData.lua:23 in function <f>
 [X-BUREAU'S A318 WARN]: [STACK]:| ...
+[X-BUREAU'S A318 INFO]: [LUA]: including	MCDU_Rewrite/pages/atsu.lua
+[X-BUREAU'S A318 INFO]: [LUA]: including	MCDU_Rewrite/pages/aocmenu.lua
 [X-BUREAU'S A318 INFO]: [LUA]: loading	panel_drawing
 [X-BUREAU'S A318 INFO]: [LUA]: loading	menu
 [X-BUREAU'S A318 INFO]: [LUA]: loading	hydPopout
 [X-BUREAU'S A318 INFO]: [LUA]: loading	welcomePopout
 [X-BUREAU'S A318 INFO]: [LUA]: loading	mcduPopout
 [X-BUREAU'S A318 INFO]: Module loaded
-[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	not found in og directory
-[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	not found in og directory
 [X-BUREAU'S A318 INFO]: Disabling...
 [X-BUREAU'S A318 INFO]: SASL plugin stopped...

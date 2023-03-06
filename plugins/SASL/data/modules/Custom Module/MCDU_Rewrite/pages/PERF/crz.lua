@@ -1,17 +1,17 @@
 -- Static Headers
 local optionLabels = {
-    [1] = "",
-    [2] = "",
-    [3] = "",
-    [4] = "",
+    [1] = "ACT MODE",
+    [2] = " CI",
+    [3] = " MANAGED",
+    [4] = " PRESEL",
     [5] = "",
     [6] = "PREV",
-    [7] = "",
+    [7] = "EFOB",
     [8] = "",
     [9] = "",
     [10] = "",
-    [11] = "",
-    [12] = ""
+    [11] = "DES CABIN RATE>",
+    [12] = "NEXT"
 }
 
 local function phaseInput()
@@ -26,6 +26,14 @@ function drawCrz()
     phaseInput()
     drawOptionHeadings(optionLabels)
     drawText("CRZ", 11,14,MCDU_WHITE,SIZE.TITLE,false,"L")
+    drawText("MANAGED", 1, 12, MCDU_GREEN,SIZE.OPTION,false, "L")
+    drawText("30", 1, 10, MCDU_BLUE,SIZE.OPTION,false, "L")
+    drawText("290", 2, 8, MCDU_GREEN,SIZE.OPTION,false, "L")
+    drawText("*[ ]", 2, 6, MCDU_BLUE,SIZE.OPTION,false, "L")
+    drawText("6.0",24,12,MCDU_GREEN,SIZE.OPTION,false,"R")
+    drawText("-XXXFT/MIN",24,4,MCDU_GREEN,SIZE.OPTION,false,"R")
+
     drawText("<PHASE",1,2,MCDU_WHITE,SIZE.OPTION,false,"L") -- Draw Previous Phase button
-    sasl.gl.drawText(MCDU_FONT, 240, 170, "NYI", 250, false, false, TEXT_ALIGN_CENTER, MCDU_ORANGE)
+    drawText("PHASE>",24,2,MCDU_WHITE,SIZE.OPTION,false,"R") -- Draw Next Phase button
+
 end

@@ -8,7 +8,7 @@ local AIRBUS_BLACK_TEXT = {0.0, 0.0, 0.0, 1.0}
 local AIRBUS_WHITE = {1.0, 1.0, 1.0, 1.0}
 
 --Define custom variables
-local SHOW_CLICK_REGIONS = 1
+local SHOW_CLICK_REGIONS = 0
 local MCDU_CURRENT_PAGE = globalPropertyi("A318/cockpit/mcdu2/current_page")
 local FPLAN_INIT = globalPropertyi("A318/cockpit/systems/MCDU/FPLAN/isInitialized")
 local MCDU_CURRENT_KEY = globalPropertyi("A318/cockpit/mcdu2/current_key")

@@ -636,9 +636,11 @@ function recomputePoint(lat, lon, centerLat, centerLon, range, hdg, iscale)
     return a, b
 end
 
+
 function update()
     latGroup = group(get(currentLat))
     lonGroup = group(get(currentLon))
+
 
     if not setupComplete then
         setup()

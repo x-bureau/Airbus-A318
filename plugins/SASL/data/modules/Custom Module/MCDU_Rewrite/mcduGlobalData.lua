@@ -21,6 +21,8 @@ include("MCDU_Rewrite/pages/PERF/perfData.lua")
 include("MCDU_Rewrite/pages/PERF/crz.lua")
 include("MCDU_Rewrite/pages/acstatus.lua")
 include("MCDU_Rewrite/mcduPopout.lua")
+include("MCDU_Rewrite/pages/atsu.lua")
+include("MCDU_Rewrite/pages/aocmenu.lua")
 
 MCDU_FONT = sasl.gl.loadFont("fonts/MCDU.ttf")
 BLANK_FONT = sasl.gl.loadFont("fonts/MCDU.ttf")
@@ -129,6 +131,7 @@ mcduPages = {
     [-2] = {drawArcadeMenu},
     [0] = {drawMCDUMenu},
     [1] = {drawInit},
+    [10] = {drawATSU},
     [11] = {drawInitB},
     [12] = {drawCoRte},
     --[111] = {drawClimbWind},
@@ -152,6 +155,7 @@ mcduPages = {
     [61] = {drawTakeoff},
     [62] = {drawClb},
     [63] = {drawCrz},
+    [7] = {drawAOC},
 }
 
 mcdu_font_colors = {
