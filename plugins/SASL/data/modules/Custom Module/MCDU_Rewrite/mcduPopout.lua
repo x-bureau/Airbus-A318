@@ -349,4 +349,8 @@ function onKeyDown(component, char, key, shiftDown, ctrlDown, altOptDown)
         set(KEYS[40],1)
         return true
     end
+    if string.char(char) == string.char(32) then
+        set(KEYS[38],1)
+        return true
+    end
 end

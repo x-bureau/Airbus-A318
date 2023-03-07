@@ -136,11 +136,14 @@
 [X-BUREAU'S A318 WARN]: [STACK]:| ...
 [X-BUREAU'S A318 INFO]: [LUA]: including	MCDU_Rewrite/pages/atsu.lua
 [X-BUREAU'S A318 INFO]: [LUA]: including	MCDU_Rewrite/pages/aocmenu.lua
+[X-BUREAU'S A318 INFO]: [LUA]: including	MCDU_Rewrite/pages/AOC/freetext.lua
+[X-BUREAU'S A318 INFO]: [LUA]: including	MCDU_Rewrite/pages/AOC/displayMsg.lua
 [X-BUREAU'S A318 INFO]: [LUA]: loading	panel_drawing
 [X-BUREAU'S A318 INFO]: [LUA]: loading	menu
 [X-BUREAU'S A318 INFO]: [LUA]: loading	hydPopout
 [X-BUREAU'S A318 INFO]: [LUA]: loading	welcomePopout
 [X-BUREAU'S A318 INFO]: [LUA]: loading	mcduPopout
 [X-BUREAU'S A318 INFO]: Module loaded
+[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	Unix
 [X-BUREAU'S A318 INFO]: Disabling...
 [X-BUREAU'S A318 INFO]: SASL plugin stopped...

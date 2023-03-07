@@ -560,3 +560,23 @@ end
 function toNum(str)
     return tonumber(str) or false
 end
+
+function printFile(file)
+    PATH = getXPlanePath().."Aircraft/Dev Aircraft/Airbus-A318-master/Untitled/plugins/SASL/data/modules/Custom Module/MCDU_Rewrite/pages/AOC/"..file
+    local file = io.open(PATH, "r") -- open the file
+    if file then -- Check if file exists
+        local contents = file:read("*all") -- Read file
+        io.close(file)
+        -- Print the contents of the file.
+        local path_sep = package.config:sub(1,1)
+        if path_sep == "\\" then -- Execute windows print command below
+            print("Windows") -- Windows
+            os.execute("powershell.exe -Command \"& {Get-Content \\\"" .. PATH .. "\\\" | Out-Printer}\"")
+        else -- Execute unix-based print command below
+            print("Unix") --MacOS or Linux
+            os.execute("lpr <<< \"" .. contents .. "\"")
+        end
+    else
+        print("Error: could not open file " .. PATH)
+    end
+end

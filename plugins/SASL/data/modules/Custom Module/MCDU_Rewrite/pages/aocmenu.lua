@@ -7,7 +7,7 @@ local optionLabels = {
     [6] = " ATSU DLK",
     [7] = "",
     [8] = " RECEIVED ",
-    [9] = "",
+    [9] = "SENT ",
     [10] = " AMENDED ",
     [11] = " VOICE ",
     [12] = ""
@@ -16,6 +16,10 @@ local optionLabels = {
 local function processAOCMenuInput()
     if get(MCDU_CURRENT_BUTTON) == 5 then
         set(MCDU_CURRENT_PAGE, 10)
+    elseif get(MCDU_CURRENT_BUTTON) == 6 then
+        set(MCDU_CURRENT_PAGE, 71)
+    elseif get(MCDU_CURRENT_BUTTON) == 7 then
+        set(MCDU_CURRENT_PAGE, 72)
     end
 end
 
@@ -32,7 +36,7 @@ function drawAOC()
     drawText("<RETURN",1,2,MCDU_WHITE,SIZE.OPTION,false,"L")
     drawText("FREE TEXT>",24,12,MCDU_WHITE,SIZE.OPTION,false,"R")
     drawText("MESSAGES>",24,10,MCDU_WHITE,SIZE.OPTION,false,"R")
-    drawText("ETO UPDATE>",24,8,MCDU_WHITE,SIZE.OPTION,false,"R")
+    drawText("MESSAGES>",24,8,MCDU_WHITE,SIZE.OPTION,false,"R")
     drawText("000|>",24,6,MCDU_WHITE,SIZE.OPTION,false,"R")
     drawText("CONTACT>",24,4,MCDU_WHITE,SIZE.OPTION,false,"R")
     drawText("MISC>",24,2,MCDU_WHITE,SIZE.OPTION,false,"R")
