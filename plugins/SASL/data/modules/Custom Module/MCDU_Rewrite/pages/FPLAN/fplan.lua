@@ -15,7 +15,7 @@ FLIGHT_PLAN = {
 waypoints = {}
 
 ------------------------------
-local function formatTime(hours, mins)
+function formatTime(hours, mins)
     local h0 = ""
     local m0 = ""
     if hours <= 9 then

@@ -20,6 +20,8 @@ local function processAOCMenuInput()
         set(MCDU_CURRENT_PAGE, 71)
     elseif get(MCDU_CURRENT_BUTTON) == 7 then
         set(MCDU_CURRENT_PAGE, 72)
+    elseif get(MCDU_CURRENT_BUTTON) == 1 then
+        set(MCDU_CURRENT_PAGE, 73)
     end
 end
 

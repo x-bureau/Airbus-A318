@@ -138,12 +138,42 @@
 [X-BUREAU'S A318 INFO]: [LUA]: including	MCDU_Rewrite/pages/aocmenu.lua
 [X-BUREAU'S A318 INFO]: [LUA]: including	MCDU_Rewrite/pages/AOC/freetext.lua
 [X-BUREAU'S A318 INFO]: [LUA]: including	MCDU_Rewrite/pages/AOC/displayMsg.lua
+[X-BUREAU'S A318 INFO]: [LUA]: including	MCDU_Rewrite/pages/AOC/weatherReq.lua
+[X-BUREAU'S A318 WARN]: [STACK]:| findDataRef : DataRefsHandler::luaFindDataRef: <sim/weather/view/wind_base_speed_kts> not found
+[X-BUREAU'S A318 WARN]: [STACK]:| ...aster/Untitled/plugins/SASL/data/init/initProperties.lua:297 in function <globalPropertyf>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...ules/Custom Module/MCDU_Rewrite/pages/AOC/weatherReq.lua:1 in function <f>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...A318-master/Untitled/plugins/SASL/data/init/initMain.lua:302 in function <include>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...A318-master/Untitled/plugins/SASL/data/init/initMain.lua:169 in function <include>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...ta/modules/Custom Module/MCDU_Rewrite/mcduGlobalData.lua:28 in function <f>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...
+[X-BUREAU'S A318 WARN]: [STACK]:| findDataRef : DataRefsHandler::luaFindDataRef: <sim/weather/view/wind_gust_kts> not found
+[X-BUREAU'S A318 WARN]: [STACK]:| ...aster/Untitled/plugins/SASL/data/init/initProperties.lua:297 in function <globalPropertyf>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...ules/Custom Module/MCDU_Rewrite/pages/AOC/weatherReq.lua:3 in function <f>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...A318-master/Untitled/plugins/SASL/data/init/initMain.lua:302 in function <include>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...A318-master/Untitled/plugins/SASL/data/init/initMain.lua:169 in function <include>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...ta/modules/Custom Module/MCDU_Rewrite/mcduGlobalData.lua:28 in function <f>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...
+[X-BUREAU'S A318 WARN]: [STACK]:| findDataRef : DataRefsHandler::luaFindDataRef: <sim/weather/region/visibility_reported_sm> not found
+[X-BUREAU'S A318 WARN]: [STACK]:| ...aster/Untitled/plugins/SASL/data/init/initProperties.lua:297 in function <globalPropertyf>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...ules/Custom Module/MCDU_Rewrite/pages/AOC/weatherReq.lua:4 in function <f>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...A318-master/Untitled/plugins/SASL/data/init/initMain.lua:302 in function <include>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...A318-master/Untitled/plugins/SASL/data/init/initMain.lua:169 in function <include>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...ta/modules/Custom Module/MCDU_Rewrite/mcduGlobalData.lua:28 in function <f>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...
 [X-BUREAU'S A318 INFO]: [LUA]: loading	panel_drawing
 [X-BUREAU'S A318 INFO]: [LUA]: loading	menu
 [X-BUREAU'S A318 INFO]: [LUA]: loading	hydPopout
 [X-BUREAU'S A318 INFO]: [LUA]: loading	welcomePopout
 [X-BUREAU'S A318 INFO]: [LUA]: loading	mcduPopout
 [X-BUREAU'S A318 INFO]: Module loaded
-[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	Unix
+[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	not found in og directory
+[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	2023/03/08 02:53
+[X-BUREAU'S A318 INFO]: KMIA 080253Z 10005KT 10SM FEW100 26/20 A3003 RMK AO2 SLP167 T02610200 51010
+[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"
+[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	
+[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	METAR KMIA 080253Z
+[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	10005KT 10SM FEW100 26/20
+[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	A3003 RMK AO2 SLP167
+[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	T02610200 51010 
 [X-BUREAU'S A318 INFO]: Disabling...
 [X-BUREAU'S A318 INFO]: SASL plugin stopped...

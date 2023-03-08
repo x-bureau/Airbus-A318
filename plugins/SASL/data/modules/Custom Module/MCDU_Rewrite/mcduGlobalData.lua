@@ -25,6 +25,7 @@ include("MCDU_Rewrite/pages/atsu.lua")
 include("MCDU_Rewrite/pages/aocmenu.lua")
 include("MCDU_Rewrite/pages/AOC/freetext.lua")
 include("MCDU_Rewrite/pages/AOC/displayMsg.lua")
+include("MCDU_Rewrite/pages/AOC/weatherReq.lua")
 
 MCDU_FONT = sasl.gl.loadFont("fonts/MCDU.ttf")
 BLANK_FONT = sasl.gl.loadFont("fonts/MCDU.ttf")
@@ -163,6 +164,7 @@ mcduPages = {
     [7] = {drawAOC},
     [71] = {drawFreeText},
     [72] = {drawMsg},
+    [73] = {drawWeatherRequest},
 }
 
 mcdu_font_colors = {
