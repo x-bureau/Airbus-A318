@@ -67,7 +67,7 @@ local function processWXReqInput()
         set(MCDU_CURRENT_PAGE, 7)
     end
 
-    if get(MCDU_CURRENT_BUTTON) == 11 then
+    if get(MCDU_CURRENT_BUTTON) == 11 and fields[1] ~= "" then
         getMETAR(fields[1])
     end
 end
