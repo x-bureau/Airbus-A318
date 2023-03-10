@@ -72,7 +72,8 @@ function drawFreeText()
             [4] = fields[4],
             [5] = fields[5]
         }
-        table.insert(TEXT_STORAGE, #TEXT_STORAGE+1, tempStore)
+
+        table.insert(TEXT_STORAGE, #TEXT_STORAGE+1, {formatTime(get(hours),get(minutes)).." FROM: "..tempStore[1],tempStore})
         fields[1] = ""
         fields[2] = "[                      ]"
         fields[3] = "[                      ]"

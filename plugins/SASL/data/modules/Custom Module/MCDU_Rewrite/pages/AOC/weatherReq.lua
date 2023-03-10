@@ -68,16 +68,28 @@ local function processWXReqInput()
     end
 
     if get(MCDU_CURRENT_BUTTON) == 11 and fields[1] ~= "" then
-        getMETAR(fields[1])
+        local METAR = {}
+        for i=1,4,1 do
+            if fields[i]~="[ ]" then
+                local metar = {}
+                metar = getMETAR(fields[i])
+                for j in ipairs(metar) do
+                    table.insert(METAR,#METAR+1,metar[j])
+                end
+                table.insert(METAR,#METAR+1,"--------------------")
+            end
+        end
+        for i in ipairs(METAR) do
+            print(METAR[i])
+        end
+        table.insert(TEXT_STORAGE, #TEXT_STORAGE+1, {"METAR REQUEST AT "..formatTime(get(hours),get(minutes)),METAR})
     end
 end
 
 function getMETAR(icao)
     local link = "https://tgftp.nws.noaa.gov/data/observations/metar/stations/"..icao..".TXT"
     local result, contents = sasl.net.downloadFileContentsSync(link)
-    if result ~= false then
-        print(contents)
-    else
+    if result == false then
         print("ERROR RETRIEVING METAR DATA")
     end
 
@@ -89,16 +101,18 @@ function getMETAR(icao)
     words[1] = "METAR"
     for _, word in ipairs(words) do
         local line = metar[#metar]
-        if #line + #word <= 24 and _ ~= 1 then
+        if #line + #word+1<= 24 and _ ~= 1 then
             metar[#metar] = line .. " " .. word
         else
             table.insert(metar, word) -- begin new line
         end
     end
-    print()
     for i in ipairs(metar) do
-        print(metar[i])
+        if metar[i] == "" then
+            table.remove(metar, i)
+        end
     end
+    return metar
 end
 
 function drawWeatherRequest()

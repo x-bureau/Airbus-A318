@@ -561,6 +561,13 @@ function toNum(str)
     return tonumber(str) or false
 end
 
+function removeNonAlphanumeric(table)
+    for i = 1, #table do
+        table[i] = table[i]:gsub("[^%w%s%-]+", "")
+    end
+    return table
+end
+
 function printFile(file)
     PATH = getXPlanePath().."Aircraft/Dev Aircraft/Airbus-A318-master/Untitled/plugins/SASL/data/modules/Custom Module/MCDU_Rewrite/pages/AOC/"..file
     local file = io.open(PATH, "r") -- open the file
@@ -574,7 +581,11 @@ function printFile(file)
             os.execute("powershell.exe -Command \"& {Get-Content \\\"" .. PATH .. "\\\" | Out-Printer}\"")
         else -- Execute unix-based print command below
             print("Unix") --MacOS or Linux
-            os.execute("lpr <<< \"" .. contents .. "\"")
+            if(os.execute("lpr <<< \"" .. contents .. "\"")) then
+                print("GREAT SUCCESS!")
+            else
+                print("Gay printer")
+            end
         end
     else
         print("Error: could not open file " .. PATH)
