@@ -169,27 +169,14 @@
 [X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	not found in og directory
 [X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	not found in og directory
 [X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	not found in og directory
-[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	not found in og directory
-[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	METAR KMIA 100253Z
-[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	08009KT 10SM FEW040
-[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	23/14 A3012 RMK AO2
-[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	SLP199 T02280144 50006 
-[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	--------------------
-[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	METAR KPBI 100253Z
-[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	08007KT 10SM CLR 21/12
-[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	A3013 RMK AO2 SLP203
-[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	T02110122 53006 $ 
-[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	--------------------
-[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	METAR KFLL 100253Z
-[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	10011KT 10SM FEW040
-[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	22/13 A3011 RMK AO2
-[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	SLP195 T02220133 50005 
-[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	--------------------
-[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	METAR KJFK 100251Z
-[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	36012KT 10SM FEW250
-[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	04/M04 A3019 RMK AO2
-[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	SLP222 T00441039 51011 
-[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	--------------------
-[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	printing
-[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	Unix
-[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	GREAT SUCCESS!
+[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	1
+[X-BUREAU'S A318 ERROR]: Error drawing module on 2D stage
+[X-BUREAU'S A318 ERROR]: [STACK]:| ? : ...SASL/data/modules/Custom Module/MCDU_Rewrite/mcduLib.lua:376: bad argument #1 to 'len' (string expected, got nil)
+[X-BUREAU'S A318 ERROR]: [STACK]:| [C]:-1 in function <len>
+[X-BUREAU'S A318 ERROR]: [STACK]:| ...SASL/data/modules/Custom Module/MCDU_Rewrite/mcduLib.lua:376 in function <drawText>
+[X-BUREAU'S A318 ERROR]: [STACK]:| ...ules/Custom Module/MCDU_Rewrite/pages/AOC/displayMsg.lua:11 in function <displayMsg>
+[X-BUREAU'S A318 ERROR]: [STACK]:| ...ules/Custom Module/MCDU_Rewrite/pages/AOC/displayMsg.lua:96 in function <?>
+[X-BUREAU'S A318 ERROR]: [STACK]:| ...s/SASL/data/modules/Custom Module/MCDU_Rewrite/mcdu2.lua:15 in function <draw>
+[X-BUREAU'S A318 ERROR]: [STACK]:| ...
+[X-BUREAU'S A318 INFO]: Disabling...
+[X-BUREAU'S A318 INFO]: SASL plugin stopped...

@@ -67,22 +67,27 @@ local function processWXReqInput()
         set(MCDU_CURRENT_PAGE, 7)
     end
 
-    if get(MCDU_CURRENT_BUTTON) == 11 and fields[1] ~= "" then
+    if get(MCDU_CURRENT_BUTTON) == 11 and (fields[1] ~= "[ ]" or fields[2] ~= "[ ]" or fields[3] ~= "[ ]" or fields[4] ~= "[ ]") then
         local METAR = {}
         for i=1,4,1 do
             if fields[i]~="[ ]" then
                 local metar = {}
                 metar = getMETAR(fields[i])
                 for j in ipairs(metar) do
-                    table.insert(METAR,#METAR+1,metar[j])
+                    table.insert(METAR,#METAR+1,metar[j]) -- Unpack the individual METAR reports and repackage them into the message
                 end
-                table.insert(METAR,#METAR+1,"--------------------")
+                table.insert(METAR,#METAR+1,"--------------------") -- add a separator after each METAR report
             end
         end
-        for i in ipairs(METAR) do
-            print(METAR[i])
+        -- prints metar
+        -- for i in ipairs(METAR) do
+        --     print(METAR[i])
+        -- end
+        table.insert(TEXT_STORAGE, #TEXT_STORAGE+1, {"METAR REQUEST AT "..formatTime(get(hours),get(minutes)),METAR}) -- we insert the metar into the table
+        -- Resets text fields to default states
+        for i in ipairs(fields) do
+            fields[i] = "[ ]"
         end
-        table.insert(TEXT_STORAGE, #TEXT_STORAGE+1, {"METAR REQUEST AT "..formatTime(get(hours),get(minutes)),METAR})
     end
 end
 
