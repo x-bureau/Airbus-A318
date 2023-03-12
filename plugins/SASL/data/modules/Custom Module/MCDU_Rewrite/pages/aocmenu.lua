@@ -22,6 +22,8 @@ local function processAOCMenuInput()
         set(MCDU_CURRENT_PAGE, 72)
     elseif get(MCDU_CURRENT_BUTTON) == 1 then
         set(MCDU_CURRENT_PAGE, 73)
+    elseif get(MCDU_CURRENT_BUTTON) == 2 then
+        set(MCDU_CURRENT_PAGE,74)
     end
 end
 

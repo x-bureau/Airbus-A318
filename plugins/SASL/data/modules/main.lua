@@ -12,6 +12,7 @@ addSearchPath(moduleDirectory .. "/Custom Module/MCDU/")
 addSearchPath(moduleDirectory .. "/Custom Module/Comms/")
 addSearchPath(moduleDirectory .. "/Custom Module/DCDU")
 addSearchPath(moduleDirectory .. "/Custom Module/MCDU_Rewrite")
+addSearchPath(moduleDirectory .. "/Custom Module/autopilot")
 
 
 size = {4096, 4096}
@@ -89,4 +90,5 @@ components = {
   mcdu2 {};
   panel_drawing {};
   menu {};
+  autopilot_main {};
 }

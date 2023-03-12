@@ -26,6 +26,7 @@ include("MCDU_Rewrite/pages/aocmenu.lua")
 include("MCDU_Rewrite/pages/AOC/freetext.lua")
 include("MCDU_Rewrite/pages/AOC/displayMsg.lua")
 include("MCDU_Rewrite/pages/AOC/weatherReq.lua")
+include("MCDU_Rewrite/pages/AOC/atis.lua")
 
 MCDU_FONT = sasl.gl.loadFont("fonts/MCDU.ttf")
 BLANK_FONT = sasl.gl.loadFont("fonts/MCDU.ttf")
@@ -79,8 +80,12 @@ function update()
         scratchpad = scratchpad .. keysDecoder[get(MCDU_CURRENT_KEY)]
         set(MCDU_CURRENT_KEY, -1)
     elseif keysDecoder[get(MCDU_CURRENT_KEY)] == "c" and string.len(scratchpad) > 0 then
-        scratchpad = string.sub(scratchpad, 0, string.len(scratchpad)-1)
-        set(MCDU_CURRENT_KEY, -1)
+        if string.sub(scratchpad,1,5) == "ERROR" then
+            scratchpad = ""
+        else
+            scratchpad = string.sub(scratchpad, 0, string.len(scratchpad)-1)
+            set(MCDU_CURRENT_KEY, -1)
+        end
     elseif keysDecoder[get(MCDU_CURRENT_KEY)] == "s" then
         scratchpad = scratchpad.." "
         set(MCDU_CURRENT_KEY, -1)
@@ -165,6 +170,7 @@ mcduPages = {
     [71] = {drawFreeText},
     [72] = {drawMsg},
     [73] = {drawWeatherRequest},
+    [74] = {drawATIS},
 }
 
 mcdu_font_colors = {

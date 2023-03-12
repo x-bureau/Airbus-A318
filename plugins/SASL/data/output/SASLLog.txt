@@ -14,7 +14,7 @@
 [X-BUREAU'S A318 WARN]: [STACK]:| ...aster/Untitled/plugins/SASL/data/init/initProperties.lua:440 in function <createGlobalPropertyi>
 [X-BUREAU'S A318 WARN]: [STACK]:| ...d/plugins/SASL/data/modules/Custom Module/fltwrngsys.lua:4 in function <f>
 [X-BUREAU'S A318 WARN]: [STACK]:| ...A318-master/Untitled/plugins/SASL/data/init/initMain.lua:262 in function <fltwrngsys>
-[X-BUREAU'S A318 WARN]: [STACK]:| ...-A318-master/Untitled/plugins/SASL/data/modules/main.lua:33 in function <f>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...-A318-master/Untitled/plugins/SASL/data/modules/main.lua:34 in function <f>
 [X-BUREAU'S A318 WARN]: [STACK]:| ...A318-master/Untitled/plugins/SASL/data/init/initMain.lua:262 in function <c>
 [X-BUREAU'S A318 WARN]: [STACK]:| ...
 [X-BUREAU'S A318 INFO]: [LUA]: loading	mcdu
@@ -78,7 +78,7 @@
 [X-BUREAU'S A318 WARN]: [STACK]:| ...aster/Untitled/plugins/SASL/data/init/initProperties.lua:746 in function <globalPropertyfa>
 [X-BUREAU'S A318 WARN]: [STACK]:| ...ed/plugins/SASL/data/modules/Custom Module/autopilot.lua:16 in function <f>
 [X-BUREAU'S A318 WARN]: [STACK]:| ...A318-master/Untitled/plugins/SASL/data/init/initMain.lua:262 in function <autopilot>
-[X-BUREAU'S A318 WARN]: [STACK]:| ...-A318-master/Untitled/plugins/SASL/data/modules/main.lua:87 in function <f>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...-A318-master/Untitled/plugins/SASL/data/modules/main.lua:88 in function <f>
 [X-BUREAU'S A318 WARN]: [STACK]:| ...A318-master/Untitled/plugins/SASL/data/init/initMain.lua:262 in function <c>
 [X-BUREAU'S A318 WARN]: [STACK]:| ...
 [X-BUREAU'S A318 INFO]: [LUA]: loading	mcdu2
@@ -160,23 +160,11 @@
 [X-BUREAU'S A318 WARN]: [STACK]:| ...A318-master/Untitled/plugins/SASL/data/init/initMain.lua:169 in function <include>
 [X-BUREAU'S A318 WARN]: [STACK]:| ...ta/modules/Custom Module/MCDU_Rewrite/mcduGlobalData.lua:28 in function <f>
 [X-BUREAU'S A318 WARN]: [STACK]:| ...
+[X-BUREAU'S A318 INFO]: [LUA]: including	MCDU_Rewrite/pages/AOC/atis.lua
 [X-BUREAU'S A318 INFO]: [LUA]: loading	panel_drawing
 [X-BUREAU'S A318 INFO]: [LUA]: loading	menu
 [X-BUREAU'S A318 INFO]: [LUA]: loading	hydPopout
 [X-BUREAU'S A318 INFO]: [LUA]: loading	welcomePopout
 [X-BUREAU'S A318 INFO]: [LUA]: loading	mcduPopout
+[X-BUREAU'S A318 INFO]: [LUA]: loading	autopilot_main
 [X-BUREAU'S A318 INFO]: Module loaded
-[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	not found in og directory
-[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	not found in og directory
-[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	not found in og directory
-[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	1
-[X-BUREAU'S A318 ERROR]: Error drawing module on 2D stage
-[X-BUREAU'S A318 ERROR]: [STACK]:| ? : ...SASL/data/modules/Custom Module/MCDU_Rewrite/mcduLib.lua:376: bad argument #1 to 'len' (string expected, got nil)
-[X-BUREAU'S A318 ERROR]: [STACK]:| [C]:-1 in function <len>
-[X-BUREAU'S A318 ERROR]: [STACK]:| ...SASL/data/modules/Custom Module/MCDU_Rewrite/mcduLib.lua:376 in function <drawText>
-[X-BUREAU'S A318 ERROR]: [STACK]:| ...ules/Custom Module/MCDU_Rewrite/pages/AOC/displayMsg.lua:11 in function <displayMsg>
-[X-BUREAU'S A318 ERROR]: [STACK]:| ...ules/Custom Module/MCDU_Rewrite/pages/AOC/displayMsg.lua:96 in function <?>
-[X-BUREAU'S A318 ERROR]: [STACK]:| ...s/SASL/data/modules/Custom Module/MCDU_Rewrite/mcdu2.lua:15 in function <draw>
-[X-BUREAU'S A318 ERROR]: [STACK]:| ...
-[X-BUREAU'S A318 INFO]: Disabling...
-[X-BUREAU'S A318 INFO]: SASL plugin stopped...

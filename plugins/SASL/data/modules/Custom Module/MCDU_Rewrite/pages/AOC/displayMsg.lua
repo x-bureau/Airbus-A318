@@ -6,7 +6,7 @@ local function displayMsg(n,page)
     if page>0 then
         pgLines = page*10
     end
-    for i=1+pgLines,math.min(#TEXT_STORAGE[n][2]+pgLines,10+pgLines) do
+    for i=1+pgLines,math.min(#TEXT_STORAGE[n][2],10+pgLines) do
         if TEXT_STORAGE[n][2][i] ~= "[                      ]" and TEXT_STORAGE[n][2][i] ~=  "[ ]" and TEXT_STORAGE[n][2][i] ~= "" and TEXT_STORAGE[n][2][i] ~= " " then
             drawText(TEXT_STORAGE[n][2][i],1,14-(i-pgLines),MCDU_GREEN,SIZE.HEADER,false,"L")
         end
@@ -71,10 +71,8 @@ local function msgPageControls()
     end
     if get(MCDU_CURRENT_BUTTON) == 24 and DISPLAY_MODE == 2 and CURRENT_PAGE>0 then
         CURRENT_PAGE = CURRENT_PAGE - 1
-        print(CURRENT_PAGE)
     elseif get(MCDU_CURRENT_BUTTON) == 26 and DISPLAY_MODE == 2 and CURRENT_PAGE<(math.floor(#TEXT_STORAGE[CURRENT_MSG][2]/10)) then
         CURRENT_PAGE = CURRENT_PAGE + 1
-        print(CURRENT_PAGE)
     end
 end
 
@@ -87,11 +85,12 @@ function drawMsg()
         wrap(MSG_LABELS,MSG_SHIFT)
         processMsgInput()
         for i=1,math.min(5,#MSG_LABELS) do
-            drawText(MSG_LABELS[i],1,14-(i*2),MCDU_GREEN,SIZE.HEADER,false,"L")
+            drawText(MSG_LABELS[i],1,14-(i*2),MCDU_GREEN,SIZE.OPTION,false,"L")
         end
         drawText("<AOC MENU",1,2,MCDU_WHITE,SIZE.OPTION,false,"L")
     elseif DISPLAY_MODE == 2 then
         msgPageControls()
+        drawText("<RETURN",1,2,MCDU_BLUE,SIZE.OPTION,false,"L")
         drawText("PRINT*",24,2,MCDU_BLUE,SIZE.OPTION,false,"R")
         displayMsg(SELECTED_MESSAGE,CURRENT_PAGE) -- we draw the current message last
         if get(MCDU_CURRENT_BUTTON) == 5 then
