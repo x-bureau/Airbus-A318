@@ -199,8 +199,8 @@ end
 
 function drawFPlan()
     -- TESTING AIRPORTS
-    DEPARTURE_AIRPORT = "KMIA"
-    DESTINATION_AIRPORT = "KDTW"
+    -- DEPARTURE_AIRPORT = "KMIA"
+    -- DESTINATION_AIRPORT = "KDTW"
     --TEMP
     processFPLANInput()
     processCurrentLatrev()
