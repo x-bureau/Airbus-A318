@@ -14,7 +14,7 @@
 [X-BUREAU'S A318 WARN]: [STACK]:| ...aster/Untitled/plugins/SASL/data/init/initProperties.lua:440 in function <createGlobalPropertyi>
 [X-BUREAU'S A318 WARN]: [STACK]:| ...d/plugins/SASL/data/modules/Custom Module/fltwrngsys.lua:4 in function <f>
 [X-BUREAU'S A318 WARN]: [STACK]:| ...A318-master/Untitled/plugins/SASL/data/init/initMain.lua:262 in function <fltwrngsys>
-[X-BUREAU'S A318 WARN]: [STACK]:| ...-A318-master/Untitled/plugins/SASL/data/modules/main.lua:33 in function <f>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...-A318-master/Untitled/plugins/SASL/data/modules/main.lua:36 in function <f>
 [X-BUREAU'S A318 WARN]: [STACK]:| ...A318-master/Untitled/plugins/SASL/data/init/initMain.lua:262 in function <c>
 [X-BUREAU'S A318 WARN]: [STACK]:| ...
 [X-BUREAU'S A318 INFO]: [LUA]: loading	mcdu
@@ -32,8 +32,6 @@
 [X-BUREAU'S A318 INFO]: [LUA]: including	MCDU/updater.lua
 [X-BUREAU'S A318 INFO]: [LUA]: loading	PFD_CAPT
 [X-BUREAU'S A318 INFO]: [LUA]: loading	PFD_FRST
-[X-BUREAU'S A318 INFO]: [LUA]: loading	ND_CAPT
-[X-BUREAU'S A318 INFO]: [LUA]: loading	ND_FRST
 [X-BUREAU'S A318 INFO]: [LUA]: loading	upper_ecam
 [X-BUREAU'S A318 INFO]: [LUA]: loading	lower_ecam
 [X-BUREAU'S A318 INFO]: [LUA]: including	ECAM/pages/AIRCOND.lua
@@ -71,21 +69,18 @@
 [X-BUREAU'S A318 INFO]: [LUA]: including	ECAM/pages/PRESS.lua
 [X-BUREAU'S A318 INFO]: [LUA]: including	ECAM/pages/STS.lua
 [X-BUREAU'S A318 INFO]: [LUA]: including	ECAM/pages/WHEEL.lua
-[X-BUREAU'S A318 INFO]: [LUA]: loading	menu
-[X-BUREAU'S A318 INFO]: [LUA]: loading	hydPopout
-[X-BUREAU'S A318 INFO]: [LUA]: loading	welcomePopout
-[X-BUREAU'S A318 INFO]: [LUA]: loading	mcduPopout
 [X-BUREAU'S A318 INFO]: [LUA]: loading	cockpit
-[X-BUREAU'S A318 INFO]: [LUA]: loading	panel_drawing
 [X-BUREAU'S A318 INFO]: [LUA]: loading	DCDUmain
 [X-BUREAU'S A318 INFO]: [LUA]: loading	autopilot
 [X-BUREAU'S A318 WARN]: [STACK]:| findDataRef : DataRefsHandler::luaFindDataRef: <sim/flightmodel/engine/ENGN_N1> not found
 [X-BUREAU'S A318 WARN]: [STACK]:| ...aster/Untitled/plugins/SASL/data/init/initProperties.lua:746 in function <globalPropertyfa>
 [X-BUREAU'S A318 WARN]: [STACK]:| ...ed/plugins/SASL/data/modules/Custom Module/autopilot.lua:16 in function <f>
 [X-BUREAU'S A318 WARN]: [STACK]:| ...A318-master/Untitled/plugins/SASL/data/init/initMain.lua:262 in function <autopilot>
-[X-BUREAU'S A318 WARN]: [STACK]:| ...-A318-master/Untitled/plugins/SASL/data/modules/main.lua:89 in function <f>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...-A318-master/Untitled/plugins/SASL/data/modules/main.lua:82 in function <f>
 [X-BUREAU'S A318 WARN]: [STACK]:| ...A318-master/Untitled/plugins/SASL/data/init/initMain.lua:262 in function <c>
 [X-BUREAU'S A318 WARN]: [STACK]:| ...
+[X-BUREAU'S A318 INFO]: [LUA]: loading	ND_CAPT
+[X-BUREAU'S A318 INFO]: [LUA]: loading	ND_FRST
 [X-BUREAU'S A318 INFO]: [LUA]: loading	mcdu2
 [X-BUREAU'S A318 INFO]: [LUA]: including	MCDU_Rewrite/input.lua
 [X-BUREAU'S A318 INFO]: [LUA]: including	MCDU_Rewrite/mcduGlobalData.lua
@@ -109,4 +104,69 @@
 [X-BUREAU'S A318 INFO]: [LUA]: including	MCDU_Rewrite/pages/PERF/clb.lua
 [X-BUREAU'S A318 INFO]: [LUA]: including	MCDU_Rewrite/pages/PERF/perfData.lua
 [X-BUREAU'S A318 INFO]: [LUA]: including	MCDU_Rewrite/pages/PERF/crz.lua
+[X-BUREAU'S A318 INFO]: [LUA]: including	MCDU_Rewrite/pages/acstatus.lua
+[X-BUREAU'S A318 INFO]: [LUA]: including	MCDU_Rewrite/mcduPopout.lua
+[X-BUREAU'S A318 WARN]: [STACK]:| findDataRef : DataRefsHandler::luaFindDataRef: <A318/cockpit/mcdu2/current_page> not found
+[X-BUREAU'S A318 WARN]: [STACK]:| ...aster/Untitled/plugins/SASL/data/init/initProperties.lua:390 in function <globalPropertyi>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...L/data/modules/Custom Module/MCDU_Rewrite/mcduPopout.lua:12 in function <f>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...A318-master/Untitled/plugins/SASL/data/init/initMain.lua:302 in function <include>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...A318-master/Untitled/plugins/SASL/data/init/initMain.lua:169 in function <include>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...ta/modules/Custom Module/MCDU_Rewrite/mcduGlobalData.lua:23 in function <f>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...
+[X-BUREAU'S A318 WARN]: [STACK]:| findDataRef : DataRefsHandler::luaFindDataRef: <A318/cockpit/systems/MCDU/FPLAN/isInitialized> not found
+[X-BUREAU'S A318 WARN]: [STACK]:| ...aster/Untitled/plugins/SASL/data/init/initProperties.lua:390 in function <globalPropertyi>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...L/data/modules/Custom Module/MCDU_Rewrite/mcduPopout.lua:13 in function <f>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...A318-master/Untitled/plugins/SASL/data/init/initMain.lua:302 in function <include>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...A318-master/Untitled/plugins/SASL/data/init/initMain.lua:169 in function <include>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...ta/modules/Custom Module/MCDU_Rewrite/mcduGlobalData.lua:23 in function <f>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...
+[X-BUREAU'S A318 WARN]: [STACK]:| findDataRef : DataRefsHandler::luaFindDataRef: <A318/cockpit/mcdu2/current_key> not found
+[X-BUREAU'S A318 WARN]: [STACK]:| ...aster/Untitled/plugins/SASL/data/init/initProperties.lua:390 in function <globalPropertyi>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...L/data/modules/Custom Module/MCDU_Rewrite/mcduPopout.lua:14 in function <f>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...A318-master/Untitled/plugins/SASL/data/init/initMain.lua:302 in function <include>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...A318-master/Untitled/plugins/SASL/data/init/initMain.lua:169 in function <include>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...ta/modules/Custom Module/MCDU_Rewrite/mcduGlobalData.lua:23 in function <f>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...
+[X-BUREAU'S A318 WARN]: [STACK]:| findDataRef : DataRefsHandler::luaFindDataRef: <A318/cockpit/mcdu2/current_button> not found
+[X-BUREAU'S A318 WARN]: [STACK]:| ...aster/Untitled/plugins/SASL/data/init/initProperties.lua:390 in function <globalPropertyi>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...L/data/modules/Custom Module/MCDU_Rewrite/mcduPopout.lua:15 in function <f>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...A318-master/Untitled/plugins/SASL/data/init/initMain.lua:302 in function <include>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...A318-master/Untitled/plugins/SASL/data/init/initMain.lua:169 in function <include>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...ta/modules/Custom Module/MCDU_Rewrite/mcduGlobalData.lua:23 in function <f>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...
+[X-BUREAU'S A318 INFO]: [LUA]: including	MCDU_Rewrite/pages/atsu.lua
+[X-BUREAU'S A318 INFO]: [LUA]: including	MCDU_Rewrite/pages/aocmenu.lua
+[X-BUREAU'S A318 INFO]: [LUA]: including	MCDU_Rewrite/pages/AOC/freetext.lua
+[X-BUREAU'S A318 INFO]: [LUA]: including	MCDU_Rewrite/pages/AOC/displayMsg.lua
+[X-BUREAU'S A318 INFO]: [LUA]: including	MCDU_Rewrite/pages/AOC/weatherReq.lua
+[X-BUREAU'S A318 WARN]: [STACK]:| findDataRef : DataRefsHandler::luaFindDataRef: <sim/weather/view/wind_base_speed_kts> not found
+[X-BUREAU'S A318 WARN]: [STACK]:| ...aster/Untitled/plugins/SASL/data/init/initProperties.lua:297 in function <globalPropertyf>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...ules/Custom Module/MCDU_Rewrite/pages/AOC/weatherReq.lua:1 in function <f>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...A318-master/Untitled/plugins/SASL/data/init/initMain.lua:302 in function <include>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...A318-master/Untitled/plugins/SASL/data/init/initMain.lua:169 in function <include>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...ta/modules/Custom Module/MCDU_Rewrite/mcduGlobalData.lua:28 in function <f>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...
+[X-BUREAU'S A318 WARN]: [STACK]:| findDataRef : DataRefsHandler::luaFindDataRef: <sim/weather/view/wind_gust_kts> not found
+[X-BUREAU'S A318 WARN]: [STACK]:| ...aster/Untitled/plugins/SASL/data/init/initProperties.lua:297 in function <globalPropertyf>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...ules/Custom Module/MCDU_Rewrite/pages/AOC/weatherReq.lua:3 in function <f>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...A318-master/Untitled/plugins/SASL/data/init/initMain.lua:302 in function <include>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...A318-master/Untitled/plugins/SASL/data/init/initMain.lua:169 in function <include>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...ta/modules/Custom Module/MCDU_Rewrite/mcduGlobalData.lua:28 in function <f>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...
+[X-BUREAU'S A318 WARN]: [STACK]:| findDataRef : DataRefsHandler::luaFindDataRef: <sim/weather/region/visibility_reported_sm> not found
+[X-BUREAU'S A318 WARN]: [STACK]:| ...aster/Untitled/plugins/SASL/data/init/initProperties.lua:297 in function <globalPropertyf>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...ules/Custom Module/MCDU_Rewrite/pages/AOC/weatherReq.lua:4 in function <f>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...A318-master/Untitled/plugins/SASL/data/init/initMain.lua:302 in function <include>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...A318-master/Untitled/plugins/SASL/data/init/initMain.lua:169 in function <include>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...ta/modules/Custom Module/MCDU_Rewrite/mcduGlobalData.lua:28 in function <f>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...
+[X-BUREAU'S A318 INFO]: [LUA]: including	MCDU_Rewrite/pages/AOC/atis.lua
+[X-BUREAU'S A318 INFO]: [LUA]: loading	panel_drawing
+[X-BUREAU'S A318 INFO]: [LUA]: loading	menu
+[X-BUREAU'S A318 INFO]: [LUA]: loading	hydPopout
+[X-BUREAU'S A318 INFO]: [LUA]: loading	welcomePopout
+[X-BUREAU'S A318 INFO]: [LUA]: loading	mcduPopout
+[X-BUREAU'S A318 INFO]: [LUA]: loading	autopilot_main
 [X-BUREAU'S A318 INFO]: Module loaded
+[X-BUREAU'S A318 INFO]: Disabling...
+[X-BUREAU'S A318 INFO]: SASL plugin stopped...

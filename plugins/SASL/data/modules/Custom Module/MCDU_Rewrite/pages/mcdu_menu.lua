@@ -8,6 +8,8 @@ function processMenuInput()
         set(MCDU_CURRENT_PAGE, 2)
     elseif get(MCDU_CURRENT_BUTTON) == 9 then
         set(MCDU_CURRENT_PAGE, -2)
+    elseif get(MCDU_CURRENT_BUTTON) == 1 then
+        set(MCDU_CURRENT_PAGE, 10)
     end
 end
 

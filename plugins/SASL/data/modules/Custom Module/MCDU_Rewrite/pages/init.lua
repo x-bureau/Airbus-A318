@@ -127,6 +127,7 @@ function processFromTo()
                 DESTINATION_AIRPORT = icao2
                 inputs.FROM_TO[5] = scratchpad
                 scratchpad = ""
+                set(FPLAN_INIT, 1)
                 set(MCDU_CURRENT_PAGE, 12)
             else
                 scratchpad = "ERROR: INVALID ICAO"

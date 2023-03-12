@@ -5,6 +5,7 @@ size = {500, 500}
 local setupComplete = false
 local enrouteWaypoints = {}
 local enrouteNavaids = {}
+local fplanWptXY = {}
 local startup_complete = false
 local eng1N1 = globalProperty("sim/flightmodel/engine/ENGN_N1_[0]")
 
@@ -530,6 +531,15 @@ function setup()
     readFileLines(earthNav, addNavaid)
 end
 
+local function tableContains(table, element)
+    for _, value in pairs(table) do
+      if value == element then
+        return true
+      end
+    end
+    return false
+end
+
 function readFileLines(path, lineFunction)
     local file = io.open(path, "rb")
     if not file then
@@ -545,6 +555,14 @@ function readFileLines(path, lineFunction)
 
     file:close()
 end
+
+function addFplanWpt(line)
+    local lat, lon, fixId, airportId, icaoRegion, waypointType = line:match("([%d%-%.]+)%s+([%d%-%.]+)%s+(%w+)%s+(%w+)%s+(%w+)%s+(%d+)")
+    if not lon then
+        return false
+    end
+end
+
 
 function addWaypoint(line)
     local lat, lon, fixId, airportId, icaoRegion, waypointType = line:match("([%d%-%.]+)%s+([%d%-%.]+)%s+(%w+)%s+(%w+)%s+(%w+)%s+(%d+)")
@@ -616,6 +634,58 @@ local function haversine(lat1, lon1, lat2, lon2)
     return c
 end
 
+
+local function getTime() -- we create a timer for updating files
+    local timer = sasl.createTimer()
+    sasl.resetTimer(timer)
+    sasl.startTimer(timer)
+    return timer
+end
+
+local function indexOf(array, value)
+    for i, v in ipairs(array) do
+        if v == value then
+            return i
+        end
+    end
+    return nil
+end
+
+local function draw_flight_plan() -- WE DRAW THE FLIGHT PLAN POINTS
+    local tick = getTime()
+    if tick%30 == 0 then
+        fplanWptXY = {}
+        local path = getXPlanePath()
+        local earthFix = path .. "/Custom Data/earth_fix.dat"
+        if not isFileExists(earthFix) then
+            earthFix = path .. "/Resources/default data/earth_fix.dat"
+        end
+        local file = io.open(earthFix, "rb")
+        if #fplanWpts ~= 0 then
+            for i in ipairs(fplanWpts) do
+                for line in io.lines(earthFix) do
+                    local lat, lon, fixId, airportId, icaoRegion, waypointType = line:match("([%d%-%.]+)%s+([%d%-%.]+)%s+(%w+)%s+(%w+)%s+(%w+)%s+(%d+)")
+                    if fixId == fplanWpts[i] then
+                        local lat, lon, fixId, airportId, icaoRegion, waypointType = line:match("([%d%-%.]+)%s+([%d%-%.]+)%s+(%w+)%s+(%w+)%s+(%w+)%s+(%d+)")
+                        local x,y = recomputePoint(lat,lon,get(currentLat),get(currentLon),get(CaptNdRnge),get(heading),330)
+                        table.insert(fplanWptXY,#fplanWptXY+1,x+250)
+                        table.insert(fplanWptXY,#fplanWptXY+1,y+70)
+                    end
+                end
+            end
+        end
+        file:close()
+    end
+    sasl.gl.drawWidePolyLine(fplanWptXY,3,ECAM_COLOURS.GREEN)
+
+    for i in ipairs(fplanWpts) do -- Draw Wpt Markers
+        sasl.gl.drawText(ndFont, fplanWptXY[(2*i)-1], fplanWptXY[2*i], "X", 15, true, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.PURPLE)
+    end
+    for i in ipairs(fplanWpts) do -- Draw Wpt Labels
+        sasl.gl.drawText(ndFont, fplanWptXY[(2*i)-1], fplanWptXY[2*i], fplanWpts[i], 20, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.GREEN)
+    end
+end
+
 function recomputePoint(lat, lon, centerLat, centerLon, range, hdg, iscale)
     lat = math.rad(lat)
     lon = math.rad(lon)
@@ -636,9 +706,12 @@ function recomputePoint(lat, lon, centerLat, centerLon, range, hdg, iscale)
     return a, b
 end
 
+
 function update()
+
     latGroup = group(get(currentLat))
     lonGroup = group(get(currentLon))
+
 
     if not setupComplete then
         setup()
@@ -681,7 +754,6 @@ end
 
 function draw()
     sasl.gl.setClipArea(0,0,500,500)
-    
     if get(BUS) > 0 then
         if selfTest == 1 then
             if get(CaptNdMode) == 0 then
@@ -707,6 +779,8 @@ function draw()
                     draw_arc_unaligned()
                 else
                     draw_arc()
+                    draw_flight_plan()
+                   -- draw_flight_plan()
                 end
             elseif get(CaptNdMode) == 4 then
                 if get(ADIRS_aligned) == 0 then
@@ -719,7 +793,7 @@ function draw()
             Timer = 0
         else
             sasl.gl.drawText(AirbusFont, 250, 255, "SELF TEST IN PROGESS", 22, true, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.GREEN)
-            sasl.gl.drawText(AirbusFont, 250, 230, "MAX 40 SECONDS", 21, true, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.GREEN) 
+            sasl.gl.drawText(AirbusFont, 250, 230, "MAX 40 SECONDS", 21, true, false, TEXT_ALIGN_CENTER, ECAM_COLOURS.GREEN)
         end
         --sasl.gl.drawRectangle(0,0,500,500, {0.33, 0.38, 0.42, 0.35 * get(captNdBright)})
     else

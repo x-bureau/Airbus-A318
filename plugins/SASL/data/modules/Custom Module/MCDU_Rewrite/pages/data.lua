@@ -30,6 +30,8 @@ function switchDataPage()
     elseif get(MCDU_CURRENT_BUTTON) == 2 and get(MCDU_CURRENT_PAGE) == 2 then
         set(MCDU_CURRENT_PAGE, 223)
         set(MCDU_CURRENT_BUTTON, -1)
+    elseif get(MCDU_CURRENT_BUTTON) == 3 and get(MCDU_CURRENT_PAGE) == 2 then
+        set(MCDU_CURRENT_PAGE, 23)
     end
 end
 

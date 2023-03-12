@@ -12,10 +12,11 @@ FPLAN_SHIFT = 0
 FLIGHT_PLAN = {
 }
 
-waypoints = {}
+waypoints = {
+}
 
 ------------------------------
-local function formatTime(hours, mins)
+function formatTime(hours, mins)
     local h0 = ""
     local m0 = ""
     if hours <= 9 then
@@ -32,20 +33,14 @@ local function formatTime(hours, mins)
     return UTC_TIME
 end
 
-local function predictTime(wpt)
-    local cords = getBasicLatLong(DEPARTURE_AIRPORT)
-    local wptLat, wptLong = getWptCord(wpt)
-    local distance = calculateDistance(cords[1], cords, wptLat, wptLong)
-
-    -- Rate x Time = distance --> Distance/Rate = Time --> convert KTS 
-    -- OUR (Temporary) Constant will be 7.5594, which is the standard economical cruising speed of an A320
-    -- converted from 840 km/h to kts/minute
-    local timeMINS = round(distance/7.5594,0)
-    local hours = timeMINS%60
-    local mins = timeMINS-hours*60
-    return formatTime(hours, mins)
+local function calculateTime(wpt, UTC_TIME)
+    local cords = getBasicLatLong("KMIA")
+    local cords = getWptCord(wpt)
+    return cords
 end
 
+
+--print(predictTime("VVMAX"))
 local function processFPLANInput()
     if get(MCDU_CURRENT_BUTTON) == 0 and FPLAN_SHIFT == 0 then
         set(MCDU_CURRENT_PAGE,4)
@@ -164,20 +159,7 @@ local function processCurrentLatrev()
     end
 end
 
-function drawFPlan()
-    -- TESTING AIRPORTS
-    DEPARTURE_AIRPORT = "KMIA"
-    DESTINATION_AIRPORT = "KDTW"
-    --TEMP
-    processFPLANInput()
-    processCurrentLatrev()
-    --END TEMP
-    local arrDepDist = calculateAirportDistance(DEPARTURE_AIRPORT, DESTINATION_AIRPORT)
-    local FPLAN_TITLE = "FROM "..DEPARTURE_AIRPORT
-    drawText(FPLAN_TITLE, 8, 14, MCDU_WHITE, SIZE.TITLE, false, "L", false)
-    local originUTC = formatTime(get(hours),get(minutes))
-
-
+local function updateWpts()
     if #EXISTING_LATREVS ~= 0 then
         for i in ipairs(EXISTING_LATREVS) do
             if #EXISTING_LATREVS[i].wpts ~= 0 then
@@ -200,13 +182,35 @@ function drawFPlan()
             if not table.contains(waypoints, wpt) and wpt ~= " " then
                 table.insert(waypoints, #waypoints+1, wpt)
             end
+            if not table.contains(fplanWpts, wpt) and wpt ~= " " then
+                table.insert(fplanWpts, #fplanWpts+1,wpt)
+            end
         elseif string.len(FLIGHT_PLAN[i]) < 7 then
             if not table.contains(waypoints, FLIGHT_PLAN[i]) then
                 table.insert(waypoints, FLIGHT_PLAN[i])
             end
+            if not table.contains(fplanWpts, FLIGHT_PLAN[i]) then
+                table.insert(fplanWpts, #fplanWpts+1,FLIGHT_PLAN[i])
+            end
         end
     end
+end
 
+
+function drawFPlan()
+    -- TESTING AIRPORTS
+    DEPARTURE_AIRPORT = "KMIA"
+    DESTINATION_AIRPORT = "KDTW"
+    --TEMP
+    processFPLANInput()
+    processCurrentLatrev()
+    --END TEMP
+    local arrDepDist = calculateAirportDistance(DEPARTURE_AIRPORT, DESTINATION_AIRPORT)
+    local FPLAN_TITLE = "FROM "..DEPARTURE_AIRPORT
+    drawText(FPLAN_TITLE, 8, 14, MCDU_WHITE, SIZE.TITLE, false, "L", false)
+    local originUTC = formatTime(get(hours),get(minutes))
+ 
+    updateWpts()
 
     if #waypoints ~= 0 then
         FLIGHT_PLAN_SCREEN = getFields(waypoints, originUTC, arrDepDist)
