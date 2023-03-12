@@ -12,6 +12,7 @@ addSearchPath(moduleDirectory .. "/Custom Module/MCDU/")
 addSearchPath(moduleDirectory .. "/Custom Module/Comms/")
 addSearchPath(moduleDirectory .. "/Custom Module/DCDU")
 addSearchPath(moduleDirectory .. "/Custom Module/MCDU_Rewrite")
+addSearchPath(moduleDirectory .. "/Custom Module/autopilot")
 
 
 size = {4096, 4096}
@@ -21,6 +22,8 @@ panelHeight3d = 4096
 
 
 MCDU_DISPLAY = sasl.gl.createTexture(500, 510)
+
+fplanWpts = {}
 
 components = {
   customdataref {};
@@ -43,14 +46,6 @@ components = {
     fbo = true ,
     fpsLimit = 29
   };
-  ND_CAPT {
-    fbo = true ,
-    fpsLimit = 29
-  };
-  ND_FRST {
-    fbo = true ,
-    fpsLimit = 29
-  };
   upper_ecam {
     fbo = true ,
     fpsLimit = 20
@@ -67,7 +62,6 @@ components = {
 		fbo = true ,
 		fpsLimit = 20
 	}; ]]--
-  menu {};
 --   efb{
 --     cursor = {
 --       x = -15 ,
@@ -81,12 +75,22 @@ components = {
 --       fpsLimit = 20
 --   };
   cockpit {};
-  panel_drawing {};
   DCDUmain {
     fbo = true,
     fpsLimit = 20
   };
   autopilot {};
   --maintenance {};
+  ND_CAPT {
+    fbo = true ,
+    fpsLimit = 29
+  };
+  ND_FRST {
+    fbo = true ,
+    fpsLimit = 29
+  };
   mcdu2 {};
+  panel_drawing {};
+  menu {};
+  autopilot_main {};
 }

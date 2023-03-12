@@ -460,6 +460,7 @@ function getWptCord(wpt)
     local path = getXPlanePath()
     local file = assert(io.open(path.."/Resources/default data/earth_fix.dat", "r"))
     io.input(file)
+    local coords = {}
     for line in io.lines() do
         if string.match(line, wpt) then
             local latLong = string.sub(line, 1, 29)
@@ -467,7 +468,9 @@ function getWptCord(wpt)
             string.reverse(latLong)
             local long = string.sub(latLong, 1, string.find(latLong, " ", 8))
             file:close()
-            return lat,long
+            coords[0]=lat
+            coords[1]=long
+            return coords
         end
     end
 end
@@ -556,4 +559,35 @@ end
 
 function toNum(str)
     return tonumber(str) or false
+end
+
+function removeNonAlphanumeric(table)
+    for i = 1, #table do
+        table[i] = table[i]:gsub("[^%w%s%-]+", "")
+    end
+    return table
+end
+
+function printFile(file)
+    PATH = getXPlanePath().."Aircraft/Dev Aircraft/Airbus-A318-master/Untitled/plugins/SASL/data/modules/Custom Module/MCDU_Rewrite/pages/AOC/"..file
+    local file = io.open(PATH, "r") -- open the file
+    if file then -- Check if file exists
+        local contents = file:read("*all") -- Read file
+        io.close(file)
+        -- Print the contents of the file.
+        local path_sep = package.config:sub(1,1)
+        if path_sep == "\\" then -- Execute windows print command below
+            print("Windows") -- Windows
+            os.execute("powershell.exe -Command \"& {Get-Content \\\"" .. PATH .. "\\\" | Out-Printer}\"")
+        else -- Execute unix-based print command below
+            print("Unix") --MacOS or Linux
+            if(os.execute("lpr <<< \"" .. contents .. "\"")) then
+                print("GREAT SUCCESS!")
+            else
+                print("Gay printer")
+            end
+        end
+    else
+        print("Error: could not open file " .. PATH)
+    end
 end

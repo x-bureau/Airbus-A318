@@ -19,6 +19,14 @@ include("MCDU_Rewrite/pages/PERF/takeoff.lua")
 include("MCDU_Rewrite/pages/PERF/clb.lua")
 include("MCDU_Rewrite/pages/PERF/perfData.lua")
 include("MCDU_Rewrite/pages/PERF/crz.lua")
+include("MCDU_Rewrite/pages/acstatus.lua")
+include("MCDU_Rewrite/mcduPopout.lua")
+include("MCDU_Rewrite/pages/atsu.lua")
+include("MCDU_Rewrite/pages/aocmenu.lua")
+include("MCDU_Rewrite/pages/AOC/freetext.lua")
+include("MCDU_Rewrite/pages/AOC/displayMsg.lua")
+include("MCDU_Rewrite/pages/AOC/weatherReq.lua")
+include("MCDU_Rewrite/pages/AOC/atis.lua")
 
 MCDU_FONT = sasl.gl.loadFont("fonts/MCDU.ttf")
 BLANK_FONT = sasl.gl.loadFont("fonts/MCDU.ttf")
@@ -37,9 +45,10 @@ MCDU_RED = {1.0, 0.0, 0.0, 1.0}
 
 
 -- MCDU GENERAL DATAREFS
-MCDU_CURRENT_PAGE = createGlobalPropertyi("A318/cockpit/mcdu2/current_page", 0)
+MCDU_CURRENT_PAGE = createGlobalPropertyi("A318/cockpit/mcdu2/current_page")
 MCDU_CURRENT_KEY = createGlobalPropertyi("A318/cockpit/mcdu2/current_key")
 MCDU_CURRENT_BUTTON = createGlobalPropertyi("A318/cockpit/mcdu2/current_button")
+FPLAN_INIT = createGlobalPropertyi("A318/cockpit/systems/MCDU/FPLAN/isInitialized")
 
 hours = globalPropertyi("sim/cockpit2/clock_timer/zulu_time_hours")
 minutes = globalPropertyi("sim/cockpit2/clock_timer/zulu_time_minutes")
@@ -70,8 +79,15 @@ function update()
         end
         scratchpad = scratchpad .. keysDecoder[get(MCDU_CURRENT_KEY)]
         set(MCDU_CURRENT_KEY, -1)
-    elseif keysDecoder[get(MCDU_CURRENT_KEY)] == "c" then
-        scratchpad = ""
+    elseif keysDecoder[get(MCDU_CURRENT_KEY)] == "c" and string.len(scratchpad) > 0 then
+        if string.sub(scratchpad,1,5) == "ERROR" then
+            scratchpad = ""
+        else
+            scratchpad = string.sub(scratchpad, 0, string.len(scratchpad)-1)
+            set(MCDU_CURRENT_KEY, -1)
+        end
+    elseif keysDecoder[get(MCDU_CURRENT_KEY)] == "s" then
+        scratchpad = scratchpad.." "
         set(MCDU_CURRENT_KEY, -1)
     end
     if buttonStorage ~= -1 then
@@ -126,6 +142,7 @@ mcduPages = {
     [-2] = {drawArcadeMenu},
     [0] = {drawMCDUMenu},
     [1] = {drawInit},
+    [10] = {drawATSU},
     [11] = {drawInitB},
     [12] = {drawCoRte},
     --[111] = {drawClimbWind},
@@ -140,6 +157,7 @@ mcduPages = {
     [2251] = {drawPrintB},
     [226] = {drawAOCA},
     [2261] = {drawAOCB},
+    [23] = {drawACStatus},
     [3] = {drawFPlan},
     [4] = {drawInitialLatRev},
     [41] = {drawRnwy},
@@ -148,6 +166,11 @@ mcduPages = {
     [61] = {drawTakeoff},
     [62] = {drawClb},
     [63] = {drawCrz},
+    [7] = {drawAOC},
+    [71] = {drawFreeText},
+    [72] = {drawMsg},
+    [73] = {drawWeatherRequest},
+    [74] = {drawATIS},
 }
 
 mcdu_font_colors = {

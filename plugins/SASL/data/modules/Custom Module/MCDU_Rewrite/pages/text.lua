@@ -1,8 +1,4 @@
 
-
-
-
-
 function drawTextTest()
     drawText("AM I ALIGNED", 1, 9, MCDU_WHITE, SIZE.HEADER, false, "L")
     drawText("TESTING", 1, 8, MCDU_WHITE, SIZE.OPTION, false, "L")
