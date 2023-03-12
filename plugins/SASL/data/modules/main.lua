@@ -23,6 +23,8 @@ panelHeight3d = 4096
 
 MCDU_DISPLAY = sasl.gl.createTexture(500, 510)
 
+fplanWpts = {}
+
 components = {
   customdataref {};
   elec {};
@@ -41,14 +43,6 @@ components = {
     fpsLimit = 29
   };
   PFD_FRST {
-    fbo = true ,
-    fpsLimit = 29
-  };
-  ND_CAPT {
-    fbo = true ,
-    fpsLimit = 29
-  };
-  ND_FRST {
     fbo = true ,
     fpsLimit = 29
   };
@@ -87,6 +81,14 @@ components = {
   };
   autopilot {};
   --maintenance {};
+  ND_CAPT {
+    fbo = true ,
+    fpsLimit = 29
+  };
+  ND_FRST {
+    fbo = true ,
+    fpsLimit = 29
+  };
   mcdu2 {};
   panel_drawing {};
   menu {};

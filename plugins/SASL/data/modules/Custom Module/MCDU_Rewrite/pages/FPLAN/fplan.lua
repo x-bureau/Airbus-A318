@@ -12,7 +12,8 @@ FPLAN_SHIFT = 0
 FLIGHT_PLAN = {
 }
 
-waypoints = {}
+waypoints = {
+}
 
 ------------------------------
 function formatTime(hours, mins)
@@ -158,20 +159,7 @@ local function processCurrentLatrev()
     end
 end
 
-function drawFPlan()
-    -- TESTING AIRPORTS
-    -- DEPARTURE_AIRPORT = "KMIA"
-    -- DESTINATION_AIRPORT = "KDTW"
-    --TEMP
-    processFPLANInput()
-    processCurrentLatrev()
-    --END TEMP
-    local arrDepDist = calculateAirportDistance(DEPARTURE_AIRPORT, DESTINATION_AIRPORT)
-    local FPLAN_TITLE = "FROM "..DEPARTURE_AIRPORT
-    drawText(FPLAN_TITLE, 8, 14, MCDU_WHITE, SIZE.TITLE, false, "L", false)
-    local originUTC = formatTime(get(hours),get(minutes))
-
-
+local function updateWpts()
     if #EXISTING_LATREVS ~= 0 then
         for i in ipairs(EXISTING_LATREVS) do
             if #EXISTING_LATREVS[i].wpts ~= 0 then
@@ -194,13 +182,35 @@ function drawFPlan()
             if not table.contains(waypoints, wpt) and wpt ~= " " then
                 table.insert(waypoints, #waypoints+1, wpt)
             end
+            if not table.contains(fplanWpts, wpt) and wpt ~= " " then
+                table.insert(fplanWpts, #fplanWpts+1,wpt)
+            end
         elseif string.len(FLIGHT_PLAN[i]) < 7 then
             if not table.contains(waypoints, FLIGHT_PLAN[i]) then
                 table.insert(waypoints, FLIGHT_PLAN[i])
             end
+            if not table.contains(fplanWpts, FLIGHT_PLAN[i]) then
+                table.insert(fplanWpts, #fplanWpts+1,FLIGHT_PLAN[i])
+            end
         end
     end
+end
 
+
+function drawFPlan()
+    -- TESTING AIRPORTS
+    DEPARTURE_AIRPORT = "KMIA"
+    DESTINATION_AIRPORT = "KDTW"
+    --TEMP
+    processFPLANInput()
+    processCurrentLatrev()
+    --END TEMP
+    local arrDepDist = calculateAirportDistance(DEPARTURE_AIRPORT, DESTINATION_AIRPORT)
+    local FPLAN_TITLE = "FROM "..DEPARTURE_AIRPORT
+    drawText(FPLAN_TITLE, 8, 14, MCDU_WHITE, SIZE.TITLE, false, "L", false)
+    local originUTC = formatTime(get(hours),get(minutes))
+ 
+    updateWpts()
 
     if #waypoints ~= 0 then
         FLIGHT_PLAN_SCREEN = getFields(waypoints, originUTC, arrDepDist)
