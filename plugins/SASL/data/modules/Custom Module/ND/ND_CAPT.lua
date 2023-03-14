@@ -5,6 +5,7 @@ size = {500, 500}
 local setupComplete = false
 local enrouteWaypoints = {}
 local enrouteNavaids = {}
+local fplanWptLatLong = {}
 local fplanWptXY = {}
 local startup_complete = false
 local eng1N1 = globalProperty("sim/flightmodel/engine/ENGN_N1_[0]")
@@ -634,27 +635,11 @@ local function haversine(lat1, lon1, lat2, lon2)
     return c
 end
 
-
-local function getTime() -- we create a timer for updating files
-    local timer = sasl.createTimer()
-    sasl.resetTimer(timer)
-    sasl.startTimer(timer)
-    return timer
-end
-
-local function indexOf(array, value)
-    for i, v in ipairs(array) do
-        if v == value then
-            return i
-        end
-    end
-    return nil
-end
+local WPTS
 
 local function draw_flight_plan() -- WE DRAW THE FLIGHT PLAN POINTS
-    local tick = getTime()
-    if tick%30 == 0 then
-        fplanWptXY = {}
+    if #fplanWpts ~= WPTS then
+        fplanWptLatLong = {}
         local path = getXPlanePath()
         local earthFix = path .. "/Custom Data/earth_fix.dat"
         if not isFileExists(earthFix) then
@@ -664,25 +649,41 @@ local function draw_flight_plan() -- WE DRAW THE FLIGHT PLAN POINTS
         if #fplanWpts ~= 0 then
             for i in ipairs(fplanWpts) do
                 for line in io.lines(earthFix) do
-                    local lat, lon, fixId, airportId, icaoRegion, waypointType = line:match("([%d%-%.]+)%s+([%d%-%.]+)%s+(%w+)%s+(%w+)%s+(%w+)%s+(%d+)")
-                    if fixId == fplanWpts[i] then
+                    if string.find(line, fplanWpts[i]) then
                         local lat, lon, fixId, airportId, icaoRegion, waypointType = line:match("([%d%-%.]+)%s+([%d%-%.]+)%s+(%w+)%s+(%w+)%s+(%w+)%s+(%d+)")
-                        local x,y = recomputePoint(lat,lon,get(currentLat),get(currentLon),get(CaptNdRnge),get(heading),330)
-                        table.insert(fplanWptXY,#fplanWptXY+1,x+250)
-                        table.insert(fplanWptXY,#fplanWptXY+1,y+70)
+                        table.insert(fplanWptLatLong,#fplanWptLatLong+1,lat)
+                        table.insert(fplanWptLatLong,#fplanWptLatLong+1,lon)
                     end
                 end
             end
         end
         file:close()
+        WPTS = #fplanWpts
     end
-    sasl.gl.drawWidePolyLine(fplanWptXY,3,ECAM_COLOURS.GREEN)
-
-    for i in ipairs(fplanWpts) do -- Draw Wpt Markers
-        sasl.gl.drawText(ndFont, fplanWptXY[(2*i)-1], fplanWptXY[2*i], "X", 15, true, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.PURPLE)
-    end
-    for i in ipairs(fplanWpts) do -- Draw Wpt Labels
-        sasl.gl.drawText(ndFont, fplanWptXY[(2*i)-1], fplanWptXY[2*i], fplanWpts[i], 20, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.GREEN)
+    fplanWptXY = {}
+    if #fplanWptLatLong > 0 then
+        print(fplanWptLatLong[0])
+        for i=1,#fplanWptLatLong,2 do
+            if fplanWptLatLong[i] ~= nil and fplanWptLatLong[i+1] ~= nil then
+                local x,y = recomputePoint(fplanWptLatLong[i],fplanWptLatLong[i+1],get(currentLat),get(currentLon),get(CaptNdRnge),get(heading),330)
+                table.insert(fplanWptXY,#fplanWptXY+1,x+250)
+                table.insert(fplanWptXY,#fplanWptXY+1,y+70)
+            end
+        end
+        sasl.gl.drawWidePolyLine(fplanWptXY,4,ECAM_COLOURS.GREEN) -- we draw the flight plan line using the table of x and y coords
+        for i in ipairs(fplanWpts) do -- Draw Wpt Markers
+            if fplanWptXY[(2*i)-1] ~= nil and fplanWptXY[2*i] ~= nil then
+                sasl.gl.drawText(ndFont, fplanWptXY[(2*i)-1], fplanWptXY[2*i], "X", 15, true, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.PURPLE)
+            end
+        end
+        for i in ipairs(fplanWpts) do -- Draw Wpt Labels
+            if fplanWptXY[(2*i)-1] ~= nil and fplanWptXY[2*i] ~= nil then
+                sasl.gl.drawText(ndFont, fplanWptXY[(2*i)-1], fplanWptXY[2*i], fplanWpts[i], 20, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.GREEN)
+            end
+        end
+        for i in ipairs(fplanWptXY) do
+            print(fplanWptXY[i])
+        end
     end
 end
 
