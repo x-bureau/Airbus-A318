@@ -89,8 +89,13 @@ function processCostIndex()
         set(MCDU_CURRENT_BUTTON, -1)
         COST_INDEX = scratchpad
         scratchpad = ""
-    elseif get(MCDU_CURRENT_BUTTON) == 4 and string.len(scratchpad) ~= inputs.COST_INDEX[3] then
-        scratchpad = "ERROR"
+    elseif string.len(scratchpad) == 2 and get(MCDU_CURRENT_BUTTON) == 4 and toNum(scratchpad) then
+        inputs.COST_INDEX[5] = "0"..scratchpad
+        set(MCDU_CURRENT_BUTTON, -1)
+        COST_INDEX = scratchpad
+        scratchpad = ""
+    elseif get(MCDU_CURRENT_BUTTON) == 4 then
+        scratchpad = "ERROR: INVALID INPUT"
     end
 end
 
