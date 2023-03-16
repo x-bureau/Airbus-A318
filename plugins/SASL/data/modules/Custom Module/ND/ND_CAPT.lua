@@ -5,8 +5,8 @@ size = {500, 500}
 local setupComplete = false
 local enrouteWaypoints = {}
 local enrouteNavaids = {}
-local fplanWptLatLong = {}
 local fplanWptXY = {}
+local fplanWptLatLong = {}
 local startup_complete = false
 local eng1N1 = globalProperty("sim/flightmodel/engine/ENGN_N1_[0]")
 
@@ -637,6 +637,63 @@ end
 
 local WPTS
 
+function createTokens(str, separator)
+    local tokens = {}
+    for token in string.gmatch(str, "[^%"..separator.."]+") do
+        table.insert(tokens, token)
+    end
+    return tokens
+end
+
+function getBasicLatLong(icao)
+    local path = getXPlanePath()
+--    if isFileExists(path.."/Resources/default data/CIFP/"..icao..".dat", "r") then
+    local file = assert(io.open(path.."/Resources/default data/CIFP/"..icao..".dat", "r"))
+    local str = ""
+    io.input(file)
+    for line in io.lines() do
+        if string.match(line, "RWY") then
+            str = line
+            break
+        end
+    end
+        local firstTokenSet = createTokens(str, ";")[2]
+        local secondTokenSet = createTokens(firstTokenSet, ",")
+        file:close()
+        if string.sub(tostring(secondTokenSet[1]),1,1) == "S" then
+            secondTokenSet[1] = -1 * (tonumber(string.sub(tostring(secondTokenSet[1]),2,-1)))*(10^(-6))
+        else
+            secondTokenSet[1] = tonumber(string.sub(tostring(secondTokenSet[1]),2,-1))*(10^(-6))
+        end
+        if string.sub(tostring(secondTokenSet[2]),1,1) == "W" then
+            secondTokenSet[2] = -1 * (tonumber(string.sub(tostring(secondTokenSet[2]),2,-1)))*(10^(-6))
+        else
+            secondTokenSet[2] = (tonumber(string.sub(tostring(secondTokenSet[2]),2,-1)))*(10^(-6))
+        end
+        return {secondTokenSet[1], secondTokenSet[2]}
+ --   else
+--        print("DIABETES")
+ --       return "0"
+   -- end
+end
+
+
+function checkICAO(icao)
+    local path = getXPlanePath() --gets the xplane path
+    local file = io.open(path.."/Custom Data/CIFP/"..icao..".dat", "r")
+    if file ~= nil then
+        file:close()
+        return true
+    end
+    print("not found in og directory")
+    file = io.open(path.."/Resources/default data/CIFP/"..icao..".dat", "r")
+    if file ~= nil then
+        file:close()
+        return true
+    end
+    return false
+end
+
 local function draw_flight_plan() -- WE DRAW THE FLIGHT PLAN POINTS
     if #fplanWpts ~= WPTS then
         fplanWptLatLong = {}
@@ -648,12 +705,22 @@ local function draw_flight_plan() -- WE DRAW THE FLIGHT PLAN POINTS
         local file = io.open(earthFix, "rb")
         if #fplanWpts ~= 0 then
             for i in ipairs(fplanWpts) do
-                for line in io.lines(earthFix) do
-                    if string.find(line, fplanWpts[i]) then
-                        local lat, lon, fixId, airportId, icaoRegion, waypointType = line:match("([%d%-%.]+)%s+([%d%-%.]+)%s+(%w+)%s+(%w+)%s+(%w+)%s+(%d+)")
-                        table.insert(fplanWptLatLong,#fplanWptLatLong+1,lat)
-                        table.insert(fplanWptLatLong,#fplanWptLatLong+1,lon)
+                if i == 1 and checkICAO(fplanWpts[1]) then
+                    local dptCoord = getBasicLatLong(fplanWpts[1])
+                    fplanWptLatLong[1] = dptCoord[1]
+                    fplanWptLatLong[2] = dptCoord[2]
+                else
+                    for line in io.lines(earthFix) do
+                        if string.find(line, fplanWpts[i]) then
+                            local lat, lon, fixId, airportId, icaoRegion, waypointType = line:match("([%d%-%.]+)%s+([%d%-%.]+)%s+(%w+)%s+(%w+)%s+(%w+)%s+(%d+)")
+                            table.insert(fplanWptLatLong,2,lat)
+                            table.insert(fplanWptLatLong,2,lon)
+                        end
                     end
+                -- else
+                --     local arrCoord = getBasicLatLong(fplanWpts[#fplanWpts-1])
+                --     table.insert(fplanWptLatLong,arrCoord[1])
+                --     table.insert(fplanWptLatLong,arrCoord[2])
                 end
             end
         end
@@ -661,11 +728,12 @@ local function draw_flight_plan() -- WE DRAW THE FLIGHT PLAN POINTS
         WPTS = #fplanWpts
     end
     fplanWptXY = {}
-    if #fplanWptLatLong > 0 then
-        print(fplanWptLatLong[0])
+    if #fplanWptLatLong > 2 then
         for i=1,#fplanWptLatLong,2 do
             if fplanWptLatLong[i] ~= nil and fplanWptLatLong[i+1] ~= nil then
                 local x,y = recomputePoint(fplanWptLatLong[i],fplanWptLatLong[i+1],get(currentLat),get(currentLon),get(CaptNdRnge),get(heading),330)
+                -- print(i,":",fplanWptLatLong[i],fplanWptLatLong[i+1])
+                -- print(i,":",x,y)
                 table.insert(fplanWptXY,#fplanWptXY+1,x+250)
                 table.insert(fplanWptXY,#fplanWptXY+1,y+70)
             end
@@ -680,9 +748,6 @@ local function draw_flight_plan() -- WE DRAW THE FLIGHT PLAN POINTS
             if fplanWptXY[(2*i)-1] ~= nil and fplanWptXY[2*i] ~= nil then
                 sasl.gl.drawText(ndFont, fplanWptXY[(2*i)-1], fplanWptXY[2*i], fplanWpts[i], 20, false, false, TEXT_ALIGN_LEFT, ECAM_COLOURS.GREEN)
             end
-        end
-        for i in ipairs(fplanWptXY) do
-            print(fplanWptXY[i])
         end
     end
 end

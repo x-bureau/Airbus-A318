@@ -254,8 +254,8 @@ function getAirportRunways(icao)
     io.input(file)
     for line in io.lines() do
         if string.match(line, "RWY:") then
-            local str = string.sub(line, 1, string.find(line, ",")-1)
-            table.insert(runways, str)
+            local rwy = line:sub(5):match("^([^,;]+)")
+            table.insert(runways, #runways+1, rwy)
         end
     end
     file:close()
@@ -282,10 +282,9 @@ function getDepartureProcedures(icao, runway)
     io.input(file)
     
     for line in io.lines() do
-        local begin_rwy = string.find(line, ",", 11)
         if string.match(line, "SID:") and string.find(line, new_runway) then
-            local str = string.sub(line, string.find(line, ",",8), string.find(line, ",", 25 ))
-            table.insert(procedures, str)
+            local sid = line:match("^[^,]+,[^,]+,([^,]+),")
+            if not table.contains(procedures,sid) then table.insert(procedures, sid) end
         end
     end
     file:close()
@@ -307,10 +306,28 @@ end
 --     return (tonumber(string.sub(checkLine, 5, 6)) > tonumber(string.sub(firstLine, 5, 6)))
 -- end
 
+function getDptTrans(icao)
+    local path = getXPlanePath()
+    local file = assert(io.open(path.."/Resources/default data/CIFP/"..icao..".dat", "r"))
+    local procedures = {}
+    io.input(file)
+    for line in io.lines() do
+        if string.match(line, "SID:") then
+            local num, sid, trans = line:match("^SID:%d+,(%d+),([^,]+),([^,]+)")
+            if line:sub(9,9) == "6" and sid == SELECTED_DPT_SID then
+                if not table.contains(procedures,trans) then table.insert(procedures, trans) end
+            end
+        end
+    end
+    file:close()
+    return procedures
+end
+
 function getFullDepartureProcedure()
     local icao = DEPARTURE_AIRPORT
     local rwy = SELECTED_RUNWAY
     local sid = SELECTED_DPT_SID
+    local dpt_trans = SELECTED_DPT_TRANS
     local path = getXPlanePath()
     local file = assert(io.open(path.."/Resources/default data/CIFP/"..icao..".dat","r"))
     local wpts = {}
@@ -321,8 +338,26 @@ function getFullDepartureProcedure()
     end
     io.input(file)
     for line in io.lines() do
-        if string.match(line, sid) and string.match(line, "RW"..rwy) then
-            table.insert(wpts,line)
+
+        -- we get check for the runway departure
+        if string.find(line, rwy) and string.match(line, sid) then
+            local num, trans, procedure, wpt = line:match("^SID:%d+,(%d+),([^,]+),([^,]+),([^,]+)")
+            if line:sub(9,9) == "4" and procedure:find(rwy) then
+                if not table.contains(wpts, wpt) and (wpt ~= " " and wpt ~= "") then
+                    table.insert(wpts,#wpts+1,wpt)
+                end
+            end
+        end
+        -- now we check for optional TRANS
+        if string.match(line,sid) and dpt_trans ~= "NONE" then
+            local num, trans, procedure, wpt = line:match("^SID:%d+,(%d+),([^,]+),([^,]+),([^,]+)")
+            if line:sub(9,9) == "6" and procedure==dpt_trans then
+                print(dpt_trans,trans)
+                print('fat')
+                if not table.contains(wpts, wpt) and (wpt ~= " " and wpt ~= "") then
+                    table.insert(wpts,#wpts+1,wpt)
+                end
+            end
         end
     end
     file:close()

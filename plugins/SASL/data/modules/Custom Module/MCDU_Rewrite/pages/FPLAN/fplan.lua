@@ -11,7 +11,6 @@ FPLAN_SHIFT = 0
 
 FLIGHT_PLAN = {
 }
-
 waypoints = {
 }
 

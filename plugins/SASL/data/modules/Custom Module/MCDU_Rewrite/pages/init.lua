@@ -129,6 +129,7 @@ function processFromTo()
             local icao2 = string.sub(scratchpad,6,9)
             if checkICAO(icao1) == true and checkICAO(icao2) == true then
                 DEPARTURE_AIRPORT = icao1
+                table.insert(fplanWpts, 1, icao1)
                 DESTINATION_AIRPORT = icao2
                 inputs.FROM_TO[5] = scratchpad
                 scratchpad = ""

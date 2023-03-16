@@ -2,17 +2,18 @@ local MCDU_BLUE = {0.0, 0.7, 0.8, 1.0}
 
 SELECTED_RUNWAY = ""
 SELECTED_DPT_SID = ""
-SELECTED_TRANS = ""
+SELECTED_DPT_TRANS = ""
 
-PAGE_STATE = 1
+local PAGE_STATE = 1
 
-SHIFT = 0
-SID_SHIFT = 0
+local SHIFT = 0
+local SID_SHIFT = 0
+local TRANS_SHIFT = 0
 
 local function runwayListInput()
-    if get(MCDU_CURRENT_BUTTON) == 25 and #(RUNWAYS) > 4 and SHIFT > 0 then
+    if get(MCDU_CURRENT_BUTTON) == 25 and #(RwyList) > 4 and SHIFT > 0 then
         SHIFT = SHIFT - 1
-    elseif get(MCDU_CURRENT_BUTTON) == 27 and #(RUNWAYS) > 4 and SHIFT < #RUNWAYS-4 then
+    elseif get(MCDU_CURRENT_BUTTON) == 27 and #(RwyList) > 4 and SHIFT < #RwyList-4 then
         SHIFT = SHIFT + 1
     else
         SHIFT = SHIFT
@@ -20,14 +21,25 @@ local function runwayListInput()
 end
 
 local function sidListInput()
-    if get(MCDU_CURRENT_BUTTON) == 25 and #(DPT_PROCEDURE) > 4 and SID_SHIFT > 0 then
+    if get(MCDU_CURRENT_BUTTON) == 25 and #(SIDS) > 4 and SID_SHIFT > 0 then
         SID_SHIFT = SID_SHIFT - 1
-    elseif get(MCDU_CURRENT_BUTTON) == 27 and #(DPT_PROCEDURE) > 4 and SID_SHIFT < #SIDS-4 then
+    elseif get(MCDU_CURRENT_BUTTON) == 27 and #(SIDS) > 4 and SID_SHIFT < #SIDS-4 then
         SID_SHIFT = SID_SHIFT + 1
     else
         SID_SHIFT = SID_SHIFT
     end
 end
+
+local function transListInput()
+    if get(MCDU_CURRENT_BUTTON) == 25 and #TRANS > 4 and SID_SHIFT > 0 then
+        TRANS_SHIFT = TRANS_SHIFT - 1
+    elseif get(MCDU_CURRENT_BUTTON) == 27 and #TRANS > 4 and SID_SHIFT < #TRANS-4 then
+        TRANS_SHIFT = TRANS_SHIFT + 1
+    else
+        TRANS_SHIFT = TRANS_SHIFT
+    end
+end
+
 
 
 
@@ -53,6 +65,15 @@ local function processSidSelect(DPT_PROCEDURE)
     end
 end
 
+local function processTransSelect()
+    if get(MCDU_CURRENT_BUTTON) > 0 and get(MCDU_CURRENT_BUTTON) < 6 then
+        local val = get(MCDU_CURRENT_BUTTON) -- We determine what the index is of the airport aligned with the selected button
+        SELECTED_DPT_TRANS = TRANS[val]
+        PAGE_STATE = 4
+    end
+end
+
+
 local function processPageInput()
     if get(MCDU_CURRENT_BUTTON) == 24 and PAGE_STATE > 1 then
         PAGE_STATE = PAGE_STATE - 1
@@ -71,32 +92,23 @@ end
 
 function drawRnwy()
     processPageInput()
-    RUNWAYS = getAirportRunways(DEPARTURE_AIRPORT)
-    runwayListInput()
-
-    local RwyList = {
-    }
-    for i in ipairs(RUNWAYS) do
-        table.insert(RwyList, #RwyList+1, string.sub(RUNWAYS[i],string.find(RUNWAYS[i],":")+3,-1))
-    end
-    processRnwyInput()
 
 
     if PAGE_STATE == 1 then
+        RwyList = getAirportRunways(DEPARTURE_AIRPORT) -- we get the runways
+        runwayListInput()
+    
+        processRnwyInput()
+
         wrap(RwyList, SHIFT) -- IMPLEMENTING SCROLLING
         processRwySelect(RwyList)
+
         --DRAW RUNWAY OPTIONS
-        if #RwyList < 4 then
-            local amt = 4 - #RwyList
-            for i=amt,4-amt,-1 do
-                table.insert(RwyList,i,"")
+        for i=1, math.min(4,#RwyList) do
+            if RwyList[i] ~= " " then
+                drawText("<"..RwyList[i]:sub(3), 1, i+1, MCDU_BLUE, SIZE.OPTION, false, "L", true, "O")
             end
         end
-        drawText("<"..RwyList[1], 1, 10, MCDU_BLUE, SIZE.OPTION, false, "L")
-        drawText("<"..RwyList[2], 1, 8, MCDU_BLUE, SIZE.OPTION, false, "L")
-        drawText("<"..RwyList[3], 1, 6, MCDU_BLUE, SIZE.OPTION, false, "L")
-        drawText("<"..RwyList[4], 1, 4, MCDU_BLUE, SIZE.OPTION, false, "L")
-
         drawText("---", 1, 12, MCDU_WHITE, SIZE.OPTION, false, "L")
         drawText("------", 24, 12, MCDU_WHITE, SIZE.OPTION, false, "R")
         drawText("AVAILABLE RUNWAYS", 4, 11, MCDU_WHITE, SIZE.HEADER, false, "L")
@@ -105,16 +117,10 @@ function drawRnwy()
 
 
     elseif PAGE_STATE == 2 then
-        DPT_PROCEDURE = getDepartureProcedures(DEPARTURE_AIRPORT, SELECTED_RUNWAY)
-        SIDS = {
-        }
-        for i in ipairs(DPT_PROCEDURE) do
-            if not table.contains(SIDS, string.sub(DPT_PROCEDURE[i], 4, string.find(DPT_PROCEDURE[i],",",6)-1)) then
-                table.insert(SIDS, #SIDS+1, string.sub(DPT_PROCEDURE[i], 4, string.find(DPT_PROCEDURE[i],",",6)-1))
-            end
-        end
+        SIDS = getDepartureProcedures(DEPARTURE_AIRPORT, SELECTED_RUNWAY) -- parse CIFP files for SIDS
 
         sidListInput()
+    
         wrap(SIDS, SID_SHIFT)
         processSidSelect(SIDS)
         if #SIDS < 4 then
@@ -132,14 +138,40 @@ function drawRnwy()
         drawText("------", 10, 12, MCDU_WHITE, SIZE.OPTION, false, "L")
         drawText("AVAILABLE SIDS", 5, 11, MCDU_WHITE, SIZE.HEADER, false, "L")
     elseif PAGE_STATE == 3 then
+        TRANS = getDptTrans(DEPARTURE_AIRPORT)
+        if #TRANS > 0 then
+            transListInput()
+
+            wrap(TRANS, TRANS_SHIFT)
+            processTransSelect()
+
+            if #TRANS < 4 then
+                for i=4, 4-#TRANS, -1 do
+                    table.insert(TRANS, i, " ")
+                end
+            end
+            for i=1, math.min(#TRANS,4) do
+                if TRANS[i] ~= " " then
+                    drawText("<"..TRANS[i], 1, i+1, MCDU_BLUE, SIZE.OPTION, false, "L", true, "O")
+                end
+            end
+        else
+            SELECTED_DPT_TRANS = "NONE"
+            if get(MCDU_CURRENT_BUTTON) == 26 then
+                PAGE_STATE = 4
+            elseif get(MCDU_CURRENT_BUTTON) == 24 then
+                PAGE_STATE = 3
+            end
+        end
         drawText(SELECTED_RUNWAY, 1, 12, MCDU_WHITE, SIZE.OPTION, false, "L")
         drawText(SELECTED_DPT_SID, 10, 12, MCDU_WHITE, SIZE.OPTION, false, "L")
         drawText("------", 24, 12, MCDU_WHITE, SIZE.OPTION, false, "R")
         drawText("INSERT*", 24, 2, MCDU_ORANGE, SIZE.OPTION, false, "R")
-    else
+    elseif PAGE_STATE == 4 then
         drawText(SELECTED_RUNWAY, 1, 12, MCDU_WHITE, SIZE.OPTION, false, "L")
-        drawText(SELECTED_DPT_SID, 12, 12, MCDU_WHITE, SIZE.OPTION, false, "L")
-        drawText(SELECTED_TRANS, 24, 12, MCDU_WHITE, SIZE.OPTION, false, "R")
+        drawText(SELECTED_DPT_SID, 10, 12, MCDU_WHITE, SIZE.OPTION, false, "L")
+        drawText(SELECTED_DPT_TRANS, 24, 12, MCDU_WHITE, SIZE.OPTION, false, "R")
+        drawText("INSERT*", 24, 2, MCDU_ORANGE, SIZE.OPTION, false, "R")
     end
     -- Draw text_fields
     drawText("RWY", 1, 13, MCDU_WHITE, SIZE.HEADER, false, "L")
@@ -148,5 +180,3 @@ function drawRnwy()
     drawText("DEPARTURE FROM "..DEPARTURE_AIRPORT, 3, 14, MCDU_WHITE, SIZE.TITLE, false, "L")
     drawText("<RETURN", 1, 2, MCDU_WHITE, SIZE.OPTION, false, "L")
 end
-
---TODO: FIX VISIBILITY OF SIDS FROM SPECIFIC RUNWAYS

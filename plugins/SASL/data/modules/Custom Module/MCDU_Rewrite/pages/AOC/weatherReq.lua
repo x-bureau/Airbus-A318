@@ -1,9 +1,3 @@
-local WIND_SPEED = globalPropertyf("sim/weather/view/wind_base_speed_kts")
-local WIND_DIRECTION = globalPropertyf("sim/weather/wind_direction_degt")
-local GUST_SPEED = globalPropertyf("sim/weather/view/wind_gust_kts")
-local VISIBILITY = globalPropertyf("sim/weather/region/visibility_reported_sm")
-
-
 local optionLabels = {
     [1] = " WX TYPE",
     [2] = "",
