@@ -352,8 +352,6 @@ function getFullDepartureProcedure()
         if string.match(line,sid) and dpt_trans ~= "NONE" then
             local num, trans, procedure, wpt = line:match("^SID:%d+,(%d+),([^,]+),([^,]+),([^,]+)")
             if line:sub(9,9) == "6" and procedure==dpt_trans then
-                print(dpt_trans,trans)
-                print('fat')
                 if not table.contains(wpts, wpt) and (wpt ~= " " and wpt ~= "") then
                     table.insert(wpts,#wpts+1,wpt)
                 end

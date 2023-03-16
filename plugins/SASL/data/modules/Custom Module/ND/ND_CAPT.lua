@@ -685,7 +685,6 @@ function checkICAO(icao)
         file:close()
         return true
     end
-    print("not found in og directory")
     file = io.open(path.."/Resources/default data/CIFP/"..icao..".dat", "r")
     if file ~= nil then
         file:close()
@@ -699,43 +698,59 @@ local function draw_flight_plan() -- WE DRAW THE FLIGHT PLAN POINTS
         fplanWptLatLong = {}
         local path = getXPlanePath()
         local earthFix = path .. "/Custom Data/earth_fix.dat"
+        local earthNav = path .. "/Custom Data/earth_nav.dat"
+
         if not isFileExists(earthFix) then
             earthFix = path .. "/Resources/default data/earth_fix.dat"
         end
-        local file = io.open(earthFix, "rb")
+        if not isFileExists(earthNav) then
+            earthNav = path .. "/Resources/default data/earth_nav.dat"
+        end
+        
         if #fplanWpts ~= 0 then
             for i in ipairs(fplanWpts) do
                 if i == 1 and checkICAO(fplanWpts[1]) then
                     local dptCoord = getBasicLatLong(fplanWpts[1])
                     fplanWptLatLong[1] = dptCoord[1]
                     fplanWptLatLong[2] = dptCoord[2]
-                else
-                    for line in io.lines(earthFix) do
-                        if string.find(line, fplanWpts[i]) then
-                            local lat, lon, fixId, airportId, icaoRegion, waypointType = line:match("([%d%-%.]+)%s+([%d%-%.]+)%s+(%w+)%s+(%w+)%s+(%w+)%s+(%d+)")
+                elseif i~=1 and string.len(fplanWpts[i]) <= 3 then
+                    print('fart')
+                    for line in io.lines(earthNav) do
+                        if string.find(line,fplanWpts[i]) then
+                            local navType, lat, lon, elev, freq, class, slavedVar, navId, airportId, icaoRegion, navName = line:match("(%d+)%s+([%d%-%.]+)%s+([%d%-%.]+)%s+(%d+)%s+(%d+)%s+([%d%-%.]+)%s+([%d%-%.]+)%s+(%w+)%s+(%w+)%s+(%w+)%s+(%w+)")
                             table.insert(fplanWptLatLong,2,lat)
                             table.insert(fplanWptLatLong,2,lon)
                         end
                     end
-                -- else
-                --     local arrCoord = getBasicLatLong(fplanWpts[#fplanWpts-1])
-                --     table.insert(fplanWptLatLong,arrCoord[1])
-                --     table.insert(fplanWptLatLong,arrCoord[2])
+                    file:close()
+                else
+                    local file = io.open(earthFix, "rb")
+                    print(fplanWpts[i])
+                    for line in io.lines(earthFix) do
+                        if string.find(line,fplanWpts[i]) then
+                            local lat, lon, fixId, airportId, icaoRegion, waypointType = line:match("([%d%-%.]+)%s+([%d%-%.]+)%s+(%w+)%s+(%w+)%s+(%w+)%s+(%d+)")
+                            print(fixId, fplanWpts[i])
+                            table.insert(fplanWptLatLong,2,lat)
+                            table.insert(fplanWptLatLong,2,lon)
+                        end
+                    end
+                    file:close()
                 end
             end
         end
-        file:close()
         WPTS = #fplanWpts
     end
     fplanWptXY = {}
     if #fplanWptLatLong > 2 then
+        print('-----------')
+        print(#fplanWptLatLong)
         for i=1,#fplanWptLatLong,2 do
             if fplanWptLatLong[i] ~= nil and fplanWptLatLong[i+1] ~= nil then
                 local x,y = recomputePoint(fplanWptLatLong[i],fplanWptLatLong[i+1],get(currentLat),get(currentLon),get(CaptNdRnge),get(heading),330)
-                -- print(i,":",fplanWptLatLong[i],fplanWptLatLong[i+1])
-                -- print(i,":",x,y)
-                table.insert(fplanWptXY,#fplanWptXY+1,x+250)
-                table.insert(fplanWptXY,#fplanWptXY+1,y+70)
+                print(i,":",fplanWptLatLong[i],fplanWptLatLong[i+1])
+                print(i,":",x,y)
+                table.insert(fplanWptXY,#fplanWptXY+1,x+242)
+                table.insert(fplanWptXY,#fplanWptXY+1,y+95)
             end
         end
         sasl.gl.drawWidePolyLine(fplanWptXY,4,ECAM_COLOURS.GREEN) -- we draw the flight plan line using the table of x and y coords
