@@ -52,7 +52,7 @@ end
 local function processRwySelect(runway)
     if get(MCDU_CURRENT_BUTTON) > 0 and get(MCDU_CURRENT_BUTTON) < 6 then
         local val = get(MCDU_CURRENT_BUTTON) -- We determine what the index is of the airport aligned with the selected button
-        SELECTED_RUNWAY = string.sub(runway[val], 1, -2)
+        SELECTED_RUNWAY = runway[val]
         PAGE_STATE = 2
     end
 end

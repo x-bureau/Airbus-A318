@@ -714,7 +714,6 @@ local function draw_flight_plan() -- WE DRAW THE FLIGHT PLAN POINTS
                     fplanWptLatLong[1] = dptCoord[1]
                     fplanWptLatLong[2] = dptCoord[2]
                 elseif i~=1 and string.len(fplanWpts[i]) <= 3 then
-                    print('fart')
                     for line in io.lines(earthNav) do
                         if string.find(line,fplanWpts[i]) then
                             local navType, lat, lon, elev, freq, class, slavedVar, navId, airportId, icaoRegion, navName = line:match("(%d+)%s+([%d%-%.]+)%s+([%d%-%.]+)%s+(%d+)%s+(%d+)%s+([%d%-%.]+)%s+([%d%-%.]+)%s+(%w+)%s+(%w+)%s+(%w+)%s+(%w+)")
@@ -725,11 +724,10 @@ local function draw_flight_plan() -- WE DRAW THE FLIGHT PLAN POINTS
                     file:close()
                 else
                     local file = io.open(earthFix, "rb")
-                    print(fplanWpts[i])
                     for line in io.lines(earthFix) do
                         if string.find(line,fplanWpts[i]) then
                             local lat, lon, fixId, airportId, icaoRegion, waypointType = line:match("([%d%-%.]+)%s+([%d%-%.]+)%s+(%w+)%s+(%w+)%s+(%w+)%s+(%d+)")
-                            print(fixId, fplanWpts[i])
+                            print(fixId, lat, lon)
                             table.insert(fplanWptLatLong,2,lat)
                             table.insert(fplanWptLatLong,2,lon)
                         end
@@ -742,13 +740,12 @@ local function draw_flight_plan() -- WE DRAW THE FLIGHT PLAN POINTS
     end
     fplanWptXY = {}
     if #fplanWptLatLong > 2 then
-        print('-----------')
-        print(#fplanWptLatLong)
-        for i=1,#fplanWptLatLong,2 do
+        -- print('-----------')
+        -- print(#fplanWptLatLong)
+        for i=#fplanWptLatLong,1,-2 do
             if fplanWptLatLong[i] ~= nil and fplanWptLatLong[i+1] ~= nil then
-                local x,y = recomputePoint(fplanWptLatLong[i],fplanWptLatLong[i+1],get(currentLat),get(currentLon),get(CaptNdRnge),get(heading),330)
-                print(i,":",fplanWptLatLong[i],fplanWptLatLong[i+1])
-                print(i,":",x,y)
+                local x,y = recomputePoint(fplanWptLatLong[i+1],fplanWptLatLong[i],get(currentLat),get(currentLon),get(CaptNdRnge),get(heading),330)
+                print(i,":",fplanWptLatLong[i-1],fplanWptLatLong[i+1])
                 table.insert(fplanWptXY,#fplanWptXY+1,x+242)
                 table.insert(fplanWptXY,#fplanWptXY+1,y+95)
             end

@@ -331,11 +331,6 @@ function getFullDepartureProcedure()
     local path = getXPlanePath()
     local file = assert(io.open(path.."/Resources/default data/CIFP/"..icao..".dat","r"))
     local wpts = {}
-    if string.match(RWY_LABELS, string.sub(rwy, -1, -1)) then
-        rwy = string.sub(rwy, 1, -2)
-    else
-        rwy = rwy
-    end
     io.input(file)
     for line in io.lines() do
 
