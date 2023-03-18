@@ -1,12 +1,24 @@
 -----X-Bureau Airbus A318 Paint kit-----
 
 Author: @Martian-Taiwan
-Based on @FBI914 (@jacob914, X-bureau)'s baked textures
+Based on @FBI914XB (@jacob914, X-bureau)'s textures
 
-I will not update "Airbus-A318/liveries/Paintkit"!
+v1.5
+-Add New Paint Kit For Painters To Paint Liveries Easier
+-Fix Paint Kit BUGs
 
-If you want to use the latest paint kit. 
+v1.4
+-Add Lines For Stabs
 
-Please extract this RAR file. 
+v1.3
+-Add More Details by @FBI914
+-Improve Paint Kits
 
-Thanks!
+v1.2
+-Fix Stabs BUGs
+
+v1.1
+-Improve Paint Kit
+
+v1.0
+-First release
