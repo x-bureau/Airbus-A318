@@ -57,7 +57,7 @@ welcomePopoutWindow = contextWindow { name = 'Welcome Screen';
 }
 
 mcduPopoutWindow = contextWindow { name = 'MCDU Widget';
-  position = { 100, 250, 429, 635 }; noBackground = true; proportional = true; minimumSize = { 429, 635 }; maximumSize = { 429, 635 }; gravity = { 0, 1, 0, 1 }; visible = true; saveState = false;
+  position = { 100, 250, 429, 635 }; noBackground = true; proportional = true; minimumSize = { 429, 635 }; maximumSize = { 429, 635 }; gravity = { 0, 1, 0, 1 }; visible = false; saveState = false;
   components = {
   mcduPopout {};
   }

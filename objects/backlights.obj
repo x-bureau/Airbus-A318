@@ -5,9 +5,9 @@ OBJ
 GLOBAL_cockpit_lit
 TEXTURE	../Textures/backlight_ALB.png
 TEXTURE_LIT	../Textures/backlight_LIT.png
-BLEND_GLASS
 POINT_COUNTS	0	0	0	0
 
-	LIGHT_NAMED	PFD_BKLGHT -0.51864892 0.94850183 1.7737737
+		
+	LIGHT_SPILL_CUSTOM -0.66761482 1.0643086 1.7737737 1 1 1 1 1 0 -1 -0 0.95371695 A318/cockpit/capt/pfdBright
 
 # Build with Blender 3.0.0 (build b'f1cca3055776'). Exported with XPlane2Blender 4.2.0-rc.2+117.20220419015723

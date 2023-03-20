@@ -58,6 +58,10 @@ function drawDashSeparated(position, num1, num2, side)
     end
 end
 
+function removeSpace(str)
+    str = str:gsub("%s+", "")
+    return str
+end
 function drawDashDotSeparated (position, num1, num2, side)
     if side == 1 then
         for i=0, (num1-1) do
@@ -233,6 +237,44 @@ function getBasicLatLong(icao)
    -- end
 end
 
+function getWptLatLong(wpt)
+    local path = getXPlanePath()
+    local earthFix = path .. "/Custom Data/earth_fix.dat"
+    local earthNav = path .. "/Custom Data/earth_nav.dat"
+    local a = {}
+
+    if not isFileExists(earthFix) then
+        earthFix = path .. "/Resources/default data/earth_fix.dat"
+    end
+    if not isFileExists(earthNav) then
+        earthNav = path .. "/Resources/default data/earth_nav.dat"
+    end
+    if string.len(wpt) <= 3 then
+        local file = io.open(earthNav, "rb")
+        for line in io.lines(earthNav) do
+            if string.find(line, wpt) then
+                local navType, lat, lon, elev, freq, class, slavedVar, navId, airportId, icaoRegion, navName = line:match("(%d+)%s+([%d%-%.]+)%s+([%d%-%.]+)%s+(%d+)%s+(%d+)%s+([%d%-%.]+)%s+([%d%-%.]+)%s+(%w+)%s+(%w+)%s+(%w+)%s+(%w+)")
+                a[1] = lat
+                a[2] = lon
+            end
+        end
+        file:close()
+        return a
+    else
+        local file = io.open(earthFix, "rb")
+        for line in io.lines(earthFix) do
+            if string.find(line,wpt) then
+                local lat, lon, fixId, airportId, icaoRegion, waypointType = line:match("([%d%-%.]+)%s+([%d%-%.]+)%s+(%w+)%s+(%w+)%s+(%w+)%s+(%d+)")
+                a[1] = lat
+                a[2] = lon
+            end
+        end
+        file:close()
+        return a
+    end
+end
+
+
 function calculateAirportDistance(icao1, icao2)
     local apt1 = getBasicLatLong(icao1)
     local apt2 = getBasicLatLong(icao2)
@@ -276,15 +318,20 @@ function getDepartureProcedures(icao, runway)
     else
         new_runway = runway
     end
+    new_runway = removeSpace(new_runway)
+    print(#new_runway)
     local path = getXPlanePath()
     local file = assert(io.open(path.."/Resources/default data/CIFP/"..icao..".dat", "r"))
     local procedures = {}
     io.input(file)
     
     for line in io.lines() do
-        if string.match(line, "SID:") and string.find(line, new_runway) then
+        if string.find(line, new_runway) and line:match("SID:") then
+            print("fat")
             local sid = line:match("^[^,]+,[^,]+,([^,]+),")
-            if not table.contains(procedures,sid) then table.insert(procedures, sid) end
+            if not table.contains(procedures,sid) and sid ~= " " and sid ~= "" then
+                 table.insert(procedures, sid)
+            end
         end
     end
     file:close()
