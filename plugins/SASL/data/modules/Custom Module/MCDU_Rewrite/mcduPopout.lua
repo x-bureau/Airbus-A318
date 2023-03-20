@@ -153,7 +153,7 @@ function draw_click_regions()
 end
 
 function draw()
-    sasl.gl.drawTexture(mcduBackground, 0, 0, 429, 609)
+    sasl.gl.drawTexture(mcduBackground, 0, 0, 429, 609,AIRBUS_WHITE)
 --[[DRAW EVERYTHING BELOW THIS LINE]]--
 --[[ DRAW THE SHOW CLICK REGIONS OPTION ]]--
     sasl.gl.drawText(AirbusFont, 0, 618, "SHOW CLICK REGIONS", 14, true, false, TEXT_ALIGN_LEFT, AIRBUS_WHITE)

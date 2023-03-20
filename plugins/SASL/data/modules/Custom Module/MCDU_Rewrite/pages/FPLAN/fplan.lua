@@ -28,14 +28,24 @@ function formatTime(hours, mins)
     else
         m0 = ""
     end
+
+    if mins>toNum(59) then
+        mins = 0
+    end
+    if hours > 23 then
+        hours = 0
+    end
     local UTC_TIME = h0..tostring(hours)..m0..tostring(mins)
     return UTC_TIME
 end
 
-local function calculateTime(wpt, UTC_TIME)
-    local cords = getBasicLatLong("KMIA")
-    local cords = getWptCord(wpt)
-    return cords
+function computeTimeFromDpt(wpt)
+    local dptLatLon = getBasicLatLong(DEPARTURE_AIRPORT)
+    local wptLatLon = getWptLatLong(wpt)
+    local distance = calculateDistance(dptLatLon[1], dptLatLon[2], wptLatLon[1], wptLatLon[2])
+    local speed = 454 / 60
+    local time = distance / (speed * 60)
+    print(DEPARTURE_AIRPORT.."TO"..wpt.." : "..time)
 end
 
 
@@ -88,9 +98,16 @@ local function drawDeptInfo(originUTC, draw)
     end
 end
 
-local function drawWpt(waypoint, utc, pos)
+local function drawWpt(waypoint, pos)
     local wpt = waypoint
     local awy = ""
+    local utc = nil
+    if wpt ~= "DECEL" then
+        utc = computeTimeFromDpt(wpt)
+    else
+        utc = "0000"
+    end
+
     if string.find(waypoint, ":") then
         wpt = string.sub(waypoint, 0, string.find(waypoint, ":")-1)
         awy = string.sub(waypoint, string.find(waypoint, ":")+1)
@@ -100,7 +117,7 @@ local function drawWpt(waypoint, utc, pos)
             drawText(awy, 1, pos, MCDU_WHITE, SIZE.HEADER, false, "L", true, "H")
         end
         drawText(wpt, 1, pos, MCDU_GREEN, SIZE.OPTION, false, "L", true, "O")
-        drawText(utc, 10, pos, MCDU_GREEN, SIZE.OPTION, false, "L", true, "O")
+        drawText(tostring(utc), 10, pos, MCDU_GREEN, SIZE.OPTION, false, "L", true, "O")
         drawText("---/---", 24, pos, MCDU_WHITE, SIZE.OPTION, false, "R", true, "O")
     end
 end
@@ -117,7 +134,7 @@ function getFields(waypoints, originUTC, arrDepDist)
     table.insert(fields, 1, drawDeptInfo(originUTC, 1-FPLAN_SHIFT))
 
     for i in ipairs(waypoints) do
-        table.insert(fields, #fields+1, drawWpt(waypoints[i], originUTC, 1+i-FPLAN_SHIFT))
+        table.insert(fields, #fields+1, drawWpt(waypoints[i], 1+i-FPLAN_SHIFT))
     end
 
     table.insert(fields, #fields+1, drawArrInfo(originUTC, arrDepDist, (#waypoints+2)-FPLAN_SHIFT))
@@ -218,7 +235,7 @@ function drawFPlan()
     end
     if #waypoints == 0 then
         drawDeptInfo(originUTC, 1)
-        drawWpt("DECEL", originUTC, 2)
+        drawWpt("DECEL", 2)
         drawArrInfo(originUTC, arrDepDist, 3)
         drawEndLine(4)
         drawDeptInfo(originUTC, 5)
