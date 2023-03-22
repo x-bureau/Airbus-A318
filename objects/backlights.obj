@@ -2,12 +2,14 @@ I
 800
 OBJ
 
-GLOBAL_cockpit_lit
-TEXTURE	../Textures/backlight_ALB.png
-TEXTURE_LIT	../Textures/backlight_LIT.png
 POINT_COUNTS	0	0	0	0
 
-		
-	LIGHT_SPILL_CUSTOM -0.66761482 1.0643086 1.7737737 1 1 1 1 1 0 -1 -0 0.95371695 A318/cockpit/capt/pfdBright
+
+LIGHT_PARAM LIGHT_SPILL_CUSTOM -0.66761482 1.0655057 1.7978308 1.0 1.0 1.0 1 100.0 0.23435064 
+-0.76022428 0.60591978 1.0 A318/cockpit/lights/capt_reading
+
+LIGHT_PARAM happy_light -0.66761482 1.0655057 1.7978308 1.0 1.0 
+
+LIGHT_PARAM	airplane_generic_sp	   -0.66761482   1.0655057   1.7978308 0.95 0.82 0.72 100 35 0.8
 
 # Build with Blender 3.0.0 (build b'f1cca3055776'). Exported with XPlane2Blender 4.2.0-rc.2+117.20220419015723
