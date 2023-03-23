@@ -93,4 +93,5 @@ components = {
   panel_drawing {};
   menu {};
   autopilot_main {};
+  cockpitlighting {};
 }
