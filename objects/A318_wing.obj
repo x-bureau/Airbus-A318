@@ -2,7 +2,6 @@ I
 800
 OBJ
 
-GLOBAL_cockpit_lit
 TEXTURE	wing_baked.png
 TEXTURE_NORMAL	wing_baked_NML.png
 NORMAL_METALNESS
