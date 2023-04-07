@@ -147,6 +147,13 @@
 [X-BUREAU'S A318 INFO]: [LUA]: loading	mcduPopout
 [X-BUREAU'S A318 INFO]: [LUA]: loading	autopilot_main
 [X-BUREAU'S A318 INFO]: [LUA]: loading	cockpitlighting
+[X-BUREAU'S A318 WARN]: [STACK]:| findDataRef : DataRefsHandler::luaFindDataRef: <sim/graphics/animation/lights/airplane_panel_spill[0]> not found
+[X-BUREAU'S A318 WARN]: [STACK]:| ...aster/Untitled/plugins/SASL/data/init/initProperties.lua:297 in function <globalPropertyf>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...gins/SASL/data/modules/Custom Module/cockpitlighting.lua:3 in function <f>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...A318-master/Untitled/plugins/SASL/data/init/initMain.lua:262 in function <cockpitlighting>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...-A318-master/Untitled/plugins/SASL/data/modules/main.lua:96 in function <f>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...A318-master/Untitled/plugins/SASL/data/init/initMain.lua:262 in function <c>
+[X-BUREAU'S A318 WARN]: [STACK]:| ...
 [X-BUREAU'S A318 INFO]: Module loaded
 [X-BUREAU'S A318 INFO]: Disabling...
 [X-BUREAU'S A318 INFO]: SASL plugin stopped...
