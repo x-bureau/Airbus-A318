@@ -390,7 +390,7 @@ P _lite/count 8
 P _lite_equip/_land_lite_off_on_retract_EQ 0
 P _lite_equip/_taxi_lite_off_on_retract_EQ 1
 P _obja/0/_obj_flags 28
-P _obja/0/_v10_att_file_stl A318_wing.obj
+P _obja/0/_v10_att_file_stl A318_wings.obj
 P _obja/0/_v10_att_part -1
 P _obja/0/_v10_att_phi_ref -1.100000024
 P _obja/0/_v10_att_psi_ref 0.0
