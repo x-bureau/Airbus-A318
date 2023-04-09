@@ -155,5 +155,51 @@
 [X-BUREAU'S A318 WARN]: [STACK]:| ...A318-master/Untitled/plugins/SASL/data/init/initMain.lua:262 in function <c>
 [X-BUREAU'S A318 WARN]: [STACK]:| ...
 [X-BUREAU'S A318 INFO]: Module loaded
+[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	not found in og directory
+[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	not found in og directory
+[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	4
+[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	fat
+[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	fat
+[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	fat
+[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	fat
+[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	fat
+[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	fat
+[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	fat
+[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	fat
+[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	fat
+[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	fat
+[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	fat
+[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	fat
+[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	fat
+[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	fat
+[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	fat
+[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	fat
+[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	fat
+[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	fat
+[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	fat
+[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	fat
+[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	fat
+[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	fat
+[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	fat
+[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	fat
+[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	fat
+[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	fat
+[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	fat
+[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	fat
+[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	fat
+[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	fat
+[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	fat
+[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	fat
+[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	fat
+[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	fat
+[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	fat
+[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	fat
+[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	fat
+[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	fat
+[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	fat
+[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	fat
+[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	fat
+[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	fat
+[X-BUREAU'S A318 INFO]: [LUA]: "mcdu2"	fat
 [X-BUREAU'S A318 INFO]: Disabling...
 [X-BUREAU'S A318 INFO]: SASL plugin stopped...

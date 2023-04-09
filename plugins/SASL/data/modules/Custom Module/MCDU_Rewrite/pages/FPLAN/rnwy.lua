@@ -4,7 +4,6 @@ SELECTED_RUNWAY = ""
 SELECTED_DPT_SID = ""
 SELECTED_DPT_TRANS = ""
 SIDS = {} -- define SIDS array
-RwyList = getAirportRunways(DEPARTURE_AIRPORT) -- we get the runways
 TRANS = {} -- define TRANSITION array
 
 
