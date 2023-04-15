@@ -53,6 +53,7 @@ end
 local function processFPLANInput()
     if get(MCDU_CURRENT_BUTTON) == 0 and FPLAN_SHIFT == 0 then
         set(MCDU_CURRENT_PAGE,4)
+        RwyList = getAirportRunways(DEPARTURE_AIRPORT) -- we get the runways
         CURRENT_LATREV = DEPARTURE_AIRPORT
     end
     if get(MCDU_CURRENT_BUTTON) == 25 and #(waypoints) > 1 and FPLAN_SHIFT > 0 then
@@ -103,7 +104,7 @@ local function drawWpt(waypoint, pos)
     local awy = ""
     local utc = nil
     if wpt ~= "DECEL" then
-        utc = computeTimeFromDpt(wpt)
+        utc = "0000"
     else
         utc = "0000"
     end

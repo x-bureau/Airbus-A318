@@ -3,6 +3,9 @@ local MCDU_BLUE = {0.0, 0.7, 0.8, 1.0}
 SELECTED_RUNWAY = ""
 SELECTED_DPT_SID = ""
 SELECTED_DPT_TRANS = ""
+SIDS = {} -- define SIDS array
+TRANS = {} -- define TRANSITION array
+
 
 local PAGE_STATE = 1
 
@@ -54,6 +57,7 @@ local function processRwySelect(runway)
         local val = get(MCDU_CURRENT_BUTTON) -- We determine what the index is of the airport aligned with the selected button
         SELECTED_RUNWAY = runway[val]
         PAGE_STATE = 2
+        SIDS = getDepartureProcedures(DEPARTURE_AIRPORT, SELECTED_RUNWAY) -- parse CIFP files for SIDS
     end
 end
 
@@ -62,6 +66,7 @@ local function processSidSelect(DPT_PROCEDURE)
         local val = get(MCDU_CURRENT_BUTTON) -- We determine what the index is of the airport aligned with the selected button
         SELECTED_DPT_SID = DPT_PROCEDURE[val]
         PAGE_STATE = 3
+        TRANS = getDptTrans(DEPARTURE_AIRPORT)
     end
 end
 
@@ -93,11 +98,9 @@ end
 function drawRnwy()
     processPageInput()
 
-
     if PAGE_STATE == 1 then
-        RwyList = getAirportRunways(DEPARTURE_AIRPORT) -- we get the runways
         runwayListInput()
-    
+
         processRnwyInput()
 
         wrap(RwyList, SHIFT) -- IMPLEMENTING SCROLLING
@@ -117,7 +120,6 @@ function drawRnwy()
 
 
     elseif PAGE_STATE == 2 then
-        SIDS = getDepartureProcedures(DEPARTURE_AIRPORT, SELECTED_RUNWAY) -- parse CIFP files for SIDS
 
         sidListInput()
     
@@ -138,7 +140,6 @@ function drawRnwy()
         drawText("------", 10, 12, MCDU_WHITE, SIZE.OPTION, false, "L")
         drawText("AVAILABLE SIDS", 5, 11, MCDU_WHITE, SIZE.HEADER, false, "L")
     elseif PAGE_STATE == 3 then
-        TRANS = getDptTrans(DEPARTURE_AIRPORT)
         if #TRANS > 0 then
             transListInput()
 

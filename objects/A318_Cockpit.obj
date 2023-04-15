@@ -11355,7 +11355,7 @@ IDX	10187
 	TRIS	3546 36
 	ATTR_manip_toggle	button	1.000	0.000	A318/systems/bleed/APUBLEED	APU Bleed Air ON/OFF
 	TRIS	3582 36
-	ATTR_manip_axis_knob	rotate_large	0.000	1.000	0.100	0.010	sim/graphics/animation/lights/airplane_panel_spill[2]	Captain Reading Light Brightness
+	ATTR_manip_axis_knob	rotate_large	0.000	1.000	0.100	0.010	sim/graphics/animation/lights/airplane_panel_spill	Captain Reading Light Brightness
 	TRIS	3618 132
 	ATTR_manip_axis_switch_left_right	rotate_medium	0.000	2.000	1.000	0.000	A318/systems/bleed/CROSSBLEED	CROSSBLEED Switch
 	TRIS	3750 84
