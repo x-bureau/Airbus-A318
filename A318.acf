@@ -10,7 +10,7 @@ P _cgpt/0/_w_test 87100.023437500
 P _cgpt/0/_z_ref 49.869998932
 P _cgpt/1/_name fuel tank #1
 P _cgpt/1/_w_max 14287.0
-P _cgpt/1/_w_now 14287.000976562
+P _cgpt/1/_w_now 14287.000976563
 P _cgpt/1/_w_test 14287.0
 P _cgpt/1/_z_ref 46.0
 P _cgpt/10/_w_max 0.0
@@ -54,12 +54,12 @@ P _cgpt/19/_w_now 1.0
 P _cgpt/19/_w_test 0.0
 P _cgpt/19/_z_ref 0.0
 P _cgpt/2/_name fuel tank #2
-P _cgpt/2/_w_max 11974.700195312
+P _cgpt/2/_w_max 11974.700195313
 P _cgpt/2/_w_now 13172.167968750
 P _cgpt/2/_w_test 11975.0
 P _cgpt/2/_z_ref 42.849998474
 P _cgpt/3/_name fuel tank #3
-P _cgpt/3/_w_max 11974.700195312
+P _cgpt/3/_w_max 11974.700195313
 P _cgpt/3/_w_now 13172.167968750
 P _cgpt/3/_w_test 11975.0
 P _cgpt/3/_z_ref 42.849998474
@@ -153,10 +153,10 @@ P _gear/0/_latN 0.0
 P _gear/0/_latR 0.0
 P _gear/0/_leg_len 4.599999905
 P _gear/0/_lonE 6.0
-P _gear/0/_lonN 75.349548340
+P _gear/0/_lonN 7.395057678
 P _gear/0/_lonR 120.0
 P _gear/0/_scon 31250.011718750
-P _gear/0/_stat_def 0.138561353
+P _gear/0/_stat_def 0.138561338
 P _gear/0/_steerdeg_hispeed 5.0
 P _gear/0/_steerdeg_lospeed 75.0
 P _gear/0/_strut_comp 0.899999976
@@ -183,14 +183,14 @@ P _gear/1/_gear_x -8.989999771
 P _gear/1/_gear_y -1.789999962
 P _gear/1/_gear_z 50.500000000
 P _gear/1/_latE 0.0
-P _gear/1/_latN 50.491333008
+P _gear/1/_latN 1.015701294
 P _gear/1/_latR 83.0
 P _gear/1/_leg_len 6.099999905
 P _gear/1/_lonE -6.0
-P _gear/1/_lonN -2.350023985
+P _gear/1/_lonN -5.926575661
 P _gear/1/_lonR 0.0
 P _gear/1/_scon 50000.019531250
-P _gear/1/_stat_def 1.456735253
+P _gear/1/_stat_def 1.456735373
 P _gear/1/_steerdeg_hispeed 0.0
 P _gear/1/_steerdeg_lospeed 0.0
 P _gear/1/_strut_comp 0.400000006
@@ -217,14 +217,14 @@ P _gear/2/_gear_x 8.989999771
 P _gear/2/_gear_y -1.789999962
 P _gear/2/_gear_z 50.500000000
 P _gear/2/_latE 0.0
-P _gear/2/_latN -50.491333008
+P _gear/2/_latN -1.015701294
 P _gear/2/_latR -83.0
 P _gear/2/_leg_len 6.099999905
 P _gear/2/_lonE -6.0
-P _gear/2/_lonN -2.350023985
+P _gear/2/_lonN -5.926575661
 P _gear/2/_lonR 0.0
 P _gear/2/_scon 50000.019531250
-P _gear/2/_stat_def 1.456735253
+P _gear/2/_stat_def 1.456735373
 P _gear/2/_steerdeg_hispeed 0.0
 P _gear/2/_steerdeg_lospeed 0.0
 P _gear/2/_strut_comp 0.400000006
@@ -390,7 +390,7 @@ P _lite/count 8
 P _lite_equip/_land_lite_off_on_retract_EQ 0
 P _lite_equip/_taxi_lite_off_on_retract_EQ 1
 P _obja/0/_obj_flags 28
-P _obja/0/_v10_att_file_stl A318_wing.obj
+P _obja/0/_v10_att_file_stl A318_wings.obj
 P _obja/0/_v10_att_part -1
 P _obja/0/_v10_att_phi_ref -1.100000024
 P _obja/0/_v10_att_psi_ref 0.0
@@ -13420,7 +13420,7 @@ P _part/16/_geo_xyz/7,0,2 88.579627991
 P _part/16/_geo_xyz/7,1,0 -9.227745056
 P _part/16/_geo_xyz/7,1,1 4.030887127
 P _part/16/_geo_xyz/7,1,2 88.841041565
-P _part/16/_geo_xyz/7,10,0 -9.294649124
+P _part/16/_geo_xyz/7,10,0 -9.294648170
 P _part/16/_geo_xyz/7,10,1 3.486002922
 P _part/16/_geo_xyz/7,10,2 90.758102417
 P _part/16/_geo_xyz/7,11,0 -9.285091400
@@ -13447,10 +13447,10 @@ P _part/16/_geo_xyz/7,17,2 0.0
 P _part/16/_geo_xyz/7,2,0 -9.208629608
 P _part/16/_geo_xyz/7,2,1 4.186568260
 P _part/16/_geo_xyz/7,2,2 89.451019287
-P _part/16/_geo_xyz/7,3,0 -9.199071884
+P _part/16/_geo_xyz/7,3,0 -9.199072838
 P _part/16/_geo_xyz/7,3,1 4.264409065
 P _part/16/_geo_xyz/7,3,2 90.758102417
-P _part/16/_geo_xyz/7,4,0 -9.199071884
+P _part/16/_geo_xyz/7,4,0 -9.199072838
 P _part/16/_geo_xyz/7,4,1 4.264409065
 P _part/16/_geo_xyz/7,4,2 92.500885010
 P _part/16/_geo_xyz/7,5,0 -9.229482651
@@ -13465,7 +13465,7 @@ P _part/16/_geo_xyz/7,7,2 97.293533325
 P _part/16/_geo_xyz/7,8,0 -9.264238358
 P _part/16/_geo_xyz/7,8,1 3.733677626
 P _part/16/_geo_xyz/7,8,2 95.550750732
-P _part/16/_geo_xyz/7,9,0 -9.294649124
+P _part/16/_geo_xyz/7,9,0 -9.294648170
 P _part/16/_geo_xyz/7,9,1 3.486002922
 P _part/16/_geo_xyz/7,9,2 92.500885010
 P _part/16/_geo_xyz/8,0,0 -9.246860504
@@ -13474,7 +13474,7 @@ P _part/16/_geo_xyz/8,0,2 88.579627991
 P _part/16/_geo_xyz/8,1,0 -9.227745056
 P _part/16/_geo_xyz/8,1,1 4.030887127
 P _part/16/_geo_xyz/8,1,2 88.841041565
-P _part/16/_geo_xyz/8,10,0 -9.294649124
+P _part/16/_geo_xyz/8,10,0 -9.294648170
 P _part/16/_geo_xyz/8,10,1 3.486002922
 P _part/16/_geo_xyz/8,10,2 90.758102417
 P _part/16/_geo_xyz/8,11,0 -9.285091400
@@ -13501,10 +13501,10 @@ P _part/16/_geo_xyz/8,17,2 0.0
 P _part/16/_geo_xyz/8,2,0 -9.208629608
 P _part/16/_geo_xyz/8,2,1 4.186568260
 P _part/16/_geo_xyz/8,2,2 89.451019287
-P _part/16/_geo_xyz/8,3,0 -9.199071884
+P _part/16/_geo_xyz/8,3,0 -9.199072838
 P _part/16/_geo_xyz/8,3,1 4.264409065
 P _part/16/_geo_xyz/8,3,2 90.758102417
-P _part/16/_geo_xyz/8,4,0 -9.199071884
+P _part/16/_geo_xyz/8,4,0 -9.199072838
 P _part/16/_geo_xyz/8,4,1 4.264409065
 P _part/16/_geo_xyz/8,4,2 92.500885010
 P _part/16/_geo_xyz/8,5,0 -9.229482651
@@ -13519,7 +13519,7 @@ P _part/16/_geo_xyz/8,7,2 97.293533325
 P _part/16/_geo_xyz/8,8,0 -9.264238358
 P _part/16/_geo_xyz/8,8,1 3.733677626
 P _part/16/_geo_xyz/8,8,2 95.550750732
-P _part/16/_geo_xyz/8,9,0 -9.294649124
+P _part/16/_geo_xyz/8,9,0 -9.294648170
 P _part/16/_geo_xyz/8,9,1 3.486002922
 P _part/16/_geo_xyz/8,9,2 92.500885010
 P _part/16/_geo_xyz/9,0,0 -11.058246613
@@ -14890,7 +14890,7 @@ P _part/17/_geo_xyz/7,0,2 88.579627991
 P _part/17/_geo_xyz/7,1,0 9.227745056
 P _part/17/_geo_xyz/7,1,1 4.030887127
 P _part/17/_geo_xyz/7,1,2 88.841041565
-P _part/17/_geo_xyz/7,10,0 9.294649124
+P _part/17/_geo_xyz/7,10,0 9.294648170
 P _part/17/_geo_xyz/7,10,1 3.486002922
 P _part/17/_geo_xyz/7,10,2 90.758102417
 P _part/17/_geo_xyz/7,11,0 9.285091400
@@ -14917,10 +14917,10 @@ P _part/17/_geo_xyz/7,17,2 0.0
 P _part/17/_geo_xyz/7,2,0 9.208629608
 P _part/17/_geo_xyz/7,2,1 4.186568260
 P _part/17/_geo_xyz/7,2,2 89.451019287
-P _part/17/_geo_xyz/7,3,0 9.199071884
+P _part/17/_geo_xyz/7,3,0 9.199072838
 P _part/17/_geo_xyz/7,3,1 4.264409065
 P _part/17/_geo_xyz/7,3,2 90.758102417
-P _part/17/_geo_xyz/7,4,0 9.199071884
+P _part/17/_geo_xyz/7,4,0 9.199072838
 P _part/17/_geo_xyz/7,4,1 4.264409065
 P _part/17/_geo_xyz/7,4,2 92.500885010
 P _part/17/_geo_xyz/7,5,0 9.229482651
@@ -14935,7 +14935,7 @@ P _part/17/_geo_xyz/7,7,2 97.293533325
 P _part/17/_geo_xyz/7,8,0 9.264238358
 P _part/17/_geo_xyz/7,8,1 3.733677626
 P _part/17/_geo_xyz/7,8,2 95.550750732
-P _part/17/_geo_xyz/7,9,0 9.294649124
+P _part/17/_geo_xyz/7,9,0 9.294648170
 P _part/17/_geo_xyz/7,9,1 3.486002922
 P _part/17/_geo_xyz/7,9,2 92.500885010
 P _part/17/_geo_xyz/8,0,0 9.246860504
@@ -14944,7 +14944,7 @@ P _part/17/_geo_xyz/8,0,2 88.579627991
 P _part/17/_geo_xyz/8,1,0 9.227745056
 P _part/17/_geo_xyz/8,1,1 4.030887127
 P _part/17/_geo_xyz/8,1,2 88.841041565
-P _part/17/_geo_xyz/8,10,0 9.294649124
+P _part/17/_geo_xyz/8,10,0 9.294648170
 P _part/17/_geo_xyz/8,10,1 3.486002922
 P _part/17/_geo_xyz/8,10,2 90.758102417
 P _part/17/_geo_xyz/8,11,0 9.285091400
@@ -14971,10 +14971,10 @@ P _part/17/_geo_xyz/8,17,2 0.0
 P _part/17/_geo_xyz/8,2,0 9.208629608
 P _part/17/_geo_xyz/8,2,1 4.186568260
 P _part/17/_geo_xyz/8,2,2 89.451019287
-P _part/17/_geo_xyz/8,3,0 9.199071884
+P _part/17/_geo_xyz/8,3,0 9.199072838
 P _part/17/_geo_xyz/8,3,1 4.264409065
 P _part/17/_geo_xyz/8,3,2 90.758102417
-P _part/17/_geo_xyz/8,4,0 9.199071884
+P _part/17/_geo_xyz/8,4,0 9.199072838
 P _part/17/_geo_xyz/8,4,1 4.264409065
 P _part/17/_geo_xyz/8,4,2 92.500885010
 P _part/17/_geo_xyz/8,5,0 9.229482651
@@ -14989,7 +14989,7 @@ P _part/17/_geo_xyz/8,7,2 97.293533325
 P _part/17/_geo_xyz/8,8,0 9.264238358
 P _part/17/_geo_xyz/8,8,1 3.733677626
 P _part/17/_geo_xyz/8,8,2 95.550750732
-P _part/17/_geo_xyz/8,9,0 9.294649124
+P _part/17/_geo_xyz/8,9,0 9.294648170
 P _part/17/_geo_xyz/8,9,1 3.486002922
 P _part/17/_geo_xyz/8,9,2 92.500885010
 P _part/17/_geo_xyz/9,0,0 11.058246613
@@ -22784,7 +22784,7 @@ P _part/8/_top_t1 0.0
 P _part/8/_top_t2 0.384000003
 P _part/85/_bot_s1 0.632812500
 P _part/85/_bot_s2 0.753906250
-P _part/85/_bot_t1 0.254882812
+P _part/85/_bot_t1 0.254882813
 P _part/85/_bot_t2 0.295898438
 P _part/85/_geo_xyz/0,0,0 0.0
 P _part/85/_geo_xyz/0,0,1 2.0
@@ -24250,11 +24250,11 @@ P _part/85/_r_dim 10
 P _part/85/_s_dim 8
 P _part/85/_top_s1 0.632812500
 P _part/85/_top_s2 0.753906250
-P _part/85/_top_t1 0.254882812
+P _part/85/_top_t1 0.254882813
 P _part/85/_top_t2 0.295898438
 P _part/86/_bot_s1 0.632812500
 P _part/86/_bot_s2 0.753906250
-P _part/86/_bot_t1 0.254882812
+P _part/86/_bot_t1 0.254882813
 P _part/86/_bot_t2 0.295898438
 P _part/86/_geo_xyz/0,0,0 0.0
 P _part/86/_geo_xyz/0,0,1 2.0
@@ -25711,7 +25711,7 @@ P _part/86/_part_specs_invis 1
 P _part/86/_part_tex 0
 P _part/86/_part_the 0.0
 P _part/86/_part_x -8.989999771
-P _part/86/_part_y -6.399848461
+P _part/86/_part_y -6.399847984
 P _part/86/_part_z 51.137622833
 P _part/86/_patt_con 0
 P _part/86/_patt_prt 0
@@ -25720,11 +25720,11 @@ P _part/86/_r_dim 10
 P _part/86/_s_dim 8
 P _part/86/_top_s1 0.632812500
 P _part/86/_top_s2 0.753906250
-P _part/86/_top_t1 0.254882812
+P _part/86/_top_t1 0.254882813
 P _part/86/_top_t2 0.295898438
 P _part/87/_bot_s1 0.632812500
 P _part/87/_bot_s2 0.753906250
-P _part/87/_bot_t1 0.254882812
+P _part/87/_bot_t1 0.254882813
 P _part/87/_bot_t2 0.295898438
 P _part/87/_geo_xyz/0,0,0 0.0
 P _part/87/_geo_xyz/0,0,1 2.0
@@ -27181,7 +27181,7 @@ P _part/87/_part_specs_invis 1
 P _part/87/_part_tex 0
 P _part/87/_part_the 0.0
 P _part/87/_part_x 8.989999771
-P _part/87/_part_y -6.399848461
+P _part/87/_part_y -6.399847984
 P _part/87/_part_z 51.137622833
 P _part/87/_patt_con 0
 P _part/87/_patt_prt 0
@@ -27190,7 +27190,7 @@ P _part/87/_r_dim 10
 P _part/87/_s_dim 8
 P _part/87/_top_s1 0.632812500
 P _part/87/_top_s2 0.753906250
-P _part/87/_top_t1 0.254882812
+P _part/87/_top_t1 0.254882813
 P _part/87/_top_t2 0.295898438
 P _part/9/_bot_s1 0.755999982
 P _part/9/_bot_s2 1.0
@@ -37295,7 +37295,7 @@ P acf/_vect_power_for 1.0
 P acf/_vect_rate 15.0
 P acf/_vectarmY 0.0
 P acf/_vectarmZ 0.0
-P acf/_version 0.5.0-Beta 2s
+P acf/_version 1.1.1 Pre
 P acf/_vvi_but_adjusts_pitch 0
 P acf/_warn_airliner 1
 P acf/_warn_alt_app_100 0
